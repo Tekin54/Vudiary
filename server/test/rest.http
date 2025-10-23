@@ -1,0 +1,21 @@
+GET http://localhost:3000/eintraege
+###
+GET http://localhost:3000/eintraege/1
+###
+DELETE http://localhost:3000/eintraege/52
+###
+POST http://localhost:3000/eintraege
+Content-Type: application/json
+
+{
+  "title":"dd", 
+  "page":4,
+  "description":"dd", 
+  "date":"dd", 
+  "mood":5, 
+  "ort":"dd", 
+  "straße":"dd", 
+  "plz":1190,
+  "time":""
+}
+
