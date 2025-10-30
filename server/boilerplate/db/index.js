@@ -8,21 +8,38 @@ const parseDate = (value) => value;
 pg.types.setTypeParser(DATE_OID, parseDate); // map timestamps
 
 // create pool and query object
-// Use explicit config so we can enable SSL when running in hosted/production environments
-const poolConfig = {
-  host: process.env.PGHOST,
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
-  database: process.env.PGDATABASE,
-  port: process.env.PGPORT ? Number(process.env.PGPORT) : undefined,
-  // enable SSL in production (many hosted Postgres providers require SSL)
-  ssl:
-    process.env.NODE_ENV === 'production' || process.env.PGSSLMODE === 'require'
-      ? { rejectUnauthorized: false }
-      : false,
-};
+// Prefer DATABASE_URL if provided (common on hosting platforms). Otherwise build
+// config from PG* env vars. Enable SSL for production/hosted providers.
+const connectionString = process.env.DATABASE_URL || null;
 
-export const pool = new pg.Pool(poolConfig);
+const shouldUseSsl = process.env.NODE_ENV === 'production' || process.env.PGSSLMODE === 'require';
+
+let _pool;
+if (connectionString) {
+  _pool = new pg.Pool({
+    connectionString,
+    ssl: shouldUseSsl ? { rejectUnauthorized: false } : false,
+  });
+} else {
+  const poolConfig = {
+    host: process.env.PGHOST,
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    database: process.env.PGDATABASE,
+    port: process.env.PGPORT ? Number(process.env.PGPORT) : undefined,
+    ssl: shouldUseSsl ? { rejectUnauthorized: false } : false,
+  };
+  _pool = new pg.Pool(poolConfig);
+}
+
+// log unexpected idle client errors (helps debugging on hosted platforms)
+_pool.on('error', (err) => {
+  // do not log credentials
+  // eslint-disable-next-line no-console
+  console.error('Unexpected idle client error', err.message || err);
+});
+
+export const pool = _pool;
 
 export const query = (text, params) => pool.query(text, params);
 
