@@ -36,10 +36,7 @@ watch(
     <q-table
       :grid="$q.screen.lt.md"
       class="q-ma-lg"
-      style="background-color: white; color: black; border-radius: 18px 18px 18px 18px"
-      card-class="text-whiteh"
-      table-class="text-whiteh"
-      table-header-class="text-whiteh"
+      style="border-radius: 18px"
       flat
       bordered
       title="Meine Einträge"
@@ -49,12 +46,7 @@ watch(
     >
       <template v-slot:header="props">
         <q-tr>
-          <q-th
-            style="font-weight: bolder"
-            :props="props"
-            :key="col.name"
-            v-for="col in props.cols"
-          >
+          <q-th class="text-bold" :props="props" :key="col.name" v-for="col in props.cols">
             {{ col.label }}
           </q-th>
         </q-tr>
@@ -81,16 +73,19 @@ watch(
       <template v-slot:body-cell-aktionen="props">
         <q-td class="q-gutter-xs" :props="props">
           <q-btn
-            style="border-radius: 50px 50px 50px 50px; height: 50px"
+            style="border-radius: 15px; height: 50px; background-color: #4bc281"
             class="shadow-4"
             stack
             size="sm"
             :to="`/edit/input/${props.row.id}`"
-            ><icon style="width: 20px; height: 20px" icon="material-symbols:edit-rounded"></icon
+            ><icon
+              style="width: 20px; height: 20px; color: white"
+              icon="material-symbols:edit-rounded"
+            ></icon
           ></q-btn>
           <q-btn
             class="shadow-4 q-ml-sm"
-            style="border-radius: 50px 50px 50px 50px; height: 50px"
+            style="border-radius: 15px; height: 50px"
             @click="diaryStore.deleteeintrag(props.row.id)"
             stack
             size="sm"
