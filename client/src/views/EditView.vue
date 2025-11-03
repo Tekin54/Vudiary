@@ -58,7 +58,7 @@ watch(
             size="2.5em"
             v-model="props.row.mood"
             :max="4"
-            color="green-5"
+            color="#4a90e2"
             :icon="icons"
             readonly
           />
@@ -73,7 +73,7 @@ watch(
       <template v-slot:body-cell-aktionen="props">
         <q-td class="q-gutter-xs" :props="props">
           <q-btn
-            style="border-radius: 15px; height: 50px; background-color: #4bc281"
+            style="border-radius: 15px; height: 50px; background-color: #4a90e2"
             class="shadow-4"
             stack
             size="sm"
@@ -111,10 +111,10 @@ watch(
               >
                 <div>
                   <q-rating
+                    style="color: #4a90e2"
                     v-model="props.row.mood"
                     :max="4"
                     size="3.5em"
-                    color="green-5"
                     :icon="icons"
                     readonly
                   />

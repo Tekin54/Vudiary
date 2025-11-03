@@ -8,7 +8,7 @@ let textareaModel = ref('');
 export const useDiaryStore = defineStore('diaryStore', () => {
   const owner = {
     name: 'Gültekin Öztürk',
-    mail: 'oeztuerk.g04@htlwienwest.at',
+    mail: 'oeztuerk.g54@gmail.com',
     tel: '06605800032',
   };
   const columns = ref([
@@ -31,10 +31,36 @@ export const useDiaryStore = defineStore('diaryStore', () => {
 
   //GET DATA
   let list = ref([]);
+  let pollingInterval = null;
 
-  let getdata = async () => {
-    let { data } = await axios.get('/eintraege');
-    list.value = data;
+  // Daten abrufen mit optionalem Polling-Start
+  let getdata = async (startPolling = true) => {
+    try {
+      let { data } = await axios.get('/eintraege');
+      list.value = data;
+
+      // Starte Polling nur wenn gewünscht und noch nicht aktiv
+      if (startPolling && !pollingInterval) {
+        pollingInterval = setInterval(async () => {
+          try {
+            let { data } = await axios.get('/eintraege');
+            list.value = data;
+          } catch (error) {
+            console.error('Fehler beim Abrufen der Daten:', error);
+          }
+        }, 2000); // Alle 2 Sekunden aktualisieren
+      }
+    } catch (error) {
+      console.error('Fehler beim Abrufen der Daten:', error);
+    }
+  };
+
+  // Polling stoppen wenn die App/Komponente beendet wird
+  const stopPolling = () => {
+    if (pollingInterval) {
+      clearInterval(pollingInterval);
+      pollingInterval = null;
+    }
   };
 
   //DETAIL
@@ -98,6 +124,7 @@ export const useDiaryStore = defineStore('diaryStore', () => {
   return {
     deleteeintrag,
     patchtdataById,
+    stopPolling,
     list,
     getdata,
     obj,

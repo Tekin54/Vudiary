@@ -3,7 +3,7 @@
     <div class="row wrap justify-between items-end">
       <div class="col">
         <q-input
-          color="green-5"
+          color="#4a90e2"
           :class="$q.screen.lt.sm ? 'q-pl-xl q-pt-lg text-h6' : 'q-pl-xl q-pt-lg text-h5'"
           v-model="tt"
           label="Titel"
@@ -33,7 +33,7 @@
         filled
         clearable
         type="textarea"
-        color="green-5"
+        color="#4a90e2"
         label="Eintrag für heute"
         hint="Press TAB to autocomplete suggested value or ESC to cancel suggestion"
         :shadow-text="textareaShadowText"
@@ -50,7 +50,7 @@
             v-model="mood"
             :size="$q.screen.lt.sm ? '2.5em' : '4.5em'"
             :max="4"
-            color="green-5"
+            color="#4a90e2"
             :icon="icons"
           />
         </div>
@@ -104,7 +104,7 @@
       <q-card>
         <q-card-section>
           <div class="text-h5 column items-center text-center">
-            <q-icon name="warning" size="3em" class="row" color="green" />
+            <q-icon name="warning" size="3em" class="row" color="#4a90e2" />
             <span class="row">Achtung !</span>
           </div>
         </q-card-section>
@@ -118,7 +118,7 @@
           <q-btn
             flat
             label="Fortsetzen"
-            style="color: #4bc281"
+            style="color: #4a90e2"
             @click="fortsetzen()"
             v-close-popup
           />
@@ -217,7 +217,7 @@ let showNotif = function () {
   gesp.value = true;
   $q.notify({
     message: 'Gespeichert',
-    color: 'green-5',
+    color: '#4a90e2',
     icon: 'done',
   });
   changesSaved.value = true;
@@ -251,7 +251,7 @@ const getLocation = () => {
 
           $q.notify({
             message: message,
-            color: 'green-5',
+            color: '#4a90e2',
             icon: 'done',
           });
         } catch (error) {

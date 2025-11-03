@@ -3,7 +3,7 @@
     <div class="row justify-between items-end">
       <div class="col">
         <q-input
-          color="green-5"
+          color="#4a90e2"
           :class="$q.screen.lt.sm ? 'q-pl-xl q-pt-lg text-h6' : 'q-pl-xl q-pt-lg text-h5'"
           v-model="title"
           label="Titel"
@@ -32,7 +32,7 @@
         filled
         clearable
         type="textarea"
-        color="green-5"
+        color="#4a90e2"
         label="Eintrag für heute"
         hint="Press TAB to autocomplete suggested value or ESC to cancel suggestion"
         :shadow-text="textareaShadowText"
@@ -46,11 +46,10 @@
         <div class="text-h5 text-bold">Dein Mood:</div>
         <div class="q-mt-sm">
           <q-rating
-            class=""
+            style="color: #4a90e2"
             v-model="mood"
             :size="$q.screen.lt.sm ? '2.5em' : '4.5em'"
             :max="4"
-            color="green-5"
             :icon="icons"
           />
         </div>
@@ -157,7 +156,7 @@ const getLocation = () => {
 
           $q.notify({
             message: message,
-            color: 'green-5',
+            color: '#4a90e2',
             icon: 'done',
           });
         } catch (error) {

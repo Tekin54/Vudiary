@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-center q-mt-md">
-    <q-card class="my-card text-white" style="background: #4bc281">
+    <q-card class="my-card" style="">
       <q-card-section>
         <div class="text-h3 text-weight-bolder q-mb-xl">Contact</div>
         <div class="col text-h6 q-gutter-md">
@@ -20,7 +20,11 @@
 <script setup>
 import { useDiaryStore } from '../stores/diaryStore';
 const diaryStore = useDiaryStore();
-console.log(`The OWNER of this project ist the student '${diaryStore.owner.name}' `);
+console.log(`The OWNER of this project is the student '${diaryStore.owner.name}' `);
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+body {
+  color: black;
+}
+</style>
