@@ -1,50 +1,50 @@
 <template>
-  <div class="column items-center q-mt-md">
+  <div class="column items-center q-mt-lg full-width">
+    <!-- Header: Titel links, Searchbar rechts -->
+    <div class="row items-center justify-between q-mb-xl header-row full-width">
+      <div class="text-h4 text-weight-bold header-title">Einträge</div>
+      <q-input
+        dense
+        debounce="300"
+        v-model="filter"
+        placeholder="Search"
+        outlined
+        rounded
+        class="header-search gradient-border"
+      >
+        <template v-slot:append>
+          <icon icon="ic:outline-search" />
+        </template>
+      </q-input>
+    </div>
+
+    <!-- Tabelle -->
     <q-table
       flat
       bordered
       grid
-      title="Einträge"
-      title-class="text-h4 text-weight-bold  q-py-sm"
       :rows="filteredlist.length > 0 ? filteredlist : diaryStore.list"
       :columns="diaryStore.columns"
       row-key="name"
-      :filter="filter"
       hide-header
       card-container-class="justify-center"
     >
-      <template v-slot:top-right>
-        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
-          <template v-slot:append>
-            <icon icon="ic:outline-search" />
-          </template>
-        </q-input>
-      </template>
-
       <template v-slot:item="props">
         <div class="q-pa-md row items-center q-gutter-md">
-          <div style="max-width: 300px">
+          <div style="max-width: 280px">
             <q-card class="cursor-pointer my-card">
               <div
                 class="column text-h1 text-center justify-center"
-                style="
-                  width: 300px;
-                  height: 200px;
-                  border-radius: 25px;
-                  position: relative;
-                  filter: blur(0px);
-                "
+                style="width: 280px; height: 180px; border-radius: 20px; position: relative"
                 @click="() => $router.push(`/read/${props.row.id}`)"
               >
-                <span class="seite">
-                  {{ props.row.page }}
-                </span>
+                <span class="seite">{{ props.row.page }}</span>
               </div>
 
               <q-card-section class="info-section">
                 <div class="info-content">
-                  <div class="text-caption">Title: {{ props.row.title }}</div>
-                  <div class="text-caption">Date: {{ props.row.date }}</div>
+                  <div class="text-caption text-bold">{{ props.row.title }}</div>
+                  <div class="text-caption text-italic	">{{ props.row.date }}</div>
                 </div>
               </q-card-section>
             </q-card>
@@ -56,22 +56,17 @@
 </template>
 
 <script setup>
-import { useDiaryStore } from '../stores/diaryStore';
 import { ref, watch, onUnmounted } from 'vue';
+import { useDiaryStore } from '../stores/diaryStore';
 
 const diaryStore = useDiaryStore();
 const filter = ref('');
 const filteredlist = ref([]);
 
-// Lade Daten beim Start mit aktiviertem Polling
 diaryStore.getdata(true);
 
-// Cleanup beim Verlassen der Komponente
-onUnmounted(() => {
-  diaryStore.stopPolling();
-});
+onUnmounted(() => diaryStore.stopPolling());
 
-// Filtere Liste wenn sich der Suchbegriff ändert
 watch(filter, (newValue) => {
   filteredlist.value = diaryStore.list.filter((item) =>
     item.title.toLowerCase().includes(newValue.toLowerCase()),
@@ -79,50 +74,114 @@ watch(filter, (newValue) => {
 });
 </script>
 
-<style lang="scss" scoped>
-/* Ungenutzte Styles entfernt */
+<style scoped lang="scss">
+/* Header */
+.header-row {
+  max-width: 900px;
+  padding: 0 10px;
+  width: 100%;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.header-title {
+  white-space: nowrap;
+}
+
+.header-search {
+  max-width: 250px;
+  width: 100%;
+
+  @media (max-width: 600px) {
+    max-width: 100%;
+  }
+}
+
+/* Gradient-Rahmen für Searchbar */
+.gradient-border .q-field__control {
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background-clip: padding-box, border-box;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(135deg, #4bc281 0%, #4a90e2 50%, #2d9866 100%);
+}
+
+.gradient-border.q-field--focused .q-field__control {
+  border: 2px solid;
+  border-image-source: linear-gradient(135deg, #4bc281 0%, #4a90e2 50%, #2d9866 100%);
+}
+
+/* Karten-Stil */
+.my-card {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(135deg, #4bc281 0%, #4a90e2 50%, #2d9866 100%);
+  transition: transform 0.2s ease;
+}
+
+.my-card::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: #fff;
+  border-radius: 18px;
+  z-index: -1;
+}
 
 .seite {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
-  color: #4a90e2;
-  font-size: 2em;
-  background-color: #a1cdff;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.4em;
   font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #4bc281 0%, #4a90e2 50%, #2d9866 100%);
+  box-shadow: 0 10px 20px white;
+  color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.35);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.my-card:hover .seite {
+  transform: translate(-50%, -50%) scale(1.2) rotateY(10deg) rotateX(10deg);
+  box-shadow: 0 15px 25px white;
+  text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 .info-section {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-5px);
   transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
-.q-card:hover .info-section {
+.my-card:hover .info-section {
   opacity: 1;
   transform: translateY(0);
 }
 
 .info-content {
-  padding: 8px;
-  background: #a1cdff;
-  border-radius: 8px;
-}
-
-.my-card {
-  border: 2px solid black;
-  border-color: #4a90e2;
-  border-radius: 25px;
-  width: 100%;
-  color: #4a90e2;
-  transition: transform 0.2s ease;
-}
-
-.my-card:hover {
-  transform: translateY(-5px);
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.95em;
+  line-height: 1.3em;
+  color: white;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 </style>

@@ -46,11 +46,11 @@
         <div class="text-h5 text-bold">Dein Mood:</div>
         <div class="q-mt-sm">
           <q-rating
-            style="color: #4a90e2"
-            v-model="mood"
             :size="$q.screen.lt.sm ? '2.5em' : '4.5em'"
+            v-model="mood"
             :max="4"
             :icon="icons"
+            :color="selectedColor"
           />
         </div>
       </div>
@@ -94,7 +94,7 @@
 
 <script setup>
 import { useDiaryStore } from '../stores/diaryStore';
-import { ref, watch, onBeforeMount } from 'vue';
+import { ref, watch, onBeforeMount, computed } from 'vue';
 import { useQuasar } from 'quasar';
 let diaryStore = useDiaryStore();
 diaryStore.getdata();
@@ -230,6 +230,20 @@ watch(
     updatePage();
   },
 );
+const selectedColor = computed(() => {
+  switch (mood.value) {
+    case 1:
+      return 'red-6';
+    case 2:
+      return 'orange-5';
+    case 3:
+      return 'light-green-5';
+    case 4:
+      return 'green-6';
+    default:
+      return 'grey-5';
+  }
+});
 </script>
 
 <style lang="scss" scoped></style>

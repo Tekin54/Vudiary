@@ -1,60 +1,44 @@
 <template>
-  <div>
+  <div class="readonly-view">
     <div class="row wrap justify-between items-end">
-      <div class="col">
-        <q-input
-          :disable="true"
-          color="green-5"
-          :class="$q.screen.lt.sm ? 'q-pl-xl q-pt-lg text-h6' : 'q-pl-xl q-pt-lg text-h5'"
-          v-model="diaryStore.detail.title"
-          label="Titel"
-          stack-label
-          :dense="dense"
-        />
-      </div>
-      <div class="col text-right">
-        <q-btn
-          :disable="true"
-          color="grey-2"
-          icon="gps_fixed"
-          class="text-red text-weight-bold q-mr-xl q-mt-lg"
-          :label="$q.screen.lt.sm ? '' : 'Get Location'"
-          @click="getLocation"
-        ></q-btn>
-      </div>
+      <q-input
+        readonly
+        color="green-5"
+        :class="$q.screen.lt.sm ? 'q-pl-xl q-pt-lg text-h6' : 'q-pl-xl q-pt-lg text-h5'"
+        v-model="diaryStore.detail.title"
+        label="Titel"
+        stack-label
+        :dense="dense"
+      />
     </div>
+
     <div class="q-ma-xl col">
       <q-input
-        :disable="true"
+        readonly
         :class="$q.screen.lt.sm ? 'text-h7' : 'text-h6'"
         v-model="diaryStore.detail.description"
         filled
         clearable
         type="textarea"
-        color="green-5"
         label="Eintrag für heute"
-        hint="Press TAB to autocomplete suggested value or ESC to cancel suggestion"
         :shadow-text="textareaShadowText"
         @keydown="processTextareaFill"
         @focus="processTextareaFill"
         rows="20"
       />
     </div>
+
     <div class="q-ml-xl text-h5 text-bold">Dein Mood:</div>
     <div class="q-ml-xl q-mt-sm">
       <q-rating
         :size="$q.screen.lt.sm ? '2.5em' : '4.5em'"
-        :disable="true"
+        readonly
         v-model="diaryStore.detail.mood"
         :max="4"
-        color="green-5"
         :icon="icons"
-      />
-    </div>
-    <div class="absolute-bottom-left row q-mb-md q-ml-md">
-      <div>
-        <q-btn @click="zurück()" label="Zurück" icon="keyboard_backspace"></q-btn>
-      </div>
+        :color="selectedColor"
+      >
+      </q-rating>
     </div>
   </div>
 </template>
@@ -63,24 +47,48 @@
 import { useDiaryStore } from '../stores/diaryStore';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
+import { computed } from 'vue';
 
 const router = useRouter();
 const props = defineProps({ id: String });
 const diaryStore = useDiaryStore();
-
 const $q = useQuasar();
 
-let icons = [
+// Mood-Icons
+const icons = [
   'sentiment_very_dissatisfied',
   'sentiment_dissatisfied',
   'sentiment_satisfied',
   'sentiment_very_satisfied',
 ];
 
-// FUNKTIONSAUFRUF
+// Farbe dynamisch je nach Stimmung
+const selectedColor = computed(() => {
+  const mood = diaryStore.detail.mood;
+  switch (mood) {
+    case 1:
+      return 'red-6'; // Sehr unzufrieden
+    case 2:
+      return 'orange-5'; // Unzufrieden
+    case 3:
+      return 'light-green-5'; // Zufrieden
+    case 4:
+      return 'green-6'; // Sehr zufrieden
+    default:
+      return 'grey-5'; // Fallback
+  }
+});
+
+// Daten abrufen
 diaryStore.fetchDetail(props.id);
 
-let zurück = () => {
+const zurück = () => {
   router.push('/');
 };
 </script>
+<style>
+.readonly-view .q-field,
+.readonly-view .q-field * {
+  cursor: default !important;
+}
+</style>

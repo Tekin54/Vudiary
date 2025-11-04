@@ -27,7 +27,6 @@
             class="input_fields"
             v-model="password"
             :type="isPwd ? 'password' : 'text'"
-            hint="Password"
           >
             <template v-slot:append>
               <q-icon
@@ -43,20 +42,17 @@
 
       <q-card-section class="q-pt-none q-pb-md" style="width: 100%; text-align: center">
         <a class="forgot-text">Forgot Password?</a> </q-card-section
-      ><q-card-section
-        class="q-pt-none text-center"
-        style="opacity: 0.6; font-size: 0.85rem"
-      >
+      ><q-card-section class="q-pt-none text-center" style="opacity: 0.6; font-size: 0.85rem">
         © 2025 Tekin Industries
       </q-card-section>
     </q-card>
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue';
 let isPwd = ref(true);
-let username = ref("");
-let password = ref("");
+let username = ref('');
+let password = ref('');
 </script>
 <style lang="scss" scoped>
 .my-card {
@@ -100,7 +96,7 @@ let password = ref("");
 }
 
 .login-btn {
-  background-color: #4a90e2; /* Blau für Kontrast */
+  background: linear-gradient(135deg, #4bc281 0%, #4a90e2 50%, #2d9866 100%);
   color: white;
   font-weight: bold;
   border-radius: 8px;

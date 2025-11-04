@@ -47,12 +47,13 @@
         <div class="text-h5 text-bold">Dein Mood:</div>
         <div class="q-mt-sm">
           <q-rating
-            v-model="mood"
             :size="$q.screen.lt.sm ? '2.5em' : '4.5em'"
+            v-model="mood"
             :max="4"
-            color="#4a90e2"
             :icon="icons"
-          />
+            :color="selectedColor"
+          >
+          </q-rating>
         </div>
       </div>
       <div
@@ -133,6 +134,7 @@ import { useDiaryStore } from '../stores/diaryStore';
 import { date, useQuasar } from 'quasar';
 import { ref, onMounted } from 'vue';
 import { onBeforeRouteLeave, useRouter } from 'vue-router';
+import { computed } from 'vue';
 
 const router = useRouter();
 const props = defineProps({ id: String });
@@ -308,6 +310,20 @@ const getLocationDetails = async (latitude, longitude) => {
     throw error;
   }
 };
+const selectedColor = computed(() => {
+  switch (mood.value) {
+    case 1:
+      return 'red-6';
+    case 2:
+      return 'orange-5';
+    case 3:
+      return 'light-green-5';
+    case 4:
+      return 'green-6';
+    default:
+      return 'grey-5';
+  }
+});
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,6 +1,6 @@
 <script setup>
 import { useDiaryStore } from '../stores/diaryStore';
-import { onMounted, watch } from 'vue';
+import { onMounted, watch, computed } from 'vue';
 
 let icons = [
   'sentiment_very_dissatisfied',
@@ -29,6 +29,21 @@ watch(
     }
   },
 );
+// Funktion, die die Farbe anhand des Mood-Werts zurückgibt
+const getMoodColor = (value) => {
+  switch (value) {
+    case 1:
+      return 'red-6';
+    case 2:
+      return 'orange-5';
+    case 3:
+      return 'light-green-5';
+    case 4:
+      return 'green-6';
+    default:
+      return 'grey-5';
+  }
+};
 </script>
 
 <template>
@@ -55,15 +70,16 @@ watch(
       <template v-slot:body-cell-mood="props">
         <q-td class="q-gutter-xs" :props="props">
           <q-rating
+            :color="getMoodColor(props.row.mood)"
             size="2.5em"
             v-model="props.row.mood"
             :max="4"
-            color="#4a90e2"
             :icon="icons"
             readonly
           />
         </q-td>
       </template>
+
       <template v-slot:body-cell-lastchange="props">
         <q-td class="q-gutter-xs" :props="props">
           <div>{{ new Date(props.row.last_changed_date).toLocaleDateString() }}</div>
@@ -104,22 +120,17 @@ watch(
                 <strong>{{ props.row.name }}</strong>
               </q-card-section>
               <q-separator />
-              <q-card-section
-                align="right"
-                class="flex flex-center"
-                :style="{ fontSize: props.row.calories / 2 + 'px' }"
-              >
-                <div>
-                  <q-rating
-                    style="color: #4a90e2"
-                    v-model="props.row.mood"
-                    :max="4"
-                    size="3.5em"
-                    :icon="icons"
-                    readonly
-                  />
-                </div>
+              <q-card-section align="right" class="flex flex-center">
+                <q-rating
+                  :color="getMoodColor(props.row.mood)"
+                  v-model="props.row.mood"
+                  :max="4"
+                  size="3.5em"
+                  :icon="icons"
+                  readonly
+                />
               </q-card-section>
+
               <q-card-section class="row" :style="{ fontSize: props.row.calories / 2 + 'px' }">
                 <div align="left" class="col" style="overflow-wrap: break-word">
                   <span class="text-weight-bolder">{{ props.row.ort }}</span
