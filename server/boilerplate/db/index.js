@@ -1,15 +1,16 @@
-import postgres from 'postgres';
-import dotenv from 'dotenv';
-dotenv.config();
+import pg from 'pg';
 
-const connectionString = process.env.DATABASE_URL;
-if (!connectionString) {
-  throw new Error('DATABASE_URL ist nicht gesetzt!');
-}
+// workaround for dates
+// https://github.com/brianc/node-postgres/issues/1844
+const DATE_OID = 1082;
+const parseDate = (value) => value;
 
-const sql = postgres(connectionString, {
-  ssl: { rejectUnauthorized: false }, // Supabase SSL
-  family: 4, // IPv4 erzwingen für Render
-});
+pg.types.setTypeParser(DATE_OID, parseDate); // map timestamps
 
-export default sql;
+// create pool and query object
+export const pool = new pg.Pool();
+
+export const query = (text, params) => pool.query(text, params);
+
+// add close function for vitests
+export const close = () => pool.end();
