@@ -1,19 +1,16 @@
 import pg from 'pg';
 
 // workaround for dates
+// https://github.com/brianc/node-postgres/issues/1844
 const DATE_OID = 1082;
-pg.types.setTypeParser(DATE_OID, (value) => value);
+const parseDate = (value) => value;
 
-// create pool with SSL + IPv4
-export const pool = new pg.Pool({
-  host: process.env.PGHOST,
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
-  database: process.env.PGDATABASE,
-  port: process.env.PGPORT,
-  ssl: { rejectUnauthorized: false }, // Supabase erfordert SSL
-  family: 4, // zwingt IPv4, ENETUNREACH vermeiden
-});
+pg.types.setTypeParser(DATE_OID, parseDate); // map timestamps
+
+// create pool and query object
+export const pool = new pg.Pool();
 
 export const query = (text, params) => pool.query(text, params);
+
+// add close function for vitests
 export const close = () => pool.end();
