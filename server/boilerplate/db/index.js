@@ -1,16 +1,12 @@
-import pg from 'pg';
+// db.js
+import postgres from 'postgres';
+import dotenv from 'dotenv';
+dotenv.config();
 
-// workaround for dates
-// https://github.com/brianc/node-postgres/issues/1844
-const DATE_OID = 1082;
-const parseDate = (value) => value;
+// Verbindung über DATABASE_URL von Supabase (am Render-Dashboard als ENV setzen)
+const connectionString = process.env.DATABASE_URL;
 
-pg.types.setTypeParser(DATE_OID, parseDate); // map timestamps
+// SSL erzwingen, IPv4 automatisch genutzt
+const sql = postgres(connectionString, { ssl: { rejectUnauthorized: false } });
 
-// create pool and query object
-export const pool = new pg.Pool();
-
-export const query = (text, params) => pool.query(text, params);
-
-// add close function for vitests
-export const close = () => pool.end();
+export default sql;
