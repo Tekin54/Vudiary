@@ -14,6 +14,25 @@ export const getEintragById = async (id) => {
   return eintrag;
 };
 
+export const insertEintrag = async (
+  title,
+  page,
+  description,
+  date,
+  mood,
+  ort,
+  straße,
+  plz,
+  time,
+) => {
+  const [inserted] = await sql`
+    INSERT INTO eintraege(title, page, description, date, mood, ort, straße, plz, time)
+    VALUES (${title}, ${page}, ${description}, ${date}, ${mood}, ${ort}, ${straße}, ${plz}, ${time})
+    RETURNING *;
+  `;
+  return inserted;
+};
+
 export const changeEintragById = async (
   id,
   title,
@@ -35,25 +54,6 @@ export const changeEintragById = async (
     RETURNING *;
   `;
   return updated;
-};
-
-export const insertEintrag = async (
-  title,
-  page,
-  description,
-  date,
-  mood,
-  ort,
-  straße,
-  plz,
-  time,
-) => {
-  const [inserted] = await sql`
-    INSERT INTO eintraege(title, page, description, date, mood, ort, straße, plz, time)
-    VALUES (${title}, ${page}, ${description}, ${date}, ${mood}, ${ort}, ${straße}, ${plz}, ${time})
-    RETURNING *;
-  `;
-  return inserted;
 };
 
 export const deleteEintrag = async (id) => {
