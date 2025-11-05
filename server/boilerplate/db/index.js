@@ -1,18 +1,15 @@
-// db.js
 import postgres from 'postgres';
 import dotenv from 'dotenv';
-dotenv.config(); // unbedingt ganz oben
+dotenv.config();
 
-// Prüfen, ob DATABASE_URL gesetzt ist
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {
-  throw new Error('DATABASE_URL ist nicht gesetzt! Prüfe deine .env Datei.');
+  throw new Error('DATABASE_URL ist nicht gesetzt!');
 }
 
-// postgres-Client mit SSL + IPv4 (Render + Supabase kompatibel)
 const sql = postgres(connectionString, {
-  ssl: { rejectUnauthorized: false }, // zwingt SSL für Supabase
-  family: 4, // zwingt IPv4
+  ssl: { rejectUnauthorized: false }, // Supabase SSL
+  family: 4, // IPv4 erzwingen für Render
 });
 
 export default sql;
