@@ -1,11 +1,7 @@
 import pg from 'pg';
-import dotenv from 'dotenv';
-dotenv.config(); // unbedingt hier!
 
-// workaround for dates
 const DATE_OID = 1082;
-const parseDate = (value) => value;
-pg.types.setTypeParser(DATE_OID, parseDate);
+pg.types.setTypeParser(DATE_OID, (value) => value);
 
 export const pool = new pg.Pool({
   host: process.env.PGHOST,
@@ -14,8 +10,10 @@ export const pool = new pg.Pool({
   database: process.env.PGDATABASE,
   port: process.env.PGPORT,
   ssl: {
-    rejectUnauthorized: false, // wichtig für Render + Supabase
+    rejectUnauthorized: false,
   },
+  // Erzwinge IPv4
+  family: 4,
 });
 
 export const query = (text, params) => pool.query(text, params);
