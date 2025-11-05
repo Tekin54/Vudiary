@@ -1,16 +1,22 @@
 import pg from 'pg';
+import dotenv from 'dotenv';
+dotenv.config(); // unbedingt hier!
 
 // workaround for dates
-// https://github.com/brianc/node-postgres/issues/1844
 const DATE_OID = 1082;
 const parseDate = (value) => value;
+pg.types.setTypeParser(DATE_OID, parseDate);
 
-pg.types.setTypeParser(DATE_OID, parseDate); // map timestamps
-
-// create pool and query object
-export const pool = new pg.Pool();
+export const pool = new pg.Pool({
+  host: process.env.PGHOST,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  port: process.env.PGPORT,
+  ssl: {
+    rejectUnauthorized: false, // wichtig für Render + Supabase
+  },
+});
 
 export const query = (text, params) => pool.query(text, params);
-
-// add close function for vitests
 export const close = () => pool.end();
