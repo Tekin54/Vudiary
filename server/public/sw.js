@@ -1052,7 +1052,7 @@ class We {
     this._cacheExpirations = /* @__PURE__ */ new Map();
   }
 }
-ye([{"revision":null,"url":"assets/AboutView.1dbc5711.js"},{"revision":null,"url":"assets/AboutView.a606d748.css"},{"revision":null,"url":"assets/index.369754a0.css"},{"revision":null,"url":"assets/index.d39337b4.js"},{"revision":null,"url":"assets/LoginView.be9c2af4.css"},{"revision":null,"url":"assets/LoginView.d18d799d.js"},{"revision":"38fcb7d4fbb2e2bd88e61200f6d768ae","url":"index.html"},{"revision":"1872c500de691dce40960bb85481de07","url":"registerSW.js"},{"revision":"c2b73f2dc8b877fba58483b844249ed7","url":"images/android-chrome-192x192.png"},{"revision":"9558bfb65a12deb0b3c391530a758fee","url":"images/android-chrome-512x512.png"},{"revision":"1245be007b1b2f534589d7eadc2cedba","url":"manifest.webmanifest"}]);
+ye([{"revision":null,"url":"assets/AboutView.944032d0.js"},{"revision":null,"url":"assets/AboutView.a606d748.css"},{"revision":null,"url":"assets/index.32bd9a87.js"},{"revision":null,"url":"assets/index.369754a0.css"},{"revision":null,"url":"assets/LoginView.4c648fdc.js"},{"revision":null,"url":"assets/LoginView.be9c2af4.css"},{"revision":"bc42224def36365b03f130dfcb47f6db","url":"index.html"},{"revision":"1872c500de691dce40960bb85481de07","url":"registerSW.js"},{"revision":"c2b73f2dc8b877fba58483b844249ed7","url":"images/android-chrome-192x192.png"},{"revision":"9558bfb65a12deb0b3c391530a758fee","url":"images/android-chrome-512x512.png"},{"revision":"1245be007b1b2f534589d7eadc2cedba","url":"manifest.webmanifest"}]);
 E(new _e(me("index.html")));
 const Be = new g(
   ({ url: n }) => n.pathname === "/eintraege",

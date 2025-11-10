@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import { ref } from 'vue';
 // ✅ BASE_URL für lokal und online
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 let text = ref('');
 let textareaModel = ref('');
 
@@ -37,14 +36,14 @@ export const useDiaryStore = defineStore('diaryStore', () => {
   // Daten abrufen mit optionalem Polling-Start
   let getdata = async (startPolling = true) => {
     try {
-      let { data } = await axios.get('http://localhost:3000/eintraege');
+      let { data } = await axios.get('/api/eintraege');
       list.value = data;
 
       // Starte Polling nur wenn gewünscht und noch nicht aktiv
       if (startPolling && !pollingInterval) {
         pollingInterval = setInterval(async () => {
           try {
-            let { data } = await axios.get('http://localhost:3000/eintraege');
+            let { data } = await axios.get('/api/eintraege');
             list.value = data;
           } catch (error) {
             console.error('Fehler beim Abrufen der Daten:', error);
@@ -67,7 +66,7 @@ export const useDiaryStore = defineStore('diaryStore', () => {
   //DETAIL
   let obj = ref({});
   let getdataById = async (id) => {
-    let { data } = await axios.get(`http://localhost:3000/eintraege/${id}`);
+    let { data } = await axios.get(`/api/eintraege/${id}`);
     obj.value = data;
   };
   const detail = ref({});
@@ -80,7 +79,7 @@ export const useDiaryStore = defineStore('diaryStore', () => {
   //PATCH
   let patchtdataById = async (id, title, description, mood) => {
     try {
-      let response = await axios.get(`http://localhost:3000/eintraege/${id}`);
+      let response = await axios.get(`/api/eintraege/${id}`);
       const currentDate = new Date();
       let obj = response.data;
       obj.title = title;
@@ -89,7 +88,7 @@ export const useDiaryStore = defineStore('diaryStore', () => {
       obj.last_changed_date = currentDate.toLocaleDateString(); // Datum aktualisieren
       obj.last_changed_time = currentDate.toLocaleTimeString(); // Uhrzeit aktualisieren
       obj.last_changed = `${obj.last_changed_date} ${obj.last_changed_time}`; // Kombinieren von Datum und Uhrzeit
-      await axios.patch(`http://localhost:3000/eintraege/${id}`, obj);
+      await axios.patch(`/eintraege/${id}`, obj);
     } catch (error) {
       console.error(`Fehler beim Patchen des Eintrags mit ID ${id}:`, error);
     }
@@ -102,7 +101,7 @@ export const useDiaryStore = defineStore('diaryStore', () => {
     let last_changed_time = currentDate.toLocaleTimeString(); // Uhrzeit aktualisieren
     let formatted_date = `${last_changed_date} ${last_changed_time}`;
     console.log(formatted_date);
-    await axios.post('http://localhost:3000/eintraege', {
+    await axios.post('/api/eintraege', {
       title,
       page: getMaxPage() + 1,
       description,
@@ -119,7 +118,7 @@ export const useDiaryStore = defineStore('diaryStore', () => {
     return Math.max(...list.value.map((item) => Number(item.page) || 0));
   };
   let deleteeintrag = async (id) => {
-    await axios.delete(`http://localhost:3000/eintraege/${id}`);
+    await axios.delete(`/api/eintraege/${id}`);
     getdata();
   };
 
