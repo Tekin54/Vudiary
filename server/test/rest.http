@@ -1,6 +1,6 @@
-GET http://localhost:3000/eintraege
+GET http://localhost:3000/api/eintraege
 ###
-GET http://localhost:3000/eintraege/1
+GET http://localhost:3000/eintraege/6
 ###
 DELETE http://localhost:3000/eintraege/52
 ###
@@ -19,5 +19,5 @@ Content-Type: application/json
   "time":""
 }
 ###
-GET https://vudiary.onrender.com/eintraege
+GET https://vudiary.onrender.com/api/eintraege
 

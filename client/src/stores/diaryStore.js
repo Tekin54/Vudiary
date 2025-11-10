@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { ref } from 'vue';
-// ✅ BASE_URL für lokal und online
 let text = ref('');
 let textareaModel = ref('');
 

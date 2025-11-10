@@ -22,7 +22,7 @@ app.use(cors());
 app.use(express.static(path.join(dirname, '/public')));
 app.use(express.json());
 
-app.use('/eintraege', eintragRoute);
+app.use('/api', eintragRoute);
 
 app.use(errorHandler);
 app.use(notFound);

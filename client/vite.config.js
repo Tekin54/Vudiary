@@ -10,9 +10,12 @@ export default defineConfig({
     port: 8080,
     proxy: {
       '/api': {
-        target: 'https://vudiary.onrender.com/',
+        target: 'http://localhost:3000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => {
+          console.log('Rewriting path:', path.replace(/^\/api/, ''));
+          return path.replace(/^\/api/, '');
+        },
       },
     },
   },

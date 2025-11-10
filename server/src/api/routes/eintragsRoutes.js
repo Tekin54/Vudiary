@@ -9,9 +9,9 @@ import {
 
 const router = express.Router();
 
-router.get('/', getEintrag);
-router.get('/:id', getEintragById);
-router.patch('/:id', changeEintragById);
-router.post('/', insertEintrag);
-router.delete('/:id', deleteEintrag);
+router.get('/eintraege', getEintrag);
+router.get('/eintraege/:id', getEintragById);
+router.patch('/eintraege/:id', changeEintragById);
+router.post('/eintraege/', insertEintrag);
+router.delete('/eintraege/:id', deleteEintrag);
 export default router;
