@@ -1052,7 +1052,7 @@ class We {
     this._cacheExpirations = /* @__PURE__ */ new Map();
   }
 }
-ye([{"revision":null,"url":"assets/AboutView.1dbc5711.js"},{"revision":null,"url":"assets/AboutView.a606d748.css"},{"revision":null,"url":"assets/index.369754a0.css"},{"revision":null,"url":"assets/index.d39337b4.js"},{"revision":null,"url":"assets/LoginView.be9c2af4.css"},{"revision":null,"url":"assets/LoginView.d18d799d.js"},{"revision":"38fcb7d4fbb2e2bd88e61200f6d768ae","url":"index.html"},{"revision":"1872c500de691dce40960bb85481de07","url":"registerSW.js"},{"revision":"c2b73f2dc8b877fba58483b844249ed7","url":"images/android-chrome-192x192.png"},{"revision":"9558bfb65a12deb0b3c391530a758fee","url":"images/android-chrome-512x512.png"},{"revision":"1245be007b1b2f534589d7eadc2cedba","url":"manifest.webmanifest"}]);
+ye([{"revision":null,"url":"assets/AboutView.a606d748.css"},{"revision":null,"url":"assets/AboutView.d53601d4.js"},{"revision":null,"url":"assets/index.369754a0.css"},{"revision":null,"url":"assets/index.676fc2ee.js"},{"revision":null,"url":"assets/LoginView.bb018581.js"},{"revision":null,"url":"assets/LoginView.be9c2af4.css"},{"revision":"500d18f5972a8c59af78db86bebf58ba","url":"index.html"},{"revision":"1872c500de691dce40960bb85481de07","url":"registerSW.js"},{"revision":"c2b73f2dc8b877fba58483b844249ed7","url":"images/android-chrome-192x192.png"},{"revision":"9558bfb65a12deb0b3c391530a758fee","url":"images/android-chrome-512x512.png"},{"revision":"1245be007b1b2f534589d7eadc2cedba","url":"manifest.webmanifest"}]);
 E(new _e(me("index.html")));
 const Be = new g(
   ({ url: n }) => n.pathname === "/eintraege",

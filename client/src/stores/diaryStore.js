@@ -2,6 +2,9 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import { ref } from 'vue';
 
+// ✅ BASE_URL für lokal und online
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 let text = ref('');
 let textareaModel = ref('');
 
@@ -33,29 +36,26 @@ export const useDiaryStore = defineStore('diaryStore', () => {
   let list = ref([]);
   let pollingInterval = null;
 
-  // Daten abrufen mit optionalem Polling-Start
   let getdata = async (startPolling = true) => {
     try {
-      let { data } = await axios.get('http://localhost:3000/eintraege');
+      let { data } = await axios.get(`${BASE_URL}/eintraege`);
       list.value = data;
 
-      // Starte Polling nur wenn gewünscht und noch nicht aktiv
       if (startPolling && !pollingInterval) {
         pollingInterval = setInterval(async () => {
           try {
-            let { data } = await axios.get('http://localhost:3000/eintraege');
+            let { data } = await axios.get(`${BASE_URL}/eintraege`);
             list.value = data;
           } catch (error) {
             console.error('Fehler beim Abrufen der Daten:', error);
           }
-        }, 2000); // Alle 2 Sekunden aktualisieren
+        }, 2000);
       }
     } catch (error) {
       console.error('Fehler beim Abrufen der Daten:', error);
     }
   };
 
-  // Polling stoppen wenn die App/Komponente beendet wird
   const stopPolling = () => {
     if (pollingInterval) {
       clearInterval(pollingInterval);
@@ -66,29 +66,28 @@ export const useDiaryStore = defineStore('diaryStore', () => {
   //DETAIL
   let obj = ref({});
   let getdataById = async (id) => {
-    let { data } = await axios.get(`http://localhost:3000/eintraege/${id}`);
+    let { data } = await axios.get(`${BASE_URL}/eintraege/${id}`);
     obj.value = data;
   };
   const detail = ref({});
   const fetchDetail = async (id) => {
     await getdataById(id);
-    // Die Daten sind jetzt in obj.value verfügbar
     detail.value = obj.value;
   };
 
   //PATCH
   let patchtdataById = async (id, title, description, mood) => {
     try {
-      let response = await axios.get(`http://localhost:3000/eintraege/${id}`);
+      let response = await axios.get(`${BASE_URL}/eintraege/${id}`);
       const currentDate = new Date();
       let obj = response.data;
       obj.title = title;
       obj.description = description;
       obj.mood = mood;
-      obj.last_changed_date = currentDate.toLocaleDateString(); // Datum aktualisieren
-      obj.last_changed_time = currentDate.toLocaleTimeString(); // Uhrzeit aktualisieren
-      obj.last_changed = `${obj.last_changed_date} ${obj.last_changed_time}`; // Kombinieren von Datum und Uhrzeit
-      await axios.patch(`http://localhost:3000/eintraege/${id}`, obj);
+      obj.last_changed_date = currentDate.toLocaleDateString();
+      obj.last_changed_time = currentDate.toLocaleTimeString();
+      obj.last_changed = `${obj.last_changed_date} ${obj.last_changed_time}`;
+      await axios.patch(`${BASE_URL}/eintraege/${id}`, obj);
     } catch (error) {
       console.error(`Fehler beim Patchen des Eintrags mit ID ${id}:`, error);
     }
@@ -97,32 +96,35 @@ export const useDiaryStore = defineStore('diaryStore', () => {
   //POST
   let posteintrag = async (title, description, date, mood, ort, straße, plz, time) => {
     const currentDate = new Date();
-    let last_changed_date = currentDate.toLocaleDateString(); // Datum aktualisieren
-    let last_changed_time = currentDate.toLocaleTimeString(); // Uhrzeit aktualisieren
+    let last_changed_date = currentDate.toLocaleDateString();
+    let last_changed_time = currentDate.toLocaleTimeString();
     let formatted_date = `${last_changed_date} ${last_changed_time}`;
     console.log(formatted_date);
-    await axios.post('http://localhost:3000/eintraege', {
+    await axios.post(`${BASE_URL}/eintraege`, {
       title,
       page: getMaxPage() + 1,
       description,
-      date: formatted_date, // Hier 'date' verwenden, nicht 'formatted_date'
+      date: formatted_date,
       mood,
       ort,
       straße,
       plz,
       time,
     });
-  };
-  const getMaxPage = () => {
-    if (list.value.length === 0) return 0; // keine Einträge, dann 0
-    return Math.max(...list.value.map((item) => Number(item.page) || 0));
-  };
-  let deleteeintrag = async (id) => {
-    await axios.delete(`http://localhost:3000/eintraege/${id}`);
-    getdata();
+    // 🔹 Direkt nach POST die Liste neu laden, damit maxPage korrekt bleibt
+    await getdata(false);
   };
 
-  //TO Path Variable
+  const getMaxPage = () => {
+    if (list.value.length === 0) return 0;
+    return Math.max(...list.value.map((item) => Number(item.page) || 0));
+  };
+
+  let deleteeintrag = async (id) => {
+    await axios.delete(`${BASE_URL}/eintraege/${id}`);
+    await getdata(false); // Liste sofort aktualisieren
+  };
+
   let pathTO = ref();
 
   return {
