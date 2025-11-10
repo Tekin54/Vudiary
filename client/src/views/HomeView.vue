@@ -44,7 +44,7 @@
               <q-card-section class="info-section">
                 <div class="info-content">
                   <div class="text-caption text-bold">{{ props.row.title }}</div>
-                  <div class="text-caption text-italic	">{{ props.row.date }}</div>
+                  <div class="text-caption text-italic">{{ props.row.date }}</div>
                 </div>
               </q-card-section>
             </q-card>

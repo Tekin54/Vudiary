@@ -36,14 +36,14 @@ export const useDiaryStore = defineStore('diaryStore', () => {
   // Daten abrufen mit optionalem Polling-Start
   let getdata = async (startPolling = true) => {
     try {
-      let { data } = await axios.get('/eintraege');
+      let { data } = await axios.get('http://localhost:3000/eintraege');
       list.value = data;
 
       // Starte Polling nur wenn gewünscht und noch nicht aktiv
       if (startPolling && !pollingInterval) {
         pollingInterval = setInterval(async () => {
           try {
-            let { data } = await axios.get('/eintraege');
+            let { data } = await axios.get('http://localhost:3000/eintraege');
             list.value = data;
           } catch (error) {
             console.error('Fehler beim Abrufen der Daten:', error);
@@ -79,7 +79,7 @@ export const useDiaryStore = defineStore('diaryStore', () => {
   //PATCH
   let patchtdataById = async (id, title, description, mood) => {
     try {
-      let response = await axios.get(`/eintraege/${id}`);
+      let response = await axios.get(`http://localhost:3000/eintraege/${id}`);
       const currentDate = new Date();
       let obj = response.data;
       obj.title = title;
@@ -88,7 +88,7 @@ export const useDiaryStore = defineStore('diaryStore', () => {
       obj.last_changed_date = currentDate.toLocaleDateString(); // Datum aktualisieren
       obj.last_changed_time = currentDate.toLocaleTimeString(); // Uhrzeit aktualisieren
       obj.last_changed = `${obj.last_changed_date} ${obj.last_changed_time}`; // Kombinieren von Datum und Uhrzeit
-      await axios.patch(`/eintraege/${id}`, obj);
+      await axios.patch(`http://localhost:3000/eintraege/${id}`, obj);
     } catch (error) {
       console.error(`Fehler beim Patchen des Eintrags mit ID ${id}:`, error);
     }
@@ -101,9 +101,9 @@ export const useDiaryStore = defineStore('diaryStore', () => {
     let last_changed_time = currentDate.toLocaleTimeString(); // Uhrzeit aktualisieren
     let formatted_date = `${last_changed_date} ${last_changed_time}`;
     console.log(formatted_date);
-    await axios.post('/eintraege', {
+    await axios.post('http://localhost:3000/eintraege', {
       title,
-      page: list.value.length + 1,
+      page: getMaxPage() + 1,
       description,
       date: formatted_date, // Hier 'date' verwenden, nicht 'formatted_date'
       mood,
@@ -113,8 +113,12 @@ export const useDiaryStore = defineStore('diaryStore', () => {
       time,
     });
   };
+  const getMaxPage = () => {
+    if (list.value.length === 0) return 0; // keine Einträge, dann 0
+    return Math.max(...list.value.map((item) => Number(item.page) || 0));
+  };
   let deleteeintrag = async (id) => {
-    await axios.delete(`/eintraege/${id}`);
+    await axios.delete(`http://localhost:3000/eintraege/${id}`);
     getdata();
   };
 

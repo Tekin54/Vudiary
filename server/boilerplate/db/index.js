@@ -1,16 +1,12 @@
-import pg from 'pg';
+import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
 
-// workaround for dates
-// https://github.com/brianc/node-postgres/issues/1844
-const DATE_OID = 1082;
-const parseDate = (value) => value;
+dotenv.config();
 
-pg.types.setTypeParser(DATE_OID, parseDate); // map timestamps
+export const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
 
-// create pool and query object
-export const pool = new pg.Pool();
-
-export const query = (text, params) => pool.query(text, params);
-
-// add close function for vitests
-export const close = () => pool.end();
+// TEST: Verbindung prüfen
+(async () => {
+  const { data, error } = await supabase.from('eintraege').select('*');
+  console.log('Verbindungstest:', { data, error });
+})();

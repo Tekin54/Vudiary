@@ -10,7 +10,7 @@ export default defineConfig({
     port: 8080,
     proxy: {
       '/eintraege': {
-        target: 'http://localhost:3000',
+        target: 'https://vudiary.onrender.com/',
         changeOrigin: true,
       },
     },
