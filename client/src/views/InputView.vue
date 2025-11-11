@@ -75,11 +75,14 @@
         <div>
           <q-btn
             @click="
-              diaryStore.posteintrag(title, description, date, mood, ort, straße, plz, time),
-                $router.push(`/`)
+              () => {
+                diaryStore.variables_functions.non_specific.functions
+                  .postentry(title, description, mood, ort, straße, plz, time)
+                  .then(() => $router.push('/'));
+              }
             "
-            class=""
-            ><icon
+          >
+            <icon
               :class="$q.screen.lt.sm ? '' : 'q-mr-sm'"
               style="width: 20px; height: 20px"
               icon="material-symbols:save"
@@ -97,8 +100,8 @@ import { useDiaryStore } from '../stores/diaryStore';
 import { ref, watch, onBeforeMount, computed } from 'vue';
 import { useQuasar } from 'quasar';
 let diaryStore = useDiaryStore();
-diaryStore.getdata();
-let leng = diaryStore.list;
+diaryStore.variables_functions.non_specific.functions.getdata();
+let leng = diaryStore.variables_functions.non_specific.variables.list;
 console.log(leng);
 const $q = useQuasar();
 let icons = [
@@ -107,7 +110,7 @@ let icons = [
   'sentiment_satisfied',
   'sentiment_very_satisfied',
 ];
-console.log(diaryStore.list.length);
+console.log(diaryStore.variables_functions.non_specific.variables.list.length);
 let title = ref('');
 let description = ref('');
 let mood = ref(0);
@@ -220,11 +223,11 @@ onBeforeMount(() => {
 });
 
 const updatePage = () => {
-  page.value = diaryStore.list.length + 1;
+  page.value = diaryStore.variables_functions.non_specific.variables.list.length + 1;
 };
 
 watch(
-  () => diaryStore.list.length,
+  () => diaryStore.variables_functions.non_specific.variables.list.length,
   () => {
     // Seitenzahl aktualisieren, wenn sich die Länge der Liste ändert
     updatePage();

@@ -42,6 +42,6 @@ export const insertEintrag = asyncHandler(async (req, res) => {
       ),
     );
 });
-export const deleteEintrag = asyncHandler(async (req, res) => {
-  res.status(200).json(await model.deleteEintrag(req.params.id));
+export const deleteentry = asyncHandler(async (req, res) => {
+  res.status(200).json(await model.deleteentry(req.params.id));
 });

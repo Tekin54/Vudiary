@@ -4,15 +4,12 @@
       <q-card-section>
         <div class="text-h3 text-weight-bolder q-mb-xl">Contact</div>
         <div class="col text-h6 q-gutter-md">
-          <span class="row">Creator: {{ diaryStore.owner.name }} </span
-          ><span class="row">Mail: {{ diaryStore.owner.mail }}</span
-          ><span class="row">Tel.: {{ diaryStore.owner.tel }}</span>
+          <span class="row">Creator: {{ aboutViewVariables.name }}</span>
+          <span class="row">Mail: {{ aboutViewVariables.mail }}</span>
         </div>
       </q-card-section>
 
-      <q-card-section class="q-pt-none">
-        {{ lorem }}
-      </q-card-section>
+      <q-card-section class="q-pt-none"> </q-card-section>
     </q-card>
   </div>
 </template>
@@ -20,7 +17,7 @@
 <script setup>
 import { useDiaryStore } from '../stores/diaryStore';
 const diaryStore = useDiaryStore();
-console.log(`The OWNER of this project is the student '${diaryStore.owner.name}' `);
+const aboutViewVariables = diaryStore.variables_functions.views_specific.AboutView.variables;
 </script>
 
 <style lang="scss" scoped>

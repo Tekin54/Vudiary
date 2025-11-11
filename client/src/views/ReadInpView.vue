@@ -5,7 +5,7 @@
         readonly
         color="green-5"
         :class="$q.screen.lt.sm ? 'q-pl-xl q-pt-lg text-h6' : 'q-pl-xl q-pt-lg text-h5'"
-        v-model="diaryStore.detail.title"
+        v-model="diaryStore.variables_functions.non_specific.variables.detail.title"
         label="Titel"
         stack-label
         :dense="dense"
@@ -16,7 +16,7 @@
       <q-input
         readonly
         :class="$q.screen.lt.sm ? 'text-h7' : 'text-h6'"
-        v-model="diaryStore.detail.description"
+        v-model="diaryStore.variables_functions.non_specific.variables.detail.description"
         filled
         clearable
         type="textarea"
@@ -33,7 +33,7 @@
       <q-rating
         :size="$q.screen.lt.sm ? '2.5em' : '4.5em'"
         readonly
-        v-model="diaryStore.detail.mood"
+        v-model="diaryStore.variables_functions.non_specific.variables.detail.mood"
         :max="4"
         :icon="icons"
         :color="selectedColor"
@@ -64,7 +64,7 @@ const icons = [
 
 // Farbe dynamisch je nach Stimmung
 const selectedColor = computed(() => {
-  const mood = diaryStore.detail.mood;
+  const mood = diaryStore.variables_functions.non_specific.variables.detail.mood;
   switch (mood) {
     case 1:
       return 'red-6'; // Sehr unzufrieden
@@ -80,7 +80,7 @@ const selectedColor = computed(() => {
 });
 
 // Daten abrufen
-diaryStore.fetchDetail(props.id);
+diaryStore.variables_functions.non_specific.functions.getdataById(props.id);
 
 const zurück = () => {
   router.push('/');

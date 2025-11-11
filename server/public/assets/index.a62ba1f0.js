@@ -1,11 +1,19417 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))o(r);new MutationObserver(r=>{for(const i of r)if(i.type==="childList")for(const l of i.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&o(l)}).observe(document,{childList:!0,subtree:!0});function n(r){const i={};return r.integrity&&(i.integrity=r.integrity),r.referrerpolicy&&(i.referrerPolicy=r.referrerpolicy),r.crossorigin==="use-credentials"?i.credentials="include":r.crossorigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function o(r){if(r.ep)return;r.ep=!0;const i=n(r);fetch(r.href,i)}})();function _s(e,t){const n=Object.create(null),o=e.split(",");for(let r=0;r<o.length;r++)n[o[r]]=!0;return t?r=>!!n[r.toLowerCase()]:r=>!!n[r]}function _i(e){if(Ce(e)){const t={};for(let n=0;n<e.length;n++){const o=e[n],r=et(o)?em(o):_i(o);if(r)for(const i in r)t[i]=r[i]}return t}else{if(et(e))return e;if(Ue(e))return e}}const Yh=/;(?![^(]*\))/g,Gh=/:([^]+)/,Zh=/\/\*.*?\*\//gs;function em(e){const t={};return e.replace(Zh,"").split(Yh).forEach(n=>{if(n){const o=n.split(Gh);o.length>1&&(t[o[0].trim()]=o[1].trim())}}),t}function ht(e){let t="";if(et(e))t=e;else if(Ce(e))for(let n=0;n<e.length;n++){const o=ht(e[n]);o&&(t+=o+" ")}else if(Ue(e))for(const n in e)e[n]&&(t+=n+" ");return t.trim()}const tm="itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly",nm=_s(tm);function Kc(e){return!!e||e===""}const It=e=>et(e)?e:e==null?"":Ce(e)||Ue(e)&&(e.toString===Xc||!Ee(e.toString))?JSON.stringify(e,Wc,2):String(e),Wc=(e,t)=>t&&t.__v_isRef?Wc(e,t.value):_o(t)?{[`Map(${t.size})`]:[...t.entries()].reduce((n,[o,r])=>(n[`${o} =>`]=r,n),{})}:Qc(t)?{[`Set(${t.size})`]:[...t.values()]}:Ue(t)&&!Ce(t)&&!Yc(t)?String(t):t,He={},wo=[],Ut=()=>{},om=()=>!1,rm=/^on[^a-z]/,Si=e=>rm.test(e),Ss=e=>e.startsWith("onUpdate:"),st=Object.assign,xs=(e,t)=>{const n=e.indexOf(t);n>-1&&e.splice(n,1)},im=Object.prototype.hasOwnProperty,Oe=(e,t)=>im.call(e,t),Ce=Array.isArray,_o=e=>xi(e)==="[object Map]",Qc=e=>xi(e)==="[object Set]",Ee=e=>typeof e=="function",et=e=>typeof e=="string",Cs=e=>typeof e=="symbol",Ue=e=>e!==null&&typeof e=="object",Jc=e=>Ue(e)&&Ee(e.then)&&Ee(e.catch),Xc=Object.prototype.toString,xi=e=>Xc.call(e),lm=e=>xi(e).slice(8,-1),Yc=e=>xi(e)==="[object Object]",ks=e=>et(e)&&e!=="NaN"&&e[0]!=="-"&&""+parseInt(e,10)===e,Kr=_s(",key,ref,ref_for,ref_key,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted"),Ci=e=>{const t=Object.create(null);return n=>t[n]||(t[n]=e(n))},sm=/-(\w)/g,Zt=Ci(e=>e.replace(sm,(t,n)=>n?n.toUpperCase():"")),am=/\B([A-Z])/g,$o=Ci(e=>e.replace(am,"-$1").toLowerCase()),ki=Ci(e=>e.charAt(0).toUpperCase()+e.slice(1)),ll=Ci(e=>e?`on${ki(e)}`:""),lr=(e,t)=>!Object.is(e,t),sl=(e,t)=>{for(let n=0;n<e.length;n++)e[n](t)},li=(e,t,n)=>{Object.defineProperty(e,t,{configurable:!0,enumerable:!1,value:n})},Es=e=>{const t=parseFloat(e);return isNaN(t)?e:t};let ka;const um=()=>ka||(ka=typeof globalThis<"u"?globalThis:typeof self<"u"?self:typeof window<"u"?window:typeof global<"u"?global:{});let Ct;class Gc{constructor(t=!1){this.detached=t,this.active=!0,this.effects=[],this.cleanups=[],this.parent=Ct,!t&&Ct&&(this.index=(Ct.scopes||(Ct.scopes=[])).push(this)-1)}run(t){if(this.active){const n=Ct;try{return Ct=this,t()}finally{Ct=n}}}on(){Ct=this}off(){Ct=this.parent}stop(t){if(this.active){let n,o;for(n=0,o=this.effects.length;n<o;n++)this.effects[n].stop();for(n=0,o=this.cleanups.length;n<o;n++)this.cleanups[n]();if(this.scopes)for(n=0,o=this.scopes.length;n<o;n++)this.scopes[n].stop(!0);if(!this.detached&&this.parent&&!t){const r=this.parent.scopes.pop();r&&r!==this&&(this.parent.scopes[this.index]=r,r.index=this.index)}this.parent=void 0,this.active=!1}}}function Zc(e){return new Gc(e)}function cm(e,t=Ct){t&&t.active&&t.effects.push(e)}function fm(){return Ct}function dm(e){Ct&&Ct.cleanups.push(e)}const qs=e=>{const t=new Set(e);return t.w=0,t.n=0,t},ef=e=>(e.w&Tn)>0,tf=e=>(e.n&Tn)>0,hm=({deps:e})=>{if(e.length)for(let t=0;t<e.length;t++)e[t].w|=Tn},mm=e=>{const{deps:t}=e;if(t.length){let n=0;for(let o=0;o<t.length;o++){const r=t[o];ef(r)&&!tf(r)?r.delete(e):t[n++]=r,r.w&=~Tn,r.n&=~Tn}t.length=n}},Bl=new WeakMap;let Qo=0,Tn=1;const Il=30;let Nt;const Kn=Symbol(""),zl=Symbol("");class Ts{constructor(t,n=null,o){this.fn=t,this.scheduler=n,this.active=!0,this.deps=[],this.parent=void 0,cm(this,o)}run(){if(!this.active)return this.fn();let t=Nt,n=kn;for(;t;){if(t===this)return;t=t.parent}try{return this.parent=Nt,Nt=this,kn=!0,Tn=1<<++Qo,Qo<=Il?hm(this):Ea(this),this.fn()}finally{Qo<=Il&&mm(this),Tn=1<<--Qo,Nt=this.parent,kn=n,this.parent=void 0,this.deferStop&&this.stop()}}stop(){Nt===this?this.deferStop=!0:this.active&&(Ea(this),this.onStop&&this.onStop(),this.active=!1)}}function Ea(e){const{deps:t}=e;if(t.length){for(let n=0;n<t.length;n++)t[n].delete(e);t.length=0}}let kn=!0;const nf=[];function Lo(){nf.push(kn),kn=!1}function Mo(){const e=nf.pop();kn=e===void 0?!0:e}function Tt(e,t,n){if(kn&&Nt){let o=Bl.get(e);o||Bl.set(e,o=new Map);let r=o.get(n);r||o.set(n,r=qs()),of(r)}}function of(e,t){let n=!1;Qo<=Il?tf(e)||(e.n|=Tn,n=!ef(e)):n=!e.has(Nt),n&&(e.add(Nt),Nt.deps.push(e))}function fn(e,t,n,o,r,i){const l=Bl.get(e);if(!l)return;let s=[];if(t==="clear")s=[...l.values()];else if(n==="length"&&Ce(e)){const a=Es(o);l.forEach((c,u)=>{(u==="length"||u>=a)&&s.push(c)})}else switch(n!==void 0&&s.push(l.get(n)),t){case"add":Ce(e)?ks(n)&&s.push(l.get("length")):(s.push(l.get(Kn)),_o(e)&&s.push(l.get(zl)));break;case"delete":Ce(e)||(s.push(l.get(Kn)),_o(e)&&s.push(l.get(zl)));break;case"set":_o(e)&&s.push(l.get(Kn));break}if(s.length===1)s[0]&&Vl(s[0]);else{const a=[];for(const c of s)c&&a.push(...c);Vl(qs(a))}}function Vl(e,t){const n=Ce(e)?e:[...e];for(const o of n)o.computed&&qa(o);for(const o of n)o.computed||qa(o)}function qa(e,t){(e!==Nt||e.allowRecurse)&&(e.scheduler?e.scheduler():e.run())}const vm=_s("__proto__,__v_isRef,__isVue"),rf=new Set(Object.getOwnPropertyNames(Symbol).filter(e=>e!=="arguments"&&e!=="caller").map(e=>Symbol[e]).filter(Cs)),gm=Ps(),pm=Ps(!1,!0),bm=Ps(!0),Ta=ym();function ym(){const e={};return["includes","indexOf","lastIndexOf"].forEach(t=>{e[t]=function(...n){const o=Te(this);for(let i=0,l=this.length;i<l;i++)Tt(o,"get",i+"");const r=o[t](...n);return r===-1||r===!1?o[t](...n.map(Te)):r}}),["push","pop","shift","unshift","splice"].forEach(t=>{e[t]=function(...n){Lo();const o=Te(this)[t].apply(this,n);return Mo(),o}}),e}function Ps(e=!1,t=!1){return function(o,r,i){if(r==="__v_isReactive")return!e;if(r==="__v_isReadonly")return e;if(r==="__v_isShallow")return t;if(r==="__v_raw"&&i===(e?t?Mm:cf:t?uf:af).get(o))return o;const l=Ce(o);if(!e&&l&&Oe(Ta,r))return Reflect.get(Ta,r,i);const s=Reflect.get(o,r,i);return(Cs(r)?rf.has(r):vm(r))||(e||Tt(o,"get",r),t)?s:Ve(s)?l&&ks(r)?s:s.value:Ue(s)?e?df(s):jt(s):s}}const wm=lf(),_m=lf(!0);function lf(e=!1){return function(n,o,r,i){let l=n[o];if(Eo(l)&&Ve(l)&&!Ve(r))return!1;if(!e&&(!si(r)&&!Eo(r)&&(l=Te(l),r=Te(r)),!Ce(n)&&Ve(l)&&!Ve(r)))return l.value=r,!0;const s=Ce(n)&&ks(o)?Number(o)<n.length:Oe(n,o),a=Reflect.set(n,o,r,i);return n===Te(i)&&(s?lr(r,l)&&fn(n,"set",o,r):fn(n,"add",o,r)),a}}function Sm(e,t){const n=Oe(e,t);e[t];const o=Reflect.deleteProperty(e,t);return o&&n&&fn(e,"delete",t,void 0),o}function xm(e,t){const n=Reflect.has(e,t);return(!Cs(t)||!rf.has(t))&&Tt(e,"has",t),n}function Cm(e){return Tt(e,"iterate",Ce(e)?"length":Kn),Reflect.ownKeys(e)}const sf={get:gm,set:wm,deleteProperty:Sm,has:xm,ownKeys:Cm},km={get:bm,set(e,t){return!0},deleteProperty(e,t){return!0}},Em=st({},sf,{get:pm,set:_m}),Rs=e=>e,Ei=e=>Reflect.getPrototypeOf(e);function Ar(e,t,n=!1,o=!1){e=e.__v_raw;const r=Te(e),i=Te(t);n||(t!==i&&Tt(r,"get",t),Tt(r,"get",i));const{has:l}=Ei(r),s=o?Rs:n?$s:sr;if(l.call(r,t))return s(e.get(t));if(l.call(r,i))return s(e.get(i));e!==r&&e.get(t)}function Or(e,t=!1){const n=this.__v_raw,o=Te(n),r=Te(e);return t||(e!==r&&Tt(o,"has",e),Tt(o,"has",r)),e===r?n.has(e):n.has(e)||n.has(r)}function $r(e,t=!1){return e=e.__v_raw,!t&&Tt(Te(e),"iterate",Kn),Reflect.get(e,"size",e)}function Pa(e){e=Te(e);const t=Te(this);return Ei(t).has.call(t,e)||(t.add(e),fn(t,"add",e,e)),this}function Ra(e,t){t=Te(t);const n=Te(this),{has:o,get:r}=Ei(n);let i=o.call(n,e);i||(e=Te(e),i=o.call(n,e));const l=r.call(n,e);return n.set(e,t),i?lr(t,l)&&fn(n,"set",e,t):fn(n,"add",e,t),this}function Aa(e){const t=Te(this),{has:n,get:o}=Ei(t);let r=n.call(t,e);r||(e=Te(e),r=n.call(t,e)),o&&o.call(t,e);const i=t.delete(e);return r&&fn(t,"delete",e,void 0),i}function Oa(){const e=Te(this),t=e.size!==0,n=e.clear();return t&&fn(e,"clear",void 0,void 0),n}function Lr(e,t){return function(o,r){const i=this,l=i.__v_raw,s=Te(l),a=t?Rs:e?$s:sr;return!e&&Tt(s,"iterate",Kn),l.forEach((c,u)=>o.call(r,a(c),a(u),i))}}function Mr(e,t,n){return function(...o){const r=this.__v_raw,i=Te(r),l=_o(i),s=e==="entries"||e===Symbol.iterator&&l,a=e==="keys"&&l,c=r[e](...o),u=n?Rs:t?$s:sr;return!t&&Tt(i,"iterate",a?zl:Kn),{next(){const{value:f,done:d}=c.next();return d?{value:f,done:d}:{value:s?[u(f[0]),u(f[1])]:u(f),done:d}},[Symbol.iterator](){return this}}}}function gn(e){return function(...t){return e==="delete"?!1:this}}function qm(){const e={get(i){return Ar(this,i)},get size(){return $r(this)},has:Or,add:Pa,set:Ra,delete:Aa,clear:Oa,forEach:Lr(!1,!1)},t={get(i){return Ar(this,i,!1,!0)},get size(){return $r(this)},has:Or,add:Pa,set:Ra,delete:Aa,clear:Oa,forEach:Lr(!1,!0)},n={get(i){return Ar(this,i,!0)},get size(){return $r(this,!0)},has(i){return Or.call(this,i,!0)},add:gn("add"),set:gn("set"),delete:gn("delete"),clear:gn("clear"),forEach:Lr(!0,!1)},o={get(i){return Ar(this,i,!0,!0)},get size(){return $r(this,!0)},has(i){return Or.call(this,i,!0)},add:gn("add"),set:gn("set"),delete:gn("delete"),clear:gn("clear"),forEach:Lr(!0,!0)};return["keys","values","entries",Symbol.iterator].forEach(i=>{e[i]=Mr(i,!1,!1),n[i]=Mr(i,!0,!1),t[i]=Mr(i,!1,!0),o[i]=Mr(i,!0,!0)}),[e,n,t,o]}const[Tm,Pm,Rm,Am]=qm();function As(e,t){const n=t?e?Am:Rm:e?Pm:Tm;return(o,r,i)=>r==="__v_isReactive"?!e:r==="__v_isReadonly"?e:r==="__v_raw"?o:Reflect.get(Oe(n,r)&&r in o?n:o,r,i)}const Om={get:As(!1,!1)},$m={get:As(!1,!0)},Lm={get:As(!0,!1)},af=new WeakMap,uf=new WeakMap,cf=new WeakMap,Mm=new WeakMap;function Fm(e){switch(e){case"Object":case"Array":return 1;case"Map":case"Set":case"WeakMap":case"WeakSet":return 2;default:return 0}}function Bm(e){return e.__v_skip||!Object.isExtensible(e)?0:Fm(lm(e))}function jt(e){return Eo(e)?e:Os(e,!1,sf,Om,af)}function ff(e){return Os(e,!1,Em,$m,uf)}function df(e){return Os(e,!0,km,Lm,cf)}function Os(e,t,n,o,r){if(!Ue(e)||e.__v_raw&&!(t&&e.__v_isReactive))return e;const i=r.get(e);if(i)return i;const l=Bm(e);if(l===0)return e;const s=new Proxy(e,l===2?o:n);return r.set(e,s),s}function En(e){return Eo(e)?En(e.__v_raw):!!(e&&e.__v_isReactive)}function Eo(e){return!!(e&&e.__v_isReadonly)}function si(e){return!!(e&&e.__v_isShallow)}function hf(e){return En(e)||Eo(e)}function Te(e){const t=e&&e.__v_raw;return t?Te(t):e}function dn(e){return li(e,"__v_skip",!0),e}const sr=e=>Ue(e)?jt(e):e,$s=e=>Ue(e)?df(e):e;function mf(e){kn&&Nt&&(e=Te(e),of(e.dep||(e.dep=qs())))}function vf(e,t){e=Te(e),e.dep&&Vl(e.dep)}function Ve(e){return!!(e&&e.__v_isRef===!0)}function W(e){return gf(e,!1)}function Im(e){return gf(e,!0)}function gf(e,t){return Ve(e)?e:new zm(e,t)}class zm{constructor(t,n){this.__v_isShallow=n,this.dep=void 0,this.__v_isRef=!0,this._rawValue=n?t:Te(t),this._value=n?t:sr(t)}get value(){return mf(this),this._value}set value(t){const n=this.__v_isShallow||si(t)||Eo(t);t=n?t:Te(t),lr(t,this._rawValue)&&(this._rawValue=t,this._value=n?t:sr(t),vf(this))}}function ue(e){return Ve(e)?e.value:e}const Vm={get:(e,t,n)=>ue(Reflect.get(e,t,n)),set:(e,t,n,o)=>{const r=e[t];return Ve(r)&&!Ve(n)?(r.value=n,!0):Reflect.set(e,t,n,o)}};function pf(e){return En(e)?e:new Proxy(e,Vm)}function Nm(e){const t=Ce(e)?new Array(e.length):{};for(const n in e)t[n]=Dm(e,n);return t}class jm{constructor(t,n,o){this._object=t,this._key=n,this._defaultValue=o,this.__v_isRef=!0}get value(){const t=this._object[this._key];return t===void 0?this._defaultValue:t}set value(t){this._object[this._key]=t}}function Dm(e,t,n){const o=e[t];return Ve(o)?o:new jm(e,t,n)}var bf;class Hm{constructor(t,n,o,r){this._setter=n,this.dep=void 0,this.__v_isRef=!0,this[bf]=!1,this._dirty=!0,this.effect=new Ts(t,()=>{this._dirty||(this._dirty=!0,vf(this))}),this.effect.computed=this,this.effect.active=this._cacheable=!r,this.__v_isReadonly=o}get value(){const t=Te(this);return mf(t),(t._dirty||!t._cacheable)&&(t._dirty=!1,t._value=t.effect.run()),t._value}set value(t){this._setter(t)}}bf="__v_isReadonly";function Um(e,t,n=!1){let o,r;const i=Ee(e);return i?(o=e,r=Ut):(o=e.get,r=e.set),new Hm(o,r,i||!r,n)}function qn(e,t,n,o){let r;try{r=o?e(...o):e()}catch(i){qi(i,t,n)}return r}function $t(e,t,n,o){if(Ee(e)){const i=qn(e,t,n,o);return i&&Jc(i)&&i.catch(l=>{qi(l,t,n)}),i}const r=[];for(let i=0;i<e.length;i++)r.push($t(e[i],t,n,o));return r}function qi(e,t,n,o=!0){const r=t?t.vnode:null;if(t){let i=t.parent;const l=t.proxy,s=n;for(;i;){const c=i.ec;if(c){for(let u=0;u<c.length;u++)if(c[u](e,l,s)===!1)return}i=i.parent}const a=t.appContext.config.errorHandler;if(a){qn(a,null,10,[e,l,s]);return}}Km(e,n,r,o)}function Km(e,t,n,o=!0){console.error(e)}let ar=!1,Nl=!1;const mt=[];let Xt=0;const So=[];let sn=null,zn=0;const yf=Promise.resolve();let Ls=null;function ze(e){const t=Ls||yf;return e?t.then(this?e.bind(this):e):t}function Wm(e){let t=Xt+1,n=mt.length;for(;t<n;){const o=t+n>>>1;ur(mt[o])<e?t=o+1:n=o}return t}function Ms(e){(!mt.length||!mt.includes(e,ar&&e.allowRecurse?Xt+1:Xt))&&(e.id==null?mt.push(e):mt.splice(Wm(e.id),0,e),wf())}function wf(){!ar&&!Nl&&(Nl=!0,Ls=yf.then(Sf))}function Qm(e){const t=mt.indexOf(e);t>Xt&&mt.splice(t,1)}function Jm(e){Ce(e)?So.push(...e):(!sn||!sn.includes(e,e.allowRecurse?zn+1:zn))&&So.push(e),wf()}function $a(e,t=ar?Xt+1:0){for(;t<mt.length;t++){const n=mt[t];n&&n.pre&&(mt.splice(t,1),t--,n())}}function _f(e){if(So.length){const t=[...new Set(So)];if(So.length=0,sn){sn.push(...t);return}for(sn=t,sn.sort((n,o)=>ur(n)-ur(o)),zn=0;zn<sn.length;zn++)sn[zn]();sn=null,zn=0}}const ur=e=>e.id==null?1/0:e.id,Xm=(e,t)=>{const n=ur(e)-ur(t);if(n===0){if(e.pre&&!t.pre)return-1;if(t.pre&&!e.pre)return 1}return n};function Sf(e){Nl=!1,ar=!0,mt.sort(Xm);const t=Ut;try{for(Xt=0;Xt<mt.length;Xt++){const n=mt[Xt];n&&n.active!==!1&&qn(n,null,14)}}finally{Xt=0,mt.length=0,_f(),ar=!1,Ls=null,(mt.length||So.length)&&Sf()}}function Ym(e,t,...n){if(e.isUnmounted)return;const o=e.vnode.props||He;let r=n;const i=t.startsWith("update:"),l=i&&t.slice(7);if(l&&l in o){const u=`${l==="modelValue"?"model":l}Modifiers`,{number:f,trim:d}=o[u]||He;d&&(r=n.map(h=>et(h)?h.trim():h)),f&&(r=n.map(Es))}let s,a=o[s=ll(t)]||o[s=ll(Zt(t))];!a&&i&&(a=o[s=ll($o(t))]),a&&$t(a,e,6,r);const c=o[s+"Once"];if(c){if(!e.emitted)e.emitted={};else if(e.emitted[s])return;e.emitted[s]=!0,$t(c,e,6,r)}}function xf(e,t,n=!1){const o=t.emitsCache,r=o.get(e);if(r!==void 0)return r;const i=e.emits;let l={},s=!1;if(!Ee(e)){const a=c=>{const u=xf(c,t,!0);u&&(s=!0,st(l,u))};!n&&t.mixins.length&&t.mixins.forEach(a),e.extends&&a(e.extends),e.mixins&&e.mixins.forEach(a)}return!i&&!s?(Ue(e)&&o.set(e,null),null):(Ce(i)?i.forEach(a=>l[a]=null):st(l,i),Ue(e)&&o.set(e,l),l)}function Ti(e,t){return!e||!Si(t)?!1:(t=t.slice(2).replace(/Once$/,""),Oe(e,t[0].toLowerCase()+t.slice(1))||Oe(e,$o(t))||Oe(e,t))}let qt=null,Pi=null;function ai(e){const t=qt;return qt=e,Pi=e&&e.type.__scopeId||null,t}function Gm(e){Pi=e}function Zm(){Pi=null}function ge(e,t=qt,n){if(!t||e._n)return e;const o=(...r)=>{o._d&&Ha(-1);const i=ai(t);let l;try{l=e(...r)}finally{ai(i),o._d&&Ha(1)}return l};return o._n=!0,o._c=!0,o._d=!0,o}function al(e){const{type:t,vnode:n,proxy:o,withProxy:r,props:i,propsOptions:[l],slots:s,attrs:a,emit:c,render:u,renderCache:f,data:d,setupState:h,ctx:m,inheritAttrs:g}=e;let b,T;const k=ai(e);try{if(n.shapeFlag&4){const x=r||o;b=Jt(u.call(x,x,f,i,h,d,m)),T=a}else{const x=t;b=Jt(x.length>1?x(i,{attrs:a,slots:s,emit:c}):x(i,null)),T=t.props?a:ev(a)}}catch(x){Zo.length=0,qi(x,e,1),b=Z(Kt)}let E=b;if(T&&g!==!1){const x=Object.keys(T),{shapeFlag:P}=E;x.length&&P&7&&(l&&x.some(Ss)&&(T=tv(T,l)),E=Pn(E,T))}return n.dirs&&(E=Pn(E),E.dirs=E.dirs?E.dirs.concat(n.dirs):n.dirs),n.transition&&(E.transition=n.transition),b=E,ai(k),b}const ev=e=>{let t;for(const n in e)(n==="class"||n==="style"||Si(n))&&((t||(t={}))[n]=e[n]);return t},tv=(e,t)=>{const n={};for(const o in e)(!Ss(o)||!(o.slice(9)in t))&&(n[o]=e[o]);return n};function nv(e,t,n){const{props:o,children:r,component:i}=e,{props:l,children:s,patchFlag:a}=t,c=i.emitsOptions;if(t.dirs||t.transition)return!0;if(n&&a>=0){if(a&1024)return!0;if(a&16)return o?La(o,l,c):!!l;if(a&8){const u=t.dynamicProps;for(let f=0;f<u.length;f++){const d=u[f];if(l[d]!==o[d]&&!Ti(c,d))return!0}}}else return(r||s)&&(!s||!s.$stable)?!0:o===l?!1:o?l?La(o,l,c):!0:!!l;return!1}function La(e,t,n){const o=Object.keys(t);if(o.length!==Object.keys(e).length)return!0;for(let r=0;r<o.length;r++){const i=o[r];if(t[i]!==e[i]&&!Ti(n,i))return!0}return!1}function ov({vnode:e,parent:t},n){for(;t&&t.subTree===e;)(e=t.vnode).el=n,t=t.parent}const rv=e=>e.__isSuspense;function iv(e,t){t&&t.pendingBranch?Ce(e)?t.effects.push(...e):t.effects.push(e):Jm(e)}function xo(e,t){if(lt){let n=lt.provides;const o=lt.parent&&lt.parent.provides;o===n&&(n=lt.provides=Object.create(o)),n[e]=t}}function ut(e,t,n=!1){const o=lt||qt;if(o){const r=o.parent==null?o.vnode.appContext&&o.vnode.appContext.provides:o.parent.provides;if(r&&e in r)return r[e];if(arguments.length>1)return n&&Ee(t)?t.call(o.proxy):t}}const Fr={};function fe(e,t,n){return Cf(e,t,n)}function Cf(e,t,{immediate:n,deep:o,flush:r,onTrack:i,onTrigger:l}=He){const s=lt;let a,c=!1,u=!1;if(Ve(e)?(a=()=>e.value,c=si(e)):En(e)?(a=()=>e,o=!0):Ce(e)?(u=!0,c=e.some(E=>En(E)||si(E)),a=()=>e.map(E=>{if(Ve(E))return E.value;if(En(E))return jn(E);if(Ee(E))return qn(E,s,2)})):Ee(e)?t?a=()=>qn(e,s,2):a=()=>{if(!(s&&s.isUnmounted))return f&&f(),$t(e,s,3,[d])}:a=Ut,t&&o){const E=a;a=()=>jn(E())}let f,d=E=>{f=T.onStop=()=>{qn(E,s,4)}},h;if(hr)if(d=Ut,t?n&&$t(t,s,3,[a(),u?[]:void 0,d]):a(),r==="sync"){const E=Xv();h=E.__watcherHandles||(E.__watcherHandles=[])}else return Ut;let m=u?new Array(e.length).fill(Fr):Fr;const g=()=>{if(!!T.active)if(t){const E=T.run();(o||c||(u?E.some((x,P)=>lr(x,m[P])):lr(E,m)))&&(f&&f(),$t(t,s,3,[E,m===Fr?void 0:u&&m[0]===Fr?[]:m,d]),m=E)}else T.run()};g.allowRecurse=!!t;let b;r==="sync"?b=g:r==="post"?b=()=>wt(g,s&&s.suspense):(g.pre=!0,s&&(g.id=s.uid),b=()=>Ms(g));const T=new Ts(a,b);t?n?g():m=T.run():r==="post"?wt(T.run.bind(T),s&&s.suspense):T.run();const k=()=>{T.stop(),s&&s.scope&&xs(s.scope.effects,T)};return h&&h.push(k),k}function lv(e,t,n){const o=this.proxy,r=et(e)?e.includes(".")?kf(o,e):()=>o[e]:e.bind(o,o);let i;Ee(t)?i=t:(i=t.handler,n=t);const l=lt;qo(this);const s=Cf(r,i.bind(o),n);return l?qo(l):Jn(),s}function kf(e,t){const n=t.split(".");return()=>{let o=e;for(let r=0;r<n.length&&o;r++)o=o[n[r]];return o}}function jn(e,t){if(!Ue(e)||e.__v_skip||(t=t||new Set,t.has(e)))return e;if(t.add(e),Ve(e))jn(e.value,t);else if(Ce(e))for(let n=0;n<e.length;n++)jn(e[n],t);else if(Qc(e)||_o(e))e.forEach(n=>{jn(n,t)});else if(Yc(e))for(const n in e)jn(e[n],t);return e}function Ef(){const e={isMounted:!1,isLeaving:!1,isUnmounting:!1,leavingVNodes:new Map};return ct(()=>{e.isMounted=!0}),We(()=>{e.isUnmounting=!0}),e}const Pt=[Function,Array],sv={name:"BaseTransition",props:{mode:String,appear:Boolean,persisted:Boolean,onBeforeEnter:Pt,onEnter:Pt,onAfterEnter:Pt,onEnterCancelled:Pt,onBeforeLeave:Pt,onLeave:Pt,onAfterLeave:Pt,onLeaveCancelled:Pt,onBeforeAppear:Pt,onAppear:Pt,onAfterAppear:Pt,onAppearCancelled:Pt},setup(e,{slots:t}){const n=qe(),o=Ef();let r;return()=>{const i=t.default&&Fs(t.default(),!0);if(!i||!i.length)return;let l=i[0];if(i.length>1){for(const g of i)if(g.type!==Kt){l=g;break}}const s=Te(e),{mode:a}=s;if(o.isLeaving)return ul(l);const c=Ma(l);if(!c)return ul(l);const u=cr(c,s,o,n);fr(c,u);const f=n.subTree,d=f&&Ma(f);let h=!1;const{getTransitionKey:m}=c.type;if(m){const g=m();r===void 0?r=g:g!==r&&(r=g,h=!0)}if(d&&d.type!==Kt&&(!Vn(c,d)||h)){const g=cr(d,s,o,n);if(fr(d,g),a==="out-in")return o.isLeaving=!0,g.afterLeave=()=>{o.isLeaving=!1,n.update.active!==!1&&n.update()},ul(l);a==="in-out"&&c.type!==Kt&&(g.delayLeave=(b,T,k)=>{const E=Tf(o,d);E[String(d.key)]=d,b._leaveCb=()=>{T(),b._leaveCb=void 0,delete u.delayedLeave},u.delayedLeave=k})}return l}}},qf=sv;function Tf(e,t){const{leavingVNodes:n}=e;let o=n.get(t.type);return o||(o=Object.create(null),n.set(t.type,o)),o}function cr(e,t,n,o){const{appear:r,mode:i,persisted:l=!1,onBeforeEnter:s,onEnter:a,onAfterEnter:c,onEnterCancelled:u,onBeforeLeave:f,onLeave:d,onAfterLeave:h,onLeaveCancelled:m,onBeforeAppear:g,onAppear:b,onAfterAppear:T,onAppearCancelled:k}=t,E=String(e.key),x=Tf(n,e),P=(p,$)=>{p&&$t(p,o,9,$)},C=(p,$)=>{const R=$[1];P(p,$),Ce(p)?p.every(B=>B.length<=1)&&R():p.length<=1&&R()},S={mode:i,persisted:l,beforeEnter(p){let $=s;if(!n.isMounted)if(r)$=g||s;else return;p._leaveCb&&p._leaveCb(!0);const R=x[E];R&&Vn(e,R)&&R.el._leaveCb&&R.el._leaveCb(),P($,[p])},enter(p){let $=a,R=c,B=u;if(!n.isMounted)if(r)$=b||a,R=T||c,B=k||u;else return;let I=!1;const Q=p._enterCb=H=>{I||(I=!0,H?P(B,[p]):P(R,[p]),S.delayedLeave&&S.delayedLeave(),p._enterCb=void 0)};$?C($,[p,Q]):Q()},leave(p,$){const R=String(e.key);if(p._enterCb&&p._enterCb(!0),n.isUnmounting)return $();P(f,[p]);let B=!1;const I=p._leaveCb=Q=>{B||(B=!0,$(),Q?P(m,[p]):P(h,[p]),p._leaveCb=void 0,x[R]===e&&delete x[R])};x[R]=e,d?C(d,[p,I]):I()},clone(p){return cr(p,t,n,o)}};return S}function ul(e){if(Ai(e))return e=Pn(e),e.children=null,e}function Ma(e){return Ai(e)?e.children?e.children[0]:void 0:e}function fr(e,t){e.shapeFlag&6&&e.component?fr(e.component.subTree,t):e.shapeFlag&128?(e.ssContent.transition=t.clone(e.ssContent),e.ssFallback.transition=t.clone(e.ssFallback)):e.transition=t}function Fs(e,t=!1,n){let o=[],r=0;for(let i=0;i<e.length;i++){let l=e[i];const s=n==null?l.key:String(n)+String(l.key!=null?l.key:i);l.type===kt?(l.patchFlag&128&&r++,o=o.concat(Fs(l.children,t,s))):(t||l.type!==Kt)&&o.push(s!=null?Pn(l,{key:s}):l)}if(r>1)for(let i=0;i<o.length;i++)o[i].patchFlag=-2;return o}function Ri(e){return Ee(e)?{setup:e,name:e.name}:e}const Wr=e=>!!e.type.__asyncLoader,Ai=e=>e.type.__isKeepAlive;function Fo(e,t){Pf(e,"a",t)}function An(e,t){Pf(e,"da",t)}function Pf(e,t,n=lt){const o=e.__wdc||(e.__wdc=()=>{let r=n;for(;r;){if(r.isDeactivated)return;r=r.parent}return e()});if(Oi(t,o,n),n){let r=n.parent;for(;r&&r.parent;)Ai(r.parent.vnode)&&av(o,t,n,r),r=r.parent}}function av(e,t,n,o){const r=Oi(t,e,o,!0);Bo(()=>{xs(o[t],r)},n)}function Oi(e,t,n=lt,o=!1){if(n){const r=n[e]||(n[e]=[]),i=t.__weh||(t.__weh=(...l)=>{if(n.isUnmounted)return;Lo(),qo(n);const s=$t(t,n,e,l);return Jn(),Mo(),s});return o?r.unshift(i):r.push(i),i}}const mn=e=>(t,n=lt)=>(!hr||e==="sp")&&Oi(e,(...o)=>t(...o),n),Cr=mn("bm"),ct=mn("m"),$i=mn("bu"),Bs=mn("u"),We=mn("bum"),Bo=mn("um"),uv=mn("sp"),cv=mn("rtg"),fv=mn("rtc");function dv(e,t=lt){Oi("ec",e,t)}function Dt(e,t){const n=qt;if(n===null)return e;const o=Fi(n)||n.proxy,r=e.dirs||(e.dirs=[]);for(let i=0;i<t.length;i++){let[l,s,a,c=He]=t[i];l&&(Ee(l)&&(l={mounted:l,updated:l}),l.deep&&jn(s),r.push({dir:l,instance:o,value:s,oldValue:void 0,arg:a,modifiers:c}))}return e}function Ln(e,t,n,o){const r=e.dirs,i=t&&t.dirs;for(let l=0;l<r.length;l++){const s=r[l];i&&(s.oldValue=i[l].value);let a=s.dir[o];a&&(Lo(),$t(a,n,8,[e.el,s,e,t]),Mo())}}const Rf="components";function Wn(e,t){return mv(Rf,e,!0,t)||e}const hv=Symbol();function mv(e,t,n=!0,o=!1){const r=qt||lt;if(r){const i=r.type;if(e===Rf){const s=Wv(i,!1);if(s&&(s===t||s===Zt(t)||s===ki(Zt(t))))return i}const l=Fa(r[e]||i[e],t)||Fa(r.appContext[e],t);return!l&&o?i:l}}function Fa(e,t){return e&&(e[t]||e[Zt(t)]||e[ki(Zt(t))])}function vv(e,t,n,o){let r;const i=n&&n[o];if(Ce(e)||et(e)){r=new Array(e.length);for(let l=0,s=e.length;l<s;l++)r[l]=t(e[l],l,void 0,i&&i[l])}else if(typeof e=="number"){r=new Array(e);for(let l=0;l<e;l++)r[l]=t(l+1,l,void 0,i&&i[l])}else if(Ue(e))if(e[Symbol.iterator])r=Array.from(e,(l,s)=>t(l,s,void 0,i&&i[s]));else{const l=Object.keys(e);r=new Array(l.length);for(let s=0,a=l.length;s<a;s++){const c=l[s];r[s]=t(e[c],c,s,i&&i[s])}}else r=[];return n&&(n[o]=r),r}const jl=e=>e?Nf(e)?Fi(e)||e.proxy:jl(e.parent):null,Yo=st(Object.create(null),{$:e=>e,$el:e=>e.vnode.el,$data:e=>e.data,$props:e=>e.props,$attrs:e=>e.attrs,$slots:e=>e.slots,$refs:e=>e.refs,$parent:e=>jl(e.parent),$root:e=>jl(e.root),$emit:e=>e.emit,$options:e=>Is(e),$forceUpdate:e=>e.f||(e.f=()=>Ms(e.update)),$nextTick:e=>e.n||(e.n=ze.bind(e.proxy)),$watch:e=>lv.bind(e)}),cl=(e,t)=>e!==He&&!e.__isScriptSetup&&Oe(e,t),gv={get({_:e},t){const{ctx:n,setupState:o,data:r,props:i,accessCache:l,type:s,appContext:a}=e;let c;if(t[0]!=="$"){const h=l[t];if(h!==void 0)switch(h){case 1:return o[t];case 2:return r[t];case 4:return n[t];case 3:return i[t]}else{if(cl(o,t))return l[t]=1,o[t];if(r!==He&&Oe(r,t))return l[t]=2,r[t];if((c=e.propsOptions[0])&&Oe(c,t))return l[t]=3,i[t];if(n!==He&&Oe(n,t))return l[t]=4,n[t];Dl&&(l[t]=0)}}const u=Yo[t];let f,d;if(u)return t==="$attrs"&&Tt(e,"get",t),u(e);if((f=s.__cssModules)&&(f=f[t]))return f;if(n!==He&&Oe(n,t))return l[t]=4,n[t];if(d=a.config.globalProperties,Oe(d,t))return d[t]},set({_:e},t,n){const{data:o,setupState:r,ctx:i}=e;return cl(r,t)?(r[t]=n,!0):o!==He&&Oe(o,t)?(o[t]=n,!0):Oe(e.props,t)||t[0]==="$"&&t.slice(1)in e?!1:(i[t]=n,!0)},has({_:{data:e,setupState:t,accessCache:n,ctx:o,appContext:r,propsOptions:i}},l){let s;return!!n[l]||e!==He&&Oe(e,l)||cl(t,l)||(s=i[0])&&Oe(s,l)||Oe(o,l)||Oe(Yo,l)||Oe(r.config.globalProperties,l)},defineProperty(e,t,n){return n.get!=null?e._.accessCache[t]=0:Oe(n,"value")&&this.set(e,t,n.value,null),Reflect.defineProperty(e,t,n)}};let Dl=!0;function pv(e){const t=Is(e),n=e.proxy,o=e.ctx;Dl=!1,t.beforeCreate&&Ba(t.beforeCreate,e,"bc");const{data:r,computed:i,methods:l,watch:s,provide:a,inject:c,created:u,beforeMount:f,mounted:d,beforeUpdate:h,updated:m,activated:g,deactivated:b,beforeDestroy:T,beforeUnmount:k,destroyed:E,unmounted:x,render:P,renderTracked:C,renderTriggered:S,errorCaptured:p,serverPrefetch:$,expose:R,inheritAttrs:B,components:I,directives:Q,filters:H}=t;if(c&&bv(c,o,null,e.appContext.config.unwrapInjectedRef),l)for(const L in l){const U=l[L];Ee(U)&&(o[L]=U.bind(n))}if(r){const L=r.call(n,n);Ue(L)&&(e.data=jt(L))}if(Dl=!0,i)for(const L in i){const U=i[L],pe=Ee(U)?U.bind(n,n):Ee(U.get)?U.get.bind(n,n):Ut,G=!Ee(U)&&Ee(U.set)?U.set.bind(n):Ut,M=v({get:pe,set:G});Object.defineProperty(o,L,{enumerable:!0,configurable:!0,get:()=>M.value,set:te=>M.value=te})}if(s)for(const L in s)Af(s[L],o,n,L);if(a){const L=Ee(a)?a.call(n):a;Reflect.ownKeys(L).forEach(U=>{xo(U,L[U])})}u&&Ba(u,e,"c");function N(L,U){Ce(U)?U.forEach(pe=>L(pe.bind(n))):U&&L(U.bind(n))}if(N(Cr,f),N(ct,d),N($i,h),N(Bs,m),N(Fo,g),N(An,b),N(dv,p),N(fv,C),N(cv,S),N(We,k),N(Bo,x),N(uv,$),Ce(R))if(R.length){const L=e.exposed||(e.exposed={});R.forEach(U=>{Object.defineProperty(L,U,{get:()=>n[U],set:pe=>n[U]=pe})})}else e.exposed||(e.exposed={});P&&e.render===Ut&&(e.render=P),B!=null&&(e.inheritAttrs=B),I&&(e.components=I),Q&&(e.directives=Q)}function bv(e,t,n=Ut,o=!1){Ce(e)&&(e=Hl(e));for(const r in e){const i=e[r];let l;Ue(i)?"default"in i?l=ut(i.from||r,i.default,!0):l=ut(i.from||r):l=ut(i),Ve(l)&&o?Object.defineProperty(t,r,{enumerable:!0,configurable:!0,get:()=>l.value,set:s=>l.value=s}):t[r]=l}}function Ba(e,t,n){$t(Ce(e)?e.map(o=>o.bind(t.proxy)):e.bind(t.proxy),t,n)}function Af(e,t,n,o){const r=o.includes(".")?kf(n,o):()=>n[o];if(et(e)){const i=t[e];Ee(i)&&fe(r,i)}else if(Ee(e))fe(r,e.bind(n));else if(Ue(e))if(Ce(e))e.forEach(i=>Af(i,t,n,o));else{const i=Ee(e.handler)?e.handler.bind(n):t[e.handler];Ee(i)&&fe(r,i,e)}}function Is(e){const t=e.type,{mixins:n,extends:o}=t,{mixins:r,optionsCache:i,config:{optionMergeStrategies:l}}=e.appContext,s=i.get(t);let a;return s?a=s:!r.length&&!n&&!o?a=t:(a={},r.length&&r.forEach(c=>ui(a,c,l,!0)),ui(a,t,l)),Ue(t)&&i.set(t,a),a}function ui(e,t,n,o=!1){const{mixins:r,extends:i}=t;i&&ui(e,i,n,!0),r&&r.forEach(l=>ui(e,l,n,!0));for(const l in t)if(!(o&&l==="expose")){const s=yv[l]||n&&n[l];e[l]=s?s(e[l],t[l]):t[l]}return e}const yv={data:Ia,props:In,emits:In,methods:In,computed:In,beforeCreate:pt,created:pt,beforeMount:pt,mounted:pt,beforeUpdate:pt,updated:pt,beforeDestroy:pt,beforeUnmount:pt,destroyed:pt,unmounted:pt,activated:pt,deactivated:pt,errorCaptured:pt,serverPrefetch:pt,components:In,directives:In,watch:_v,provide:Ia,inject:wv};function Ia(e,t){return t?e?function(){return st(Ee(e)?e.call(this,this):e,Ee(t)?t.call(this,this):t)}:t:e}function wv(e,t){return In(Hl(e),Hl(t))}function Hl(e){if(Ce(e)){const t={};for(let n=0;n<e.length;n++)t[e[n]]=e[n];return t}return e}function pt(e,t){return e?[...new Set([].concat(e,t))]:t}function In(e,t){return e?st(st(Object.create(null),e),t):t}function _v(e,t){if(!e)return t;if(!t)return e;const n=st(Object.create(null),e);for(const o in t)n[o]=pt(e[o],t[o]);return n}function Sv(e,t,n,o=!1){const r={},i={};li(i,Mi,1),e.propsDefaults=Object.create(null),Of(e,t,r,i);for(const l in e.propsOptions[0])l in r||(r[l]=void 0);n?e.props=o?r:ff(r):e.type.props?e.props=r:e.props=i,e.attrs=i}function xv(e,t,n,o){const{props:r,attrs:i,vnode:{patchFlag:l}}=e,s=Te(r),[a]=e.propsOptions;let c=!1;if((o||l>0)&&!(l&16)){if(l&8){const u=e.vnode.dynamicProps;for(let f=0;f<u.length;f++){let d=u[f];if(Ti(e.emitsOptions,d))continue;const h=t[d];if(a)if(Oe(i,d))h!==i[d]&&(i[d]=h,c=!0);else{const m=Zt(d);r[m]=Ul(a,s,m,h,e,!1)}else h!==i[d]&&(i[d]=h,c=!0)}}}else{Of(e,t,r,i)&&(c=!0);let u;for(const f in s)(!t||!Oe(t,f)&&((u=$o(f))===f||!Oe(t,u)))&&(a?n&&(n[f]!==void 0||n[u]!==void 0)&&(r[f]=Ul(a,s,f,void 0,e,!0)):delete r[f]);if(i!==s)for(const f in i)(!t||!Oe(t,f)&&!0)&&(delete i[f],c=!0)}c&&fn(e,"set","$attrs")}function Of(e,t,n,o){const[r,i]=e.propsOptions;let l=!1,s;if(t)for(let a in t){if(Kr(a))continue;const c=t[a];let u;r&&Oe(r,u=Zt(a))?!i||!i.includes(u)?n[u]=c:(s||(s={}))[u]=c:Ti(e.emitsOptions,a)||(!(a in o)||c!==o[a])&&(o[a]=c,l=!0)}if(i){const a=Te(n),c=s||He;for(let u=0;u<i.length;u++){const f=i[u];n[f]=Ul(r,a,f,c[f],e,!Oe(c,f))}}return l}function Ul(e,t,n,o,r,i){const l=e[n];if(l!=null){const s=Oe(l,"default");if(s&&o===void 0){const a=l.default;if(l.type!==Function&&Ee(a)){const{propsDefaults:c}=r;n in c?o=c[n]:(qo(r),o=c[n]=a.call(null,t),Jn())}else o=a}l[0]&&(i&&!s?o=!1:l[1]&&(o===""||o===$o(n))&&(o=!0))}return o}function $f(e,t,n=!1){const o=t.propsCache,r=o.get(e);if(r)return r;const i=e.props,l={},s=[];let a=!1;if(!Ee(e)){const u=f=>{a=!0;const[d,h]=$f(f,t,!0);st(l,d),h&&s.push(...h)};!n&&t.mixins.length&&t.mixins.forEach(u),e.extends&&u(e.extends),e.mixins&&e.mixins.forEach(u)}if(!i&&!a)return Ue(e)&&o.set(e,wo),wo;if(Ce(i))for(let u=0;u<i.length;u++){const f=Zt(i[u]);za(f)&&(l[f]=He)}else if(i)for(const u in i){const f=Zt(u);if(za(f)){const d=i[u],h=l[f]=Ce(d)||Ee(d)?{type:d}:Object.assign({},d);if(h){const m=ja(Boolean,h.type),g=ja(String,h.type);h[0]=m>-1,h[1]=g<0||m<g,(m>-1||Oe(h,"default"))&&s.push(f)}}}const c=[l,s];return Ue(e)&&o.set(e,c),c}function za(e){return e[0]!=="$"}function Va(e){const t=e&&e.toString().match(/^\s*function (\w+)/);return t?t[1]:e===null?"null":""}function Na(e,t){return Va(e)===Va(t)}function ja(e,t){return Ce(t)?t.findIndex(n=>Na(n,e)):Ee(t)&&Na(t,e)?0:-1}const Lf=e=>e[0]==="_"||e==="$stable",zs=e=>Ce(e)?e.map(Jt):[Jt(e)],Cv=(e,t,n)=>{if(t._n)return t;const o=ge((...r)=>zs(t(...r)),n);return o._c=!1,o},Mf=(e,t,n)=>{const o=e._ctx;for(const r in e){if(Lf(r))continue;const i=e[r];if(Ee(i))t[r]=Cv(r,i,o);else if(i!=null){const l=zs(i);t[r]=()=>l}}},Ff=(e,t)=>{const n=zs(t);e.slots.default=()=>n},kv=(e,t)=>{if(e.vnode.shapeFlag&32){const n=t._;n?(e.slots=Te(t),li(t,"_",n)):Mf(t,e.slots={})}else e.slots={},t&&Ff(e,t);li(e.slots,Mi,1)},Ev=(e,t,n)=>{const{vnode:o,slots:r}=e;let i=!0,l=He;if(o.shapeFlag&32){const s=t._;s?n&&s===1?i=!1:(st(r,t),!n&&s===1&&delete r._):(i=!t.$stable,Mf(t,r)),l=t}else t&&(Ff(e,t),l={default:1});if(i)for(const s in r)!Lf(s)&&!(s in l)&&delete r[s]};function Bf(){return{app:null,config:{isNativeTag:om,performance:!1,globalProperties:{},optionMergeStrategies:{},errorHandler:void 0,warnHandler:void 0,compilerOptions:{}},mixins:[],components:{},directives:{},provides:Object.create(null),optionsCache:new WeakMap,propsCache:new WeakMap,emitsCache:new WeakMap}}let qv=0;function Tv(e,t){return function(o,r=null){Ee(o)||(o=Object.assign({},o)),r!=null&&!Ue(r)&&(r=null);const i=Bf(),l=new Set;let s=!1;const a=i.app={_uid:qv++,_component:o,_props:r,_container:null,_context:i,_instance:null,version:Yv,get config(){return i.config},set config(c){},use(c,...u){return l.has(c)||(c&&Ee(c.install)?(l.add(c),c.install(a,...u)):Ee(c)&&(l.add(c),c(a,...u))),a},mixin(c){return i.mixins.includes(c)||i.mixins.push(c),a},component(c,u){return u?(i.components[c]=u,a):i.components[c]},directive(c,u){return u?(i.directives[c]=u,a):i.directives[c]},mount(c,u,f){if(!s){const d=Z(o,r);return d.appContext=i,u&&t?t(d,c):e(d,c,f),s=!0,a._container=c,c.__vue_app__=a,Fi(d.component)||d.component.proxy}},unmount(){s&&(e(null,a._container),delete a._container.__vue_app__)},provide(c,u){return i.provides[c]=u,a}};return a}}function Kl(e,t,n,o,r=!1){if(Ce(e)){e.forEach((d,h)=>Kl(d,t&&(Ce(t)?t[h]:t),n,o,r));return}if(Wr(o)&&!r)return;const i=o.shapeFlag&4?Fi(o.component)||o.component.proxy:o.el,l=r?null:i,{i:s,r:a}=e,c=t&&t.r,u=s.refs===He?s.refs={}:s.refs,f=s.setupState;if(c!=null&&c!==a&&(et(c)?(u[c]=null,Oe(f,c)&&(f[c]=null)):Ve(c)&&(c.value=null)),Ee(a))qn(a,s,12,[l,u]);else{const d=et(a),h=Ve(a);if(d||h){const m=()=>{if(e.f){const g=d?Oe(f,a)?f[a]:u[a]:a.value;r?Ce(g)&&xs(g,i):Ce(g)?g.includes(i)||g.push(i):d?(u[a]=[i],Oe(f,a)&&(f[a]=u[a])):(a.value=[i],e.k&&(u[e.k]=a.value))}else d?(u[a]=l,Oe(f,a)&&(f[a]=l)):h&&(a.value=l,e.k&&(u[e.k]=l))};l?(m.id=-1,wt(m,n)):m()}}}const wt=iv;function Pv(e){return Rv(e)}function Rv(e,t){const n=um();n.__VUE__=!0;const{insert:o,remove:r,patchProp:i,createElement:l,createText:s,createComment:a,setText:c,setElementText:u,parentNode:f,nextSibling:d,setScopeId:h=Ut,insertStaticContent:m}=e,g=(y,w,O,V=null,D=null,X=null,se=!1,ne=null,Y=!!w.dynamicChildren)=>{if(y===w)return;y&&!Vn(y,w)&&(V=A(y),te(y,D,X,!0),y=null),w.patchFlag===-2&&(Y=!1,w.dynamicChildren=null);const{type:J,ref:me,shapeFlag:z}=w;switch(J){case Li:b(y,w,O,V);break;case Kt:T(y,w,O,V);break;case fl:y==null&&k(w,O,V,se);break;case kt:I(y,w,O,V,D,X,se,ne,Y);break;default:z&1?P(y,w,O,V,D,X,se,ne,Y):z&6?Q(y,w,O,V,D,X,se,ne,Y):(z&64||z&128)&&J.process(y,w,O,V,D,X,se,ne,Y,F)}me!=null&&D&&Kl(me,y&&y.ref,X,w||y,!w)},b=(y,w,O,V)=>{if(y==null)o(w.el=s(w.children),O,V);else{const D=w.el=y.el;w.children!==y.children&&c(D,w.children)}},T=(y,w,O,V)=>{y==null?o(w.el=a(w.children||""),O,V):w.el=y.el},k=(y,w,O,V)=>{[y.el,y.anchor]=m(y.children,w,O,V,y.el,y.anchor)},E=({el:y,anchor:w},O,V)=>{let D;for(;y&&y!==w;)D=d(y),o(y,O,V),y=D;o(w,O,V)},x=({el:y,anchor:w})=>{let O;for(;y&&y!==w;)O=d(y),r(y),y=O;r(w)},P=(y,w,O,V,D,X,se,ne,Y)=>{se=se||w.type==="svg",y==null?C(w,O,V,D,X,se,ne,Y):$(y,w,D,X,se,ne,Y)},C=(y,w,O,V,D,X,se,ne)=>{let Y,J;const{type:me,props:z,shapeFlag:re,transition:ve,dirs:we}=y;if(Y=y.el=l(y.type,X,z&&z.is,z),re&8?u(Y,y.children):re&16&&p(y.children,Y,null,V,D,X&&me!=="foreignObject",se,ne),we&&Ln(y,null,V,"created"),z){for(const Ae in z)Ae!=="value"&&!Kr(Ae)&&i(Y,Ae,null,z[Ae],X,y.children,V,D,oe);"value"in z&&i(Y,"value",null,z.value),(J=z.onVnodeBeforeMount)&&Qt(J,V,y)}S(Y,y,y.scopeId,se,V),we&&Ln(y,null,V,"beforeMount");const Le=(!D||D&&!D.pendingBranch)&&ve&&!ve.persisted;Le&&ve.beforeEnter(Y),o(Y,w,O),((J=z&&z.onVnodeMounted)||Le||we)&&wt(()=>{J&&Qt(J,V,y),Le&&ve.enter(Y),we&&Ln(y,null,V,"mounted")},D)},S=(y,w,O,V,D)=>{if(O&&h(y,O),V)for(let X=0;X<V.length;X++)h(y,V[X]);if(D){let X=D.subTree;if(w===X){const se=D.vnode;S(y,se,se.scopeId,se.slotScopeIds,D.parent)}}},p=(y,w,O,V,D,X,se,ne,Y=0)=>{for(let J=Y;J<y.length;J++){const me=y[J]=ne?_n(y[J]):Jt(y[J]);g(null,me,w,O,V,D,X,se,ne)}},$=(y,w,O,V,D,X,se)=>{const ne=w.el=y.el;let{patchFlag:Y,dynamicChildren:J,dirs:me}=w;Y|=y.patchFlag&16;const z=y.props||He,re=w.props||He;let ve;O&&Mn(O,!1),(ve=re.onVnodeBeforeUpdate)&&Qt(ve,O,w,y),me&&Ln(w,y,O,"beforeUpdate"),O&&Mn(O,!0);const we=D&&w.type!=="foreignObject";if(J?R(y.dynamicChildren,J,ne,O,V,we,X):se||U(y,w,ne,null,O,V,we,X,!1),Y>0){if(Y&16)B(ne,w,z,re,O,V,D);else if(Y&2&&z.class!==re.class&&i(ne,"class",null,re.class,D),Y&4&&i(ne,"style",z.style,re.style,D),Y&8){const Le=w.dynamicProps;for(let Ae=0;Ae<Le.length;Ae++){const Fe=Le[Ae],Xe=z[Fe],it=re[Fe];(it!==Xe||Fe==="value")&&i(ne,Fe,Xe,it,D,y.children,O,V,oe)}}Y&1&&y.children!==w.children&&u(ne,w.children)}else!se&&J==null&&B(ne,w,z,re,O,V,D);((ve=re.onVnodeUpdated)||me)&&wt(()=>{ve&&Qt(ve,O,w,y),me&&Ln(w,y,O,"updated")},V)},R=(y,w,O,V,D,X,se)=>{for(let ne=0;ne<w.length;ne++){const Y=y[ne],J=w[ne],me=Y.el&&(Y.type===kt||!Vn(Y,J)||Y.shapeFlag&70)?f(Y.el):O;g(Y,J,me,null,V,D,X,se,!0)}},B=(y,w,O,V,D,X,se)=>{if(O!==V){if(O!==He)for(const ne in O)!Kr(ne)&&!(ne in V)&&i(y,ne,O[ne],null,se,w.children,D,X,oe);for(const ne in V){if(Kr(ne))continue;const Y=V[ne],J=O[ne];Y!==J&&ne!=="value"&&i(y,ne,J,Y,se,w.children,D,X,oe)}"value"in V&&i(y,"value",O.value,V.value)}},I=(y,w,O,V,D,X,se,ne,Y)=>{const J=w.el=y?y.el:s(""),me=w.anchor=y?y.anchor:s("");let{patchFlag:z,dynamicChildren:re,slotScopeIds:ve}=w;ve&&(ne=ne?ne.concat(ve):ve),y==null?(o(J,O,V),o(me,O,V),p(w.children,O,me,D,X,se,ne,Y)):z>0&&z&64&&re&&y.dynamicChildren?(R(y.dynamicChildren,re,O,D,X,se,ne),(w.key!=null||D&&w===D.subTree)&&Vs(y,w,!0)):U(y,w,O,me,D,X,se,ne,Y)},Q=(y,w,O,V,D,X,se,ne,Y)=>{w.slotScopeIds=ne,y==null?w.shapeFlag&512?D.ctx.activate(w,O,V,se,Y):H(w,O,V,D,X,se,Y):le(y,w,Y)},H=(y,w,O,V,D,X,se)=>{const ne=y.component=jv(y,V,D);if(Ai(y)&&(ne.ctx.renderer=F),Dv(ne),ne.asyncDep){if(D&&D.registerDep(ne,N),!y.el){const Y=ne.subTree=Z(Kt);T(null,Y,w,O)}return}N(ne,y,w,O,D,X,se)},le=(y,w,O)=>{const V=w.component=y.component;if(nv(y,w,O))if(V.asyncDep&&!V.asyncResolved){L(V,w,O);return}else V.next=w,Qm(V.update),V.update();else w.el=y.el,V.vnode=w},N=(y,w,O,V,D,X,se)=>{const ne=()=>{if(y.isMounted){let{next:me,bu:z,u:re,parent:ve,vnode:we}=y,Le=me,Ae;Mn(y,!1),me?(me.el=we.el,L(y,me,se)):me=we,z&&sl(z),(Ae=me.props&&me.props.onVnodeBeforeUpdate)&&Qt(Ae,ve,me,we),Mn(y,!0);const Fe=al(y),Xe=y.subTree;y.subTree=Fe,g(Xe,Fe,f(Xe.el),A(Xe),y,D,X),me.el=Fe.el,Le===null&&ov(y,Fe.el),re&&wt(re,D),(Ae=me.props&&me.props.onVnodeUpdated)&&wt(()=>Qt(Ae,ve,me,we),D)}else{let me;const{el:z,props:re}=w,{bm:ve,m:we,parent:Le}=y,Ae=Wr(w);if(Mn(y,!1),ve&&sl(ve),!Ae&&(me=re&&re.onVnodeBeforeMount)&&Qt(me,Le,w),Mn(y,!0),z&&xe){const Fe=()=>{y.subTree=al(y),xe(z,y.subTree,y,D,null)};Ae?w.type.__asyncLoader().then(()=>!y.isUnmounted&&Fe()):Fe()}else{const Fe=y.subTree=al(y);g(null,Fe,O,V,y,D,X),w.el=Fe.el}if(we&&wt(we,D),!Ae&&(me=re&&re.onVnodeMounted)){const Fe=w;wt(()=>Qt(me,Le,Fe),D)}(w.shapeFlag&256||Le&&Wr(Le.vnode)&&Le.vnode.shapeFlag&256)&&y.a&&wt(y.a,D),y.isMounted=!0,w=O=V=null}},Y=y.effect=new Ts(ne,()=>Ms(J),y.scope),J=y.update=()=>Y.run();J.id=y.uid,Mn(y,!0),J()},L=(y,w,O)=>{w.component=y;const V=y.vnode.props;y.vnode=w,y.next=null,xv(y,w.props,V,O),Ev(y,w.children,O),Lo(),$a(),Mo()},U=(y,w,O,V,D,X,se,ne,Y=!1)=>{const J=y&&y.children,me=y?y.shapeFlag:0,z=w.children,{patchFlag:re,shapeFlag:ve}=w;if(re>0){if(re&128){G(J,z,O,V,D,X,se,ne,Y);return}else if(re&256){pe(J,z,O,V,D,X,se,ne,Y);return}}ve&8?(me&16&&oe(J,D,X),z!==J&&u(O,z)):me&16?ve&16?G(J,z,O,V,D,X,se,ne,Y):oe(J,D,X,!0):(me&8&&u(O,""),ve&16&&p(z,O,V,D,X,se,ne,Y))},pe=(y,w,O,V,D,X,se,ne,Y)=>{y=y||wo,w=w||wo;const J=y.length,me=w.length,z=Math.min(J,me);let re;for(re=0;re<z;re++){const ve=w[re]=Y?_n(w[re]):Jt(w[re]);g(y[re],ve,O,null,D,X,se,ne,Y)}J>me?oe(y,D,X,!0,!1,z):p(w,O,V,D,X,se,ne,Y,z)},G=(y,w,O,V,D,X,se,ne,Y)=>{let J=0;const me=w.length;let z=y.length-1,re=me-1;for(;J<=z&&J<=re;){const ve=y[J],we=w[J]=Y?_n(w[J]):Jt(w[J]);if(Vn(ve,we))g(ve,we,O,null,D,X,se,ne,Y);else break;J++}for(;J<=z&&J<=re;){const ve=y[z],we=w[re]=Y?_n(w[re]):Jt(w[re]);if(Vn(ve,we))g(ve,we,O,null,D,X,se,ne,Y);else break;z--,re--}if(J>z){if(J<=re){const ve=re+1,we=ve<me?w[ve].el:V;for(;J<=re;)g(null,w[J]=Y?_n(w[J]):Jt(w[J]),O,we,D,X,se,ne,Y),J++}}else if(J>re)for(;J<=z;)te(y[J],D,X,!0),J++;else{const ve=J,we=J,Le=new Map;for(J=we;J<=re;J++){const tt=w[J]=Y?_n(w[J]):Jt(w[J]);tt.key!=null&&Le.set(tt.key,J)}let Ae,Fe=0;const Xe=re-we+1;let it=!1,Lt=0;const Mt=new Array(Xe);for(J=0;J<Xe;J++)Mt[J]=0;for(J=ve;J<=z;J++){const tt=y[J];if(Fe>=Xe){te(tt,D,X,!0);continue}let vt;if(tt.key!=null)vt=Le.get(tt.key);else for(Ae=we;Ae<=re;Ae++)if(Mt[Ae-we]===0&&Vn(tt,w[Ae])){vt=Ae;break}vt===void 0?te(tt,D,X,!0):(Mt[vt-we]=J+1,vt>=Lt?Lt=vt:it=!0,g(tt,w[vt],O,null,D,X,se,ne,Y),Fe++)}const tn=it?Av(Mt):wo;for(Ae=tn.length-1,J=Xe-1;J>=0;J--){const tt=we+J,vt=w[tt],nn=tt+1<me?w[tt+1].el:V;Mt[J]===0?g(null,vt,O,nn,D,X,se,ne,Y):it&&(Ae<0||J!==tn[Ae]?M(vt,O,nn,2):Ae--)}}},M=(y,w,O,V,D=null)=>{const{el:X,type:se,transition:ne,children:Y,shapeFlag:J}=y;if(J&6){M(y.component.subTree,w,O,V);return}if(J&128){y.suspense.move(w,O,V);return}if(J&64){se.move(y,w,O,F);return}if(se===kt){o(X,w,O);for(let z=0;z<Y.length;z++)M(Y[z],w,O,V);o(y.anchor,w,O);return}if(se===fl){E(y,w,O);return}if(V!==2&&J&1&&ne)if(V===0)ne.beforeEnter(X),o(X,w,O),wt(()=>ne.enter(X),D);else{const{leave:z,delayLeave:re,afterLeave:ve}=ne,we=()=>o(X,w,O),Le=()=>{z(X,()=>{we(),ve&&ve()})};re?re(X,we,Le):Le()}else o(X,w,O)},te=(y,w,O,V=!1,D=!1)=>{const{type:X,props:se,ref:ne,children:Y,dynamicChildren:J,shapeFlag:me,patchFlag:z,dirs:re}=y;if(ne!=null&&Kl(ne,null,O,y,!0),me&256){w.ctx.deactivate(y);return}const ve=me&1&&re,we=!Wr(y);let Le;if(we&&(Le=se&&se.onVnodeBeforeUnmount)&&Qt(Le,w,y),me&6)Me(y.component,O,V);else{if(me&128){y.suspense.unmount(O,V);return}ve&&Ln(y,null,w,"beforeUnmount"),me&64?y.type.remove(y,w,O,D,F,V):J&&(X!==kt||z>0&&z&64)?oe(J,w,O,!1,!0):(X===kt&&z&384||!D&&me&16)&&oe(Y,w,O),V&&ae(y)}(we&&(Le=se&&se.onVnodeUnmounted)||ve)&&wt(()=>{Le&&Qt(Le,w,y),ve&&Ln(y,null,w,"unmounted")},O)},ae=y=>{const{type:w,el:O,anchor:V,transition:D}=y;if(w===kt){Se(O,V);return}if(w===fl){x(y);return}const X=()=>{r(O),D&&!D.persisted&&D.afterLeave&&D.afterLeave()};if(y.shapeFlag&1&&D&&!D.persisted){const{leave:se,delayLeave:ne}=D,Y=()=>se(O,X);ne?ne(y.el,X,Y):Y()}else X()},Se=(y,w)=>{let O;for(;y!==w;)O=d(y),r(y),y=O;r(w)},Me=(y,w,O)=>{const{bum:V,scope:D,update:X,subTree:se,um:ne}=y;V&&sl(V),D.stop(),X&&(X.active=!1,te(se,y,w,O)),ne&&wt(ne,w),wt(()=>{y.isUnmounted=!0},w),w&&w.pendingBranch&&!w.isUnmounted&&y.asyncDep&&!y.asyncResolved&&y.suspenseId===w.pendingId&&(w.deps--,w.deps===0&&w.resolve())},oe=(y,w,O,V=!1,D=!1,X=0)=>{for(let se=X;se<y.length;se++)te(y[se],w,O,V,D)},A=y=>y.shapeFlag&6?A(y.component.subTree):y.shapeFlag&128?y.suspense.next():d(y.anchor||y.el),ee=(y,w,O)=>{y==null?w._vnode&&te(w._vnode,null,null,!0):g(w._vnode||null,y,w,null,null,null,O),$a(),_f(),w._vnode=y},F={p:g,um:te,m:M,r:ae,mt:H,mc:p,pc:U,pbc:R,n:A,o:e};let ie,xe;return t&&([ie,xe]=t(F)),{render:ee,hydrate:ie,createApp:Tv(ee,ie)}}function Mn({effect:e,update:t},n){e.allowRecurse=t.allowRecurse=n}function Vs(e,t,n=!1){const o=e.children,r=t.children;if(Ce(o)&&Ce(r))for(let i=0;i<o.length;i++){const l=o[i];let s=r[i];s.shapeFlag&1&&!s.dynamicChildren&&((s.patchFlag<=0||s.patchFlag===32)&&(s=r[i]=_n(r[i]),s.el=l.el),n||Vs(l,s)),s.type===Li&&(s.el=l.el)}}function Av(e){const t=e.slice(),n=[0];let o,r,i,l,s;const a=e.length;for(o=0;o<a;o++){const c=e[o];if(c!==0){if(r=n[n.length-1],e[r]<c){t[o]=r,n.push(o);continue}for(i=0,l=n.length-1;i<l;)s=i+l>>1,e[n[s]]<c?i=s+1:l=s;c<e[n[i]]&&(i>0&&(t[o]=n[i-1]),n[i]=o)}}for(i=n.length,l=n[i-1];i-- >0;)n[i]=l,l=t[l];return n}const Ov=e=>e.__isTeleport,Go=e=>e&&(e.disabled||e.disabled===""),Da=e=>typeof SVGElement<"u"&&e instanceof SVGElement,Wl=(e,t)=>{const n=e&&e.to;return et(n)?t?t(n):null:n},$v={__isTeleport:!0,process(e,t,n,o,r,i,l,s,a,c){const{mc:u,pc:f,pbc:d,o:{insert:h,querySelector:m,createText:g,createComment:b}}=c,T=Go(t.props);let{shapeFlag:k,children:E,dynamicChildren:x}=t;if(e==null){const P=t.el=g(""),C=t.anchor=g("");h(P,n,o),h(C,n,o);const S=t.target=Wl(t.props,m),p=t.targetAnchor=g("");S&&(h(p,S),l=l||Da(S));const $=(R,B)=>{k&16&&u(E,R,B,r,i,l,s,a)};T?$(n,C):S&&$(S,p)}else{t.el=e.el;const P=t.anchor=e.anchor,C=t.target=e.target,S=t.targetAnchor=e.targetAnchor,p=Go(e.props),$=p?n:C,R=p?P:S;if(l=l||Da(C),x?(d(e.dynamicChildren,x,$,r,i,l,s),Vs(e,t,!0)):a||f(e,t,$,R,r,i,l,s,!1),T)p||Br(t,n,P,c,1);else if((t.props&&t.props.to)!==(e.props&&e.props.to)){const B=t.target=Wl(t.props,m);B&&Br(t,B,null,c,0)}else p&&Br(t,C,S,c,1)}If(t)},remove(e,t,n,o,{um:r,o:{remove:i}},l){const{shapeFlag:s,children:a,anchor:c,targetAnchor:u,target:f,props:d}=e;if(f&&i(u),(l||!Go(d))&&(i(c),s&16))for(let h=0;h<a.length;h++){const m=a[h];r(m,t,n,!0,!!m.dynamicChildren)}},move:Br,hydrate:Lv};function Br(e,t,n,{o:{insert:o},m:r},i=2){i===0&&o(e.targetAnchor,t,n);const{el:l,anchor:s,shapeFlag:a,children:c,props:u}=e,f=i===2;if(f&&o(l,t,n),(!f||Go(u))&&a&16)for(let d=0;d<c.length;d++)r(c[d],t,n,2);f&&o(s,t,n)}function Lv(e,t,n,o,r,i,{o:{nextSibling:l,parentNode:s,querySelector:a}},c){const u=t.target=Wl(t.props,a);if(u){const f=u._lpa||u.firstChild;if(t.shapeFlag&16)if(Go(t.props))t.anchor=c(l(e),t,s(e),n,o,r,i),t.targetAnchor=f;else{t.anchor=l(e);let d=f;for(;d;)if(d=l(d),d&&d.nodeType===8&&d.data==="teleport anchor"){t.targetAnchor=d,u._lpa=t.targetAnchor&&l(t.targetAnchor);break}c(f,t,u,n,o,r,i)}If(t)}return t.anchor&&l(t.anchor)}const Mv=$v;function If(e){const t=e.ctx;if(t&&t.ut){let n=e.children[0].el;for(;n!==e.targetAnchor;)n.nodeType===1&&n.setAttribute("data-v-owner",t.uid),n=n.nextSibling;t.ut()}}const kt=Symbol(void 0),Li=Symbol(void 0),Kt=Symbol(void 0),fl=Symbol(void 0),Zo=[];let Ht=null;function Ze(e=!1){Zo.push(Ht=e?null:[])}function Fv(){Zo.pop(),Ht=Zo[Zo.length-1]||null}let dr=1;function Ha(e){dr+=e}function zf(e){return e.dynamicChildren=dr>0?Ht||wo:null,Fv(),dr>0&&Ht&&Ht.push(e),e}function _t(e,t,n,o,r,i){return zf(be(e,t,n,o,r,i,!0))}function bo(e,t,n,o,r){return zf(Z(e,t,n,o,r,!0))}function Ql(e){return e?e.__v_isVNode===!0:!1}function Vn(e,t){return e.type===t.type&&e.key===t.key}const Mi="__vInternal",Vf=({key:e})=>e!=null?e:null,Qr=({ref:e,ref_key:t,ref_for:n})=>e!=null?et(e)||Ve(e)||Ee(e)?{i:qt,r:e,k:t,f:!!n}:e:null;function be(e,t=null,n=null,o=0,r=null,i=e===kt?0:1,l=!1,s=!1){const a={__v_isVNode:!0,__v_skip:!0,type:e,props:t,key:t&&Vf(t),ref:t&&Qr(t),scopeId:Pi,slotScopeIds:null,children:n,component:null,suspense:null,ssContent:null,ssFallback:null,dirs:null,transition:null,el:null,anchor:null,target:null,targetAnchor:null,staticCount:0,shapeFlag:i,patchFlag:o,dynamicProps:r,dynamicChildren:null,appContext:null,ctx:qt};return s?(Ns(a,n),i&128&&e.normalize(a)):n&&(a.shapeFlag|=et(n)?8:16),dr>0&&!l&&Ht&&(a.patchFlag>0||i&6)&&a.patchFlag!==32&&Ht.push(a),a}const Z=Bv;function Bv(e,t=null,n=null,o=0,r=null,i=!1){if((!e||e===hv)&&(e=Kt),Ql(e)){const s=Pn(e,t,!0);return n&&Ns(s,n),dr>0&&!i&&Ht&&(s.shapeFlag&6?Ht[Ht.indexOf(e)]=s:Ht.push(s)),s.patchFlag|=-2,s}if(Qv(e)&&(e=e.__vccOpts),t){t=Iv(t);let{class:s,style:a}=t;s&&!et(s)&&(t.class=ht(s)),Ue(a)&&(hf(a)&&!Ce(a)&&(a=st({},a)),t.style=_i(a))}const l=et(e)?1:rv(e)?128:Ov(e)?64:Ue(e)?4:Ee(e)?2:0;return be(e,t,n,o,r,l,i,!0)}function Iv(e){return e?hf(e)||Mi in e?st({},e):e:null}function Pn(e,t,n=!1){const{props:o,ref:r,patchFlag:i,children:l}=e,s=t?zv(o||{},t):o;return{__v_isVNode:!0,__v_skip:!0,type:e.type,props:s,key:s&&Vf(s),ref:t&&t.ref?n&&r?Ce(r)?r.concat(Qr(t)):[r,Qr(t)]:Qr(t):r,scopeId:e.scopeId,slotScopeIds:e.slotScopeIds,children:l,target:e.target,targetAnchor:e.targetAnchor,staticCount:e.staticCount,shapeFlag:e.shapeFlag,patchFlag:t&&e.type!==kt?i===-1?16:i|16:i,dynamicProps:e.dynamicProps,dynamicChildren:e.dynamicChildren,appContext:e.appContext,dirs:e.dirs,transition:e.transition,component:e.component,suspense:e.suspense,ssContent:e.ssContent&&Pn(e.ssContent),ssFallback:e.ssFallback&&Pn(e.ssFallback),el:e.el,anchor:e.anchor,ctx:e.ctx}}function Yt(e=" ",t=0){return Z(Li,null,e,t)}function Qn(e="",t=!1){return t?(Ze(),bo(Kt,null,e)):Z(Kt,null,e)}function Jt(e){return e==null||typeof e=="boolean"?Z(Kt):Ce(e)?Z(kt,null,e.slice()):typeof e=="object"?_n(e):Z(Li,null,String(e))}function _n(e){return e.el===null&&e.patchFlag!==-1||e.memo?e:Pn(e)}function Ns(e,t){let n=0;const{shapeFlag:o}=e;if(t==null)t=null;else if(Ce(t))n=16;else if(typeof t=="object")if(o&65){const r=t.default;r&&(r._c&&(r._d=!1),Ns(e,r()),r._c&&(r._d=!0));return}else{n=32;const r=t._;!r&&!(Mi in t)?t._ctx=qt:r===3&&qt&&(qt.slots._===1?t._=1:(t._=2,e.patchFlag|=1024))}else Ee(t)?(t={default:t,_ctx:qt},n=32):(t=String(t),o&64?(n=16,t=[Yt(t)]):n=8);e.children=t,e.shapeFlag|=n}function zv(...e){const t={};for(let n=0;n<e.length;n++){const o=e[n];for(const r in o)if(r==="class")t.class!==o.class&&(t.class=ht([t.class,o.class]));else if(r==="style")t.style=_i([t.style,o.style]);else if(Si(r)){const i=t[r],l=o[r];l&&i!==l&&!(Ce(i)&&i.includes(l))&&(t[r]=i?[].concat(i,l):l)}else r!==""&&(t[r]=o[r])}return t}function Qt(e,t,n,o=null){$t(e,t,7,[n,o])}const Vv=Bf();let Nv=0;function jv(e,t,n){const o=e.type,r=(t?t.appContext:e.appContext)||Vv,i={uid:Nv++,vnode:e,type:o,parent:t,appContext:r,root:null,next:null,subTree:null,effect:null,update:null,scope:new Gc(!0),render:null,proxy:null,exposed:null,exposeProxy:null,withProxy:null,provides:t?t.provides:Object.create(r.provides),accessCache:null,renderCache:[],components:null,directives:null,propsOptions:$f(o,r),emitsOptions:xf(o,r),emit:null,emitted:null,propsDefaults:He,inheritAttrs:o.inheritAttrs,ctx:He,data:He,props:He,attrs:He,slots:He,refs:He,setupState:He,setupContext:null,suspense:n,suspenseId:n?n.pendingId:0,asyncDep:null,asyncResolved:!1,isMounted:!1,isUnmounted:!1,isDeactivated:!1,bc:null,c:null,bm:null,m:null,bu:null,u:null,um:null,bum:null,da:null,a:null,rtg:null,rtc:null,ec:null,sp:null};return i.ctx={_:i},i.root=t?t.root:i,i.emit=Ym.bind(null,i),e.ce&&e.ce(i),i}let lt=null;const qe=()=>lt||qt,qo=e=>{lt=e,e.scope.on()},Jn=()=>{lt&&lt.scope.off(),lt=null};function Nf(e){return e.vnode.shapeFlag&4}let hr=!1;function Dv(e,t=!1){hr=t;const{props:n,children:o}=e.vnode,r=Nf(e);Sv(e,n,r,t),kv(e,o);const i=r?Hv(e,t):void 0;return hr=!1,i}function Hv(e,t){const n=e.type;e.accessCache=Object.create(null),e.proxy=dn(new Proxy(e.ctx,gv));const{setup:o}=n;if(o){const r=e.setupContext=o.length>1?Kv(e):null;qo(e),Lo();const i=qn(o,e,0,[e.props,r]);if(Mo(),Jn(),Jc(i)){if(i.then(Jn,Jn),t)return i.then(l=>{Ua(e,l,t)}).catch(l=>{qi(l,e,0)});e.asyncDep=i}else Ua(e,i,t)}else jf(e,t)}function Ua(e,t,n){Ee(t)?e.type.__ssrInlineRender?e.ssrRender=t:e.render=t:Ue(t)&&(e.setupState=pf(t)),jf(e,n)}let Ka;function jf(e,t,n){const o=e.type;if(!e.render){if(!t&&Ka&&!o.render){const r=o.template||Is(e).template;if(r){const{isCustomElement:i,compilerOptions:l}=e.appContext.config,{delimiters:s,compilerOptions:a}=o,c=st(st({isCustomElement:i,delimiters:s},l),a);o.render=Ka(r,c)}}e.render=o.render||Ut}qo(e),Lo(),pv(e),Mo(),Jn()}function Uv(e){return new Proxy(e.attrs,{get(t,n){return Tt(e,"get","$attrs"),t[n]}})}function Kv(e){const t=o=>{e.exposed=o||{}};let n;return{get attrs(){return n||(n=Uv(e))},slots:e.slots,emit:e.emit,expose:t}}function Fi(e){if(e.exposed)return e.exposeProxy||(e.exposeProxy=new Proxy(pf(dn(e.exposed)),{get(t,n){if(n in t)return t[n];if(n in Yo)return Yo[n](e)},has(t,n){return n in t||n in Yo}}))}function Wv(e,t=!0){return Ee(e)?e.displayName||e.name:e.name||t&&e.__name}function Qv(e){return Ee(e)&&"__vccOpts"in e}const v=(e,t)=>Um(e,t,hr);function _(e,t,n){const o=arguments.length;return o===2?Ue(t)&&!Ce(t)?Ql(t)?Z(e,null,[t]):Z(e,t):Z(e,null,t):(o>3?n=Array.prototype.slice.call(arguments,2):o===3&&Ql(n)&&(n=[n]),Z(e,t,n))}const Jv=Symbol(""),Xv=()=>ut(Jv),Yv="3.2.45",Gv="http://www.w3.org/2000/svg",Nn=typeof document<"u"?document:null,Wa=Nn&&Nn.createElement("template"),Zv={insert:(e,t,n)=>{t.insertBefore(e,n||null)},remove:e=>{const t=e.parentNode;t&&t.removeChild(e)},createElement:(e,t,n,o)=>{const r=t?Nn.createElementNS(Gv,e):Nn.createElement(e,n?{is:n}:void 0);return e==="select"&&o&&o.multiple!=null&&r.setAttribute("multiple",o.multiple),r},createText:e=>Nn.createTextNode(e),createComment:e=>Nn.createComment(e),setText:(e,t)=>{e.nodeValue=t},setElementText:(e,t)=>{e.textContent=t},parentNode:e=>e.parentNode,nextSibling:e=>e.nextSibling,querySelector:e=>Nn.querySelector(e),setScopeId(e,t){e.setAttribute(t,"")},insertStaticContent(e,t,n,o,r,i){const l=n?n.previousSibling:t.lastChild;if(r&&(r===i||r.nextSibling))for(;t.insertBefore(r.cloneNode(!0),n),!(r===i||!(r=r.nextSibling)););else{Wa.innerHTML=o?`<svg>${e}</svg>`:e;const s=Wa.content;if(o){const a=s.firstChild;for(;a.firstChild;)s.appendChild(a.firstChild);s.removeChild(a)}t.insertBefore(s,n)}return[l?l.nextSibling:t.firstChild,n?n.previousSibling:t.lastChild]}};function eg(e,t,n){const o=e._vtc;o&&(t=(t?[t,...o]:[...o]).join(" ")),t==null?e.removeAttribute("class"):n?e.setAttribute("class",t):e.className=t}function tg(e,t,n){const o=e.style,r=et(n);if(n&&!r){for(const i in n)Jl(o,i,n[i]);if(t&&!et(t))for(const i in t)n[i]==null&&Jl(o,i,"")}else{const i=o.display;r?t!==n&&(o.cssText=n):t&&e.removeAttribute("style"),"_vod"in e&&(o.display=i)}}const Qa=/\s*!important$/;function Jl(e,t,n){if(Ce(n))n.forEach(o=>Jl(e,t,o));else if(n==null&&(n=""),t.startsWith("--"))e.setProperty(t,n);else{const o=ng(e,t);Qa.test(n)?e.setProperty($o(o),n.replace(Qa,""),"important"):e[o]=n}}const Ja=["Webkit","Moz","ms"],dl={};function ng(e,t){const n=dl[t];if(n)return n;let o=Zt(t);if(o!=="filter"&&o in e)return dl[t]=o;o=ki(o);for(let r=0;r<Ja.length;r++){const i=Ja[r]+o;if(i in e)return dl[t]=i}return t}const Xa="http://www.w3.org/1999/xlink";function og(e,t,n,o,r){if(o&&t.startsWith("xlink:"))n==null?e.removeAttributeNS(Xa,t.slice(6,t.length)):e.setAttributeNS(Xa,t,n);else{const i=nm(t);n==null||i&&!Kc(n)?e.removeAttribute(t):e.setAttribute(t,i?"":n)}}function rg(e,t,n,o,r,i,l){if(t==="innerHTML"||t==="textContent"){o&&l(o,r,i),e[t]=n==null?"":n;return}if(t==="value"&&e.tagName!=="PROGRESS"&&!e.tagName.includes("-")){e._value=n;const a=n==null?"":n;(e.value!==a||e.tagName==="OPTION")&&(e.value=a),n==null&&e.removeAttribute(t);return}let s=!1;if(n===""||n==null){const a=typeof e[t];a==="boolean"?n=Kc(n):n==null&&a==="string"?(n="",s=!0):a==="number"&&(n=0,s=!0)}try{e[t]=n}catch{}s&&e.removeAttribute(t)}function ig(e,t,n,o){e.addEventListener(t,n,o)}function lg(e,t,n,o){e.removeEventListener(t,n,o)}function sg(e,t,n,o,r=null){const i=e._vei||(e._vei={}),l=i[t];if(o&&l)l.value=o;else{const[s,a]=ag(t);if(o){const c=i[t]=fg(o,r);ig(e,s,c,a)}else l&&(lg(e,s,l,a),i[t]=void 0)}}const Ya=/(?:Once|Passive|Capture)$/;function ag(e){let t;if(Ya.test(e)){t={};let o;for(;o=e.match(Ya);)e=e.slice(0,e.length-o[0].length),t[o[0].toLowerCase()]=!0}return[e[2]===":"?e.slice(3):$o(e.slice(2)),t]}let hl=0;const ug=Promise.resolve(),cg=()=>hl||(ug.then(()=>hl=0),hl=Date.now());function fg(e,t){const n=o=>{if(!o._vts)o._vts=Date.now();else if(o._vts<=n.attached)return;$t(dg(o,n.value),t,5,[o])};return n.value=e,n.attached=cg(),n}function dg(e,t){if(Ce(t)){const n=e.stopImmediatePropagation;return e.stopImmediatePropagation=()=>{n.call(e),e._stopped=!0},t.map(o=>r=>!r._stopped&&o&&o(r))}else return t}const Ga=/^on[a-z]/,hg=(e,t,n,o,r=!1,i,l,s,a)=>{t==="class"?eg(e,o,r):t==="style"?tg(e,n,o):Si(t)?Ss(t)||sg(e,t,n,o,l):(t[0]==="."?(t=t.slice(1),!0):t[0]==="^"?(t=t.slice(1),!1):mg(e,t,o,r))?rg(e,t,o,i,l,s,a):(t==="true-value"?e._trueValue=o:t==="false-value"&&(e._falseValue=o),og(e,t,o,r))};function mg(e,t,n,o){return o?!!(t==="innerHTML"||t==="textContent"||t in e&&Ga.test(t)&&Ee(n)):t==="spellcheck"||t==="draggable"||t==="translate"||t==="form"||t==="list"&&e.tagName==="INPUT"||t==="type"&&e.tagName==="TEXTAREA"||Ga.test(t)&&et(n)?!1:t in e}const pn="transition",Vo="animation",Zn=(e,{slots:t})=>_(qf,Hf(e),t);Zn.displayName="Transition";const Df={name:String,type:String,css:{type:Boolean,default:!0},duration:[String,Number,Object],enterFromClass:String,enterActiveClass:String,enterToClass:String,appearFromClass:String,appearActiveClass:String,appearToClass:String,leaveFromClass:String,leaveActiveClass:String,leaveToClass:String},vg=Zn.props=st({},qf.props,Df),Fn=(e,t=[])=>{Ce(e)?e.forEach(n=>n(...t)):e&&e(...t)},Za=e=>e?Ce(e)?e.some(t=>t.length>1):e.length>1:!1;function Hf(e){const t={};for(const I in e)I in Df||(t[I]=e[I]);if(e.css===!1)return t;const{name:n="v",type:o,duration:r,enterFromClass:i=`${n}-enter-from`,enterActiveClass:l=`${n}-enter-active`,enterToClass:s=`${n}-enter-to`,appearFromClass:a=i,appearActiveClass:c=l,appearToClass:u=s,leaveFromClass:f=`${n}-leave-from`,leaveActiveClass:d=`${n}-leave-active`,leaveToClass:h=`${n}-leave-to`}=e,m=gg(r),g=m&&m[0],b=m&&m[1],{onBeforeEnter:T,onEnter:k,onEnterCancelled:E,onLeave:x,onLeaveCancelled:P,onBeforeAppear:C=T,onAppear:S=k,onAppearCancelled:p=E}=t,$=(I,Q,H)=>{wn(I,Q?u:s),wn(I,Q?c:l),H&&H()},R=(I,Q)=>{I._isLeaving=!1,wn(I,f),wn(I,h),wn(I,d),Q&&Q()},B=I=>(Q,H)=>{const le=I?S:k,N=()=>$(Q,I,H);Fn(le,[Q,N]),eu(()=>{wn(Q,I?a:i),rn(Q,I?u:s),Za(le)||tu(Q,o,g,N)})};return st(t,{onBeforeEnter(I){Fn(T,[I]),rn(I,i),rn(I,l)},onBeforeAppear(I){Fn(C,[I]),rn(I,a),rn(I,c)},onEnter:B(!1),onAppear:B(!0),onLeave(I,Q){I._isLeaving=!0;const H=()=>R(I,Q);rn(I,f),Kf(),rn(I,d),eu(()=>{!I._isLeaving||(wn(I,f),rn(I,h),Za(x)||tu(I,o,b,H))}),Fn(x,[I,H])},onEnterCancelled(I){$(I,!1),Fn(E,[I])},onAppearCancelled(I){$(I,!0),Fn(p,[I])},onLeaveCancelled(I){R(I),Fn(P,[I])}})}function gg(e){if(e==null)return null;if(Ue(e))return[ml(e.enter),ml(e.leave)];{const t=ml(e);return[t,t]}}function ml(e){return Es(e)}function rn(e,t){t.split(/\s+/).forEach(n=>n&&e.classList.add(n)),(e._vtc||(e._vtc=new Set)).add(t)}function wn(e,t){t.split(/\s+/).forEach(o=>o&&e.classList.remove(o));const{_vtc:n}=e;n&&(n.delete(t),n.size||(e._vtc=void 0))}function eu(e){requestAnimationFrame(()=>{requestAnimationFrame(e)})}let pg=0;function tu(e,t,n,o){const r=e._endId=++pg,i=()=>{r===e._endId&&o()};if(n)return setTimeout(i,n);const{type:l,timeout:s,propCount:a}=Uf(e,t);if(!l)return o();const c=l+"end";let u=0;const f=()=>{e.removeEventListener(c,d),i()},d=h=>{h.target===e&&++u>=a&&f()};setTimeout(()=>{u<a&&f()},s+1),e.addEventListener(c,d)}function Uf(e,t){const n=window.getComputedStyle(e),o=m=>(n[m]||"").split(", "),r=o(`${pn}Delay`),i=o(`${pn}Duration`),l=nu(r,i),s=o(`${Vo}Delay`),a=o(`${Vo}Duration`),c=nu(s,a);let u=null,f=0,d=0;t===pn?l>0&&(u=pn,f=l,d=i.length):t===Vo?c>0&&(u=Vo,f=c,d=a.length):(f=Math.max(l,c),u=f>0?l>c?pn:Vo:null,d=u?u===pn?i.length:a.length:0);const h=u===pn&&/\b(transform|all)(,|$)/.test(o(`${pn}Property`).toString());return{type:u,timeout:f,propCount:d,hasTransform:h}}function nu(e,t){for(;e.length<t.length;)e=e.concat(e);return Math.max(...t.map((n,o)=>ou(n)+ou(e[o])))}function ou(e){return Number(e.slice(0,-1).replace(",","."))*1e3}function Kf(){return document.body.offsetHeight}const Wf=new WeakMap,Qf=new WeakMap,bg={name:"TransitionGroup",props:st({},vg,{tag:String,moveClass:String}),setup(e,{slots:t}){const n=qe(),o=Ef();let r,i;return Bs(()=>{if(!r.length)return;const l=e.moveClass||`${e.name||"v"}-move`;if(!xg(r[0].el,n.vnode.el,l))return;r.forEach(wg),r.forEach(_g);const s=r.filter(Sg);Kf(),s.forEach(a=>{const c=a.el,u=c.style;rn(c,l),u.transform=u.webkitTransform=u.transitionDuration="";const f=c._moveCb=d=>{d&&d.target!==c||(!d||/transform$/.test(d.propertyName))&&(c.removeEventListener("transitionend",f),c._moveCb=null,wn(c,l))};c.addEventListener("transitionend",f)})}),()=>{const l=Te(e),s=Hf(l);let a=l.tag||kt;r=i,i=t.default?Fs(t.default()):[];for(let c=0;c<i.length;c++){const u=i[c];u.key!=null&&fr(u,cr(u,s,o,n))}if(r)for(let c=0;c<r.length;c++){const u=r[c];fr(u,cr(u,s,o,n)),Wf.set(u,u.el.getBoundingClientRect())}return Z(a,null,i)}}},yg=bg;function wg(e){const t=e.el;t._moveCb&&t._moveCb(),t._enterCb&&t._enterCb()}function _g(e){Qf.set(e,e.el.getBoundingClientRect())}function Sg(e){const t=Wf.get(e),n=Qf.get(e),o=t.left-n.left,r=t.top-n.top;if(o||r){const i=e.el.style;return i.transform=i.webkitTransform=`translate(${o}px,${r}px)`,i.transitionDuration="0s",e}}function xg(e,t,n){const o=e.cloneNode();e._vtc&&e._vtc.forEach(l=>{l.split(/\s+/).forEach(s=>s&&o.classList.remove(s))}),n.split(/\s+/).forEach(l=>l&&o.classList.add(l)),o.style.display="none";const r=t.nodeType===1?t:t.parentNode;r.appendChild(o);const{hasTransform:i}=Uf(o);return r.removeChild(o),i}const Cg=st({patchProp:hg},Zv);let ru;function kg(){return ru||(ru=Pv(Cg))}const Jf=(...e)=>{const t=kg().createApp(...e),{mount:n}=t;return t.mount=o=>{const r=Eg(o);if(!r)return;const i=t._component;!Ee(i)&&!i.render&&!i.template&&(i.template=r.innerHTML),r.innerHTML="";const l=n(r,!1,r instanceof SVGElement);return r instanceof Element&&(r.removeAttribute("v-cloak"),r.setAttribute("data-v-app","")),l},t};function Eg(e){return et(e)?document.querySelector(e):e}function At(e,t,n,o){return Object.defineProperty(e,t,{get:n,set:o,enumerable:!0}),e}function qg(e,t){for(const n in t)At(e,n,t[n]);return e}const en=W(!1);let Bi;function Tg(e,t){const n=/(edg|edge|edga|edgios)\/([\w.]+)/.exec(e)||/(opr)[\/]([\w.]+)/.exec(e)||/(vivaldi)[\/]([\w.]+)/.exec(e)||/(chrome|crios)[\/]([\w.]+)/.exec(e)||/(version)(applewebkit)[\/]([\w.]+).*(safari)[\/]([\w.]+)/.exec(e)||/(webkit)[\/]([\w.]+).*(version)[\/]([\w.]+).*(safari)[\/]([\w.]+)/.exec(e)||/(firefox|fxios)[\/]([\w.]+)/.exec(e)||/(webkit)[\/]([\w.]+)/.exec(e)||/(opera)(?:.*version|)[\/]([\w.]+)/.exec(e)||[];return{browser:n[5]||n[3]||n[1]||"",version:n[2]||n[4]||"0",versionNumber:n[4]||n[2]||"0",platform:t[0]||""}}function Pg(e){return/(ipad)/.exec(e)||/(ipod)/.exec(e)||/(windows phone)/.exec(e)||/(iphone)/.exec(e)||/(kindle)/.exec(e)||/(silk)/.exec(e)||/(android)/.exec(e)||/(win)/.exec(e)||/(mac)/.exec(e)||/(linux)/.exec(e)||/(cros)/.exec(e)||/(playbook)/.exec(e)||/(bb)/.exec(e)||/(blackberry)/.exec(e)||[]}const Xf="ontouchstart"in window||window.navigator.maxTouchPoints>0;function Rg(e){Bi={is:{...e}},delete e.mac,delete e.desktop;const t=Math.min(window.innerHeight,window.innerWidth)>414?"ipad":"iphone";Object.assign(e,{mobile:!0,ios:!0,platform:t,[t]:!0})}function Ag(e){const t=e.toLowerCase(),n=Pg(t),o=Tg(t,n),r={};o.browser&&(r[o.browser]=!0,r.version=o.version,r.versionNumber=parseInt(o.versionNumber,10)),o.platform&&(r[o.platform]=!0);const i=r.android||r.ios||r.bb||r.blackberry||r.ipad||r.iphone||r.ipod||r.kindle||r.playbook||r.silk||r["windows phone"];return i===!0||t.indexOf("mobile")>-1?(r.mobile=!0,r.edga||r.edgios?(r.edge=!0,o.browser="edge"):r.crios?(r.chrome=!0,o.browser="chrome"):r.fxios&&(r.firefox=!0,o.browser="firefox")):r.desktop=!0,(r.ipod||r.ipad||r.iphone)&&(r.ios=!0),r["windows phone"]&&(r.winphone=!0,delete r["windows phone"]),(r.chrome||r.opr||r.safari||r.vivaldi||r.mobile===!0&&r.ios!==!0&&i!==!0)&&(r.webkit=!0),r.edg&&(o.browser="edgechromium",r.edgeChromium=!0),(r.safari&&r.blackberry||r.bb)&&(o.browser="blackberry",r.blackberry=!0),r.safari&&r.playbook&&(o.browser="playbook",r.playbook=!0),r.opr&&(o.browser="opera",r.opera=!0),r.safari&&r.android&&(o.browser="android",r.android=!0),r.safari&&r.kindle&&(o.browser="kindle",r.kindle=!0),r.safari&&r.silk&&(o.browser="silk",r.silk=!0),r.vivaldi&&(o.browser="vivaldi",r.vivaldi=!0),r.name=o.browser,r.platform=o.platform,t.indexOf("electron")>-1?r.electron=!0:document.location.href.indexOf("-extension://")>-1?r.bex=!0:(window.Capacitor!==void 0?(r.capacitor=!0,r.nativeMobile=!0,r.nativeMobileWrapper="capacitor"):(window._cordovaNative!==void 0||window.cordova!==void 0)&&(r.cordova=!0,r.nativeMobile=!0,r.nativeMobileWrapper="cordova"),Xf===!0&&r.mac===!0&&(r.desktop===!0&&r.safari===!0||r.nativeMobile===!0&&r.android!==!0&&r.ios!==!0&&r.ipad!==!0)&&Rg(r)),r}const iu=navigator.userAgent||navigator.vendor||window.opera,Og={has:{touch:!1,webStorage:!1},within:{iframe:!1}},Ne={userAgent:iu,is:Ag(iu),has:{touch:Xf},within:{iframe:window.self!==window.top}},ci={install(e){const{$q:t}=e;en.value===!0?(e.onSSRHydrated.push(()=>{Object.assign(t.platform,Ne),en.value=!1,Bi=void 0}),t.platform=jt(this)):t.platform=this}};{let e;At(Ne.has,"webStorage",()=>{if(e!==void 0)return e;try{if(window.localStorage)return e=!0,!0}catch{}return e=!1,!1}),Ne.is.ios===!0&&window.navigator.vendor.toLowerCase().indexOf("apple"),en.value===!0?Object.assign(ci,Ne,Bi,Og):Object.assign(ci,Ne)}const Ii=(e,t)=>{const n=jt(e);for(const o in e)At(t,o,()=>n[o],r=>{n[o]=r});return t},Ye={hasPassive:!1,passiveCapture:!0,notPassiveCapture:!0};try{const e=Object.defineProperty({},"passive",{get(){Object.assign(Ye,{hasPassive:!0,passive:{passive:!0},notPassive:{passive:!1},passiveCapture:{passive:!0,capture:!0},notPassiveCapture:{passive:!1,capture:!0}})}});window.addEventListener("qtest",null,e),window.removeEventListener("qtest",null,e)}catch{}function hn(){}function $g(e){return e.button===0}function mr(e){return e.touches&&e.touches[0]?e=e.touches[0]:e.changedTouches&&e.changedTouches[0]?e=e.changedTouches[0]:e.targetTouches&&e.targetTouches[0]&&(e=e.targetTouches[0]),{top:e.clientY,left:e.clientX}}function Lg(e){if(e.path)return e.path;if(e.composedPath)return e.composedPath();const t=[];let n=e.target;for(;n;){if(t.push(n),n.tagName==="HTML")return t.push(document),t.push(window),t;n=n.parentElement}}function Et(e){e.stopPropagation()}function bt(e){e.cancelable!==!1&&e.preventDefault()}function Je(e){e.cancelable!==!1&&e.preventDefault(),e.stopPropagation()}function vl(e,t){if(e===void 0||t===!0&&e.__dragPrevented===!0)return;const n=t===!0?o=>{o.__dragPrevented=!0,o.addEventListener("dragstart",bt,Ye.notPassiveCapture)}:o=>{delete o.__dragPrevented,o.removeEventListener("dragstart",bt,Ye.notPassiveCapture)};e.querySelectorAll("a, img").forEach(n)}function Dn(e,t,n){const o=`__q_${t}_evt`;e[o]=e[o]!==void 0?e[o].concat(n):n,n.forEach(r=>{r[0].addEventListener(r[1],e[r[2]],Ye[r[3]])})}function er(e,t){const n=`__q_${t}_evt`;e[n]!==void 0&&(e[n].forEach(o=>{o[0].removeEventListener(o[1],e[o[2]],Ye[o[3]])}),e[n]=void 0)}function zi(e,t=250,n){let o;function r(){const i=arguments,l=()=>{o=void 0,n!==!0&&e.apply(this,i)};clearTimeout(o),n===!0&&o===void 0&&e.apply(this,i),o=setTimeout(l,t)}return r.cancel=()=>{clearTimeout(o)},r}const gl=["sm","md","lg","xl"],{passive:lu}=Ye,Mg=Ii({width:0,height:0,name:"xs",sizes:{sm:600,md:1024,lg:1440,xl:1920},lt:{sm:!0,md:!0,lg:!0,xl:!0},gt:{xs:!1,sm:!1,md:!1,lg:!1},xs:!0,sm:!1,md:!1,lg:!1,xl:!1},{setSizes:hn,setDebounce:hn,install({$q:e,onSSRHydrated:t}){if(e.screen=this,this.__installed===!0){e.config.screen!==void 0&&(e.config.screen.bodyClasses===!1?document.body.classList.remove(`screen--${this.name}`):this.__update(!0));return}const{visualViewport:n}=window,o=n||window,r=document.scrollingElement||document.documentElement,i=n===void 0||Ne.is.mobile===!0?()=>[Math.max(window.innerWidth,r.clientWidth),Math.max(window.innerHeight,r.clientHeight)]:()=>[n.width*n.scale+window.innerWidth-r.clientWidth,n.height*n.scale+window.innerHeight-r.clientHeight],l=e.config.screen!==void 0&&e.config.screen.bodyClasses===!0;this.__update=f=>{const[d,h]=i();if(h!==this.height&&(this.height=h),d!==this.width)this.width=d;else if(f!==!0)return;let m=this.sizes;this.gt.xs=d>=m.sm,this.gt.sm=d>=m.md,this.gt.md=d>=m.lg,this.gt.lg=d>=m.xl,this.lt.sm=d<m.sm,this.lt.md=d<m.md,this.lt.lg=d<m.lg,this.lt.xl=d<m.xl,this.xs=this.lt.sm,this.sm=this.gt.xs===!0&&this.lt.md===!0,this.md=this.gt.sm===!0&&this.lt.lg===!0,this.lg=this.gt.md===!0&&this.lt.xl===!0,this.xl=this.gt.lg,m=this.xs===!0&&"xs"||this.sm===!0&&"sm"||this.md===!0&&"md"||this.lg===!0&&"lg"||"xl",m!==this.name&&(l===!0&&(document.body.classList.remove(`screen--${this.name}`),document.body.classList.add(`screen--${m}`)),this.name=m)};let s,a={},c=16;this.setSizes=f=>{gl.forEach(d=>{f[d]!==void 0&&(a[d]=f[d])})},this.setDebounce=f=>{c=f};const u=()=>{const f=getComputedStyle(document.body);f.getPropertyValue("--q-size-sm")&&gl.forEach(d=>{this.sizes[d]=parseInt(f.getPropertyValue(`--q-size-${d}`),10)}),this.setSizes=d=>{gl.forEach(h=>{d[h]&&(this.sizes[h]=d[h])}),this.__update(!0)},this.setDebounce=d=>{s!==void 0&&o.removeEventListener("resize",s,lu),s=d>0?zi(this.__update,d):this.__update,o.addEventListener("resize",s,lu)},this.setDebounce(c),Object.keys(a).length>0?(this.setSizes(a),a=void 0):this.__update(),l===!0&&this.name==="xs"&&document.body.classList.add("screen--xs")};en.value===!0?t.push(u):u()}}),dt=Ii({isActive:!1,mode:!1},{__media:void 0,set(e){dt.mode=e,e==="auto"?(dt.__media===void 0&&(dt.__media=window.matchMedia("(prefers-color-scheme: dark)"),dt.__updateMedia=()=>{dt.set("auto")},dt.__media.addListener(dt.__updateMedia)),e=dt.__media.matches):dt.__media!==void 0&&(dt.__media.removeListener(dt.__updateMedia),dt.__media=void 0),dt.isActive=e===!0,document.body.classList.remove(`body--${e===!0?"light":"dark"}`),document.body.classList.add(`body--${e===!0?"dark":"light"}`)},toggle(){dt.set(dt.isActive===!1)},install({$q:e,onSSRHydrated:t,ssrContext:n}){const{dark:o}=e.config;if(e.dark=this,this.__installed===!0&&o===void 0)return;this.isActive=o===!0;const r=o!==void 0?o:!1;if(en.value===!0){const i=s=>{this.__fromSSR=s},l=this.set;this.set=i,i(r),t.push(()=>{this.set=l,this.set(this.__fromSSR)})}else this.set(r)}}),Yf=()=>!0;function Fg(e){return typeof e=="string"&&e!==""&&e!=="/"&&e!=="#/"}function Bg(e){return e.startsWith("#")===!0&&(e=e.substring(1)),e.startsWith("/")===!1&&(e="/"+e),e.endsWith("/")===!0&&(e=e.substring(0,e.length-1)),"#"+e}function Ig(e){if(e.backButtonExit===!1)return()=>!1;if(e.backButtonExit==="*")return Yf;const t=["#/"];return Array.isArray(e.backButtonExit)===!0&&t.push(...e.backButtonExit.filter(Fg).map(Bg)),()=>t.includes(window.location.hash)}const vr={__history:[],add:hn,remove:hn,install({$q:e}){if(this.__installed===!0)return;const{cordova:t,capacitor:n}=Ne.is;if(t!==!0&&n!==!0)return;const o=e.config[t===!0?"cordova":"capacitor"];if(o!==void 0&&o.backButton===!1||n===!0&&(window.Capacitor===void 0||window.Capacitor.Plugins.App===void 0))return;this.add=l=>{l.condition===void 0&&(l.condition=Yf),this.__history.push(l)},this.remove=l=>{const s=this.__history.indexOf(l);s>=0&&this.__history.splice(s,1)};const r=Ig(Object.assign({backButtonExit:!0},o)),i=()=>{if(this.__history.length){const l=this.__history[this.__history.length-1];l.condition()===!0&&(this.__history.pop(),l.handler())}else r()===!0?navigator.app.exitApp():window.history.back()};t===!0?document.addEventListener("deviceready",()=>{document.addEventListener("backbutton",i,!1)}):window.Capacitor.Plugins.App.addListener("backButton",i)}},su={isoName:"en-US",nativeName:"English (US)",label:{clear:"Clear",ok:"OK",cancel:"Cancel",close:"Close",set:"Set",select:"Select",reset:"Reset",remove:"Remove",update:"Update",create:"Create",search:"Search",filter:"Filter",refresh:"Refresh",expand:e=>e?`Expand "${e}"`:"Expand",collapse:e=>e?`Collapse "${e}"`:"Collapse"},date:{days:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),daysShort:"Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_"),monthsShort:"Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),firstDayOfWeek:0,format24h:!1,pluralDay:"days"},table:{noData:"No data available",noResults:"No matching records found",loading:"Loading...",selectedRecords:e=>e===1?"1 record selected.":(e===0?"No":e)+" records selected.",recordsPerPage:"Records per page:",allRows:"All",pagination:(e,t,n)=>e+"-"+t+" of "+n,columns:"Columns"},editor:{url:"URL",bold:"Bold",italic:"Italic",strikethrough:"Strikethrough",underline:"Underline",unorderedList:"Unordered List",orderedList:"Ordered List",subscript:"Subscript",superscript:"Superscript",hyperlink:"Hyperlink",toggleFullscreen:"Toggle Fullscreen",quote:"Quote",left:"Left align",center:"Center align",right:"Right align",justify:"Justify align",print:"Print",outdent:"Decrease indentation",indent:"Increase indentation",removeFormat:"Remove formatting",formatting:"Formatting",fontSize:"Font Size",align:"Align",hr:"Insert Horizontal Rule",undo:"Undo",redo:"Redo",heading1:"Heading 1",heading2:"Heading 2",heading3:"Heading 3",heading4:"Heading 4",heading5:"Heading 5",heading6:"Heading 6",paragraph:"Paragraph",code:"Code",size1:"Very small",size2:"A bit small",size3:"Normal",size4:"Medium-large",size5:"Big",size6:"Very big",size7:"Maximum",defaultFont:"Default Font",viewSource:"View Source"},tree:{noNodes:"No nodes available",noResults:"No matching nodes found"}};function au(){const e=Array.isArray(navigator.languages)===!0&&navigator.languages.length>0?navigator.languages[0]:navigator.language;if(typeof e=="string")return e.split(/[-_]/).map((t,n)=>n===0?t.toLowerCase():n>1||t.length<4?t.toUpperCase():t[0].toUpperCase()+t.slice(1).toLowerCase()).join("-")}const Bt=Ii({__langPack:{}},{getLocale:au,set(e=su,t){const n={...e,rtl:e.rtl===!0,getLocale:au};{if(n.set=Bt.set,Bt.__langConfig===void 0||Bt.__langConfig.noHtmlAttrs!==!0){const o=document.documentElement;o.setAttribute("dir",n.rtl===!0?"rtl":"ltr"),o.setAttribute("lang",n.isoName)}Object.assign(Bt.__langPack,n),Bt.props=n,Bt.isoName=n.isoName,Bt.nativeName=n.nativeName}},install({$q:e,lang:t,ssrContext:n}){e.lang=Bt.__langPack,Bt.__langConfig=e.config.lang,this.__installed===!0?t!==void 0&&this.set(t):this.set(t||su)}});function zg(e,t,n=document.body){if(typeof e!="string")throw new TypeError("Expected a string as propName");if(typeof t!="string")throw new TypeError("Expected a string as value");if(!(n instanceof Element))throw new TypeError("Expected a DOM element");n.style.setProperty(`--q-${e}`,t)}let Gf=!1;function Vg(e){Gf=e.isComposing===!0}function js(e){return Gf===!0||e!==Object(e)||e.isComposing===!0||e.qKeyEvent===!0}function Rn(e,t){return js(e)===!0?!1:[].concat(t).includes(e.keyCode)}function Zf(e){if(e.ios===!0)return"ios";if(e.android===!0)return"android"}function Ng({is:e,has:t,within:n},o){const r=[e.desktop===!0?"desktop":"mobile",`${t.touch===!1?"no-":""}touch`];if(e.mobile===!0){const i=Zf(e);i!==void 0&&r.push("platform-"+i)}if(e.nativeMobile===!0){const i=e.nativeMobileWrapper;r.push(i),r.push("native-mobile"),e.ios===!0&&(o[i]===void 0||o[i].iosStatusBarPadding!==!1)&&r.push("q-ios-padding")}else e.electron===!0?r.push("electron"):e.bex===!0&&r.push("bex");return n.iframe===!0&&r.push("within-iframe"),r}function jg(){const{is:e}=Ne,t=document.body.className,n=new Set(t.replace(/ {2}/g," ").split(" "));if(Bi!==void 0)n.delete("desktop"),n.add("platform-ios"),n.add("mobile");else if(e.nativeMobile!==!0&&e.electron!==!0&&e.bex!==!0){if(e.desktop===!0)n.delete("mobile"),n.delete("platform-ios"),n.delete("platform-android"),n.add("desktop");else if(e.mobile===!0){n.delete("desktop"),n.add("mobile");const r=Zf(e);r!==void 0?(n.add(`platform-${r}`),n.delete(`platform-${r==="ios"?"android":"ios"}`)):(n.delete("platform-ios"),n.delete("platform-android"))}}Ne.has.touch===!0&&(n.delete("no-touch"),n.add("touch")),Ne.within.iframe===!0&&n.add("within-iframe");const o=Array.from(n).join(" ");t!==o&&(document.body.className=o)}function Dg(e){for(const t in e)zg(t,e[t])}const Hg={install(e){if(this.__installed!==!0){if(en.value===!0)jg();else{const{$q:t}=e;t.config.brand!==void 0&&Dg(t.config.brand);const n=Ng(Ne,t.config);document.body.classList.add.apply(document.body.classList,n)}Ne.is.ios===!0&&document.body.addEventListener("touchstart",hn),window.addEventListener("keydown",Vg,!0)}}},ed={name:"material-icons",type:{positive:"check_circle",negative:"warning",info:"info",warning:"priority_high"},arrow:{up:"arrow_upward",right:"arrow_forward",down:"arrow_downward",left:"arrow_back",dropdown:"arrow_drop_down"},chevron:{left:"chevron_left",right:"chevron_right"},colorPicker:{spectrum:"gradient",tune:"tune",palette:"style"},pullToRefresh:{icon:"refresh"},carousel:{left:"chevron_left",right:"chevron_right",up:"keyboard_arrow_up",down:"keyboard_arrow_down",navigationIcon:"lens"},chip:{remove:"cancel",selected:"check"},datetime:{arrowLeft:"chevron_left",arrowRight:"chevron_right",now:"access_time",today:"today"},editor:{bold:"format_bold",italic:"format_italic",strikethrough:"strikethrough_s",underline:"format_underlined",unorderedList:"format_list_bulleted",orderedList:"format_list_numbered",subscript:"vertical_align_bottom",superscript:"vertical_align_top",hyperlink:"link",toggleFullscreen:"fullscreen",quote:"format_quote",left:"format_align_left",center:"format_align_center",right:"format_align_right",justify:"format_align_justify",print:"print",outdent:"format_indent_decrease",indent:"format_indent_increase",removeFormat:"format_clear",formatting:"text_format",fontSize:"format_size",align:"format_align_left",hr:"remove",undo:"undo",redo:"redo",heading:"format_size",code:"code",size:"format_size",font:"font_download",viewSource:"code"},expansionItem:{icon:"keyboard_arrow_down",denseIcon:"arrow_drop_down"},fab:{icon:"add",activeIcon:"close"},field:{clear:"cancel",error:"error"},pagination:{first:"first_page",prev:"keyboard_arrow_left",next:"keyboard_arrow_right",last:"last_page"},rating:{icon:"grade"},stepper:{done:"check",active:"edit",error:"warning"},tabs:{left:"chevron_left",right:"chevron_right",up:"keyboard_arrow_up",down:"keyboard_arrow_down"},table:{arrowUp:"arrow_upward",warning:"warning",firstPage:"first_page",prevPage:"chevron_left",nextPage:"chevron_right",lastPage:"last_page"},tree:{icon:"play_arrow"},uploader:{done:"done",clear:"clear",add:"add_box",upload:"cloud_upload",removeQueue:"clear_all",removeUploaded:"done_all"}},fi=Ii({iconMapFn:null,__icons:{}},{set(e,t){const n={...e,rtl:e.rtl===!0};n.set=fi.set,Object.assign(fi.__icons,n)},install({$q:e,iconSet:t,ssrContext:n}){e.config.iconMapFn!==void 0&&(this.iconMapFn=e.config.iconMapFn),e.iconSet=this.__icons,At(e,"iconMapFn",()=>this.iconMapFn,o=>{this.iconMapFn=o}),this.__installed===!0?t!==void 0&&this.set(t):this.set(t||ed)}}),td="_q_",Vi="_q_l_",Ug="_q_pc_",Kg="_q_fo_",un=()=>{},di={};let nd=!1;function Wg(){nd=!0}function Cn(e,t){if(e===t)return!0;if(e!==null&&t!==null&&typeof e=="object"&&typeof t=="object"){if(e.constructor!==t.constructor)return!1;let n,o;if(e.constructor===Array){if(n=e.length,n!==t.length)return!1;for(o=n;o--!==0;)if(Cn(e[o],t[o])!==!0)return!1;return!0}if(e.constructor===Map){if(e.size!==t.size)return!1;for(o=e.entries().next();o.done!==!0;){if(t.has(o.value[0])!==!0)return!1;o=o.next()}for(o=e.entries().next();o.done!==!0;){if(Cn(o.value[1],t.get(o.value[0]))!==!0)return!1;o=o.next()}return!0}if(e.constructor===Set){if(e.size!==t.size)return!1;for(o=e.entries().next();o.done!==!0;){if(t.has(o.value[0])!==!0)return!1;o=o.next()}return!0}if(e.buffer!=null&&e.buffer.constructor===ArrayBuffer){if(n=e.length,n!==t.length)return!1;for(o=n;o--!==0;)if(e[o]!==t[o])return!1;return!0}if(e.constructor===RegExp)return e.source===t.source&&e.flags===t.flags;if(e.valueOf!==Object.prototype.valueOf)return e.valueOf()===t.valueOf();if(e.toString!==Object.prototype.toString)return e.toString()===t.toString();const r=Object.keys(e).filter(i=>e[i]!==void 0);if(n=r.length,n!==Object.keys(t).filter(i=>t[i]!==void 0).length)return!1;for(o=n;o--!==0;){const i=r[o];if(Cn(e[i],t[i])!==!0)return!1}return!0}return e!==e&&t!==t}function To(e){return e!==null&&typeof e=="object"&&Array.isArray(e)!==!0}function uu(e){return Object.prototype.toString.call(e)==="[object Date]"}function Xl(e){return typeof e=="number"&&isFinite(e)}const cu=[ci,Hg,dt,Mg,vr,Bt,fi];function Qg(e,t){const n=Jf(e);n.config.globalProperties=t.config.globalProperties;const{reload:o,...r}=t._context;return Object.assign(n._context,r),n}function fu(e,t){t.forEach(n=>{n.install(e),n.__installed=!0})}function Jg(e,t,n){e.config.globalProperties.$q=n.$q,e.provide(td,n.$q),fu(n,cu),t.components!==void 0&&Object.values(t.components).forEach(o=>{To(o)===!0&&o.name!==void 0&&e.component(o.name,o)}),t.directives!==void 0&&Object.values(t.directives).forEach(o=>{To(o)===!0&&o.name!==void 0&&e.directive(o.name,o)}),t.plugins!==void 0&&fu(n,Object.values(t.plugins).filter(o=>typeof o.install=="function"&&cu.includes(o)===!1)),en.value===!0&&(n.$q.onSSRHydrated=()=>{n.onSSRHydrated.forEach(o=>{o()}),n.$q.onSSRHydrated=()=>{}})}const Xg=function(e,t={}){const n={version:"2.11.3"};nd===!1?(t.config!==void 0&&Object.assign(di,t.config),n.config={...di},Wg()):n.config=t.config||{},Jg(e,t,{parentApp:e,$q:n,lang:t.lang,iconSet:t.iconSet,onSSRHydrated:[]})},Yg={version:"2.11.3",install:Xg,lang:Bt,iconSet:fi},Yl={xs:18,sm:24,md:32,lg:38,xl:46},oo={size:String};function ro(e,t=Yl){return v(()=>e.size!==void 0?{fontSize:e.size in t?`${t[e.size]}px`:e.size}:null)}const Pe=e=>dn(Ri(e)),Ds=e=>dn(e);function je(e,t){return e!==void 0&&e()||t}function Hs(e,t){if(e!==void 0){const n=e();if(n!=null)return n.slice()}return t}function Ot(e,t){return e!==void 0?t.concat(e()):t}function od(e,t){return e===void 0?t:t!==void 0?t.concat(e()):e()}function Gl(e,t,n,o,r,i){t.key=o+r;const l=_(e,t,n);return r===!0?Dt(l,i()):l}const du="0 0 24 24",hu=e=>e,pl=e=>`ionicons ${e}`,rd={"mdi-":e=>`mdi ${e}`,"icon-":hu,"bt-":e=>`bt ${e}`,"eva-":e=>`eva ${e}`,"ion-md":pl,"ion-ios":pl,"ion-logo":pl,"iconfont ":hu,"ti-":e=>`themify-icon ${e}`,"bi-":e=>`bootstrap-icons ${e}`},id={o_:"-outlined",r_:"-round",s_:"-sharp"},ld={sym_o_:"-outlined",sym_r_:"-rounded",sym_s_:"-sharp"},Gg=new RegExp("^("+Object.keys(rd).join("|")+")"),Zg=new RegExp("^("+Object.keys(id).join("|")+")"),mu=new RegExp("^("+Object.keys(ld).join("|")+")"),ep=/^[Mm]\s?[-+]?\.?\d/,tp=/^img:/,np=/^svguse:/,op=/^ion-/,rp=/^(fa-(solid|regular|light|brands|duotone|thin)|[lf]a[srlbdk]?) /,yt=Pe({name:"QIcon",props:{...oo,tag:{type:String,default:"i"},name:String,color:String,left:Boolean,right:Boolean},setup(e,{slots:t}){const{proxy:{$q:n}}=qe(),o=ro(e),r=v(()=>"q-icon"+(e.left===!0?" on-left":"")+(e.right===!0?" on-right":"")+(e.color!==void 0?` text-${e.color}`:"")),i=v(()=>{let l,s=e.name;if(s==="none"||!s)return{none:!0};if(n.iconMapFn!==null){const u=n.iconMapFn(s);if(u!==void 0)if(u.icon!==void 0){if(s=u.icon,s==="none"||!s)return{none:!0}}else return{cls:u.cls,content:u.content!==void 0?u.content:" "}}if(ep.test(s)===!0){const[u,f=du]=s.split("|");return{svg:!0,viewBox:f,nodes:u.split("&&").map(d=>{const[h,m,g]=d.split("@@");return _("path",{style:m,d:h,transform:g})})}}if(tp.test(s)===!0)return{img:!0,src:s.substring(4)};if(np.test(s)===!0){const[u,f=du]=s.split("|");return{svguse:!0,src:u.substring(7),viewBox:f}}let a=" ";const c=s.match(Gg);if(c!==null)l=rd[c[1]](s);else if(rp.test(s)===!0)l=s;else if(op.test(s)===!0)l=`ionicons ion-${n.platform.is.ios===!0?"ios":"md"}${s.substring(3)}`;else if(mu.test(s)===!0){l="notranslate material-symbols";const u=s.match(mu);u!==null&&(s=s.substring(6),l+=ld[u[1]]),a=s}else{l="notranslate material-icons";const u=s.match(Zg);u!==null&&(s=s.substring(2),l+=id[u[1]]),a=s}return{cls:l,content:a}});return()=>{const l={class:r.value,style:o.value,"aria-hidden":"true",role:"presentation"};return i.value.none===!0?_(e.tag,l,je(t.default)):i.value.img===!0?_("span",l,Ot(t.default,[_("img",{src:i.value.src})])):i.value.svg===!0?_("span",l,Ot(t.default,[_("svg",{viewBox:i.value.viewBox||"0 0 24 24"},i.value.nodes)])):i.value.svguse===!0?_("span",l,Ot(t.default,[_("svg",{viewBox:i.value.viewBox},[_("use",{"xlink:href":i.value.src})])])):(i.value.cls!==void 0&&(l.class+=" "+i.value.cls),_(e.tag,l,Ot(t.default,[i.value.content])))}}}),sd=Pe({name:"QAvatar",props:{...oo,fontSize:String,color:String,textColor:String,icon:String,square:Boolean,rounded:Boolean},setup(e,{slots:t}){const n=ro(e),o=v(()=>"q-avatar"+(e.color?` bg-${e.color}`:"")+(e.textColor?` text-${e.textColor} q-chip--colored`:"")+(e.square===!0?" q-avatar--square":e.rounded===!0?" rounded-borders":"")),r=v(()=>e.fontSize?{fontSize:e.fontSize}:null);return()=>{const i=e.icon!==void 0?[_(yt,{name:e.icon})]:void 0;return _("div",{class:o.value,style:n.value},[_("div",{class:"q-avatar__content row flex-center overflow-hidden",style:r.value},od(t.default,i))])}}}),ip={size:{type:[Number,String],default:"1em"},color:String};function lp(e){return{cSize:v(()=>e.size in Yl?`${Yl[e.size]}px`:e.size),classes:v(()=>"q-spinner"+(e.color?` text-${e.color}`:""))}}const Us=Pe({name:"QSpinner",props:{...ip,thickness:{type:Number,default:5}},setup(e){const{cSize:t,classes:n}=lp(e);return()=>_("svg",{class:n.value+" q-spinner-mat",width:t.value,height:t.value,viewBox:"25 25 50 50"},[_("circle",{class:"path",cx:"50",cy:"50",r:"20",fill:"none",stroke:"currentColor","stroke-width":e.thickness,"stroke-miterlimit":"10"})])}});function Zl(e,t){const n=e.style;for(const o in t)n[o]=t[o]}function sp(e){if(e==null)return;if(typeof e=="string")try{return document.querySelector(e)||void 0}catch{return}const t=ue(e);if(t)return t.$el||t}function ad(e,t){if(e==null||e.contains(t)===!0)return!0;for(let n=e.nextElementSibling;n!==null;n=n.nextElementSibling)if(n.contains(t))return!0;return!1}function ap(e,t=250){let n=!1,o;return function(){return n===!1&&(n=!0,setTimeout(()=>{n=!1},t),o=e.apply(this,arguments)),o}}function vu(e,t,n,o){n.modifiers.stop===!0&&Et(e);const r=n.modifiers.color;let i=n.modifiers.center;i=i===!0||o===!0;const l=document.createElement("span"),s=document.createElement("span"),a=mr(e),{left:c,top:u,width:f,height:d}=t.getBoundingClientRect(),h=Math.sqrt(f*f+d*d),m=h/2,g=`${(f-h)/2}px`,b=i?g:`${a.left-c-m}px`,T=`${(d-h)/2}px`,k=i?T:`${a.top-u-m}px`;s.className="q-ripple__inner",Zl(s,{height:`${h}px`,width:`${h}px`,transform:`translate3d(${b},${k},0) scale3d(.2,.2,1)`,opacity:0}),l.className=`q-ripple${r?" text-"+r:""}`,l.setAttribute("dir","ltr"),l.appendChild(s),t.appendChild(l);const E=()=>{l.remove(),clearTimeout(x)};n.abort.push(E);let x=setTimeout(()=>{s.classList.add("q-ripple__inner--enter"),s.style.transform=`translate3d(${g},${T},0) scale3d(1,1,1)`,s.style.opacity=.2,x=setTimeout(()=>{s.classList.remove("q-ripple__inner--enter"),s.classList.add("q-ripple__inner--leave"),s.style.opacity=0,x=setTimeout(()=>{l.remove(),n.abort.splice(n.abort.indexOf(E),1)},275)},250)},50)}function gu(e,{modifiers:t,value:n,arg:o}){const r=Object.assign({},e.cfg.ripple,t,n);e.modifiers={early:r.early===!0,stop:r.stop===!0,center:r.center===!0,color:r.color||o,keyCodes:[].concat(r.keyCodes||13)}}const yo=Ds({name:"ripple",beforeMount(e,t){const n=t.instance.$.appContext.config.globalProperties.$q.config||{};if(n.ripple===!1)return;const o={cfg:n,enabled:t.value!==!1,modifiers:{},abort:[],start(r){o.enabled===!0&&r.qSkipRipple!==!0&&r.type===(o.modifiers.early===!0?"pointerdown":"click")&&vu(r,e,o,r.qKeyEvent===!0)},keystart:ap(r=>{o.enabled===!0&&r.qSkipRipple!==!0&&Rn(r,o.modifiers.keyCodes)===!0&&r.type===`key${o.modifiers.early===!0?"down":"up"}`&&vu(r,e,o,!0)},300)};gu(o,t),e.__qripple=o,Dn(o,"main",[[e,"pointerdown","start","passive"],[e,"click","start","passive"],[e,"keydown","keystart","passive"],[e,"keyup","keystart","passive"]])},updated(e,t){if(t.oldValue!==t.value){const n=e.__qripple;n!==void 0&&(n.enabled=t.value!==!1,n.enabled===!0&&Object(t.value)===t.value&&gu(n,t))}},beforeUnmount(e){const t=e.__qripple;t!==void 0&&(t.abort.forEach(n=>{n()}),er(t,"main"),delete e._qripple)}}),ud={left:"start",center:"center",right:"end",between:"between",around:"around",evenly:"evenly",stretch:"stretch"},up=Object.keys(ud),cd={align:{type:String,validator:e=>up.includes(e)}};function fd(e){return v(()=>{const t=e.align===void 0?e.vertical===!0?"stretch":"left":e.align;return`${e.vertical===!0?"items":"justify"}-${ud[t]}`})}function Jr(e){if(Object(e.$parent)===e.$parent)return e.$parent;let{parent:t}=e.$;for(;Object(t)===t;){if(Object(t.proxy)===t.proxy)return t.proxy;t=t.parent}}function Ks(e){return e.appContext.config.globalProperties.$router!==void 0}function dd(e){return e.isUnmounted===!0||e.isDeactivated===!0}function pu(e){return e?e.aliasOf?e.aliasOf.path:e.path:""}function bu(e,t){return(e.aliasOf||e)===(t.aliasOf||t)}function cp(e,t){for(const n in t){const o=t[n],r=e[n];if(typeof o=="string"){if(o!==r)return!1}else if(Array.isArray(r)===!1||r.length!==o.length||o.some((i,l)=>i!==r[l]))return!1}return!0}function yu(e,t){return Array.isArray(t)===!0?e.length===t.length&&e.every((n,o)=>n===t[o]):e.length===1&&e[0]===t}function fp(e,t){return Array.isArray(e)===!0?yu(e,t):Array.isArray(t)===!0?yu(t,e):e===t}function dp(e,t){if(Object.keys(e).length!==Object.keys(t).length)return!1;for(const n in e)if(fp(e[n],t[n])===!1)return!1;return!0}const hd={to:[String,Object],replace:Boolean,exact:Boolean,activeClass:{type:String,default:"q-router-link--active"},exactActiveClass:{type:String,default:"q-router-link--exact-active"},href:String,target:String,disable:Boolean};function md({fallbackTag:e,useDisableForRouterLinkProps:t=!0}={}){const n=qe(),{props:o,proxy:r,emit:i}=n,l=Ks(n),s=v(()=>o.disable!==!0&&o.href!==void 0),a=v(t===!0?()=>l===!0&&o.disable!==!0&&s.value!==!0&&o.to!==void 0&&o.to!==null&&o.to!=="":()=>l===!0&&s.value!==!0&&o.to!==void 0&&o.to!==null&&o.to!==""),c=v(()=>a.value===!0?k(o.to):null),u=v(()=>c.value!==null),f=v(()=>s.value===!0||u.value===!0),d=v(()=>o.type==="a"||f.value===!0?"a":o.tag||e||"div"),h=v(()=>s.value===!0?{href:o.href,target:o.target}:u.value===!0?{href:c.value.href,target:o.target}:{}),m=v(()=>{if(u.value===!1)return-1;const{matched:P}=c.value,{length:C}=P,S=P[C-1];if(S===void 0)return-1;const p=r.$route.matched;if(p.length===0)return-1;const $=p.findIndex(bu.bind(null,S));if($>-1)return $;const R=pu(P[C-2]);return C>1&&pu(S)===R&&p[p.length-1].path!==R?p.findIndex(bu.bind(null,P[C-2])):$}),g=v(()=>u.value===!0&&m.value!==-1&&cp(r.$route.params,c.value.params)),b=v(()=>g.value===!0&&m.value===r.$route.matched.length-1&&dp(r.$route.params,c.value.params)),T=v(()=>u.value===!0?b.value===!0?` ${o.exactActiveClass} ${o.activeClass}`:o.exact===!0?"":g.value===!0?` ${o.activeClass}`:"":"");function k(P){try{return r.$router.resolve(P)}catch{}return null}function E(P,{returnRouterError:C,to:S=o.to,replace:p=o.replace}={}){if(o.disable===!0)return P.preventDefault(),Promise.resolve(!1);if(P.metaKey||P.altKey||P.ctrlKey||P.shiftKey||P.button!==void 0&&P.button!==0||o.target==="_blank")return Promise.resolve(!1);P.preventDefault();const $=r.$router[p===!0?"replace":"push"](S);return C===!0?$:$.then(()=>{}).catch(()=>{})}function x(P){if(u.value===!0){const C=S=>E(P,S);i("click",P,C),P.defaultPrevented!==!0&&C()}else i("click",P)}return{hasRouterLink:u,hasHrefLink:s,hasLink:f,linkTag:d,resolvedLink:c,linkIsActive:g,linkIsExactActive:b,linkClass:T,linkAttrs:h,getLink:k,navigateToRouterLink:E,navigateOnClick:x}}const wu={none:0,xs:4,sm:8,md:16,lg:24,xl:32},hp={xs:8,sm:10,md:14,lg:20,xl:24},mp=["button","submit","reset"],vp=/[^\s]\/[^\s]/,gp=["flat","outline","push","unelevated"],pp=(e,t)=>e.flat===!0?"flat":e.outline===!0?"outline":e.push===!0?"push":e.unelevated===!0?"unelevated":t,bp={...oo,...hd,type:{type:String,default:"button"},label:[Number,String],icon:String,iconRight:String,...gp.reduce((e,t)=>(e[t]=Boolean)&&e,{}),square:Boolean,round:Boolean,rounded:Boolean,glossy:Boolean,size:String,fab:Boolean,fabMini:Boolean,padding:String,color:String,textColor:String,noCaps:Boolean,noWrap:Boolean,dense:Boolean,tabindex:[Number,String],ripple:{type:[Boolean,Object],default:!0},align:{...cd.align,default:"center"},stack:Boolean,stretch:Boolean,loading:{type:Boolean,default:null},disable:Boolean};function yp(e){const t=ro(e,hp),n=fd(e),{hasRouterLink:o,hasLink:r,linkTag:i,linkAttrs:l,navigateOnClick:s}=md({fallbackTag:"button"}),a=v(()=>{const b=e.fab===!1&&e.fabMini===!1?t.value:{};return e.padding!==void 0?Object.assign({},b,{padding:e.padding.split(/\s+/).map(T=>T in wu?wu[T]+"px":T).join(" "),minWidth:"0",minHeight:"0"}):b}),c=v(()=>e.rounded===!0||e.fab===!0||e.fabMini===!0),u=v(()=>e.disable!==!0&&e.loading!==!0),f=v(()=>u.value===!0?e.tabindex||0:-1),d=v(()=>pp(e,"standard")),h=v(()=>{const b={tabindex:f.value};return r.value===!0?Object.assign(b,l.value):mp.includes(e.type)===!0&&(b.type=e.type),i.value==="a"?(e.disable===!0?b["aria-disabled"]="true":b.href===void 0&&(b.role="button"),o.value!==!0&&vp.test(e.type)===!0&&(b.type=e.type)):e.disable===!0&&(b.disabled="",b["aria-disabled"]="true"),e.loading===!0&&e.percentage!==void 0&&Object.assign(b,{role:"progressbar","aria-valuemin":0,"aria-valuemax":100,"aria-valuenow":e.percentage}),b}),m=v(()=>{let b;e.color!==void 0?e.flat===!0||e.outline===!0?b=`text-${e.textColor||e.color}`:b=`bg-${e.color} text-${e.textColor||"white"}`:e.textColor&&(b=`text-${e.textColor}`);const T=e.round===!0?"round":`rectangle${c.value===!0?" q-btn--rounded":e.square===!0?" q-btn--square":""}`;return`q-btn--${d.value} q-btn--${T}`+(b!==void 0?" "+b:"")+(u.value===!0?" q-btn--actionable q-focusable q-hoverable":e.disable===!0?" disabled":"")+(e.fab===!0?" q-btn--fab":e.fabMini===!0?" q-btn--fab-mini":"")+(e.noCaps===!0?" q-btn--no-uppercase":"")+(e.dense===!0?" q-btn--dense":"")+(e.stretch===!0?" no-border-radius self-stretch":"")+(e.glossy===!0?" glossy":"")+(e.square?" q-btn--square":"")}),g=v(()=>n.value+(e.stack===!0?" column":" row")+(e.noWrap===!0?" no-wrap text-no-wrap":"")+(e.loading===!0?" q-btn__content--hidden":""));return{classes:m,style:a,innerClasses:g,attributes:h,hasLink:r,linkTag:i,navigateOnClick:s,isActionable:u}}const{passiveCapture:Rt}=Ye;let co=null,fo=null,ho=null;const ot=Pe({name:"QBtn",props:{...bp,percentage:Number,darkPercentage:Boolean,onTouchstart:[Function,Array]},emits:["click","keydown","mousedown","keyup"],setup(e,{slots:t,emit:n}){const{proxy:o}=qe(),{classes:r,style:i,innerClasses:l,attributes:s,hasLink:a,linkTag:c,navigateOnClick:u,isActionable:f}=yp(e),d=W(null),h=W(null);let m=null,g,b;const T=v(()=>e.label!==void 0&&e.label!==null&&e.label!==""),k=v(()=>e.disable===!0||e.ripple===!1?!1:{keyCodes:a.value===!0?[13,32]:[13],...e.ripple===!0?{}:e.ripple}),E=v(()=>({center:e.round})),x=v(()=>{const H=Math.max(0,Math.min(100,e.percentage));return H>0?{transition:"transform 0.6s",transform:`translateX(${H-100}%)`}:{}}),P=v(()=>{if(e.loading===!0)return{onMousedown:Q,onTouchstart:Q,onClick:Q,onKeydown:Q,onKeyup:Q};if(f.value===!0){const H={onClick:S,onKeydown:p,onMousedown:R};if(o.$q.platform.has.touch===!0){const le=e.onTouchstart!==void 0?"":"Passive";H[`onTouchstart${le}`]=$}return H}return{onClick:Je}}),C=v(()=>({ref:d,class:"q-btn q-btn-item non-selectable no-outline "+r.value,style:i.value,...s.value,...P.value}));function S(H){if(d.value!==null){if(H!==void 0){if(H.defaultPrevented===!0)return;const le=document.activeElement;if(e.type==="submit"&&le!==document.body&&d.value.contains(le)===!1&&le.contains(d.value)===!1){d.value.focus();const N=()=>{document.removeEventListener("keydown",Je,!0),document.removeEventListener("keyup",N,Rt),d.value!==null&&d.value.removeEventListener("blur",N,Rt)};document.addEventListener("keydown",Je,!0),document.addEventListener("keyup",N,Rt),d.value.addEventListener("blur",N,Rt)}}u(H)}}function p(H){d.value!==null&&(n("keydown",H),Rn(H,[13,32])===!0&&fo!==d.value&&(fo!==null&&I(),H.defaultPrevented!==!0&&(d.value.focus(),fo=d.value,d.value.classList.add("q-btn--active"),document.addEventListener("keyup",B,!0),d.value.addEventListener("blur",B,Rt)),Je(H)))}function $(H){d.value!==null&&(n("touchstart",H),H.defaultPrevented!==!0&&(co!==d.value&&(co!==null&&I(),co=d.value,m=H.target,m.addEventListener("touchcancel",B,Rt),m.addEventListener("touchend",B,Rt)),g=!0,clearTimeout(b),b=setTimeout(()=>{g=!1},200)))}function R(H){d.value!==null&&(H.qSkipRipple=g===!0,n("mousedown",H),H.defaultPrevented!==!0&&ho!==d.value&&(ho!==null&&I(),ho=d.value,d.value.classList.add("q-btn--active"),document.addEventListener("mouseup",B,Rt)))}function B(H){if(d.value!==null&&!(H!==void 0&&H.type==="blur"&&document.activeElement===d.value)){if(H!==void 0&&H.type==="keyup"){if(fo===d.value&&Rn(H,[13,32])===!0){const le=new MouseEvent("click",H);le.qKeyEvent=!0,H.defaultPrevented===!0&&bt(le),H.cancelBubble===!0&&Et(le),d.value.dispatchEvent(le),Je(H),H.qKeyEvent=!0}n("keyup",H)}I()}}function I(H){const le=h.value;H!==!0&&(co===d.value||ho===d.value)&&le!==null&&le!==document.activeElement&&(le.setAttribute("tabindex",-1),le.focus()),co===d.value&&(m!==null&&(m.removeEventListener("touchcancel",B,Rt),m.removeEventListener("touchend",B,Rt)),co=m=null),ho===d.value&&(document.removeEventListener("mouseup",B,Rt),ho=null),fo===d.value&&(document.removeEventListener("keyup",B,!0),d.value!==null&&d.value.removeEventListener("blur",B,Rt),fo=null),d.value!==null&&d.value.classList.remove("q-btn--active")}function Q(H){Je(H),H.qSkipRipple=!0}return We(()=>{I(!0)}),Object.assign(o,{click:S}),()=>{let H=[];e.icon!==void 0&&H.push(_(yt,{name:e.icon,left:e.stack===!1&&T.value===!0,role:"img","aria-hidden":"true"})),T.value===!0&&H.push(_("span",{class:"block"},[e.label])),H=Ot(t.default,H),e.iconRight!==void 0&&e.round===!1&&H.push(_(yt,{name:e.iconRight,right:e.stack===!1&&T.value===!0,role:"img","aria-hidden":"true"}));const le=[_("span",{class:"q-focus-helper",ref:h})];return e.loading===!0&&e.percentage!==void 0&&le.push(_("span",{class:"q-btn__progress absolute-full overflow-hidden"+(e.darkPercentage===!0?" q-btn__progress--dark":"")},[_("span",{class:"q-btn__progress-indicator fit block",style:x.value})])),le.push(_("span",{class:"q-btn__content text-center col items-center q-anchor--skip "+l.value},H)),e.loading!==null&&le.push(_(Zn,{name:"q-transition--fade"},()=>e.loading===!0?[_("span",{key:"loading",class:"absolute-full flex flex-center"},t.loading!==void 0?t.loading():[_(Us)])]:null)),Dt(_(c.value,C.value,le),[[yo,k.value,void 0,E.value]])}}});let wp=document.body;function vd(e){const t=document.createElement("div");if(e!==void 0&&(t.id=e),di.globalNodes!==void 0){const n=di.globalNodes.class;n!==void 0&&(t.className=n)}return wp.appendChild(t),t}function _p(e){e.remove()}let Sp=0;const Xr={},Yr={},zt={},gd={},xp=/^\s*$/,pd=[],Ws=["top-left","top-right","bottom-left","bottom-right","top","bottom","left","right","center"],Cp=["top-left","top-right","bottom-left","bottom-right"],go={positive:{icon:e=>e.iconSet.type.positive,color:"positive"},negative:{icon:e=>e.iconSet.type.negative,color:"negative"},warning:{icon:e=>e.iconSet.type.warning,color:"warning",textColor:"dark"},info:{icon:e=>e.iconSet.type.info,color:"info"},ongoing:{group:!1,timeout:0,spinner:!0,color:"grey-8"}};function bd(e,t,n){if(!e)return No("parameter required");let o;const r={textColor:"white"};if(e.ignoreDefaults!==!0&&Object.assign(r,Xr),To(e)===!1&&(r.type&&Object.assign(r,go[r.type]),e={message:e}),Object.assign(r,go[e.type||r.type],e),typeof r.icon=="function"&&(r.icon=r.icon(t)),r.spinner?(r.spinner===!0&&(r.spinner=Us),r.spinner=dn(r.spinner)):r.spinner=!1,r.meta={hasMedia:Boolean(r.spinner!==!1||r.icon||r.avatar),hasText:_u(r.message)||_u(r.caption)},r.position){if(Ws.includes(r.position)===!1)return No("wrong position",e)}else r.position="bottom";if(r.timeout===void 0)r.timeout=5e3;else{const a=parseInt(r.timeout,10);if(isNaN(a)||a<0)return No("wrong timeout",e);r.timeout=a}r.timeout===0?r.progress=!1:r.progress===!0&&(r.meta.progressClass="q-notification__progress"+(r.progressClass?` ${r.progressClass}`:""),r.meta.progressStyle={animationDuration:`${r.timeout+1e3}ms`});const i=(Array.isArray(e.actions)===!0?e.actions:[]).concat(e.ignoreDefaults!==!0&&Array.isArray(Xr.actions)===!0?Xr.actions:[]).concat(go[e.type]!==void 0&&Array.isArray(go[e.type].actions)===!0?go[e.type].actions:[]),{closeBtn:l}=r;if(l&&i.push({label:typeof l=="string"?l:t.lang.label.close}),r.actions=i.map(({handler:a,noDismiss:c,...u})=>({flat:!0,...u,onClick:typeof a=="function"?()=>{a(),c!==!0&&s()}:()=>{s()}})),r.multiLine===void 0&&(r.multiLine=r.actions.length>1),Object.assign(r.meta,{class:`q-notification row items-stretch q-notification--${r.multiLine===!0?"multi-line":"standard"}`+(r.color!==void 0?` bg-${r.color}`:"")+(r.textColor!==void 0?` text-${r.textColor}`:"")+(r.classes!==void 0?` ${r.classes}`:""),wrapperClass:"q-notification__wrapper col relative-position border-radius-inherit "+(r.multiLine===!0?"column no-wrap justify-center":"row items-center"),contentClass:"q-notification__content row items-center"+(r.multiLine===!0?"":" col"),leftClass:r.meta.hasText===!0?"additional":"single",attrs:{role:"alert",...r.attrs}}),r.group===!1?(r.group=void 0,r.meta.group=void 0):((r.group===void 0||r.group===!0)&&(r.group=[r.message,r.caption,r.multiline].concat(r.actions.map(a=>`${a.label}*${a.icon}`)).join("|")),r.meta.group=r.group+"|"+r.position),r.actions.length===0?r.actions=void 0:r.meta.actionsClass="q-notification__actions row items-center "+(r.multiLine===!0?"justify-end":"col-auto")+(r.meta.hasMedia===!0?" q-notification__actions--with-media":""),n!==void 0){clearTimeout(n.notif.meta.timer),r.meta.uid=n.notif.meta.uid;const a=zt[r.position].value.indexOf(n.notif);zt[r.position].value[a]=r}else{const a=Yr[r.meta.group];if(a===void 0){if(r.meta.uid=Sp++,r.meta.badge=1,["left","right","center"].indexOf(r.position)!==-1)zt[r.position].value.splice(Math.floor(zt[r.position].value.length/2),0,r);else{const c=r.position.indexOf("top")>-1?"unshift":"push";zt[r.position].value[c](r)}r.group!==void 0&&(Yr[r.meta.group]=r)}else{if(clearTimeout(a.meta.timer),r.badgePosition!==void 0){if(Cp.includes(r.badgePosition)===!1)return No("wrong badgePosition",e)}else r.badgePosition=`top-${r.position.indexOf("left")>-1?"right":"left"}`;r.meta.uid=a.meta.uid,r.meta.badge=a.meta.badge+1,r.meta.badgeClass=`q-notification__badge q-notification__badge--${r.badgePosition}`+(r.badgeColor!==void 0?` bg-${r.badgeColor}`:"")+(r.badgeTextColor!==void 0?` text-${r.badgeTextColor}`:"")+(r.badgeClass?` ${r.badgeClass}`:"");const c=zt[r.position].value.indexOf(a);zt[r.position].value[c]=Yr[r.meta.group]=r}}const s=()=>{kp(r),o=void 0};if(r.timeout>0&&(r.meta.timer=setTimeout(()=>{s()},r.timeout+1e3)),r.group!==void 0)return a=>{a!==void 0?No("trying to update a grouped one which is forbidden",e):s()};if(o={dismiss:s,config:e,notif:r},n!==void 0){Object.assign(n,o);return}return a=>{if(o!==void 0)if(a===void 0)o.dismiss();else{const c=Object.assign({},o.config,a,{group:!1,position:r.position});bd(c,t,o)}}}function kp(e){clearTimeout(e.meta.timer);const t=zt[e.position].value.indexOf(e);if(t!==-1){e.group!==void 0&&delete Yr[e.meta.group];const n=pd[""+e.meta.uid];if(n){const{width:o,height:r}=getComputedStyle(n);n.style.left=`${n.offsetLeft}px`,n.style.width=o,n.style.height=r}zt[e.position].value.splice(t,1),typeof e.onDismiss=="function"&&e.onDismiss()}}function _u(e){return e!=null&&xp.test(e)!==!0}function No(e,t){return console.error(`Notify: ${e}`,t),!1}function Ep(){return Pe({name:"QNotifications",devtools:{hide:!0},setup(){return()=>_("div",{class:"q-notifications"},Ws.map(e=>_(yg,{key:e,class:gd[e],tag:"div",name:`q-notification--${e}`},()=>zt[e].value.map(t=>{const n=t.meta,o=[];if(n.hasMedia===!0&&(t.spinner!==!1?o.push(_(t.spinner,{class:"q-notification__spinner q-notification__spinner--"+n.leftClass,color:t.spinnerColor,size:t.spinnerSize})):t.icon?o.push(_(yt,{class:"q-notification__icon q-notification__icon--"+n.leftClass,name:t.icon,color:t.iconColor,size:t.iconSize,role:"img"})):t.avatar&&o.push(_(sd,{class:"q-notification__avatar q-notification__avatar--"+n.leftClass},()=>_("img",{src:t.avatar,"aria-hidden":"true"})))),n.hasText===!0){let i;const l={class:"q-notification__message col"};if(t.html===!0)l.innerHTML=t.caption?`<div>${t.message}</div><div class="q-notification__caption">${t.caption}</div>`:t.message;else{const s=[t.message];i=t.caption?[_("div",s),_("div",{class:"q-notification__caption"},[t.caption])]:s}o.push(_("div",l,i))}const r=[_("div",{class:n.contentClass},o)];return t.progress===!0&&r.push(_("div",{key:`${n.uid}|p|${n.badge}`,class:n.progressClass,style:n.progressStyle})),t.actions!==void 0&&r.push(_("div",{class:n.actionsClass},t.actions.map(i=>_(ot,i)))),n.badge>1&&r.push(_("div",{key:`${n.uid}|${n.badge}`,class:t.meta.badgeClass,style:t.badgeStyle},[n.badge])),_("div",{ref:i=>{pd[""+n.uid]=i},key:n.uid,class:n.class,...n.attrs},[_("div",{class:n.wrapperClass},r)])}))))}})}const qp={setDefaults(e){To(e)===!0&&Object.assign(Xr,e)},registerType(e,t){To(t)===!0&&(go[e]=t)},install({$q:e,parentApp:t}){if(e.notify=this.create=n=>bd(n,e),e.notify.setDefaults=this.setDefaults,e.notify.registerType=this.registerType,e.config.notify!==void 0&&this.setDefaults(e.config.notify),this.__installed!==!0){Ws.forEach(o=>{zt[o]=W([]);const r=["left","center","right"].includes(o)===!0?"center":o.indexOf("top")>-1?"top":"bottom",i=o.indexOf("left")>-1?"start":o.indexOf("right")>-1?"end":"center",l=["left","right"].includes(o)?`items-${o==="left"?"start":"end"} justify-center`:o==="center"?"flex-center":`items-${i}`;gd[o]=`q-notifications__list q-notifications__list--${r} fixed column no-wrap ${l}`});const n=vd("q-notify");Qg(Ep(),t).mount(n)}}};var Tp=!1;/*!
-  * pinia v2.0.28
-  * (c) 2022 Eduardo San Martin Morote
-  * @license MIT
-  */let yd;const Ni=e=>yd=e,wd=Symbol();function es(e){return e&&typeof e=="object"&&Object.prototype.toString.call(e)==="[object Object]"&&typeof e.toJSON!="function"}var tr;(function(e){e.direct="direct",e.patchObject="patch object",e.patchFunction="patch function"})(tr||(tr={}));function Pp(){const e=Zc(!0),t=e.run(()=>W({}));let n=[],o=[];const r=dn({install(i){Ni(r),r._a=i,i.provide(wd,r),i.config.globalProperties.$pinia=r,o.forEach(l=>n.push(l)),o=[]},use(i){return!this._a&&!Tp?o.push(i):n.push(i),this},_p:n,_a:null,_e:e,_s:new Map,state:t});return r}const _d=()=>{};function Su(e,t,n,o=_d){e.push(t);const r=()=>{const i=e.indexOf(t);i>-1&&(e.splice(i,1),o())};return!n&&fm()&&dm(r),r}function mo(e,...t){e.slice().forEach(n=>{n(...t)})}function ts(e,t){e instanceof Map&&t instanceof Map&&t.forEach((n,o)=>e.set(o,n)),e instanceof Set&&t instanceof Set&&t.forEach(e.add,e);for(const n in t){if(!t.hasOwnProperty(n))continue;const o=t[n],r=e[n];es(r)&&es(o)&&e.hasOwnProperty(n)&&!Ve(o)&&!En(o)?e[n]=ts(r,o):e[n]=o}return e}const Rp=Symbol();function Ap(e){return!es(e)||!e.hasOwnProperty(Rp)}const{assign:Sn}=Object;function Op(e){return!!(Ve(e)&&e.effect)}function $p(e,t,n,o){const{state:r,actions:i,getters:l}=t,s=n.state.value[e];let a;function c(){s||(n.state.value[e]=r?r():{});const u=Nm(n.state.value[e]);return Sn(u,i,Object.keys(l||{}).reduce((f,d)=>(f[d]=dn(v(()=>{Ni(n);const h=n._s.get(e);return l[d].call(h,h)})),f),{}))}return a=Sd(e,c,t,n,o,!0),a.$reset=function(){const f=r?r():{};this.$patch(d=>{Sn(d,f)})},a}function Sd(e,t,n={},o,r,i){let l;const s=Sn({actions:{}},n),a={deep:!0};let c,u,f=dn([]),d=dn([]),h;const m=o.state.value[e];!i&&!m&&(o.state.value[e]={}),W({});let g;function b(S){let p;c=u=!1,typeof S=="function"?(S(o.state.value[e]),p={type:tr.patchFunction,storeId:e,events:h}):(ts(o.state.value[e],S),p={type:tr.patchObject,payload:S,storeId:e,events:h});const $=g=Symbol();ze().then(()=>{g===$&&(c=!0)}),u=!0,mo(f,p,o.state.value[e])}const T=_d;function k(){l.stop(),f=[],d=[],o._s.delete(e)}function E(S,p){return function(){Ni(o);const $=Array.from(arguments),R=[],B=[];function I(le){R.push(le)}function Q(le){B.push(le)}mo(d,{args:$,name:S,store:P,after:I,onError:Q});let H;try{H=p.apply(this&&this.$id===e?this:P,$)}catch(le){throw mo(B,le),le}return H instanceof Promise?H.then(le=>(mo(R,le),le)).catch(le=>(mo(B,le),Promise.reject(le))):(mo(R,H),H)}}const x={_p:o,$id:e,$onAction:Su.bind(null,d),$patch:b,$reset:T,$subscribe(S,p={}){const $=Su(f,S,p.detached,()=>R()),R=l.run(()=>fe(()=>o.state.value[e],B=>{(p.flush==="sync"?u:c)&&S({storeId:e,type:tr.direct,events:h},B)},Sn({},a,p)));return $},$dispose:k},P=jt(x);o._s.set(e,P);const C=o._e.run(()=>(l=Zc(),l.run(()=>t())));for(const S in C){const p=C[S];if(Ve(p)&&!Op(p)||En(p))i||(m&&Ap(p)&&(Ve(p)?p.value=m[S]:ts(p,m[S])),o.state.value[e][S]=p);else if(typeof p=="function"){const $=E(S,p);C[S]=$,s.actions[S]=p}}return Sn(P,C),Sn(Te(P),C),Object.defineProperty(P,"$state",{get:()=>o.state.value[e],set:S=>{b(p=>{Sn(p,S)})}}),o._p.forEach(S=>{Sn(P,l.run(()=>S({store:P,app:o._a,pinia:o,options:s})))}),m&&i&&n.hydrate&&n.hydrate(P.$state,m),c=!0,u=!0,P}function Lp(e,t,n){let o,r;const i=typeof t=="function";typeof e=="string"?(o=e,r=i?n:t):(r=e,o=e.id);function l(s,a){const c=qe();return s=s||c&&ut(wd,null),s&&Ni(s),s=yd,s._s.has(o)||(i?Sd(o,t,r,s):$p(o,r,s)),s._s.get(o)}return l.$id=o,l}const nr=/^[a-z0-9]+(-[a-z0-9]+)*$/,ji=(e,t,n,o="")=>{const r=e.split(":");if(e.slice(0,1)==="@"){if(r.length<2||r.length>3)return null;o=r.shift().slice(1)}if(r.length>3||!r.length)return null;if(r.length>1){const s=r.pop(),a=r.pop(),c={provider:r.length>0?r[0]:o,prefix:a,name:s};return t&&!Gr(c)?null:c}const i=r[0],l=i.split("-");if(l.length>1){const s={provider:o,prefix:l.shift(),name:l.join("-")};return t&&!Gr(s)?null:s}if(n&&o===""){const s={provider:o,prefix:"",name:i};return t&&!Gr(s,n)?null:s}return null},Gr=(e,t)=>e?!!((e.provider===""||e.provider.match(nr))&&(t&&e.prefix===""||e.prefix.match(nr))&&e.name.match(nr)):!1,xd=Object.freeze({left:0,top:0,width:16,height:16}),hi=Object.freeze({rotate:0,vFlip:!1,hFlip:!1}),Di=Object.freeze({...xd,...hi}),ns=Object.freeze({...Di,body:"",hidden:!1});function Mp(e,t){const n={};!e.hFlip!=!t.hFlip&&(n.hFlip=!0),!e.vFlip!=!t.vFlip&&(n.vFlip=!0);const o=((e.rotate||0)+(t.rotate||0))%4;return o&&(n.rotate=o),n}function xu(e,t){const n=Mp(e,t);for(const o in ns)o in hi?o in e&&!(o in n)&&(n[o]=hi[o]):o in t?n[o]=t[o]:o in e&&(n[o]=e[o]);return n}function Fp(e,t){const n=e.icons,o=e.aliases||Object.create(null),r=Object.create(null);function i(l){if(n[l])return r[l]=[];if(!(l in r)){r[l]=null;const s=o[l]&&o[l].parent,a=s&&i(s);a&&(r[l]=[s].concat(a))}return r[l]}return(t||Object.keys(n).concat(Object.keys(o))).forEach(i),r}function Bp(e,t,n){const o=e.icons,r=e.aliases||Object.create(null);let i={};function l(s){i=xu(o[s]||r[s],i)}return l(t),n.forEach(l),xu(e,i)}function Cd(e,t){const n=[];if(typeof e!="object"||typeof e.icons!="object")return n;e.not_found instanceof Array&&e.not_found.forEach(r=>{t(r,null),n.push(r)});const o=Fp(e);for(const r in o){const i=o[r];i&&(t(r,Bp(e,r,i)),n.push(r))}return n}const Ip={provider:"",aliases:{},not_found:{},...xd};function bl(e,t){for(const n in t)if(n in e&&typeof e[n]!=typeof t[n])return!1;return!0}function kd(e){if(typeof e!="object"||e===null)return null;const t=e;if(typeof t.prefix!="string"||!e.icons||typeof e.icons!="object"||!bl(e,Ip))return null;const n=t.icons;for(const r in n){const i=n[r];if(!r.match(nr)||typeof i.body!="string"||!bl(i,ns))return null}const o=t.aliases||Object.create(null);for(const r in o){const i=o[r],l=i.parent;if(!r.match(nr)||typeof l!="string"||!n[l]&&!o[l]||!bl(i,ns))return null}return t}const Cu=Object.create(null);function zp(e,t){return{provider:e,prefix:t,icons:Object.create(null),missing:new Set}}function eo(e,t){const n=Cu[e]||(Cu[e]=Object.create(null));return n[t]||(n[t]=zp(e,t))}function Qs(e,t){return kd(t)?Cd(t,(n,o)=>{o?e.icons[n]=o:e.missing.add(n)}):[]}function Vp(e,t,n){try{if(typeof n.body=="string")return e.icons[t]={...n},!0}catch{}return!1}let gr=!1;function Ed(e){return typeof e=="boolean"&&(gr=e),gr}function Np(e){const t=typeof e=="string"?ji(e,!0,gr):e;if(t){const n=eo(t.provider,t.prefix),o=t.name;return n.icons[o]||(n.missing.has(o)?null:void 0)}}function jp(e,t){const n=ji(e,!0,gr);if(!n)return!1;const o=eo(n.provider,n.prefix);return Vp(o,n.name,t)}function Dp(e,t){if(typeof e!="object")return!1;if(typeof t!="string"&&(t=e.provider||""),gr&&!t&&!e.prefix){let r=!1;return kd(e)&&(e.prefix="",Cd(e,(i,l)=>{l&&jp(i,l)&&(r=!0)})),r}const n=e.prefix;if(!Gr({provider:t,prefix:n,name:"a"}))return!1;const o=eo(t,n);return!!Qs(o,e)}const qd=Object.freeze({width:null,height:null}),Td=Object.freeze({...qd,...hi}),Hp=/(-?[0-9.]*[0-9]+[0-9.]*)/g,Up=/^-?[0-9.]*[0-9]+[0-9.]*$/g;function ku(e,t,n){if(t===1)return e;if(n=n||100,typeof e=="number")return Math.ceil(e*t*n)/n;if(typeof e!="string")return e;const o=e.split(Hp);if(o===null||!o.length)return e;const r=[];let i=o.shift(),l=Up.test(i);for(;;){if(l){const s=parseFloat(i);isNaN(s)?r.push(i):r.push(Math.ceil(s*t*n)/n)}else r.push(i);if(i=o.shift(),i===void 0)return r.join("");l=!l}}const Kp=e=>e==="unset"||e==="undefined"||e==="none";function Wp(e,t){const n={...Di,...e},o={...Td,...t},r={left:n.left,top:n.top,width:n.width,height:n.height};let i=n.body;[n,o].forEach(m=>{const g=[],b=m.hFlip,T=m.vFlip;let k=m.rotate;b?T?k+=2:(g.push("translate("+(r.width+r.left).toString()+" "+(0-r.top).toString()+")"),g.push("scale(-1 1)"),r.top=r.left=0):T&&(g.push("translate("+(0-r.left).toString()+" "+(r.height+r.top).toString()+")"),g.push("scale(1 -1)"),r.top=r.left=0);let E;switch(k<0&&(k-=Math.floor(k/4)*4),k=k%4,k){case 1:E=r.height/2+r.top,g.unshift("rotate(90 "+E.toString()+" "+E.toString()+")");break;case 2:g.unshift("rotate(180 "+(r.width/2+r.left).toString()+" "+(r.height/2+r.top).toString()+")");break;case 3:E=r.width/2+r.left,g.unshift("rotate(-90 "+E.toString()+" "+E.toString()+")");break}k%2===1&&(r.left!==r.top&&(E=r.left,r.left=r.top,r.top=E),r.width!==r.height&&(E=r.width,r.width=r.height,r.height=E)),g.length&&(i='<g transform="'+g.join(" ")+'">'+i+"</g>")});const l=o.width,s=o.height,a=r.width,c=r.height;let u,f;l===null?(f=s===null?"1em":s==="auto"?c:s,u=ku(f,a/c)):(u=l==="auto"?a:l,f=s===null?ku(u,c/a):s==="auto"?c:s);const d={},h=(m,g)=>{Kp(g)||(d[m]=g.toString())};return h("width",u),h("height",f),d.viewBox=r.left.toString()+" "+r.top.toString()+" "+a.toString()+" "+c.toString(),{attributes:d,body:i}}const Qp=/\sid="(\S+)"/g,Jp="IconifyId"+Date.now().toString(16)+(Math.random()*16777216|0).toString(16);let Xp=0;function Yp(e,t=Jp){const n=[];let o;for(;o=Qp.exec(e);)n.push(o[1]);if(!n.length)return e;const r="suffix"+(Math.random()*16777216|Date.now()).toString(16);return n.forEach(i=>{const l=typeof t=="function"?t(i):t+(Xp++).toString(),s=i.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");e=e.replace(new RegExp('([#;"])('+s+')([")]|\\.[a-z])',"g"),"$1"+l+r+"$3")}),e=e.replace(new RegExp(r,"g"),""),e}const os=Object.create(null);function Gp(e,t){os[e]=t}function rs(e){return os[e]||os[""]}function Js(e){let t;if(typeof e.resources=="string")t=[e.resources];else if(t=e.resources,!(t instanceof Array)||!t.length)return null;return{resources:t,path:e.path||"/",maxURL:e.maxURL||500,rotate:e.rotate||750,timeout:e.timeout||5e3,random:e.random===!0,index:e.index||0,dataAfterTimeout:e.dataAfterTimeout!==!1}}const Xs=Object.create(null),jo=["https://api.simplesvg.com","https://api.unisvg.com"],Zr=[];for(;jo.length>0;)jo.length===1||Math.random()>.5?Zr.push(jo.shift()):Zr.push(jo.pop());Xs[""]=Js({resources:["https://api.iconify.design"].concat(Zr)});function Zp(e,t){const n=Js(t);return n===null?!1:(Xs[e]=n,!0)}function Ys(e){return Xs[e]}const eb=()=>{let e;try{if(e=fetch,typeof e=="function")return e}catch{}};let Eu=eb();function tb(e,t){const n=Ys(e);if(!n)return 0;let o;if(!n.maxURL)o=0;else{let r=0;n.resources.forEach(l=>{r=Math.max(r,l.length)});const i=t+".json?icons=";o=n.maxURL-r-n.path.length-i.length}return o}function nb(e){return e===404}const ob=(e,t,n)=>{const o=[],r=tb(e,t),i="icons";let l={type:i,provider:e,prefix:t,icons:[]},s=0;return n.forEach((a,c)=>{s+=a.length+1,s>=r&&c>0&&(o.push(l),l={type:i,provider:e,prefix:t,icons:[]},s=a.length),l.icons.push(a)}),o.push(l),o};function rb(e){if(typeof e=="string"){const t=Ys(e);if(t)return t.path}return"/"}const ib=(e,t,n)=>{if(!Eu){n("abort",424);return}let o=rb(t.provider);switch(t.type){case"icons":{const i=t.prefix,s=t.icons.join(","),a=new URLSearchParams({icons:s});o+=i+".json?"+a.toString();break}case"custom":{const i=t.uri;o+=i.slice(0,1)==="/"?i.slice(1):i;break}default:n("abort",400);return}let r=503;Eu(e+o).then(i=>{const l=i.status;if(l!==200){setTimeout(()=>{n(nb(l)?"abort":"next",l)});return}return r=501,i.json()}).then(i=>{if(typeof i!="object"||i===null){setTimeout(()=>{i===404?n("abort",i):n("next",r)});return}setTimeout(()=>{n("success",i)})}).catch(()=>{n("next",r)})},lb={prepare:ob,send:ib};function sb(e){const t={loaded:[],missing:[],pending:[]},n=Object.create(null);e.sort((r,i)=>r.provider!==i.provider?r.provider.localeCompare(i.provider):r.prefix!==i.prefix?r.prefix.localeCompare(i.prefix):r.name.localeCompare(i.name));let o={provider:"",prefix:"",name:""};return e.forEach(r=>{if(o.name===r.name&&o.prefix===r.prefix&&o.provider===r.provider)return;o=r;const i=r.provider,l=r.prefix,s=r.name,a=n[i]||(n[i]=Object.create(null)),c=a[l]||(a[l]=eo(i,l));let u;s in c.icons?u=t.loaded:l===""||c.missing.has(s)?u=t.missing:u=t.pending;const f={provider:i,prefix:l,name:s};u.push(f)}),t}function Pd(e,t){e.forEach(n=>{const o=n.loaderCallbacks;o&&(n.loaderCallbacks=o.filter(r=>r.id!==t))})}function ab(e){e.pendingCallbacksFlag||(e.pendingCallbacksFlag=!0,setTimeout(()=>{e.pendingCallbacksFlag=!1;const t=e.loaderCallbacks?e.loaderCallbacks.slice(0):[];if(!t.length)return;let n=!1;const o=e.provider,r=e.prefix;t.forEach(i=>{const l=i.icons,s=l.pending.length;l.pending=l.pending.filter(a=>{if(a.prefix!==r)return!0;const c=a.name;if(e.icons[c])l.loaded.push({provider:o,prefix:r,name:c});else if(e.missing.has(c))l.missing.push({provider:o,prefix:r,name:c});else return n=!0,!0;return!1}),l.pending.length!==s&&(n||Pd([e],i.id),i.callback(l.loaded.slice(0),l.missing.slice(0),l.pending.slice(0),i.abort))})}))}let ub=0;function cb(e,t,n){const o=ub++,r=Pd.bind(null,n,o);if(!t.pending.length)return r;const i={id:o,icons:t,callback:e,abort:r};return n.forEach(l=>{(l.loaderCallbacks||(l.loaderCallbacks=[])).push(i)}),r}function fb(e,t=!0,n=!1){const o=[];return e.forEach(r=>{const i=typeof r=="string"?ji(r,t,n):r;i&&o.push(i)}),o}var db={resources:[],index:0,timeout:2e3,rotate:750,random:!1,dataAfterTimeout:!1};function hb(e,t,n,o){const r=e.resources.length,i=e.random?Math.floor(Math.random()*r):e.index;let l;if(e.random){let C=e.resources.slice(0);for(l=[];C.length>1;){const S=Math.floor(Math.random()*C.length);l.push(C[S]),C=C.slice(0,S).concat(C.slice(S+1))}l=l.concat(C)}else l=e.resources.slice(i).concat(e.resources.slice(0,i));const s=Date.now();let a="pending",c=0,u,f=null,d=[],h=[];typeof o=="function"&&h.push(o);function m(){f&&(clearTimeout(f),f=null)}function g(){a==="pending"&&(a="aborted"),m(),d.forEach(C=>{C.status==="pending"&&(C.status="aborted")}),d=[]}function b(C,S){S&&(h=[]),typeof C=="function"&&h.push(C)}function T(){return{startTime:s,payload:t,status:a,queriesSent:c,queriesPending:d.length,subscribe:b,abort:g}}function k(){a="failed",h.forEach(C=>{C(void 0,u)})}function E(){d.forEach(C=>{C.status==="pending"&&(C.status="aborted")}),d=[]}function x(C,S,p){const $=S!=="success";switch(d=d.filter(R=>R!==C),a){case"pending":break;case"failed":if($||!e.dataAfterTimeout)return;break;default:return}if(S==="abort"){u=p,k();return}if($){u=p,d.length||(l.length?P():k());return}if(m(),E(),!e.random){const R=e.resources.indexOf(C.resource);R!==-1&&R!==e.index&&(e.index=R)}a="completed",h.forEach(R=>{R(p)})}function P(){if(a!=="pending")return;m();const C=l.shift();if(C===void 0){if(d.length){f=setTimeout(()=>{m(),a==="pending"&&(E(),k())},e.timeout);return}k();return}const S={status:"pending",resource:C,callback:(p,$)=>{x(S,p,$)}};d.push(S),c++,f=setTimeout(P,e.rotate),n(C,t,S.callback)}return setTimeout(P),T}function Rd(e){const t={...db,...e};let n=[];function o(){n=n.filter(s=>s().status==="pending")}function r(s,a,c){const u=hb(t,s,a,(f,d)=>{o(),c&&c(f,d)});return n.push(u),u}function i(s){return n.find(a=>s(a))||null}return{query:r,find:i,setIndex:s=>{t.index=s},getIndex:()=>t.index,cleanup:o}}function qu(){}const yl=Object.create(null);function mb(e){if(!yl[e]){const t=Ys(e);if(!t)return;const n=Rd(t),o={config:t,redundancy:n};yl[e]=o}return yl[e]}function vb(e,t,n){let o,r;if(typeof e=="string"){const i=rs(e);if(!i)return n(void 0,424),qu;r=i.send;const l=mb(e);l&&(o=l.redundancy)}else{const i=Js(e);if(i){o=Rd(i);const l=e.resources?e.resources[0]:"",s=rs(l);s&&(r=s.send)}}return!o||!r?(n(void 0,424),qu):o.query(t,r,n)().abort}const Tu="iconify2",pr="iconify",Ad=pr+"-count",Pu=pr+"-version",Od=36e5,gb=168;function is(e,t){try{return e.getItem(t)}catch{}}function Gs(e,t,n){try{return e.setItem(t,n),!0}catch{}}function Ru(e,t){try{e.removeItem(t)}catch{}}function ls(e,t){return Gs(e,Ad,t.toString())}function ss(e){return parseInt(is(e,Ad))||0}const Hi={local:!0,session:!0},$d={local:new Set,session:new Set};let Zs=!1;function pb(e){Zs=e}let Ir=typeof window>"u"?{}:window;function Ld(e){const t=e+"Storage";try{if(Ir&&Ir[t]&&typeof Ir[t].length=="number")return Ir[t]}catch{}Hi[e]=!1}function Md(e,t){const n=Ld(e);if(!n)return;const o=is(n,Pu);if(o!==Tu){if(o){const s=ss(n);for(let a=0;a<s;a++)Ru(n,pr+a.toString())}Gs(n,Pu,Tu),ls(n,0);return}const r=Math.floor(Date.now()/Od)-gb,i=s=>{const a=pr+s.toString(),c=is(n,a);if(typeof c=="string"){try{const u=JSON.parse(c);if(typeof u=="object"&&typeof u.cached=="number"&&u.cached>r&&typeof u.provider=="string"&&typeof u.data=="object"&&typeof u.data.prefix=="string"&&t(u,s))return!0}catch{}Ru(n,a)}};let l=ss(n);for(let s=l-1;s>=0;s--)i(s)||(s===l-1?(l--,ls(n,l)):$d[e].add(s))}function Fd(){if(!Zs){pb(!0);for(const e in Hi)Md(e,t=>{const n=t.data,o=t.provider,r=n.prefix,i=eo(o,r);if(!Qs(i,n).length)return!1;const l=n.lastModified||-1;return i.lastModifiedCached=i.lastModifiedCached?Math.min(i.lastModifiedCached,l):l,!0})}}function bb(e,t){const n=e.lastModifiedCached;if(n&&n>=t)return n===t;if(e.lastModifiedCached=t,n)for(const o in Hi)Md(o,r=>{const i=r.data;return r.provider!==e.provider||i.prefix!==e.prefix||i.lastModified===t});return!0}function yb(e,t){Zs||Fd();function n(o){let r;if(!Hi[o]||!(r=Ld(o)))return;const i=$d[o];let l;if(i.size)i.delete(l=Array.from(i).shift());else if(l=ss(r),!ls(r,l+1))return;const s={cached:Math.floor(Date.now()/Od),provider:e.provider,data:t};return Gs(r,pr+l.toString(),JSON.stringify(s))}t.lastModified&&!bb(e,t.lastModified)||!Object.keys(t.icons).length||(t.not_found&&(t=Object.assign({},t),delete t.not_found),n("local")||n("session"))}function Au(){}function wb(e){e.iconsLoaderFlag||(e.iconsLoaderFlag=!0,setTimeout(()=>{e.iconsLoaderFlag=!1,ab(e)}))}function _b(e,t){e.iconsToLoad?e.iconsToLoad=e.iconsToLoad.concat(t).sort():e.iconsToLoad=t,e.iconsQueueFlag||(e.iconsQueueFlag=!0,setTimeout(()=>{e.iconsQueueFlag=!1;const{provider:n,prefix:o}=e,r=e.iconsToLoad;delete e.iconsToLoad;let i;if(!r||!(i=rs(n)))return;i.prepare(n,o,r).forEach(s=>{vb(n,s,a=>{if(typeof a!="object")s.icons.forEach(c=>{e.missing.add(c)});else try{const c=Qs(e,a);if(!c.length)return;const u=e.pendingIcons;u&&c.forEach(f=>{u.delete(f)}),yb(e,a)}catch(c){console.error(c)}wb(e)})})}))}const Sb=(e,t)=>{const n=fb(e,!0,Ed()),o=sb(n);if(!o.pending.length){let a=!0;return t&&setTimeout(()=>{a&&t(o.loaded,o.missing,o.pending,Au)}),()=>{a=!1}}const r=Object.create(null),i=[];let l,s;return o.pending.forEach(a=>{const{provider:c,prefix:u}=a;if(u===s&&c===l)return;l=c,s=u,i.push(eo(c,u));const f=r[c]||(r[c]=Object.create(null));f[u]||(f[u]=[])}),o.pending.forEach(a=>{const{provider:c,prefix:u,name:f}=a,d=eo(c,u),h=d.pendingIcons||(d.pendingIcons=new Set);h.has(f)||(h.add(f),r[c][u].push(f))}),i.forEach(a=>{const{provider:c,prefix:u}=a;r[c][u].length&&_b(a,r[c][u])}),t?cb(t,o,i):Au};function xb(e,t){const n={...e};for(const o in t){const r=t[o],i=typeof r;o in qd?(r===null||r&&(i==="string"||i==="number"))&&(n[o]=r):i===typeof n[o]&&(n[o]=o==="rotate"?r%4:r)}return n}const Cb=/[\s,]+/;function kb(e,t){t.split(Cb).forEach(n=>{switch(n.trim()){case"horizontal":e.hFlip=!0;break;case"vertical":e.vFlip=!0;break}})}function Eb(e,t=0){const n=e.replace(/^-?[0-9.]*/,"");function o(r){for(;r<0;)r+=4;return r%4}if(n===""){const r=parseInt(e);return isNaN(r)?0:o(r)}else if(n!==e){let r=0;switch(n){case"%":r=25;break;case"deg":r=90}if(r){let i=parseFloat(e.slice(0,e.length-n.length));return isNaN(i)?0:(i=i/r,i%1===0?o(i):0)}}return t}function qb(e,t){let n=e.indexOf("xlink:")===-1?"":' xmlns:xlink="http://www.w3.org/1999/xlink"';for(const o in t)n+=" "+o+'="'+t[o]+'"';return'<svg xmlns="http://www.w3.org/2000/svg"'+n+">"+e+"</svg>"}function Tb(e){return e.replace(/"/g,"'").replace(/%/g,"%25").replace(/#/g,"%23").replace(/</g,"%3C").replace(/>/g,"%3E").replace(/\s+/g," ")}function Pb(e){return"data:image/svg+xml,"+Tb(e)}function Rb(e){return'url("'+Pb(e)+'")'}const Ou={...Td,inline:!1},Ab={xmlns:"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink","aria-hidden":!0,role:"img"},Ob={display:"inline-block"},as={backgroundColor:"currentColor"},Bd={backgroundColor:"transparent"},$u={Image:"var(--svg)",Repeat:"no-repeat",Size:"100% 100%"},Lu={webkitMask:as,mask:as,background:Bd};for(const e in Lu){const t=Lu[e];for(const n in $u)t[e+n]=$u[n]}const ei={};["horizontal","vertical"].forEach(e=>{const t=e.slice(0,1)+"Flip";ei[e+"-flip"]=t,ei[e.slice(0,1)+"-flip"]=t,ei[e+"Flip"]=t});function Mu(e){return e+(e.match(/^[-0-9.]+$/)?"px":"")}const Fu=(e,t)=>{const n=xb(Ou,t),o={...Ab},r=t.mode||"svg",i={},l=t.style,s=typeof l=="object"&&!(l instanceof Array)?l:{};for(let g in t){const b=t[g];if(b!==void 0)switch(g){case"icon":case"style":case"onLoad":case"mode":break;case"inline":case"hFlip":case"vFlip":n[g]=b===!0||b==="true"||b===1;break;case"flip":typeof b=="string"&&kb(n,b);break;case"color":i.color=b;break;case"rotate":typeof b=="string"?n[g]=Eb(b):typeof b=="number"&&(n[g]=b);break;case"ariaHidden":case"aria-hidden":b!==!0&&b!=="true"&&delete o["aria-hidden"];break;default:{const T=ei[g];T?(b===!0||b==="true"||b===1)&&(n[T]=!0):Ou[g]===void 0&&(o[g]=b)}}}const a=Wp(e,n),c=a.attributes;if(n.inline&&(i.verticalAlign="-0.125em"),r==="svg"){o.style={...i,...s},Object.assign(o,c);let g=0,b=t.id;return typeof b=="string"&&(b=b.replace(/-/g,"_")),o.innerHTML=Yp(a.body,b?()=>b+"ID"+g++:"iconifyVue"),_("svg",o)}const{body:u,width:f,height:d}=e,h=r==="mask"||(r==="bg"?!1:u.indexOf("currentColor")!==-1),m=qb(u,{...c,width:f+"",height:d+""});return o.style={...i,"--svg":Rb(m),width:Mu(c.width),height:Mu(c.height),...Ob,...h?as:Bd,...s},_("span",o)};Ed(!0);Gp("",lb);if(typeof document<"u"&&typeof window<"u"){Fd();const e=window;if(e.IconifyPreload!==void 0){const t=e.IconifyPreload,n="Invalid IconifyPreload syntax.";typeof t=="object"&&t!==null&&(t instanceof Array?t:[t]).forEach(o=>{try{(typeof o!="object"||o===null||o instanceof Array||typeof o.icons!="object"||typeof o.prefix!="string"||!Dp(o))&&console.error(n)}catch{console.error(n)}})}if(e.IconifyProviders!==void 0){const t=e.IconifyProviders;if(typeof t=="object"&&t!==null)for(let n in t){const o="IconifyProviders["+n+"] is invalid.";try{const r=t[n];if(typeof r!="object"||!r||r.resources===void 0)continue;Zp(n,r)||console.error(o)}catch{console.error(o)}}}}const $b={...Di,body:""},Lb=Ri({inheritAttrs:!1,data(){return{iconMounted:!1,counter:0}},mounted(){this._name="",this._loadingIcon=null,this.iconMounted=!0},unmounted(){this.abortLoading()},methods:{abortLoading(){this._loadingIcon&&(this._loadingIcon.abort(),this._loadingIcon=null)},getIcon(e,t){if(typeof e=="object"&&e!==null&&typeof e.body=="string")return this._name="",this.abortLoading(),{data:e};let n;if(typeof e!="string"||(n=ji(e,!1,!0))===null)return this.abortLoading(),null;const o=Np(n);if(!o)return(!this._loadingIcon||this._loadingIcon.name!==e)&&(this.abortLoading(),this._name="",o!==null&&(this._loadingIcon={name:e,abort:Sb([n],()=>{this.counter++})})),null;this.abortLoading(),this._name!==e&&(this._name=e,t&&t(e));const r=["iconify"];return n.prefix!==""&&r.push("iconify--"+n.prefix),n.provider!==""&&r.push("iconify--"+n.provider),{data:o,classes:r}}},render(){this.counter;const e=this.$attrs,t=this.iconMounted?this.getIcon(e.icon,e.onLoad):null;if(!t)return Fu($b,e);let n=e;return t.classes&&(n={...e,class:(typeof e.class=="string"?e.class+" ":"")+t.classes.join(" ")}),Fu({...Di,...t.data},n)}});const St={dark:{type:Boolean,default:null}};function xt(e,t){return v(()=>e.dark===null?t.dark.isActive:e.dark)}const Mb=Pe({name:"QBanner",props:{...St,inlineActions:Boolean,dense:Boolean,rounded:Boolean},setup(e,{slots:t}){const{proxy:{$q:n}}=qe(),o=xt(e,n),r=v(()=>"q-banner row items-center"+(e.dense===!0?" q-banner--dense":"")+(o.value===!0?" q-banner--dark q-dark":"")+(e.rounded===!0?" rounded-borders":"")),i=v(()=>`q-banner__actions row items-center justify-end col-${e.inlineActions===!0?"auto":"all"}`);return()=>{const l=[_("div",{class:"q-banner__avatar col-auto row items-center self-start"},je(t.avatar)),_("div",{class:"q-banner__content col text-body2"},je(t.default))],s=je(t.action);return s!==void 0&&l.push(_("div",{class:i.value},s)),_("div",{class:r.value+(e.inlineActions===!1&&s!==void 0?" q-banner--top-padding":""),role:"alert"},l)}}}),Fb=Pe({name:"QToolbarTitle",props:{shrink:Boolean},setup(e,{slots:t}){const n=v(()=>"q-toolbar__title ellipsis"+(e.shrink===!0?" col-shrink":""));return()=>_("div",{class:n.value},je(t.default))}}),Bb=Pe({name:"QToolbar",props:{inset:Boolean},setup(e,{slots:t}){const n=v(()=>"q-toolbar row no-wrap items-center"+(e.inset===!0?" q-toolbar--inset":""));return()=>_("div",{class:n.value,role:"toolbar"},je(t.default))}});function Ib(){const e=W(!en.value);return e.value===!1&&ct(()=>{e.value=!0}),e}const Id=typeof ResizeObserver<"u",Bu=Id===!0?{}:{style:"display:block;position:absolute;top:0;left:0;right:0;bottom:0;height:100%;width:100%;overflow:hidden;pointer-events:none;z-index:-1;",url:"about:blank"},br=Pe({name:"QResizeObserver",props:{debounce:{type:[String,Number],default:100}},emits:["resize"],setup(e,{emit:t}){let n=null,o,r={width:-1,height:-1};function i(a){a===!0||e.debounce===0||e.debounce==="0"?l():n===null&&(n=setTimeout(l,e.debounce))}function l(){if(clearTimeout(n),n=null,o){const{offsetWidth:a,offsetHeight:c}=o;(a!==r.width||c!==r.height)&&(r={width:a,height:c},t("resize",r))}}const{proxy:s}=qe();if(Id===!0){let a;const c=u=>{o=s.$el.parentNode,o?(a=new ResizeObserver(i),a.observe(o),l()):u!==!0&&ze(()=>{c(!0)})};return ct(()=>{c()}),We(()=>{clearTimeout(n),a!==void 0&&(a.disconnect!==void 0?a.disconnect():o&&a.unobserve(o))}),hn}else{let u=function(){clearTimeout(n),c!==void 0&&(c.removeEventListener!==void 0&&c.removeEventListener("resize",i,Ye.passive),c=void 0)},f=function(){u(),o&&o.contentDocument&&(c=o.contentDocument.defaultView,c.addEventListener("resize",i,Ye.passive),l())};const a=Ib();let c;return ct(()=>{ze(()=>{o=s.$el,o&&f()})}),We(u),s.trigger=i,()=>{if(a.value===!0)return _("object",{style:Bu.style,tabindex:-1,type:"text/html",data:Bu.url,"aria-hidden":"true",onLoad:f})}}}}),zb=Pe({name:"QHeader",props:{modelValue:{type:Boolean,default:!0},reveal:Boolean,revealOffset:{type:Number,default:250},bordered:Boolean,elevated:Boolean,heightHint:{type:[String,Number],default:50}},emits:["reveal","focusin"],setup(e,{slots:t,emit:n}){const{proxy:{$q:o}}=qe(),r=ut(Vi,un);if(r===un)return console.error("QHeader needs to be child of QLayout"),un;const i=W(parseInt(e.heightHint,10)),l=W(!0),s=v(()=>e.reveal===!0||r.view.value.indexOf("H")>-1||o.platform.is.ios&&r.isContainer.value===!0),a=v(()=>{if(e.modelValue!==!0)return 0;if(s.value===!0)return l.value===!0?i.value:0;const k=i.value-r.scroll.value.position;return k>0?k:0}),c=v(()=>e.modelValue!==!0||s.value===!0&&l.value!==!0),u=v(()=>e.modelValue===!0&&c.value===!0&&e.reveal===!0),f=v(()=>"q-header q-layout__section--marginal "+(s.value===!0?"fixed":"absolute")+"-top"+(e.bordered===!0?" q-header--bordered":"")+(c.value===!0?" q-header--hidden":"")+(e.modelValue!==!0?" q-layout--prevent-focus":"")),d=v(()=>{const k=r.rows.value.top,E={};return k[0]==="l"&&r.left.space===!0&&(E[o.lang.rtl===!0?"right":"left"]=`${r.left.size}px`),k[2]==="r"&&r.right.space===!0&&(E[o.lang.rtl===!0?"left":"right"]=`${r.right.size}px`),E});function h(k,E){r.update("header",k,E)}function m(k,E){k.value!==E&&(k.value=E)}function g({height:k}){m(i,k),h("size",k)}function b(k){u.value===!0&&m(l,!0),n("focusin",k)}fe(()=>e.modelValue,k=>{h("space",k),m(l,!0),r.animate()}),fe(a,k=>{h("offset",k)}),fe(()=>e.reveal,k=>{k===!1&&m(l,e.modelValue)}),fe(l,k=>{r.animate(),n("reveal",k)}),fe(r.scroll,k=>{e.reveal===!0&&m(l,k.direction==="up"||k.position<=e.revealOffset||k.position-k.inflectionPoint<100)});const T={};return r.instances.header=T,e.modelValue===!0&&h("size",i.value),h("space",e.modelValue),h("offset",a.value),We(()=>{r.instances.header===T&&(r.instances.header=void 0,h("size",0),h("offset",0),h("space",!1))}),()=>{const k=Hs(t.default,[]);return e.elevated===!0&&k.push(_("div",{class:"q-layout__shadow absolute-full overflow-hidden no-pointer-events"})),k.push(_(br,{debounce:0,onResize:g})),_("header",{class:f.value,style:d.value,onFocusin:b},k)}}}),ln=Pe({name:"QItemSection",props:{avatar:Boolean,thumbnail:Boolean,side:Boolean,top:Boolean,noWrap:Boolean},setup(e,{slots:t}){const n=v(()=>`q-item__section column q-item__section--${e.avatar===!0||e.side===!0||e.thumbnail===!0?"side":"main"}`+(e.top===!0?" q-item__section--top justify-start":" justify-center")+(e.avatar===!0?" q-item__section--avatar":"")+(e.thumbnail===!0?" q-item__section--thumbnail":"")+(e.noWrap===!0?" q-item__section--nowrap":""));return()=>_("div",{class:n.value},je(t.default))}}),Jo=Pe({name:"QItem",props:{...St,...hd,tag:{type:String,default:"div"},active:{type:Boolean,default:null},clickable:Boolean,dense:Boolean,insetLevel:Number,tabindex:[String,Number],focused:Boolean,manualFocus:Boolean},emits:["click","keyup"],setup(e,{slots:t,emit:n}){const{proxy:{$q:o}}=qe(),r=xt(e,o),{hasLink:i,linkAttrs:l,linkClass:s,linkTag:a,navigateOnClick:c}=md(),u=W(null),f=W(null),d=v(()=>e.clickable===!0||i.value===!0||e.tag==="label"),h=v(()=>e.disable!==!0&&d.value===!0),m=v(()=>"q-item q-item-type row no-wrap"+(e.dense===!0?" q-item--dense":"")+(r.value===!0?" q-item--dark":"")+(i.value===!0&&e.active===null?s.value:e.active===!0?` q-item--active${e.activeClass!==void 0?` ${e.activeClass}`:""}`:"")+(e.disable===!0?" disabled":"")+(h.value===!0?" q-item--clickable q-link cursor-pointer "+(e.manualFocus===!0?"q-manual-focusable":"q-focusable q-hoverable")+(e.focused===!0?" q-manual-focusable--focused":""):"")),g=v(()=>e.insetLevel===void 0?null:{["padding"+(o.lang.rtl===!0?"Right":"Left")]:16+e.insetLevel*56+"px"});function b(E){h.value===!0&&(f.value!==null&&(E.qKeyEvent!==!0&&document.activeElement===u.value?f.value.focus():document.activeElement===f.value&&u.value.focus()),c(E))}function T(E){if(h.value===!0&&Rn(E,13)===!0){Je(E),E.qKeyEvent=!0;const x=new MouseEvent("click",E);x.qKeyEvent=!0,u.value.dispatchEvent(x)}n("keyup",E)}function k(){const E=Hs(t.default,[]);return h.value===!0&&E.unshift(_("div",{class:"q-focus-helper",tabindex:-1,ref:f})),E}return()=>{const E={ref:u,class:m.value,style:g.value,role:"listitem",onClick:b,onKeyup:T};return h.value===!0?(E.tabindex=e.tabindex||"0",Object.assign(E,l.value)):d.value===!0&&(E["aria-disabled"]="true"),_(a.value,E,k())}}}),Vb=[null,document,document.body,document.scrollingElement,document.documentElement];function ea(e,t){let n=sp(t);if(n===void 0){if(e==null)return window;n=e.closest(".scroll,.scroll-y,.overflow-auto")}return Vb.includes(n)?window:n}function ta(e){return e===window?window.pageYOffset||window.scrollY||document.body.scrollTop||0:e.scrollTop}function na(e){return e===window?window.pageXOffset||window.scrollX||document.body.scrollLeft||0:e.scrollLeft}function zd(e,t,n=0){const o=arguments[3]===void 0?performance.now():arguments[3],r=ta(e);if(n<=0){r!==t&&us(e,t);return}requestAnimationFrame(i=>{const l=i-o,s=r+(t-r)/Math.max(l,n)*l;us(e,s),s!==t&&zd(e,t,n-l,i)})}function Vd(e,t,n=0){const o=arguments[3]===void 0?performance.now():arguments[3],r=na(e);if(n<=0){r!==t&&cs(e,t);return}requestAnimationFrame(i=>{const l=i-o,s=r+(t-r)/Math.max(l,n)*l;cs(e,s),s!==t&&Vd(e,t,n-l,i)})}function us(e,t){if(e===window){window.scrollTo(window.pageXOffset||window.scrollX||document.body.scrollLeft||0,t);return}e.scrollTop=t}function cs(e,t){if(e===window){window.scrollTo(t,window.pageYOffset||window.scrollY||document.body.scrollTop||0);return}e.scrollLeft=t}function Iu(e,t,n){if(n){zd(e,t,n);return}us(e,t)}function wl(e,t,n){if(n){Vd(e,t,n);return}cs(e,t)}let zr;function ti(){if(zr!==void 0)return zr;const e=document.createElement("p"),t=document.createElement("div");Zl(e,{width:"100%",height:"200px"}),Zl(t,{position:"absolute",top:"0px",left:"0px",visibility:"hidden",width:"200px",height:"150px",overflow:"hidden"}),t.appendChild(e),document.body.appendChild(t);const n=e.offsetWidth;t.style.overflow="scroll";let o=e.offsetWidth;return n===o&&(o=t.clientWidth),t.remove(),zr=n-o,zr}function Nb(e,t=!0){return!e||e.nodeType!==Node.ELEMENT_NODE?!1:t?e.scrollHeight>e.clientHeight&&(e.classList.contains("scroll")||e.classList.contains("overflow-auto")||["auto","scroll"].includes(window.getComputedStyle(e)["overflow-y"])):e.scrollWidth>e.clientWidth&&(e.classList.contains("scroll")||e.classList.contains("overflow-auto")||["auto","scroll"].includes(window.getComputedStyle(e)["overflow-x"]))}const{passive:zu}=Ye,jb=["both","horizontal","vertical"],Nd=Pe({name:"QScrollObserver",props:{axis:{type:String,validator:e=>jb.includes(e),default:"vertical"},debounce:[String,Number],scrollTarget:{default:void 0}},emits:["scroll"],setup(e,{emit:t}){const n={position:{top:0,left:0},direction:"down",directionChanged:!1,delta:{top:0,left:0},inflectionPoint:{top:0,left:0}};let o=null,r,i;fe(()=>e.scrollTarget,()=>{a(),s()});function l(){o!==null&&o();const f=Math.max(0,ta(r)),d=na(r),h={top:f-n.position.top,left:d-n.position.left};if(e.axis==="vertical"&&h.top===0||e.axis==="horizontal"&&h.left===0)return;const m=Math.abs(h.top)>=Math.abs(h.left)?h.top<0?"up":"down":h.left<0?"left":"right";n.position={top:f,left:d},n.directionChanged=n.direction!==m,n.delta=h,n.directionChanged===!0&&(n.direction=m,n.inflectionPoint=n.position),t("scroll",{...n})}function s(){r=ea(i,e.scrollTarget),r.addEventListener("scroll",c,zu),c(!0)}function a(){r!==void 0&&(r.removeEventListener("scroll",c,zu),r=void 0)}function c(f){if(f===!0||e.debounce===0||e.debounce==="0")l();else if(o===null){const[d,h]=e.debounce?[setTimeout(l,e.debounce),clearTimeout]:[requestAnimationFrame(l),cancelAnimationFrame];o=()=>{h(d),o=null}}}const{proxy:u}=qe();return fe(()=>u.$q.lang.rtl,l),ct(()=>{i=u.$el.parentNode,s()}),We(()=>{o!==null&&o(),a()}),Object.assign(u,{trigger:c,getPosition:()=>n}),hn}}),oa={left:!0,right:!0,up:!0,down:!0,horizontal:!0,vertical:!0},Db=Object.keys(oa);oa.all=!0;function Vu(e){const t={};for(const n of Db)e[n]===!0&&(t[n]=!0);return Object.keys(t).length===0?oa:(t.horizontal===!0?t.left=t.right=!0:t.left===!0&&t.right===!0&&(t.horizontal=!0),t.vertical===!0?t.up=t.down=!0:t.up===!0&&t.down===!0&&(t.vertical=!0),t.horizontal===!0&&t.vertical===!0&&(t.all=!0),t)}function Nu(e,t){return t.event===void 0&&e.target!==void 0&&e.target.draggable!==!0&&typeof t.handler=="function"&&e.target.nodeName.toUpperCase()!=="INPUT"&&(e.qClonedBy===void 0||e.qClonedBy.indexOf(t.uid)===-1)}function jd(){if(window.getSelection!==void 0){const e=window.getSelection();e.empty!==void 0?e.empty():e.removeAllRanges!==void 0&&(e.removeAllRanges(),ci.is.mobile!==!0&&e.addRange(document.createRange()))}else document.selection!==void 0&&document.selection.empty()}function _l(e,t,n){const o=mr(e);let r,i=o.left-t.event.x,l=o.top-t.event.y,s=Math.abs(i),a=Math.abs(l);const c=t.direction;c.horizontal===!0&&c.vertical!==!0?r=i<0?"left":"right":c.horizontal!==!0&&c.vertical===!0?r=l<0?"up":"down":c.up===!0&&l<0?(r="up",s>a&&(c.left===!0&&i<0?r="left":c.right===!0&&i>0&&(r="right"))):c.down===!0&&l>0?(r="down",s>a&&(c.left===!0&&i<0?r="left":c.right===!0&&i>0&&(r="right"))):c.left===!0&&i<0?(r="left",s<a&&(c.up===!0&&l<0?r="up":c.down===!0&&l>0&&(r="down"))):c.right===!0&&i>0&&(r="right",s<a&&(c.up===!0&&l<0?r="up":c.down===!0&&l>0&&(r="down")));let u=!1;if(r===void 0&&n===!1){if(t.event.isFirst===!0||t.event.lastDir===void 0)return{};r=t.event.lastDir,u=!0,r==="left"||r==="right"?(o.left-=i,s=0,i=0):(o.top-=l,a=0,l=0)}return{synthetic:u,payload:{evt:e,touch:t.event.mouse!==!0,mouse:t.event.mouse===!0,position:o,direction:r,isFirst:t.event.isFirst,isFinal:n===!0,duration:Date.now()-t.event.time,distance:{x:s,y:a},offset:{x:i,y:l},delta:{x:o.left-t.event.lastX,y:o.top-t.event.lastY}}}}let Hb=0;const or=Ds({name:"touch-pan",beforeMount(e,{value:t,modifiers:n}){if(n.mouse!==!0&&Ne.has.touch!==!0)return;function o(i,l){n.mouse===!0&&l===!0?Je(i):(n.stop===!0&&Et(i),n.prevent===!0&&bt(i))}const r={uid:"qvtp_"+Hb++,handler:t,modifiers:n,direction:Vu(n),noop:hn,mouseStart(i){Nu(i,r)&&$g(i)&&(Dn(r,"temp",[[document,"mousemove","move","notPassiveCapture"],[document,"mouseup","end","passiveCapture"]]),r.start(i,!0))},touchStart(i){if(Nu(i,r)){const l=i.target;Dn(r,"temp",[[l,"touchmove","move","notPassiveCapture"],[l,"touchcancel","end","passiveCapture"],[l,"touchend","end","passiveCapture"]]),r.start(i)}},start(i,l){if(Ne.is.firefox===!0&&vl(e,!0),r.lastEvt=i,l===!0||n.stop===!0){if(r.direction.all!==!0&&(l!==!0||r.modifiers.mouseAllDir!==!0&&r.modifiers.mousealldir!==!0)){const c=i.type.indexOf("mouse")>-1?new MouseEvent(i.type,i):new TouchEvent(i.type,i);i.defaultPrevented===!0&&bt(c),i.cancelBubble===!0&&Et(c),Object.assign(c,{qKeyEvent:i.qKeyEvent,qClickOutside:i.qClickOutside,qAnchorHandled:i.qAnchorHandled,qClonedBy:i.qClonedBy===void 0?[r.uid]:i.qClonedBy.concat(r.uid)}),r.initialEvent={target:i.target,event:c}}Et(i)}const{left:s,top:a}=mr(i);r.event={x:s,y:a,time:Date.now(),mouse:l===!0,detected:!1,isFirst:!0,isFinal:!1,lastX:s,lastY:a}},move(i){if(r.event===void 0)return;const l=mr(i),s=l.left-r.event.x,a=l.top-r.event.y;if(s===0&&a===0)return;r.lastEvt=i;const c=r.event.mouse===!0,u=()=>{o(i,c);let h;n.preserveCursor!==!0&&n.preservecursor!==!0&&(h=document.documentElement.style.cursor||"",document.documentElement.style.cursor="grabbing"),c===!0&&document.body.classList.add("no-pointer-events--children"),document.body.classList.add("non-selectable"),jd(),r.styleCleanup=m=>{if(r.styleCleanup=void 0,h!==void 0&&(document.documentElement.style.cursor=h),document.body.classList.remove("non-selectable"),c===!0){const g=()=>{document.body.classList.remove("no-pointer-events--children")};m!==void 0?setTimeout(()=>{g(),m()},50):g()}else m!==void 0&&m()}};if(r.event.detected===!0){r.event.isFirst!==!0&&o(i,r.event.mouse);const{payload:h,synthetic:m}=_l(i,r,!1);h!==void 0&&(r.handler(h)===!1?r.end(i):(r.styleCleanup===void 0&&r.event.isFirst===!0&&u(),r.event.lastX=h.position.left,r.event.lastY=h.position.top,r.event.lastDir=m===!0?void 0:h.direction,r.event.isFirst=!1));return}if(r.direction.all===!0||c===!0&&(r.modifiers.mouseAllDir===!0||r.modifiers.mousealldir===!0)){u(),r.event.detected=!0,r.move(i);return}const f=Math.abs(s),d=Math.abs(a);f!==d&&(r.direction.horizontal===!0&&f>d||r.direction.vertical===!0&&f<d||r.direction.up===!0&&f<d&&a<0||r.direction.down===!0&&f<d&&a>0||r.direction.left===!0&&f>d&&s<0||r.direction.right===!0&&f>d&&s>0?(r.event.detected=!0,r.move(i)):r.end(i,!0))},end(i,l){if(r.event!==void 0){if(er(r,"temp"),Ne.is.firefox===!0&&vl(e,!1),l===!0)r.styleCleanup!==void 0&&r.styleCleanup(),r.event.detected!==!0&&r.initialEvent!==void 0&&r.initialEvent.target.dispatchEvent(r.initialEvent.event);else if(r.event.detected===!0){r.event.isFirst===!0&&r.handler(_l(i===void 0?r.lastEvt:i,r).payload);const{payload:s}=_l(i===void 0?r.lastEvt:i,r,!0),a=()=>{r.handler(s)};r.styleCleanup!==void 0?r.styleCleanup(a):a()}r.event=void 0,r.initialEvent=void 0,r.lastEvt=void 0}}};if(e.__qtouchpan=r,n.mouse===!0){const i=n.mouseCapture===!0||n.mousecapture===!0?"Capture":"";Dn(r,"main",[[e,"mousedown","mouseStart",`passive${i}`]])}Ne.has.touch===!0&&Dn(r,"main",[[e,"touchstart","touchStart",`passive${n.capture===!0?"Capture":""}`],[e,"touchmove","noop","notPassiveCapture"]])},updated(e,t){const n=e.__qtouchpan;n!==void 0&&(t.oldValue!==t.value&&(typeof value!="function"&&n.end(),n.handler=t.value),n.direction=Vu(t.modifiers))},beforeUnmount(e){const t=e.__qtouchpan;t!==void 0&&(t.event!==void 0&&t.end(),er(t,"main"),er(t,"temp"),Ne.is.firefox===!0&&vl(e,!1),t.styleCleanup!==void 0&&t.styleCleanup(),delete e.__qtouchpan)}});function an(e,t,n){return n<=t?t:Math.min(n,Math.max(t,e))}function ju(e,t,n){if(n<=t)return t;const o=n-t+1;let r=t+(e-t)%o;return r<t&&(r=o+r),r===0?0:r}const Du=["vertical","horizontal"],Sl={vertical:{offset:"offsetY",scroll:"scrollTop",dir:"down",dist:"y"},horizontal:{offset:"offsetX",scroll:"scrollLeft",dir:"right",dist:"x"}},Hu={prevent:!0,mouse:!0,mouseAllDir:!0},Uu=e=>e>=250?50:Math.ceil(e/5),Ub=Pe({name:"QScrollArea",props:{...St,thumbStyle:Object,verticalThumbStyle:Object,horizontalThumbStyle:Object,barStyle:[Array,String,Object],verticalBarStyle:[Array,String,Object],horizontalBarStyle:[Array,String,Object],contentStyle:[Array,String,Object],contentActiveStyle:[Array,String,Object],delay:{type:[String,Number],default:1e3},visible:{type:Boolean,default:null},tabindex:[String,Number],onScroll:Function},setup(e,{slots:t,emit:n}){const o=W(!1),r=W(!1),i=W(!1),l={vertical:W(0),horizontal:W(0)},s={vertical:{ref:W(null),position:W(0),size:W(0)},horizontal:{ref:W(null),position:W(0),size:W(0)}},{proxy:a}=qe(),c=xt(e,a.$q);let u,f;const d=W(null),h=v(()=>"q-scrollarea"+(c.value===!0?" q-scrollarea--dark":""));s.vertical.percentage=v(()=>{const N=s.vertical.size.value-l.vertical.value;if(N<=0)return 0;const L=an(s.vertical.position.value/N,0,1);return Math.round(L*1e4)/1e4}),s.vertical.thumbHidden=v(()=>(e.visible===null?i.value:e.visible)!==!0&&o.value===!1&&r.value===!1||s.vertical.size.value<=l.vertical.value+1),s.vertical.thumbStart=v(()=>s.vertical.percentage.value*(l.vertical.value-s.vertical.thumbSize.value)),s.vertical.thumbSize=v(()=>Math.round(an(l.vertical.value*l.vertical.value/s.vertical.size.value,Uu(l.vertical.value),l.vertical.value))),s.vertical.style=v(()=>({...e.thumbStyle,...e.verticalThumbStyle,top:`${s.vertical.thumbStart.value}px`,height:`${s.vertical.thumbSize.value}px`})),s.vertical.thumbClass=v(()=>"q-scrollarea__thumb q-scrollarea__thumb--v absolute-right"+(s.vertical.thumbHidden.value===!0?" q-scrollarea__thumb--invisible":"")),s.vertical.barClass=v(()=>"q-scrollarea__bar q-scrollarea__bar--v absolute-right"+(s.vertical.thumbHidden.value===!0?" q-scrollarea__bar--invisible":"")),s.horizontal.percentage=v(()=>{const N=s.horizontal.size.value-l.horizontal.value;if(N<=0)return 0;const L=an(Math.abs(s.horizontal.position.value)/N,0,1);return Math.round(L*1e4)/1e4}),s.horizontal.thumbHidden=v(()=>(e.visible===null?i.value:e.visible)!==!0&&o.value===!1&&r.value===!1||s.horizontal.size.value<=l.horizontal.value+1),s.horizontal.thumbStart=v(()=>s.horizontal.percentage.value*(l.horizontal.value-s.horizontal.thumbSize.value)),s.horizontal.thumbSize=v(()=>Math.round(an(l.horizontal.value*l.horizontal.value/s.horizontal.size.value,Uu(l.horizontal.value),l.horizontal.value))),s.horizontal.style=v(()=>({...e.thumbStyle,...e.horizontalThumbStyle,[a.$q.lang.rtl===!0?"right":"left"]:`${s.horizontal.thumbStart.value}px`,width:`${s.horizontal.thumbSize.value}px`})),s.horizontal.thumbClass=v(()=>"q-scrollarea__thumb q-scrollarea__thumb--h absolute-bottom"+(s.horizontal.thumbHidden.value===!0?" q-scrollarea__thumb--invisible":"")),s.horizontal.barClass=v(()=>"q-scrollarea__bar q-scrollarea__bar--h absolute-bottom"+(s.horizontal.thumbHidden.value===!0?" q-scrollarea__bar--invisible":""));const m=v(()=>s.vertical.thumbHidden.value===!0&&s.horizontal.thumbHidden.value===!0?e.contentStyle:e.contentActiveStyle),g=[[or,N=>{S(N,"vertical")},void 0,{vertical:!0,...Hu}]],b=[[or,N=>{S(N,"horizontal")},void 0,{horizontal:!0,...Hu}]];function T(){const N={};return Du.forEach(L=>{const U=s[L];N[L+"Position"]=U.position.value,N[L+"Percentage"]=U.percentage.value,N[L+"Size"]=U.size.value,N[L+"ContainerSize"]=l[L].value}),N}const k=zi(()=>{const N=T();N.ref=a,n("scroll",N)},0);function E(N,L,U){if(Du.includes(N)===!1){console.error("[QScrollArea]: wrong first param of setScrollPosition (vertical/horizontal)");return}(N==="vertical"?Iu:wl)(d.value,L,U)}function x({height:N,width:L}){let U=!1;l.vertical.value!==N&&(l.vertical.value=N,U=!0),l.horizontal.value!==L&&(l.horizontal.value=L,U=!0),U===!0&&B()}function P({position:N}){let L=!1;s.vertical.position.value!==N.top&&(s.vertical.position.value=N.top,L=!0),s.horizontal.position.value!==N.left&&(s.horizontal.position.value=N.left,L=!0),L===!0&&B()}function C({height:N,width:L}){s.horizontal.size.value!==L&&(s.horizontal.size.value=L,B()),s.vertical.size.value!==N&&(s.vertical.size.value=N,B())}function S(N,L){const U=s[L];if(N.isFirst===!0){if(U.thumbHidden.value===!0)return;f=U.position.value,r.value=!0}else if(r.value!==!0)return;N.isFinal===!0&&(r.value=!1);const pe=Sl[L],G=l[L].value,M=(U.size.value-G)/(G-U.thumbSize.value),te=N.distance[pe.dist],ae=f+(N.direction===pe.dir?1:-1)*te*M;I(ae,L)}function p(N,L){const U=s[L];if(U.thumbHidden.value!==!0){const pe=N[Sl[L].offset];if(pe<U.thumbStart.value||pe>U.thumbStart.value+U.thumbSize.value){const G=pe-U.thumbSize.value/2;I(G/l[L].value*U.size.value,L)}U.ref.value!==null&&U.ref.value.dispatchEvent(new MouseEvent(N.type,N))}}function $(N){p(N,"vertical")}function R(N){p(N,"horizontal")}function B(){o.value===!0?clearTimeout(u):o.value=!0,u=setTimeout(()=>{o.value=!1},e.delay),e.onScroll!==void 0&&k()}function I(N,L){d.value[Sl[L].scroll]=N}function Q(){i.value=!0}function H(){i.value=!1}let le=null;return fe(()=>a.$q.lang.rtl,N=>{d.value!==null&&wl(d.value,Math.abs(s.horizontal.position.value)*(N===!0?-1:1))}),An(()=>{le={top:s.vertical.position.value,left:s.horizontal.position.value}}),Fo(()=>{if(le===null)return;const N=d.value;N!==null&&(wl(N,le.left),Iu(N,le.top))}),We(k.cancel),Object.assign(a,{getScrollTarget:()=>d.value,getScroll:T,getScrollPosition:()=>({top:s.vertical.position.value,left:s.horizontal.position.value}),getScrollPercentage:()=>({top:s.vertical.percentage.value,left:s.horizontal.percentage.value}),setScrollPosition:E,setScrollPercentage(N,L,U){E(N,L*(s[N].size.value-l[N].value)*(N==="horizontal"&&a.$q.lang.rtl===!0?-1:1),U)}}),()=>_("div",{class:h.value,onMouseenter:Q,onMouseleave:H},[_("div",{ref:d,class:"q-scrollarea__container scroll relative-position fit hide-scrollbar",tabindex:e.tabindex!==void 0?e.tabindex:void 0},[_("div",{class:"q-scrollarea__content absolute",style:m.value},Ot(t.default,[_(br,{debounce:0,onResize:C})])),_(Nd,{axis:"both",onScroll:P})]),_(br,{debounce:0,onResize:x}),_("div",{class:s.vertical.barClass.value,style:[e.barStyle,e.verticalBarStyle],"aria-hidden":"true",onMousedown:$}),_("div",{class:s.horizontal.barClass.value,style:[e.barStyle,e.horizontalBarStyle],"aria-hidden":"true",onMousedown:R}),Dt(_("div",{ref:s.vertical.ref,class:s.vertical.thumbClass.value,style:s.vertical.style.value,"aria-hidden":"true"}),g),Dt(_("div",{ref:s.horizontal.ref,class:s.horizontal.thumbClass.value,style:s.horizontal.style.value,"aria-hidden":"true"}),b)])}});function Dd(e,t,n){let o;function r(){o!==void 0&&(vr.remove(o),o=void 0)}return We(()=>{e.value===!0&&r()}),{removeFromHistory:r,addToHistory(){o={condition:()=>n.value===!0,handler:t},vr.add(o)}}}const ra={modelValue:{type:Boolean,default:null},"onUpdate:modelValue":[Function,Array]},ia=["beforeShow","show","beforeHide","hide"];function la({showing:e,canShow:t,hideOnRouteChange:n,handleShow:o,handleHide:r,processOnMount:i}){const l=qe(),{props:s,emit:a,proxy:c}=l;let u;function f(k){e.value===!0?m(k):d(k)}function d(k){if(s.disable===!0||k!==void 0&&k.qAnchorHandled===!0||t!==void 0&&t(k)!==!0)return;const E=s["onUpdate:modelValue"]!==void 0;E===!0&&(a("update:modelValue",!0),u=k,ze(()=>{u===k&&(u=void 0)})),(s.modelValue===null||E===!1)&&h(k)}function h(k){e.value!==!0&&(e.value=!0,a("beforeShow",k),o!==void 0?o(k):a("show",k))}function m(k){if(s.disable===!0)return;const E=s["onUpdate:modelValue"]!==void 0;E===!0&&(a("update:modelValue",!1),u=k,ze(()=>{u===k&&(u=void 0)})),(s.modelValue===null||E===!1)&&g(k)}function g(k){e.value!==!1&&(e.value=!1,a("beforeHide",k),r!==void 0?r(k):a("hide",k))}function b(k){s.disable===!0&&k===!0?s["onUpdate:modelValue"]!==void 0&&a("update:modelValue",!1):k===!0!==e.value&&(k===!0?h:g)(u)}fe(()=>s.modelValue,b),n!==void 0&&Ks(l)===!0&&fe(()=>c.$route.fullPath,()=>{n.value===!0&&e.value===!0&&m()}),i===!0&&ct(()=>{b(s.modelValue)});const T={show:d,hide:m,toggle:f};return Object.assign(c,T),T}let Do=0,xl,Cl,Xo,kl=!1,Ku,Wu,vo;function Kb(e){Wb(e)&&Je(e)}function Wb(e){if(e.target===document.body||e.target.classList.contains("q-layout__backdrop"))return!0;const t=Lg(e),n=e.shiftKey&&!e.deltaX,o=!n&&Math.abs(e.deltaX)<=Math.abs(e.deltaY),r=n||o?e.deltaY:e.deltaX;for(let i=0;i<t.length;i++){const l=t[i];if(Nb(l,o))return o?r<0&&l.scrollTop===0?!0:r>0&&l.scrollTop+l.clientHeight===l.scrollHeight:r<0&&l.scrollLeft===0?!0:r>0&&l.scrollLeft+l.clientWidth===l.scrollWidth}return!0}function Qu(e){e.target===document&&(document.scrollingElement.scrollTop=document.scrollingElement.scrollTop)}function Vr(e){kl!==!0&&(kl=!0,requestAnimationFrame(()=>{kl=!1;const{height:t}=e.target,{clientHeight:n,scrollTop:o}=document.scrollingElement;(Xo===void 0||t!==window.innerHeight)&&(Xo=n-t,document.scrollingElement.scrollTop=o),o>Xo&&(document.scrollingElement.scrollTop-=Math.ceil((o-Xo)/8))}))}function Ju(e){const t=document.body,n=window.visualViewport!==void 0;if(e==="add"){const{overflowY:o,overflowX:r}=window.getComputedStyle(t);xl=na(window),Cl=ta(window),Ku=t.style.left,Wu=t.style.top,t.style.left=`-${xl}px`,t.style.top=`-${Cl}px`,r!=="hidden"&&(r==="scroll"||t.scrollWidth>window.innerWidth)&&t.classList.add("q-body--force-scrollbar-x"),o!=="hidden"&&(o==="scroll"||t.scrollHeight>window.innerHeight)&&t.classList.add("q-body--force-scrollbar-y"),t.classList.add("q-body--prevent-scroll"),document.qScrollPrevented=!0,Ne.is.ios===!0&&(n===!0?(window.scrollTo(0,0),window.visualViewport.addEventListener("resize",Vr,Ye.passiveCapture),window.visualViewport.addEventListener("scroll",Vr,Ye.passiveCapture),window.scrollTo(0,0)):window.addEventListener("scroll",Qu,Ye.passiveCapture))}Ne.is.desktop===!0&&Ne.is.mac===!0&&window[`${e}EventListener`]("wheel",Kb,Ye.notPassive),e==="remove"&&(Ne.is.ios===!0&&(n===!0?(window.visualViewport.removeEventListener("resize",Vr,Ye.passiveCapture),window.visualViewport.removeEventListener("scroll",Vr,Ye.passiveCapture)):window.removeEventListener("scroll",Qu,Ye.passiveCapture)),t.classList.remove("q-body--prevent-scroll"),t.classList.remove("q-body--force-scrollbar-x"),t.classList.remove("q-body--force-scrollbar-y"),document.qScrollPrevented=!1,t.style.left=Ku,t.style.top=Wu,window.scrollTo(xl,Cl),Xo=void 0)}function Qb(e){let t="add";if(e===!0){if(Do++,vo!==void 0){clearTimeout(vo),vo=void 0;return}if(Do>1)return}else{if(Do===0||(Do--,Do>0))return;if(t="remove",Ne.is.ios===!0&&Ne.is.nativeMobile===!0){clearTimeout(vo),vo=setTimeout(()=>{Ju(t),vo=void 0},100);return}}Ju(t)}function Hd(){let e;return{preventBodyScroll(t){t!==e&&(e!==void 0||t===!0)&&(e=t,Qb(t))}}}function sa(){let e;const t=qe();function n(){clearTimeout(e)}return An(n),We(n),{removeTimeout:n,registerTimeout(o,r){clearTimeout(e),dd(t)===!1&&(e=setTimeout(o,r))}}}const Xu=150,Jb=Pe({name:"QDrawer",inheritAttrs:!1,props:{...ra,...St,side:{type:String,default:"left",validator:e=>["left","right"].includes(e)},width:{type:Number,default:300},mini:Boolean,miniToOverlay:Boolean,miniWidth:{type:Number,default:57},breakpoint:{type:Number,default:1023},showIfAbove:Boolean,behavior:{type:String,validator:e=>["default","desktop","mobile"].includes(e),default:"default"},bordered:Boolean,elevated:Boolean,overlay:Boolean,persistent:Boolean,noSwipeOpen:Boolean,noSwipeClose:Boolean,noSwipeBackdrop:Boolean},emits:[...ia,"onLayout","miniState"],setup(e,{slots:t,emit:n,attrs:o}){const r=qe(),{proxy:{$q:i}}=r,l=xt(e,i),{preventBodyScroll:s}=Hd(),{registerTimeout:a,removeTimeout:c}=sa(),u=ut(Vi,un);if(u===un)return console.error("QDrawer needs to be child of QLayout"),un;let f,d,h;const m=W(e.behavior==="mobile"||e.behavior!=="desktop"&&u.totalWidth.value<=e.breakpoint),g=v(()=>e.mini===!0&&m.value!==!0),b=v(()=>g.value===!0?e.miniWidth:e.width),T=W(e.showIfAbove===!0&&m.value===!1?!0:e.modelValue===!0),k=v(()=>e.persistent!==!0&&(m.value===!0||G.value===!0));function E(z,re){if(S(),z!==!1&&u.animate(),w(0),m.value===!0){const ve=u.instances[N.value];ve!==void 0&&ve.belowBreakpoint===!0&&ve.hide(!1),O(1),u.isContainer.value!==!0&&s(!0)}else O(0),z!==!1&&V(!1);a(()=>{z!==!1&&V(!0),re!==!0&&n("show",z)},Xu)}function x(z,re){p(),z!==!1&&u.animate(),O(0),w(B.value*b.value),ne(),re!==!0?a(()=>{n("hide",z)},Xu):c()}const{show:P,hide:C}=la({showing:T,hideOnRouteChange:k,handleShow:E,handleHide:x}),{addToHistory:S,removeFromHistory:p}=Dd(T,C,k),$={belowBreakpoint:m,hide:C},R=v(()=>e.side==="right"),B=v(()=>(i.lang.rtl===!0?-1:1)*(R.value===!0?1:-1)),I=W(0),Q=W(!1),H=W(!1),le=W(b.value*B.value),N=v(()=>R.value===!0?"left":"right"),L=v(()=>T.value===!0&&m.value===!1&&e.overlay===!1?e.miniToOverlay===!0?e.miniWidth:b.value:0),U=v(()=>e.overlay===!0||e.miniToOverlay===!0||u.view.value.indexOf(R.value?"R":"L")>-1||i.platform.is.ios===!0&&u.isContainer.value===!0),pe=v(()=>e.overlay===!1&&T.value===!0&&m.value===!1),G=v(()=>e.overlay===!0&&T.value===!0&&m.value===!1),M=v(()=>"fullscreen q-drawer__backdrop"+(T.value===!1&&Q.value===!1?" hidden":"")),te=v(()=>({backgroundColor:`rgba(0,0,0,${I.value*.4})`})),ae=v(()=>R.value===!0?u.rows.value.top[2]==="r":u.rows.value.top[0]==="l"),Se=v(()=>R.value===!0?u.rows.value.bottom[2]==="r":u.rows.value.bottom[0]==="l"),Me=v(()=>{const z={};return u.header.space===!0&&ae.value===!1&&(U.value===!0?z.top=`${u.header.offset}px`:u.header.space===!0&&(z.top=`${u.header.size}px`)),u.footer.space===!0&&Se.value===!1&&(U.value===!0?z.bottom=`${u.footer.offset}px`:u.footer.space===!0&&(z.bottom=`${u.footer.size}px`)),z}),oe=v(()=>{const z={width:`${b.value}px`,transform:`translateX(${le.value}px)`};return m.value===!0?z:Object.assign(z,Me.value)}),A=v(()=>"q-drawer__content fit "+(u.isContainer.value!==!0?"scroll":"overflow-auto")),ee=v(()=>`q-drawer q-drawer--${e.side}`+(H.value===!0?" q-drawer--mini-animate":"")+(e.bordered===!0?" q-drawer--bordered":"")+(l.value===!0?" q-drawer--dark q-dark":"")+(Q.value===!0?" no-transition":T.value===!0?"":" q-layout--prevent-focus")+(m.value===!0?" fixed q-drawer--on-top q-drawer--mobile q-drawer--top-padding":` q-drawer--${g.value===!0?"mini":"standard"}`+(U.value===!0||pe.value!==!0?" fixed":"")+(e.overlay===!0||e.miniToOverlay===!0?" q-drawer--on-top":"")+(ae.value===!0?" q-drawer--top-padding":""))),F=v(()=>{const z=i.lang.rtl===!0?e.side:N.value;return[[or,X,void 0,{[z]:!0,mouse:!0}]]}),ie=v(()=>{const z=i.lang.rtl===!0?N.value:e.side;return[[or,se,void 0,{[z]:!0,mouse:!0}]]}),xe=v(()=>{const z=i.lang.rtl===!0?N.value:e.side;return[[or,se,void 0,{[z]:!0,mouse:!0,mouseAllDir:!0}]]});function y(){J(m,e.behavior==="mobile"||e.behavior!=="desktop"&&u.totalWidth.value<=e.breakpoint)}fe(m,z=>{z===!0?(f=T.value,T.value===!0&&C(!1)):e.overlay===!1&&e.behavior!=="mobile"&&f!==!1&&(T.value===!0?(w(0),O(0),ne()):P(!1))}),fe(()=>e.side,(z,re)=>{u.instances[re]===$&&(u.instances[re]=void 0,u[re].space=!1,u[re].offset=0),u.instances[z]=$,u[z].size=b.value,u[z].space=pe.value,u[z].offset=L.value}),fe(u.totalWidth,()=>{(u.isContainer.value===!0||document.qScrollPrevented!==!0)&&y()}),fe(()=>e.behavior+e.breakpoint,y),fe(u.isContainer,z=>{T.value===!0&&s(z!==!0),z===!0&&y()}),fe(u.scrollbarWidth,()=>{w(T.value===!0?0:void 0)}),fe(L,z=>{Y("offset",z)}),fe(pe,z=>{n("onLayout",z),Y("space",z)}),fe(R,()=>{w()}),fe(b,z=>{w(),me(e.miniToOverlay,z)}),fe(()=>e.miniToOverlay,z=>{me(z,b.value)}),fe(()=>i.lang.rtl,()=>{w()}),fe(()=>e.mini,()=>{e.modelValue===!0&&(D(),u.animate())}),fe(g,z=>{n("miniState",z)});function w(z){z===void 0?ze(()=>{z=T.value===!0?0:b.value,w(B.value*z)}):(u.isContainer.value===!0&&R.value===!0&&(m.value===!0||Math.abs(z)===b.value)&&(z+=B.value*u.scrollbarWidth.value),le.value=z)}function O(z){I.value=z}function V(z){const re=z===!0?"remove":u.isContainer.value!==!0?"add":"";re!==""&&document.body.classList[re]("q-body--drawer-toggle")}function D(){clearTimeout(d),r.proxy&&r.proxy.$el&&r.proxy.$el.classList.add("q-drawer--mini-animate"),H.value=!0,d=setTimeout(()=>{H.value=!1,r&&r.proxy&&r.proxy.$el&&r.proxy.$el.classList.remove("q-drawer--mini-animate")},150)}function X(z){if(T.value!==!1)return;const re=b.value,ve=an(z.distance.x,0,re);if(z.isFinal===!0){ve>=Math.min(75,re)===!0?P():(u.animate(),O(0),w(B.value*re)),Q.value=!1;return}w((i.lang.rtl===!0?R.value!==!0:R.value)?Math.max(re-ve,0):Math.min(0,ve-re)),O(an(ve/re,0,1)),z.isFirst===!0&&(Q.value=!0)}function se(z){if(T.value!==!0)return;const re=b.value,ve=z.direction===e.side,we=(i.lang.rtl===!0?ve!==!0:ve)?an(z.distance.x,0,re):0;if(z.isFinal===!0){Math.abs(we)<Math.min(75,re)===!0?(u.animate(),O(1),w(0)):C(),Q.value=!1;return}w(B.value*we),O(an(1-we/re,0,1)),z.isFirst===!0&&(Q.value=!0)}function ne(){s(!1),V(!0)}function Y(z,re){u.update(e.side,z,re)}function J(z,re){z.value!==re&&(z.value=re)}function me(z,re){Y("size",z===!0?e.miniWidth:re)}return u.instances[e.side]=$,me(e.miniToOverlay,b.value),Y("space",pe.value),Y("offset",L.value),e.showIfAbove===!0&&e.modelValue!==!0&&T.value===!0&&e["onUpdate:modelValue"]!==void 0&&n("update:modelValue",!0),ct(()=>{n("onLayout",pe.value),n("miniState",g.value),f=e.showIfAbove===!0;const z=()=>{(T.value===!0?E:x)(!1,!0)};if(u.totalWidth.value!==0){ze(z);return}h=fe(u.totalWidth,()=>{h(),h=void 0,T.value===!1&&e.showIfAbove===!0&&m.value===!1?P(!1):z()})}),We(()=>{h!==void 0&&h(),clearTimeout(d),T.value===!0&&ne(),u.instances[e.side]===$&&(u.instances[e.side]=void 0,Y("size",0),Y("offset",0),Y("space",!1))}),()=>{const z=[];m.value===!0&&(e.noSwipeOpen===!1&&z.push(Dt(_("div",{key:"open",class:`q-drawer__opener fixed-${e.side}`,"aria-hidden":"true"}),F.value)),z.push(Gl("div",{ref:"backdrop",class:M.value,style:te.value,"aria-hidden":"true",onClick:C},void 0,"backdrop",e.noSwipeBackdrop!==!0&&T.value===!0,()=>xe.value)));const re=g.value===!0&&t.mini!==void 0,ve=[_("div",{...o,key:""+re,class:[A.value,o.class]},re===!0?t.mini():je(t.default))];return e.elevated===!0&&T.value===!0&&ve.push(_("div",{class:"q-layout__shadow absolute-full overflow-hidden no-pointer-events"})),z.push(Gl("aside",{ref:"content",class:ee.value,style:oe.value},ve,"contentclose",e.noSwipeClose!==!0&&m.value===!0,()=>ie.value)),_("div",{class:"q-drawer-container"},z)}}}),Xb=Pe({name:"QPageContainer",setup(e,{slots:t}){const{proxy:{$q:n}}=qe(),o=ut(Vi,un);if(o===un)return console.error("QPageContainer needs to be child of QLayout"),un;xo(Ug,!0);const r=v(()=>{const i={};return o.header.space===!0&&(i.paddingTop=`${o.header.size}px`),o.right.space===!0&&(i[`padding${n.lang.rtl===!0?"Left":"Right"}`]=`${o.right.size}px`),o.footer.space===!0&&(i.paddingBottom=`${o.footer.size}px`),o.left.space===!0&&(i[`padding${n.lang.rtl===!0?"Right":"Left"}`]=`${o.left.size}px`),i});return()=>_("div",{class:"q-page-container",style:r.value},je(t.default))}}),Yb=Pe({name:"QLayout",props:{container:Boolean,view:{type:String,default:"hhh lpr fff",validator:e=>/^(h|l)h(h|r) lpr (f|l)f(f|r)$/.test(e.toLowerCase())},onScroll:Function,onScrollHeight:Function,onResize:Function},setup(e,{slots:t,emit:n}){const{proxy:{$q:o}}=qe(),r=W(null),i=W(o.screen.height),l=W(e.container===!0?0:o.screen.width),s=W({position:0,direction:"down",inflectionPoint:0}),a=W(0),c=W(en.value===!0?0:ti()),u=v(()=>"q-layout q-layout--"+(e.container===!0?"containerized":"standard")),f=v(()=>e.container===!1?{minHeight:o.screen.height+"px"}:null),d=v(()=>c.value!==0?{[o.lang.rtl===!0?"left":"right"]:`${c.value}px`}:null),h=v(()=>c.value!==0?{[o.lang.rtl===!0?"right":"left"]:0,[o.lang.rtl===!0?"left":"right"]:`-${c.value}px`,width:`calc(100% + ${c.value}px)`}:null);function m(x){if(e.container===!0||document.qScrollPrevented!==!0){const P={position:x.position.top,direction:x.direction,directionChanged:x.directionChanged,inflectionPoint:x.inflectionPoint.top,delta:x.delta.top};s.value=P,e.onScroll!==void 0&&n("scroll",P)}}function g(x){const{height:P,width:C}=x;let S=!1;i.value!==P&&(S=!0,i.value=P,e.onScrollHeight!==void 0&&n("scrollHeight",P),T()),l.value!==C&&(S=!0,l.value=C),S===!0&&e.onResize!==void 0&&n("resize",x)}function b({height:x}){a.value!==x&&(a.value=x,T())}function T(){if(e.container===!0){const x=i.value>a.value?ti():0;c.value!==x&&(c.value=x)}}let k;const E={instances:{},view:v(()=>e.view),isContainer:v(()=>e.container),rootRef:r,height:i,containerHeight:a,scrollbarWidth:c,totalWidth:v(()=>l.value+c.value),rows:v(()=>{const x=e.view.toLowerCase().split(" ");return{top:x[0].split(""),middle:x[1].split(""),bottom:x[2].split("")}}),header:jt({size:0,offset:0,space:!1}),right:jt({size:300,offset:0,space:!1}),footer:jt({size:0,offset:0,space:!1}),left:jt({size:300,offset:0,space:!1}),scroll:s,animate(){k!==void 0?clearTimeout(k):document.body.classList.add("q-body--layout-animate"),k=setTimeout(()=>{document.body.classList.remove("q-body--layout-animate"),k=void 0},155)},update(x,P,C){E[x][P]=C}};if(xo(Vi,E),ti()>0){let C=function(){x=null,P.classList.remove("hide-scrollbar")},S=function(){if(x===null){if(P.scrollHeight>o.screen.height)return;P.classList.add("hide-scrollbar")}else clearTimeout(x);x=setTimeout(C,300)},p=function($){x!==null&&$==="remove"&&(clearTimeout(x),C()),window[`${$}EventListener`]("resize",S)},x=null;const P=document.body;fe(()=>e.container!==!0?"add":"remove",p),e.container!==!0&&p("add"),Bo(()=>{p("remove")})}return()=>{const x=Ot(t.default,[_(Nd,{onScroll:m}),_(br,{onResize:g})]),P=_("div",{class:u.value,style:f.value,ref:e.container===!0?void 0:r,tabindex:-1},x);return e.container===!0?_("div",{class:"q-layout-container overflow-hidden",ref:r},[_(br,{onResize:b}),_("div",{class:"absolute-full",style:d.value},[_("div",{class:"scroll",style:h.value},[P])])]):P}}}),Gb="/assets/vudiary_Logo.80924077.svg";const Zb={key:0,class:"update-banner row justify-center full-width z-top fixed q-mt-lg"},ey={class:"update-banner-inner"},ty=be("span",{class:"update-title"},"A new Update is available!",-1),ny={class:"q-mt-sm"},oy=be("img",{src:Gb},null,-1),ry={__name:"App",setup(e){const t=W(!1),n=W(!1),o=()=>t.value=!t.value,r=async()=>{const i=await navigator.serviceWorker.getRegistration();i!=null&&i.waiting&&(i.waiting.postMessage({type:"SKIP_WAITING"}),window.location.reload())};return ct(async()=>{const i=await navigator.serviceWorker.getRegistration();!i||(i.addEventListener("updatefound",()=>n.value=!0),i.waiting&&(n.value=!0))}),(i,l)=>{const s=Wn("icon"),a=Wn("router-link"),c=Wn("router-view");return Ze(),_t(kt,null,[n.value?(Ze(),_t("div",Zb,[Z(Mb,{class:"update-banner-content text-white q-pa-md bg-warning text-center"},{default:ge(()=>[be("div",ey,[ty,be("div",ny,[Z(ot,{class:"update-btn text-caption",onClick:r,label:"Restart Now!"})])])]),_:1})])):Qn("",!0),Z(Yb,{view:"hHh lpR fFf"},{default:ge(()=>[Z(zb,{elevated:"",class:"header text-white q-pa-sm","height-hint":"98"},{default:ge(()=>[Z(Bb,null,{default:ge(()=>[Z(ot,{dense:"",flat:"",round:"",onClick:o},{default:ge(()=>[Z(s,{class:"text-white icon_drawer",icon:"ic:baseline-menu"})]),_:1}),Z(Fb,null,{default:ge(()=>[Z(a,{to:"/",class:"q-toolbar-title",style:{"text-decoration":"none",color:"inherit"}},{default:ge(()=>[Z(sd,null,{default:ge(()=>[oy]),_:1}),Yt(" Vudiary ")]),_:1})]),_:1})]),_:1})]),_:1}),Z(Jb,{modelValue:t.value,"onUpdate:modelValue":l[0]||(l[0]=u=>t.value=u),width:200,breakpoint:500,bordered:"",class:"bg-grey-3"},{default:ge(()=>[Z(Ub,{class:"fit"},{default:ge(()=>[Z(a,{to:"/",class:"q-toolbar-title rl-item"},{default:ge(()=>[Dt((Ze(),bo(Jo,{clickable:""},{default:ge(()=>[Z(ln,{avatar:""},{default:ge(()=>[Z(s,{class:"icon_drawer",icon:"ic:baseline-home"})]),_:1}),Z(ln,null,{default:ge(()=>[Yt("Home")]),_:1})]),_:1})),[[yo]])]),_:1}),Z(a,{to:"/input",class:"q-toolbar-title rl-item"},{default:ge(()=>[Dt((Ze(),bo(Jo,{clickable:""},{default:ge(()=>[Z(ln,{avatar:""},{default:ge(()=>[Z(s,{class:"icon_drawer",icon:"ic:baseline-add"})]),_:1}),Z(ln,null,{default:ge(()=>[Yt("Input")]),_:1})]),_:1})),[[yo]])]),_:1}),Z(a,{to:"/edit",class:"q-toolbar-title rl-item"},{default:ge(()=>[Dt((Ze(),bo(Jo,{clickable:""},{default:ge(()=>[Z(ln,{avatar:""},{default:ge(()=>[Z(s,{class:"icon_drawer",icon:"material-symbols:edit-rounded"})]),_:1}),Z(ln,null,{default:ge(()=>[Yt("Edit")]),_:1})]),_:1})),[[yo]])]),_:1}),Z(a,{to:"/about",class:"q-toolbar-title rl-item"},{default:ge(()=>[Dt((Ze(),bo(Jo,{clickable:""},{default:ge(()=>[Z(ln,{avatar:""},{default:ge(()=>[Z(s,{class:"icon_drawer",icon:"material-symbols:info"})]),_:1}),Z(ln,null,{default:ge(()=>[Yt("About")]),_:1})]),_:1})),[[yo]])]),_:1})]),_:1})]),_:1},8,["modelValue"]),Z(Xb,null,{default:ge(()=>[Z(c)]),_:1})]),_:1})],64)}}},iy="modulepreload",ly=function(e){return"/"+e},Yu={},Gu=function(t,n,o){if(!n||n.length===0)return t();const r=document.getElementsByTagName("link");return Promise.all(n.map(i=>{if(i=ly(i),i in Yu)return;Yu[i]=!0;const l=i.endsWith(".css"),s=l?'[rel="stylesheet"]':"";if(!!o)for(let u=r.length-1;u>=0;u--){const f=r[u];if(f.href===i&&(!l||f.rel==="stylesheet"))return}else if(document.querySelector(`link[href="${i}"]${s}`))return;const c=document.createElement("link");if(c.rel=l?"stylesheet":iy,l||(c.as="script",c.crossOrigin=""),c.href=i,document.head.appendChild(c),l)return new Promise((u,f)=>{c.addEventListener("load",u),c.addEventListener("error",()=>f(new Error(`Unable to preload CSS for ${i}`)))})})).then(()=>t())};/*!
-  * vue-router v4.2.5
-  * (c) 2023 Eduardo San Martin Morote
-  * @license MIT
-  */const po=typeof window<"u";function sy(e){return e.__esModule||e[Symbol.toStringTag]==="Module"}const Ie=Object.assign;function El(e,t){const n={};for(const o in t){const r=t[o];n[o]=Wt(r)?r.map(e):e(r)}return n}const rr=()=>{},Wt=Array.isArray,ay=/\/$/,uy=e=>e.replace(ay,"");function ql(e,t,n="/"){let o,r={},i="",l="";const s=t.indexOf("#");let a=t.indexOf("?");return s<a&&s>=0&&(a=-1),a>-1&&(o=t.slice(0,a),i=t.slice(a+1,s>-1?s:t.length),r=e(i)),s>-1&&(o=o||t.slice(0,s),l=t.slice(s,t.length)),o=hy(o!=null?o:t,n),{fullPath:o+(i&&"?")+i+l,path:o,query:r,hash:l}}function cy(e,t){const n=t.query?e(t.query):"";return t.path+(n&&"?")+n+(t.hash||"")}function Zu(e,t){return!t||!e.toLowerCase().startsWith(t.toLowerCase())?e:e.slice(t.length)||"/"}function fy(e,t,n){const o=t.matched.length-1,r=n.matched.length-1;return o>-1&&o===r&&Po(t.matched[o],n.matched[r])&&Ud(t.params,n.params)&&e(t.query)===e(n.query)&&t.hash===n.hash}function Po(e,t){return(e.aliasOf||e)===(t.aliasOf||t)}function Ud(e,t){if(Object.keys(e).length!==Object.keys(t).length)return!1;for(const n in e)if(!dy(e[n],t[n]))return!1;return!0}function dy(e,t){return Wt(e)?ec(e,t):Wt(t)?ec(t,e):e===t}function ec(e,t){return Wt(t)?e.length===t.length&&e.every((n,o)=>n===t[o]):e.length===1&&e[0]===t}function hy(e,t){if(e.startsWith("/"))return e;if(!e)return t;const n=t.split("/"),o=e.split("/"),r=o[o.length-1];(r===".."||r===".")&&o.push("");let i=n.length-1,l,s;for(l=0;l<o.length;l++)if(s=o[l],s!==".")if(s==="..")i>1&&i--;else break;return n.slice(0,i).join("/")+"/"+o.slice(l-(l===o.length?1:0)).join("/")}var yr;(function(e){e.pop="pop",e.push="push"})(yr||(yr={}));var ir;(function(e){e.back="back",e.forward="forward",e.unknown=""})(ir||(ir={}));function my(e){if(!e)if(po){const t=document.querySelector("base");e=t&&t.getAttribute("href")||"/",e=e.replace(/^\w+:\/\/[^\/]+/,"")}else e="/";return e[0]!=="/"&&e[0]!=="#"&&(e="/"+e),uy(e)}const vy=/^[^#]+#/;function gy(e,t){return e.replace(vy,"#")+t}function py(e,t){const n=document.documentElement.getBoundingClientRect(),o=e.getBoundingClientRect();return{behavior:t.behavior,left:o.left-n.left-(t.left||0),top:o.top-n.top-(t.top||0)}}const Ui=()=>({left:window.pageXOffset,top:window.pageYOffset});function by(e){let t;if("el"in e){const n=e.el,o=typeof n=="string"&&n.startsWith("#"),r=typeof n=="string"?o?document.getElementById(n.slice(1)):document.querySelector(n):n;if(!r)return;t=py(r,e)}else t=e;"scrollBehavior"in document.documentElement.style?window.scrollTo(t):window.scrollTo(t.left!=null?t.left:window.pageXOffset,t.top!=null?t.top:window.pageYOffset)}function tc(e,t){return(history.state?history.state.position-t:-1)+e}const fs=new Map;function yy(e,t){fs.set(e,t)}function wy(e){const t=fs.get(e);return fs.delete(e),t}let _y=()=>location.protocol+"//"+location.host;function Kd(e,t){const{pathname:n,search:o,hash:r}=t,i=e.indexOf("#");if(i>-1){let s=r.includes(e.slice(i))?e.slice(i).length:1,a=r.slice(s);return a[0]!=="/"&&(a="/"+a),Zu(a,"")}return Zu(n,e)+o+r}function Sy(e,t,n,o){let r=[],i=[],l=null;const s=({state:d})=>{const h=Kd(e,location),m=n.value,g=t.value;let b=0;if(d){if(n.value=h,t.value=d,l&&l===m){l=null;return}b=g?d.position-g.position:0}else o(h);r.forEach(T=>{T(n.value,m,{delta:b,type:yr.pop,direction:b?b>0?ir.forward:ir.back:ir.unknown})})};function a(){l=n.value}function c(d){r.push(d);const h=()=>{const m=r.indexOf(d);m>-1&&r.splice(m,1)};return i.push(h),h}function u(){const{history:d}=window;!d.state||d.replaceState(Ie({},d.state,{scroll:Ui()}),"")}function f(){for(const d of i)d();i=[],window.removeEventListener("popstate",s),window.removeEventListener("beforeunload",u)}return window.addEventListener("popstate",s),window.addEventListener("beforeunload",u,{passive:!0}),{pauseListeners:a,listen:c,destroy:f}}function nc(e,t,n,o=!1,r=!1){return{back:e,current:t,forward:n,replaced:o,position:window.history.length,scroll:r?Ui():null}}function xy(e){const{history:t,location:n}=window,o={value:Kd(e,n)},r={value:t.state};r.value||i(o.value,{back:null,current:o.value,forward:null,position:t.length-1,replaced:!0,scroll:null},!0);function i(a,c,u){const f=e.indexOf("#"),d=f>-1?(n.host&&document.querySelector("base")?e:e.slice(f))+a:_y()+e+a;try{t[u?"replaceState":"pushState"](c,"",d),r.value=c}catch(h){console.error(h),n[u?"replace":"assign"](d)}}function l(a,c){const u=Ie({},t.state,nc(r.value.back,a,r.value.forward,!0),c,{position:r.value.position});i(a,u,!0),o.value=a}function s(a,c){const u=Ie({},r.value,t.state,{forward:a,scroll:Ui()});i(u.current,u,!0);const f=Ie({},nc(o.value,a,null),{position:u.position+1},c);i(a,f,!1),o.value=a}return{location:o,state:r,push:s,replace:l}}function Cy(e){e=my(e);const t=xy(e),n=Sy(e,t.state,t.location,t.replace);function o(i,l=!0){l||n.pauseListeners(),history.go(i)}const r=Ie({location:"",base:e,go:o,createHref:gy.bind(null,e)},t,n);return Object.defineProperty(r,"location",{enumerable:!0,get:()=>t.location.value}),Object.defineProperty(r,"state",{enumerable:!0,get:()=>t.state.value}),r}function ky(e){return typeof e=="string"||e&&typeof e=="object"}function Wd(e){return typeof e=="string"||typeof e=="symbol"}const bn={path:"/",name:void 0,params:{},query:{},hash:"",fullPath:"/",matched:[],meta:{},redirectedFrom:void 0},Qd=Symbol("");var oc;(function(e){e[e.aborted=4]="aborted",e[e.cancelled=8]="cancelled",e[e.duplicated=16]="duplicated"})(oc||(oc={}));function Ro(e,t){return Ie(new Error,{type:e,[Qd]:!0},t)}function on(e,t){return e instanceof Error&&Qd in e&&(t==null||!!(e.type&t))}const rc="[^/]+?",Ey={sensitive:!1,strict:!1,start:!0,end:!0},qy=/[.+*?^${}()[\]/\\]/g;function Ty(e,t){const n=Ie({},Ey,t),o=[];let r=n.start?"^":"";const i=[];for(const c of e){const u=c.length?[]:[90];n.strict&&!c.length&&(r+="/");for(let f=0;f<c.length;f++){const d=c[f];let h=40+(n.sensitive?.25:0);if(d.type===0)f||(r+="/"),r+=d.value.replace(qy,"\\$&"),h+=40;else if(d.type===1){const{value:m,repeatable:g,optional:b,regexp:T}=d;i.push({name:m,repeatable:g,optional:b});const k=T||rc;if(k!==rc){h+=10;try{new RegExp(`(${k})`)}catch(x){throw new Error(`Invalid custom RegExp for param "${m}" (${k}): `+x.message)}}let E=g?`((?:${k})(?:/(?:${k}))*)`:`(${k})`;f||(E=b&&c.length<2?`(?:/${E})`:"/"+E),b&&(E+="?"),r+=E,h+=20,b&&(h+=-8),g&&(h+=-20),k===".*"&&(h+=-50)}u.push(h)}o.push(u)}if(n.strict&&n.end){const c=o.length-1;o[c][o[c].length-1]+=.7000000000000001}n.strict||(r+="/?"),n.end?r+="$":n.strict&&(r+="(?:/|$)");const l=new RegExp(r,n.sensitive?"":"i");function s(c){const u=c.match(l),f={};if(!u)return null;for(let d=1;d<u.length;d++){const h=u[d]||"",m=i[d-1];f[m.name]=h&&m.repeatable?h.split("/"):h}return f}function a(c){let u="",f=!1;for(const d of e){(!f||!u.endsWith("/"))&&(u+="/"),f=!1;for(const h of d)if(h.type===0)u+=h.value;else if(h.type===1){const{value:m,repeatable:g,optional:b}=h,T=m in c?c[m]:"";if(Wt(T)&&!g)throw new Error(`Provided param "${m}" is an array but it is not repeatable (* or + modifiers)`);const k=Wt(T)?T.join("/"):T;if(!k)if(b)d.length<2&&(u.endsWith("/")?u=u.slice(0,-1):f=!0);else throw new Error(`Missing required param "${m}"`);u+=k}}return u||"/"}return{re:l,score:o,keys:i,parse:s,stringify:a}}function Py(e,t){let n=0;for(;n<e.length&&n<t.length;){const o=t[n]-e[n];if(o)return o;n++}return e.length<t.length?e.length===1&&e[0]===40+40?-1:1:e.length>t.length?t.length===1&&t[0]===40+40?1:-1:0}function Ry(e,t){let n=0;const o=e.score,r=t.score;for(;n<o.length&&n<r.length;){const i=Py(o[n],r[n]);if(i)return i;n++}if(Math.abs(r.length-o.length)===1){if(ic(o))return 1;if(ic(r))return-1}return r.length-o.length}function ic(e){const t=e[e.length-1];return e.length>0&&t[t.length-1]<0}const Ay={type:0,value:""},Oy=/[a-zA-Z0-9_]/;function $y(e){if(!e)return[[]];if(e==="/")return[[Ay]];if(!e.startsWith("/"))throw new Error(`Invalid path "${e}"`);function t(h){throw new Error(`ERR (${n})/"${c}": ${h}`)}let n=0,o=n;const r=[];let i;function l(){i&&r.push(i),i=[]}let s=0,a,c="",u="";function f(){!c||(n===0?i.push({type:0,value:c}):n===1||n===2||n===3?(i.length>1&&(a==="*"||a==="+")&&t(`A repeatable param (${c}) must be alone in its segment. eg: '/:ids+.`),i.push({type:1,value:c,regexp:u,repeatable:a==="*"||a==="+",optional:a==="*"||a==="?"})):t("Invalid state to consume buffer"),c="")}function d(){c+=a}for(;s<e.length;){if(a=e[s++],a==="\\"&&n!==2){o=n,n=4;continue}switch(n){case 0:a==="/"?(c&&f(),l()):a===":"?(f(),n=1):d();break;case 4:d(),n=o;break;case 1:a==="("?n=2:Oy.test(a)?d():(f(),n=0,a!=="*"&&a!=="?"&&a!=="+"&&s--);break;case 2:a===")"?u[u.length-1]=="\\"?u=u.slice(0,-1)+a:n=3:u+=a;break;case 3:f(),n=0,a!=="*"&&a!=="?"&&a!=="+"&&s--,u="";break;default:t("Unknown state");break}}return n===2&&t(`Unfinished custom RegExp for param "${c}"`),f(),l(),r}function Ly(e,t,n){const o=Ty($y(e.path),n),r=Ie(o,{record:e,parent:t,children:[],alias:[]});return t&&!r.record.aliasOf==!t.record.aliasOf&&t.children.push(r),r}function My(e,t){const n=[],o=new Map;t=ac({strict:!1,end:!0,sensitive:!1},t);function r(u){return o.get(u)}function i(u,f,d){const h=!d,m=Fy(u);m.aliasOf=d&&d.record;const g=ac(t,u),b=[m];if("alias"in u){const E=typeof u.alias=="string"?[u.alias]:u.alias;for(const x of E)b.push(Ie({},m,{components:d?d.record.components:m.components,path:x,aliasOf:d?d.record:m}))}let T,k;for(const E of b){const{path:x}=E;if(f&&x[0]!=="/"){const P=f.record.path,C=P[P.length-1]==="/"?"":"/";E.path=f.record.path+(x&&C+x)}if(T=Ly(E,f,g),d?d.alias.push(T):(k=k||T,k!==T&&k.alias.push(T),h&&u.name&&!sc(T)&&l(u.name)),m.children){const P=m.children;for(let C=0;C<P.length;C++)i(P[C],T,d&&d.children[C])}d=d||T,(T.record.components&&Object.keys(T.record.components).length||T.record.name||T.record.redirect)&&a(T)}return k?()=>{l(k)}:rr}function l(u){if(Wd(u)){const f=o.get(u);f&&(o.delete(u),n.splice(n.indexOf(f),1),f.children.forEach(l),f.alias.forEach(l))}else{const f=n.indexOf(u);f>-1&&(n.splice(f,1),u.record.name&&o.delete(u.record.name),u.children.forEach(l),u.alias.forEach(l))}}function s(){return n}function a(u){let f=0;for(;f<n.length&&Ry(u,n[f])>=0&&(u.record.path!==n[f].record.path||!Jd(u,n[f]));)f++;n.splice(f,0,u),u.record.name&&!sc(u)&&o.set(u.record.name,u)}function c(u,f){let d,h={},m,g;if("name"in u&&u.name){if(d=o.get(u.name),!d)throw Ro(1,{location:u});g=d.record.name,h=Ie(lc(f.params,d.keys.filter(k=>!k.optional).map(k=>k.name)),u.params&&lc(u.params,d.keys.map(k=>k.name))),m=d.stringify(h)}else if("path"in u)m=u.path,d=n.find(k=>k.re.test(m)),d&&(h=d.parse(m),g=d.record.name);else{if(d=f.name?o.get(f.name):n.find(k=>k.re.test(f.path)),!d)throw Ro(1,{location:u,currentLocation:f});g=d.record.name,h=Ie({},f.params,u.params),m=d.stringify(h)}const b=[];let T=d;for(;T;)b.unshift(T.record),T=T.parent;return{name:g,path:m,params:h,matched:b,meta:Iy(b)}}return e.forEach(u=>i(u)),{addRoute:i,resolve:c,removeRoute:l,getRoutes:s,getRecordMatcher:r}}function lc(e,t){const n={};for(const o of t)o in e&&(n[o]=e[o]);return n}function Fy(e){return{path:e.path,redirect:e.redirect,name:e.name,meta:e.meta||{},aliasOf:void 0,beforeEnter:e.beforeEnter,props:By(e),children:e.children||[],instances:{},leaveGuards:new Set,updateGuards:new Set,enterCallbacks:{},components:"components"in e?e.components||null:e.component&&{default:e.component}}}function By(e){const t={},n=e.props||!1;if("component"in e)t.default=n;else for(const o in e.components)t[o]=typeof n=="object"?n[o]:n;return t}function sc(e){for(;e;){if(e.record.aliasOf)return!0;e=e.parent}return!1}function Iy(e){return e.reduce((t,n)=>Ie(t,n.meta),{})}function ac(e,t){const n={};for(const o in e)n[o]=o in t?t[o]:e[o];return n}function Jd(e,t){return t.children.some(n=>n===e||Jd(e,n))}const Xd=/#/g,zy=/&/g,Vy=/\//g,Ny=/=/g,jy=/\?/g,Yd=/\+/g,Dy=/%5B/g,Hy=/%5D/g,Gd=/%5E/g,Uy=/%60/g,Zd=/%7B/g,Ky=/%7C/g,eh=/%7D/g,Wy=/%20/g;function aa(e){return encodeURI(""+e).replace(Ky,"|").replace(Dy,"[").replace(Hy,"]")}function Qy(e){return aa(e).replace(Zd,"{").replace(eh,"}").replace(Gd,"^")}function ds(e){return aa(e).replace(Yd,"%2B").replace(Wy,"+").replace(Xd,"%23").replace(zy,"%26").replace(Uy,"`").replace(Zd,"{").replace(eh,"}").replace(Gd,"^")}function Jy(e){return ds(e).replace(Ny,"%3D")}function Xy(e){return aa(e).replace(Xd,"%23").replace(jy,"%3F")}function Yy(e){return e==null?"":Xy(e).replace(Vy,"%2F")}function mi(e){try{return decodeURIComponent(""+e)}catch{}return""+e}function Gy(e){const t={};if(e===""||e==="?")return t;const o=(e[0]==="?"?e.slice(1):e).split("&");for(let r=0;r<o.length;++r){const i=o[r].replace(Yd," "),l=i.indexOf("="),s=mi(l<0?i:i.slice(0,l)),a=l<0?null:mi(i.slice(l+1));if(s in t){let c=t[s];Wt(c)||(c=t[s]=[c]),c.push(a)}else t[s]=a}return t}function uc(e){let t="";for(let n in e){const o=e[n];if(n=Jy(n),o==null){o!==void 0&&(t+=(t.length?"&":"")+n);continue}(Wt(o)?o.map(i=>i&&ds(i)):[o&&ds(o)]).forEach(i=>{i!==void 0&&(t+=(t.length?"&":"")+n,i!=null&&(t+="="+i))})}return t}function Zy(e){const t={};for(const n in e){const o=e[n];o!==void 0&&(t[n]=Wt(o)?o.map(r=>r==null?null:""+r):o==null?o:""+o)}return t}const th=Symbol(""),cc=Symbol(""),Ki=Symbol(""),nh=Symbol(""),hs=Symbol("");function Ho(){let e=[];function t(o){return e.push(o),()=>{const r=e.indexOf(o);r>-1&&e.splice(r,1)}}function n(){e=[]}return{add:t,list:()=>e.slice(),reset:n}}function e0(e,t,n){const o=()=>{e[t].delete(n)};Bo(o),An(o),Fo(()=>{e[t].add(n)}),e[t].add(n)}function t0(e){const t=ut(th,{}).value;!t||e0(t,"leaveGuards",e)}function xn(e,t,n,o,r){const i=o&&(o.enterCallbacks[r]=o.enterCallbacks[r]||[]);return()=>new Promise((l,s)=>{const a=f=>{f===!1?s(Ro(4,{from:n,to:t})):f instanceof Error?s(f):ky(f)?s(Ro(2,{from:t,to:f})):(i&&o.enterCallbacks[r]===i&&typeof f=="function"&&i.push(f),l())},c=e.call(o&&o.instances[r],t,n,a);let u=Promise.resolve(c);e.length<3&&(u=u.then(a)),u.catch(f=>s(f))})}function Tl(e,t,n,o){const r=[];for(const i of e)for(const l in i.components){let s=i.components[l];if(!(t!=="beforeRouteEnter"&&!i.instances[l]))if(n0(s)){const c=(s.__vccOpts||s)[t];c&&r.push(xn(c,n,o,i,l))}else{let a=s();r.push(()=>a.then(c=>{if(!c)return Promise.reject(new Error(`Couldn't resolve component "${l}" at "${i.path}"`));const u=sy(c)?c.default:c;i.components[l]=u;const d=(u.__vccOpts||u)[t];return d&&xn(d,n,o,i,l)()}))}}return r}function n0(e){return typeof e=="object"||"displayName"in e||"props"in e||"__vccOpts"in e}function fc(e){const t=ut(Ki),n=ut(nh),o=v(()=>t.resolve(ue(e.to))),r=v(()=>{const{matched:a}=o.value,{length:c}=a,u=a[c-1],f=n.matched;if(!u||!f.length)return-1;const d=f.findIndex(Po.bind(null,u));if(d>-1)return d;const h=dc(a[c-2]);return c>1&&dc(u)===h&&f[f.length-1].path!==h?f.findIndex(Po.bind(null,a[c-2])):d}),i=v(()=>r.value>-1&&l0(n.params,o.value.params)),l=v(()=>r.value>-1&&r.value===n.matched.length-1&&Ud(n.params,o.value.params));function s(a={}){return i0(a)?t[ue(e.replace)?"replace":"push"](ue(e.to)).catch(rr):Promise.resolve()}return{route:o,href:v(()=>o.value.href),isActive:i,isExactActive:l,navigate:s}}const o0=Ri({name:"RouterLink",compatConfig:{MODE:3},props:{to:{type:[String,Object],required:!0},replace:Boolean,activeClass:String,exactActiveClass:String,custom:Boolean,ariaCurrentValue:{type:String,default:"page"}},useLink:fc,setup(e,{slots:t}){const n=jt(fc(e)),{options:o}=ut(Ki),r=v(()=>({[hc(e.activeClass,o.linkActiveClass,"router-link-active")]:n.isActive,[hc(e.exactActiveClass,o.linkExactActiveClass,"router-link-exact-active")]:n.isExactActive}));return()=>{const i=t.default&&t.default(n);return e.custom?i:_("a",{"aria-current":n.isExactActive?e.ariaCurrentValue:null,href:n.href,onClick:n.navigate,class:r.value},i)}}}),r0=o0;function i0(e){if(!(e.metaKey||e.altKey||e.ctrlKey||e.shiftKey)&&!e.defaultPrevented&&!(e.button!==void 0&&e.button!==0)){if(e.currentTarget&&e.currentTarget.getAttribute){const t=e.currentTarget.getAttribute("target");if(/\b_blank\b/i.test(t))return}return e.preventDefault&&e.preventDefault(),!0}}function l0(e,t){for(const n in t){const o=t[n],r=e[n];if(typeof o=="string"){if(o!==r)return!1}else if(!Wt(r)||r.length!==o.length||o.some((i,l)=>i!==r[l]))return!1}return!0}function dc(e){return e?e.aliasOf?e.aliasOf.path:e.path:""}const hc=(e,t,n)=>e!=null?e:t!=null?t:n,s0=Ri({name:"RouterView",inheritAttrs:!1,props:{name:{type:String,default:"default"},route:Object},compatConfig:{MODE:3},setup(e,{attrs:t,slots:n}){const o=ut(hs),r=v(()=>e.route||o.value),i=ut(cc,0),l=v(()=>{let c=ue(i);const{matched:u}=r.value;let f;for(;(f=u[c])&&!f.components;)c++;return c}),s=v(()=>r.value.matched[l.value]);xo(cc,v(()=>l.value+1)),xo(th,s),xo(hs,r);const a=W();return fe(()=>[a.value,s.value,e.name],([c,u,f],[d,h,m])=>{u&&(u.instances[f]=c,h&&h!==u&&c&&c===d&&(u.leaveGuards.size||(u.leaveGuards=h.leaveGuards),u.updateGuards.size||(u.updateGuards=h.updateGuards))),c&&u&&(!h||!Po(u,h)||!d)&&(u.enterCallbacks[f]||[]).forEach(g=>g(c))},{flush:"post"}),()=>{const c=r.value,u=e.name,f=s.value,d=f&&f.components[u];if(!d)return mc(n.default,{Component:d,route:c});const h=f.props[u],m=h?h===!0?c.params:typeof h=="function"?h(c):h:null,b=_(d,Ie({},m,t,{onVnodeUnmounted:T=>{T.component.isUnmounted&&(f.instances[u]=null)},ref:a}));return mc(n.default,{Component:b,route:c})||b}}});function mc(e,t){if(!e)return null;const n=e(t);return n.length===1?n[0]:n}const a0=s0;function u0(e){const t=My(e.routes,e),n=e.parseQuery||Gy,o=e.stringifyQuery||uc,r=e.history,i=Ho(),l=Ho(),s=Ho(),a=Im(bn);let c=bn;po&&e.scrollBehavior&&"scrollRestoration"in history&&(history.scrollRestoration="manual");const u=El.bind(null,A=>""+A),f=El.bind(null,Yy),d=El.bind(null,mi);function h(A,ee){let F,ie;return Wd(A)?(F=t.getRecordMatcher(A),ie=ee):ie=A,t.addRoute(ie,F)}function m(A){const ee=t.getRecordMatcher(A);ee&&t.removeRoute(ee)}function g(){return t.getRoutes().map(A=>A.record)}function b(A){return!!t.getRecordMatcher(A)}function T(A,ee){if(ee=Ie({},ee||a.value),typeof A=="string"){const O=ql(n,A,ee.path),V=t.resolve({path:O.path},ee),D=r.createHref(O.fullPath);return Ie(O,V,{params:d(V.params),hash:mi(O.hash),redirectedFrom:void 0,href:D})}let F;if("path"in A)F=Ie({},A,{path:ql(n,A.path,ee.path).path});else{const O=Ie({},A.params);for(const V in O)O[V]==null&&delete O[V];F=Ie({},A,{params:f(O)}),ee.params=f(ee.params)}const ie=t.resolve(F,ee),xe=A.hash||"";ie.params=u(d(ie.params));const y=cy(o,Ie({},A,{hash:Qy(xe),path:ie.path})),w=r.createHref(y);return Ie({fullPath:y,hash:xe,query:o===uc?Zy(A.query):A.query||{}},ie,{redirectedFrom:void 0,href:w})}function k(A){return typeof A=="string"?ql(n,A,a.value.path):Ie({},A)}function E(A,ee){if(c!==A)return Ro(8,{from:ee,to:A})}function x(A){return S(A)}function P(A){return x(Ie(k(A),{replace:!0}))}function C(A){const ee=A.matched[A.matched.length-1];if(ee&&ee.redirect){const{redirect:F}=ee;let ie=typeof F=="function"?F(A):F;return typeof ie=="string"&&(ie=ie.includes("?")||ie.includes("#")?ie=k(ie):{path:ie},ie.params={}),Ie({query:A.query,hash:A.hash,params:"path"in ie?{}:A.params},ie)}}function S(A,ee){const F=c=T(A),ie=a.value,xe=A.state,y=A.force,w=A.replace===!0,O=C(F);if(O)return S(Ie(k(O),{state:typeof O=="object"?Ie({},xe,O.state):xe,force:y,replace:w}),ee||F);const V=F;V.redirectedFrom=ee;let D;return!y&&fy(o,ie,F)&&(D=Ro(16,{to:V,from:ie}),M(ie,ie,!0,!1)),(D?Promise.resolve(D):R(V,ie)).catch(X=>on(X)?on(X,2)?X:G(X):U(X,V,ie)).then(X=>{if(X){if(on(X,2))return S(Ie({replace:w},k(X.to),{state:typeof X.to=="object"?Ie({},xe,X.to.state):xe,force:y}),ee||V)}else X=I(V,ie,!0,w,xe);return B(V,ie,X),X})}function p(A,ee){const F=E(A,ee);return F?Promise.reject(F):Promise.resolve()}function $(A){const ee=Se.values().next().value;return ee&&typeof ee.runWithContext=="function"?ee.runWithContext(A):A()}function R(A,ee){let F;const[ie,xe,y]=c0(A,ee);F=Tl(ie.reverse(),"beforeRouteLeave",A,ee);for(const O of ie)O.leaveGuards.forEach(V=>{F.push(xn(V,A,ee))});const w=p.bind(null,A,ee);return F.push(w),oe(F).then(()=>{F=[];for(const O of i.list())F.push(xn(O,A,ee));return F.push(w),oe(F)}).then(()=>{F=Tl(xe,"beforeRouteUpdate",A,ee);for(const O of xe)O.updateGuards.forEach(V=>{F.push(xn(V,A,ee))});return F.push(w),oe(F)}).then(()=>{F=[];for(const O of y)if(O.beforeEnter)if(Wt(O.beforeEnter))for(const V of O.beforeEnter)F.push(xn(V,A,ee));else F.push(xn(O.beforeEnter,A,ee));return F.push(w),oe(F)}).then(()=>(A.matched.forEach(O=>O.enterCallbacks={}),F=Tl(y,"beforeRouteEnter",A,ee),F.push(w),oe(F))).then(()=>{F=[];for(const O of l.list())F.push(xn(O,A,ee));return F.push(w),oe(F)}).catch(O=>on(O,8)?O:Promise.reject(O))}function B(A,ee,F){s.list().forEach(ie=>$(()=>ie(A,ee,F)))}function I(A,ee,F,ie,xe){const y=E(A,ee);if(y)return y;const w=ee===bn,O=po?history.state:{};F&&(ie||w?r.replace(A.fullPath,Ie({scroll:w&&O&&O.scroll},xe)):r.push(A.fullPath,xe)),a.value=A,M(A,ee,F,w),G()}let Q;function H(){Q||(Q=r.listen((A,ee,F)=>{if(!Me.listening)return;const ie=T(A),xe=C(ie);if(xe){S(Ie(xe,{replace:!0}),ie).catch(rr);return}c=ie;const y=a.value;po&&yy(tc(y.fullPath,F.delta),Ui()),R(ie,y).catch(w=>on(w,12)?w:on(w,2)?(S(w.to,ie).then(O=>{on(O,20)&&!F.delta&&F.type===yr.pop&&r.go(-1,!1)}).catch(rr),Promise.reject()):(F.delta&&r.go(-F.delta,!1),U(w,ie,y))).then(w=>{w=w||I(ie,y,!1),w&&(F.delta&&!on(w,8)?r.go(-F.delta,!1):F.type===yr.pop&&on(w,20)&&r.go(-1,!1)),B(ie,y,w)}).catch(rr)}))}let le=Ho(),N=Ho(),L;function U(A,ee,F){G(A);const ie=N.list();return ie.length?ie.forEach(xe=>xe(A,ee,F)):console.error(A),Promise.reject(A)}function pe(){return L&&a.value!==bn?Promise.resolve():new Promise((A,ee)=>{le.add([A,ee])})}function G(A){return L||(L=!A,H(),le.list().forEach(([ee,F])=>A?F(A):ee()),le.reset()),A}function M(A,ee,F,ie){const{scrollBehavior:xe}=e;if(!po||!xe)return Promise.resolve();const y=!F&&wy(tc(A.fullPath,0))||(ie||!F)&&history.state&&history.state.scroll||null;return ze().then(()=>xe(A,ee,y)).then(w=>w&&by(w)).catch(w=>U(w,A,ee))}const te=A=>r.go(A);let ae;const Se=new Set,Me={currentRoute:a,listening:!0,addRoute:h,removeRoute:m,hasRoute:b,getRoutes:g,resolve:T,options:e,push:x,replace:P,go:te,back:()=>te(-1),forward:()=>te(1),beforeEach:i.add,beforeResolve:l.add,afterEach:s.add,onError:N.add,isReady:pe,install(A){const ee=this;A.component("RouterLink",r0),A.component("RouterView",a0),A.config.globalProperties.$router=ee,Object.defineProperty(A.config.globalProperties,"$route",{enumerable:!0,get:()=>ue(a)}),po&&!ae&&a.value===bn&&(ae=!0,x(r.location).catch(xe=>{}));const F={};for(const xe in bn)Object.defineProperty(F,xe,{get:()=>a.value[xe],enumerable:!0});A.provide(Ki,ee),A.provide(nh,ff(F)),A.provide(hs,a);const ie=A.unmount;Se.add(A),A.unmount=function(){Se.delete(A),Se.size<1&&(c=bn,Q&&Q(),Q=null,a.value=bn,ae=!1,L=!1),ie()}}};function oe(A){return A.reduce((ee,F)=>ee.then(()=>$(F)),Promise.resolve())}return Me}function c0(e,t){const n=[],o=[],r=[],i=Math.max(t.matched.length,e.matched.length);for(let l=0;l<i;l++){const s=t.matched[l];s&&(e.matched.find(c=>Po(c,s))?o.push(s):n.push(s));const a=e.matched[l];a&&(t.matched.find(c=>Po(c,a))||r.push(a))}return[n,o,r]}function oh(){return ut(Ki)}function f0({validate:e,resetValidation:t,requiresQForm:n}){const o=ut(Kg,!1);if(o!==!1){const{props:r,proxy:i}=qe();Object.assign(i,{validate:e,resetValidation:t}),fe(()=>r.disable,l=>{l===!0?(typeof t=="function"&&t(),o.unbindComponent(i)):o.bindComponent(i)}),ct(()=>{r.disable!==!0&&o.bindComponent(i)}),We(()=>{r.disable!==!0&&o.unbindComponent(i)})}else n===!0&&console.error("Parent QForm not found on useFormChild()!")}const vc=/^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/,gc=/^#[0-9a-fA-F]{4}([0-9a-fA-F]{4})?$/,pc=/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/,Nr=/^rgb\(((0|[1-9][\d]?|1[\d]{0,2}|2[\d]?|2[0-4][\d]|25[0-5]),){2}(0|[1-9][\d]?|1[\d]{0,2}|2[\d]?|2[0-4][\d]|25[0-5])\)$/,jr=/^rgba\(((0|[1-9][\d]?|1[\d]{0,2}|2[\d]?|2[0-4][\d]|25[0-5]),){2}(0|[1-9][\d]?|1[\d]{0,2}|2[\d]?|2[0-4][\d]|25[0-5]),(0|0\.[0-9]+[1-9]|0\.[1-9]+|1)\)$/,Pl={date:e=>/^-?[\d]+\/[0-1]\d\/[0-3]\d$/.test(e),time:e=>/^([0-1]?\d|2[0-3]):[0-5]\d$/.test(e),fulltime:e=>/^([0-1]?\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(e),timeOrFulltime:e=>/^([0-1]?\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/.test(e),email:e=>/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(e),hexColor:e=>vc.test(e),hexaColor:e=>gc.test(e),hexOrHexaColor:e=>pc.test(e),rgbColor:e=>Nr.test(e),rgbaColor:e=>jr.test(e),rgbOrRgbaColor:e=>Nr.test(e)||jr.test(e),hexOrRgbColor:e=>vc.test(e)||Nr.test(e),hexaOrRgbaColor:e=>gc.test(e)||jr.test(e),anyColor:e=>pc.test(e)||Nr.test(e)||jr.test(e)},d0=[!0,!1,"ondemand"],h0={modelValue:{},error:{type:Boolean,default:null},errorMessage:String,noErrorIcon:Boolean,rules:Array,reactiveRules:Boolean,lazyRules:{type:[Boolean,String],validator:e=>d0.includes(e)}};function m0(e,t){const{props:n,proxy:o}=qe(),r=W(!1),i=W(null),l=W(null);f0({validate:m,resetValidation:h});let s=0,a;const c=v(()=>n.rules!==void 0&&n.rules!==null&&n.rules.length>0),u=v(()=>n.disable!==!0&&c.value===!0),f=v(()=>n.error===!0||r.value===!0),d=v(()=>typeof n.errorMessage=="string"&&n.errorMessage.length>0?n.errorMessage:i.value);fe(()=>n.modelValue,()=>{g()}),fe(()=>n.reactiveRules,T=>{T===!0?a===void 0&&(a=fe(()=>n.rules,()=>{g(!0)})):a!==void 0&&(a(),a=void 0)},{immediate:!0}),fe(e,T=>{T===!0?l.value===null&&(l.value=!1):l.value===!1&&(l.value=!0,u.value===!0&&n.lazyRules!=="ondemand"&&t.value===!1&&b())});function h(){s++,t.value=!1,l.value=null,r.value=!1,i.value=null,b.cancel()}function m(T=n.modelValue){if(u.value!==!0)return!0;const k=++s,E=t.value!==!0?()=>{l.value=!0}:()=>{},x=(C,S)=>{C===!0&&E(),r.value=C,i.value=S||null,t.value=!1},P=[];for(let C=0;C<n.rules.length;C++){const S=n.rules[C];let p;if(typeof S=="function"?p=S(T,Pl):typeof S=="string"&&Pl[S]!==void 0&&(p=Pl[S](T)),p===!1||typeof p=="string")return x(!0,p),!1;p!==!0&&p!==void 0&&P.push(p)}return P.length===0?(x(!1),!0):(t.value=!0,Promise.all(P).then(C=>{if(C===void 0||Array.isArray(C)===!1||C.length===0)return k===s&&x(!1),!0;const S=C.find(p=>p===!1||typeof p=="string");return k===s&&x(S!==void 0,S),S===void 0},C=>(k===s&&(console.error(C),x(!0)),!1)))}function g(T){u.value===!0&&n.lazyRules!=="ondemand"&&(l.value===!0||n.lazyRules!==!0&&T!==!0)&&b()}const b=zi(m,0);return We(()=>{a!==void 0&&a(),b.cancel()}),Object.assign(o,{resetValidation:h,validate:m}),At(o,"hasError",()=>f.value),{isDirtyModel:l,hasRules:c,hasError:f,errorMessage:d,validate:m,resetValidation:h}}const bc=/^on[A-Z]/;function v0(e,t){const n={listeners:W({}),attributes:W({})};function o(){const r={},i={};for(const l in e)l!=="class"&&l!=="style"&&bc.test(l)===!1&&(r[l]=e[l]);for(const l in t.props)bc.test(l)===!0&&(i[l]=t.props[l]);n.attributes.value=r,n.listeners.value=i}return $i(o),o(),n}let Rl,Dr=0;const at=new Array(256);for(let e=0;e<256;e++)at[e]=(e+256).toString(16).substring(1);const g0=(()=>{const e=typeof crypto<"u"?crypto:typeof window<"u"?window.crypto||window.msCrypto:void 0;if(e!==void 0){if(e.randomBytes!==void 0)return e.randomBytes;if(e.getRandomValues!==void 0)return t=>{const n=new Uint8Array(t);return e.getRandomValues(n),n}}return t=>{const n=[];for(let o=t;o>0;o--)n.push(Math.floor(Math.random()*256));return n}})(),yc=4096;function p0(){(Rl===void 0||Dr+16>yc)&&(Dr=0,Rl=g0(yc));const e=Array.prototype.slice.call(Rl,Dr,Dr+=16);return e[6]=e[6]&15|64,e[8]=e[8]&63|128,at[e[0]]+at[e[1]]+at[e[2]]+at[e[3]]+"-"+at[e[4]]+at[e[5]]+"-"+at[e[6]]+at[e[7]]+"-"+at[e[8]]+at[e[9]]+"-"+at[e[10]]+at[e[11]]+at[e[12]]+at[e[13]]+at[e[14]]+at[e[15]]}let Hn=[],wr=[];function rh(e){wr=wr.filter(t=>t!==e)}function b0(e){rh(e),wr.push(e)}function wc(e){rh(e),wr.length===0&&Hn.length>0&&(Hn[Hn.length-1](),Hn=[])}function Wi(e){wr.length===0?e():Hn.push(e)}function y0(e){Hn=Hn.filter(t=>t!==e)}function ms(e){return e===void 0?`f_${p0()}`:e}function _r(e){return e!=null&&(""+e).length>0}const Qi={...St,...h0,label:String,stackLabel:Boolean,hint:String,hideHint:Boolean,prefix:String,suffix:String,labelColor:String,color:String,bgColor:String,filled:Boolean,outlined:Boolean,borderless:Boolean,standout:[Boolean,String],square:Boolean,loading:Boolean,labelSlot:Boolean,bottomSlots:Boolean,hideBottomSpace:Boolean,rounded:Boolean,dense:Boolean,itemAligned:Boolean,counter:Boolean,clearable:Boolean,clearIcon:String,disable:Boolean,readonly:Boolean,autofocus:Boolean,for:String,maxlength:[Number,String]},ua=["update:modelValue","clear","focus","blur","popupShow","popupHide"];function ca(){const{props:e,attrs:t,proxy:n,vnode:o}=qe();return{isDark:xt(e,n.$q),editable:v(()=>e.disable!==!0&&e.readonly!==!0),innerLoading:W(!1),focused:W(!1),hasPopupOpen:!1,splitAttrs:v0(t,o),targetUid:W(ms(e.for)),rootRef:W(null),targetRef:W(null),controlRef:W(null)}}function fa(e){const{props:t,emit:n,slots:o,attrs:r,proxy:i}=qe(),{$q:l}=i;let s;e.hasValue===void 0&&(e.hasValue=v(()=>_r(t.modelValue))),e.emitValue===void 0&&(e.emitValue=L=>{n("update:modelValue",L)}),e.controlEvents===void 0&&(e.controlEvents={onFocusin:$,onFocusout:R}),Object.assign(e,{clearValue:B,onControlFocusin:$,onControlFocusout:R,focus:S}),e.computedCounter===void 0&&(e.computedCounter=v(()=>{if(t.counter!==!1){const L=typeof t.modelValue=="string"||typeof t.modelValue=="number"?(""+t.modelValue).length:Array.isArray(t.modelValue)===!0?t.modelValue.length:0,U=t.maxlength!==void 0?t.maxlength:t.maxValues;return L+(U!==void 0?" / "+U:"")}}));const{isDirtyModel:a,hasRules:c,hasError:u,errorMessage:f,resetValidation:d}=m0(e.focused,e.innerLoading),h=e.floatingLabel!==void 0?v(()=>t.stackLabel===!0||e.focused.value===!0||e.floatingLabel.value===!0):v(()=>t.stackLabel===!0||e.focused.value===!0||e.hasValue.value===!0),m=v(()=>t.bottomSlots===!0||t.hint!==void 0||c.value===!0||t.counter===!0||t.error!==null),g=v(()=>t.filled===!0?"filled":t.outlined===!0?"outlined":t.borderless===!0?"borderless":t.standout?"standout":"standard"),b=v(()=>`q-field row no-wrap items-start q-field--${g.value}`+(e.fieldClass!==void 0?` ${e.fieldClass.value}`:"")+(t.rounded===!0?" q-field--rounded":"")+(t.square===!0?" q-field--square":"")+(h.value===!0?" q-field--float":"")+(k.value===!0?" q-field--labeled":"")+(t.dense===!0?" q-field--dense":"")+(t.itemAligned===!0?" q-field--item-aligned q-item-type":"")+(e.isDark.value===!0?" q-field--dark":"")+(e.getControl===void 0?" q-field--auto-height":"")+(e.focused.value===!0?" q-field--focused":"")+(u.value===!0?" q-field--error":"")+(u.value===!0||e.focused.value===!0?" q-field--highlighted":"")+(t.hideBottomSpace!==!0&&m.value===!0?" q-field--with-bottom":"")+(t.disable===!0?" q-field--disabled":t.readonly===!0?" q-field--readonly":"")),T=v(()=>"q-field__control relative-position row no-wrap"+(t.bgColor!==void 0?` bg-${t.bgColor}`:"")+(u.value===!0?" text-negative":typeof t.standout=="string"&&t.standout.length>0&&e.focused.value===!0?` ${t.standout}`:t.color!==void 0?` text-${t.color}`:"")),k=v(()=>t.labelSlot===!0||t.label!==void 0),E=v(()=>"q-field__label no-pointer-events absolute ellipsis"+(t.labelColor!==void 0&&u.value!==!0?` text-${t.labelColor}`:"")),x=v(()=>({id:e.targetUid.value,editable:e.editable.value,focused:e.focused.value,floatingLabel:h.value,modelValue:t.modelValue,emitValue:e.emitValue})),P=v(()=>{const L={for:e.targetUid.value};return t.disable===!0?L["aria-disabled"]="true":t.readonly===!0&&(L["aria-readonly"]="true"),L});fe(()=>t.for,L=>{e.targetUid.value=ms(L)});function C(){const L=document.activeElement;let U=e.targetRef!==void 0&&e.targetRef.value;U&&(L===null||L.id!==e.targetUid.value)&&(U.hasAttribute("tabindex")===!0||(U=U.querySelector("[tabindex]")),U&&U!==L&&U.focus({preventScroll:!0}))}function S(){Wi(C)}function p(){y0(C);const L=document.activeElement;L!==null&&e.rootRef.value.contains(L)&&L.blur()}function $(L){clearTimeout(s),e.editable.value===!0&&e.focused.value===!1&&(e.focused.value=!0,n("focus",L))}function R(L,U){clearTimeout(s),s=setTimeout(()=>{document.hasFocus()===!0&&(e.hasPopupOpen===!0||e.controlRef===void 0||e.controlRef.value===null||e.controlRef.value.contains(document.activeElement)!==!1)||(e.focused.value===!0&&(e.focused.value=!1,n("blur",L)),U!==void 0&&U())})}function B(L){Je(L),l.platform.is.mobile!==!0?(e.targetRef!==void 0&&e.targetRef.value||e.rootRef.value).focus():e.rootRef.value.contains(document.activeElement)===!0&&document.activeElement.blur(),t.type==="file"&&(e.inputRef.value.value=null),n("update:modelValue",null),n("clear",t.modelValue),ze(()=>{d(),l.platform.is.mobile!==!0&&(a.value=!1)})}function I(){const L=[];return o.prepend!==void 0&&L.push(_("div",{class:"q-field__prepend q-field__marginal row no-wrap items-center",key:"prepend",onClick:bt},o.prepend())),L.push(_("div",{class:"q-field__control-container col relative-position row no-wrap q-anchor--skip"},Q())),u.value===!0&&t.noErrorIcon===!1&&L.push(le("error",[_(yt,{name:l.iconSet.field.error,color:"negative"})])),t.loading===!0||e.innerLoading.value===!0?L.push(le("inner-loading-append",o.loading!==void 0?o.loading():[_(Us,{color:t.color})])):t.clearable===!0&&e.hasValue.value===!0&&e.editable.value===!0&&L.push(le("inner-clearable-append",[_(yt,{class:"q-field__focusable-action",tag:"button",name:t.clearIcon||l.iconSet.field.clear,tabindex:0,type:"button","aria-hidden":null,role:null,onClick:B})])),o.append!==void 0&&L.push(_("div",{class:"q-field__append q-field__marginal row no-wrap items-center",key:"append",onClick:bt},o.append())),e.getInnerAppend!==void 0&&L.push(le("inner-append",e.getInnerAppend())),e.getControlChild!==void 0&&L.push(e.getControlChild()),L}function Q(){const L=[];return t.prefix!==void 0&&t.prefix!==null&&L.push(_("div",{class:"q-field__prefix no-pointer-events row items-center"},t.prefix)),e.getShadowControl!==void 0&&e.hasShadow.value===!0&&L.push(e.getShadowControl()),e.getControl!==void 0?L.push(e.getControl()):o.rawControl!==void 0?L.push(o.rawControl()):o.control!==void 0&&L.push(_("div",{ref:e.targetRef,class:"q-field__native row",tabindex:-1,...e.splitAttrs.attributes.value,"data-autofocus":t.autofocus===!0||void 0},o.control(x.value))),k.value===!0&&L.push(_("div",{class:E.value},je(o.label,t.label))),t.suffix!==void 0&&t.suffix!==null&&L.push(_("div",{class:"q-field__suffix no-pointer-events row items-center"},t.suffix)),L.concat(je(o.default))}function H(){let L,U;u.value===!0?f.value!==null?(L=[_("div",{role:"alert"},f.value)],U=`q--slot-error-${f.value}`):(L=je(o.error),U="q--slot-error"):(t.hideHint!==!0||e.focused.value===!0)&&(t.hint!==void 0?(L=[_("div",t.hint)],U=`q--slot-hint-${t.hint}`):(L=je(o.hint),U="q--slot-hint"));const pe=t.counter===!0||o.counter!==void 0;if(t.hideBottomSpace===!0&&pe===!1&&L===void 0)return;const G=_("div",{key:U,class:"q-field__messages col"},L);return _("div",{class:"q-field__bottom row items-start q-field__bottom--"+(t.hideBottomSpace!==!0?"animated":"stale"),onClick:bt},[t.hideBottomSpace===!0?G:_(Zn,{name:"q-transition--field-message"},()=>G),pe===!0?_("div",{class:"q-field__counter"},o.counter!==void 0?o.counter():e.computedCounter.value):null])}function le(L,U){return U===null?null:_("div",{key:L,class:"q-field__append q-field__marginal row no-wrap items-center q-anchor--skip"},U)}let N=!1;return An(()=>{N=!0}),Fo(()=>{N===!0&&t.autofocus===!0&&i.focus()}),ct(()=>{en.value===!0&&t.for===void 0&&(e.targetUid.value=ms()),t.autofocus===!0&&i.focus()}),We(()=>{clearTimeout(s)}),Object.assign(i,{focus:S,blur:p}),function(){const U=e.getControl===void 0&&o.control===void 0?{...e.splitAttrs.attributes.value,"data-autofocus":t.autofocus===!0||void 0,...P.value}:P.value;return _("label",{ref:e.rootRef,class:[b.value,r.class],style:r.style,...U},[o.before!==void 0?_("div",{class:"q-field__before q-field__marginal row no-wrap items-center",onClick:bt},o.before()):null,_("div",{class:"q-field__inner relative-position col self-stretch"},[_("div",{ref:e.controlRef,class:T.value,tabindex:-1,...e.controlEvents},I()),m.value===!0?H():null]),o.after!==void 0?_("div",{class:"q-field__after q-field__marginal row no-wrap items-center",onClick:bt},o.after()):null])}}const _c={date:"####/##/##",datetime:"####/##/## ##:##",time:"##:##",fulltime:"##:##:##",phone:"(###) ### - ####",card:"#### #### #### ####"},vi={"#":{pattern:"[\\d]",negate:"[^\\d]"},S:{pattern:"[a-zA-Z]",negate:"[^a-zA-Z]"},N:{pattern:"[0-9a-zA-Z]",negate:"[^0-9a-zA-Z]"},A:{pattern:"[a-zA-Z]",negate:"[^a-zA-Z]",transform:e=>e.toLocaleUpperCase()},a:{pattern:"[a-zA-Z]",negate:"[^a-zA-Z]",transform:e=>e.toLocaleLowerCase()},X:{pattern:"[0-9a-zA-Z]",negate:"[^0-9a-zA-Z]",transform:e=>e.toLocaleUpperCase()},x:{pattern:"[0-9a-zA-Z]",negate:"[^0-9a-zA-Z]",transform:e=>e.toLocaleLowerCase()}},ih=Object.keys(vi);ih.forEach(e=>{vi[e].regex=new RegExp(vi[e].pattern)});const w0=new RegExp("\\\\([^.*+?^${}()|([\\]])|([.*+?^${}()|[\\]])|(["+ih.join("")+"])|(.)","g"),Sc=/[.*+?^${}()|[\]\\]/g,nt=String.fromCharCode(1),_0={mask:String,reverseFillMask:Boolean,fillMask:[Boolean,String],unmaskedValue:Boolean};function S0(e,t,n,o){let r,i,l,s;const a=W(null),c=W(f());function u(){return e.autogrow===!0||["textarea","text","search","url","tel","password"].includes(e.type)}fe(()=>e.type+e.autogrow,h),fe(()=>e.mask,C=>{if(C!==void 0)m(c.value,!0);else{const S=x(c.value);h(),e.modelValue!==S&&t("update:modelValue",S)}}),fe(()=>e.fillMask+e.reverseFillMask,()=>{a.value===!0&&m(c.value,!0)}),fe(()=>e.unmaskedValue,()=>{a.value===!0&&m(c.value)});function f(){if(h(),a.value===!0){const C=k(x(e.modelValue));return e.fillMask!==!1?P(C):C}return e.modelValue}function d(C){if(C<r.length)return r.slice(-C);let S="",p=r;const $=p.indexOf(nt);if($>-1){for(let R=C-p.length;R>0;R--)S+=nt;p=p.slice(0,$)+S+p.slice($)}return p}function h(){if(a.value=e.mask!==void 0&&e.mask.length>0&&u(),a.value===!1){s=void 0,r="",i="";return}const C=_c[e.mask]===void 0?e.mask:_c[e.mask],S=typeof e.fillMask=="string"&&e.fillMask.length>0?e.fillMask.slice(0,1):"_",p=S.replace(Sc,"\\$&"),$=[],R=[],B=[];let I=e.reverseFillMask===!0,Q="",H="";C.replace(w0,(U,pe,G,M,te)=>{if(M!==void 0){const ae=vi[M];B.push(ae),H=ae.negate,I===!0&&(R.push("(?:"+H+"+)?("+ae.pattern+"+)?(?:"+H+"+)?("+ae.pattern+"+)?"),I=!1),R.push("(?:"+H+"+)?("+ae.pattern+")?")}else if(G!==void 0)Q="\\"+(G==="\\"?"":G),B.push(G),$.push("([^"+Q+"]+)?"+Q+"?");else{const ae=pe!==void 0?pe:te;Q=ae==="\\"?"\\\\\\\\":ae.replace(Sc,"\\\\$&"),B.push(ae),$.push("([^"+Q+"]+)?"+Q+"?")}});const le=new RegExp("^"+$.join("")+"("+(Q===""?".":"[^"+Q+"]")+"+)?"+(Q===""?"":"["+Q+"]*")+"$"),N=R.length-1,L=R.map((U,pe)=>pe===0&&e.reverseFillMask===!0?new RegExp("^"+p+"*"+U):pe===N?new RegExp("^"+U+"("+(H===""?".":H)+"+)?"+(e.reverseFillMask===!0?"$":p+"*")):new RegExp("^"+U));l=B,s=U=>{const pe=le.exec(e.reverseFillMask===!0?U:U.slice(0,B.length));pe!==null&&(U=pe.slice(1).join(""));const G=[],M=L.length;for(let te=0,ae=U;te<M;te++){const Se=L[te].exec(ae);if(Se===null)break;ae=ae.slice(Se.shift().length),G.push(...Se)}return G.length>0?G.join(""):U},r=B.map(U=>typeof U=="string"?U:nt).join(""),i=r.split(nt).join(S)}function m(C,S,p){const $=o.value,R=$.selectionEnd,B=$.value.length-R,I=x(C);S===!0&&h();const Q=k(I),H=e.fillMask!==!1?P(Q):Q,le=c.value!==H;$.value!==H&&($.value=H),le===!0&&(c.value=H),document.activeElement===$&&ze(()=>{if(H===i){const L=e.reverseFillMask===!0?i.length:0;$.setSelectionRange(L,L,"forward");return}if(p==="insertFromPaste"&&e.reverseFillMask!==!0){const L=R-1;b.right($,L,L);return}if(["deleteContentBackward","deleteContentForward"].indexOf(p)>-1){const L=e.reverseFillMask===!0?R===0?H.length>Q.length?1:0:Math.max(0,H.length-(H===i?0:Math.min(Q.length,B)+1))+1:R;$.setSelectionRange(L,L,"forward");return}if(e.reverseFillMask===!0)if(le===!0){const L=Math.max(0,H.length-(H===i?0:Math.min(Q.length,B+1)));L===1&&R===1?$.setSelectionRange(L,L,"forward"):b.rightReverse($,L,L)}else{const L=H.length-B;$.setSelectionRange(L,L,"backward")}else if(le===!0){const L=Math.max(0,r.indexOf(nt),Math.min(Q.length,R)-1);b.right($,L,L)}else{const L=R-1;b.right($,L,L)}});const N=e.unmaskedValue===!0?x(H):H;String(e.modelValue)!==N&&n(N,!0)}function g(C,S,p){const $=k(x(C.value));S=Math.max(0,r.indexOf(nt),Math.min($.length,S)),C.setSelectionRange(S,p,"forward")}const b={left(C,S,p,$){const R=r.slice(S-1).indexOf(nt)===-1;let B=Math.max(0,S-1);for(;B>=0;B--)if(r[B]===nt){S=B,R===!0&&S++;break}if(B<0&&r[S]!==void 0&&r[S]!==nt)return b.right(C,0,0);S>=0&&C.setSelectionRange(S,$===!0?p:S,"backward")},right(C,S,p,$){const R=C.value.length;let B=Math.min(R,p+1);for(;B<=R;B++)if(r[B]===nt){p=B;break}else r[B-1]===nt&&(p=B);if(B>R&&r[p-1]!==void 0&&r[p-1]!==nt)return b.left(C,R,R);C.setSelectionRange($?S:p,p,"forward")},leftReverse(C,S,p,$){const R=d(C.value.length);let B=Math.max(0,S-1);for(;B>=0;B--)if(R[B-1]===nt){S=B;break}else if(R[B]===nt&&(S=B,B===0))break;if(B<0&&R[S]!==void 0&&R[S]!==nt)return b.rightReverse(C,0,0);S>=0&&C.setSelectionRange(S,$===!0?p:S,"backward")},rightReverse(C,S,p,$){const R=C.value.length,B=d(R),I=B.slice(0,p+1).indexOf(nt)===-1;let Q=Math.min(R,p+1);for(;Q<=R;Q++)if(B[Q-1]===nt){p=Q,p>0&&I===!0&&p--;break}if(Q>R&&B[p-1]!==void 0&&B[p-1]!==nt)return b.leftReverse(C,R,R);C.setSelectionRange($===!0?S:p,p,"forward")}};function T(C){if(t("keydown",C),js(C)===!0)return;const S=o.value,p=S.selectionStart,$=S.selectionEnd;if(C.keyCode===37||C.keyCode===39){const R=b[(C.keyCode===39?"right":"left")+(e.reverseFillMask===!0?"Reverse":"")];C.preventDefault(),R(S,p,$,C.shiftKey)}else C.keyCode===8&&e.reverseFillMask!==!0&&p===$?b.left(S,p,$,!0):C.keyCode===46&&e.reverseFillMask===!0&&p===$&&b.rightReverse(S,p,$,!0)}function k(C){if(C==null||C==="")return"";if(e.reverseFillMask===!0)return E(C);const S=l;let p=0,$="";for(let R=0;R<S.length;R++){const B=C[p],I=S[R];if(typeof I=="string")$+=I,B===I&&p++;else if(B!==void 0&&I.regex.test(B))$+=I.transform!==void 0?I.transform(B):B,p++;else return $}return $}function E(C){const S=l,p=r.indexOf(nt);let $=C.length-1,R="";for(let B=S.length-1;B>=0&&$>-1;B--){const I=S[B];let Q=C[$];if(typeof I=="string")R=I+R,Q===I&&$--;else if(Q!==void 0&&I.regex.test(Q))do R=(I.transform!==void 0?I.transform(Q):Q)+R,$--,Q=C[$];while(p===B&&Q!==void 0&&I.regex.test(Q));else return R}return R}function x(C){return typeof C!="string"||s===void 0?typeof C=="number"?s(""+C):C:s(C)}function P(C){return i.length-C.length<=0?C:e.reverseFillMask===!0&&C.length>0?i.slice(0,-C.length)+C:C+i.slice(C.length)}return{innerValue:c,hasMask:a,moveCursorForPaste:g,updateMaskValue:m,onMaskedKeydown:T}}const Ji={name:String};function x0(e){return v(()=>({type:"hidden",name:e.name,value:e.modelValue}))}function lh(e={}){return(t,n,o)=>{t[n](_("input",{class:"hidden"+(o||""),...e.value}))}}function sh(e){return v(()=>e.name||e.for)}function C0(e,t){function n(){const o=e.modelValue;try{const r="DataTransfer"in window?new DataTransfer:"ClipboardEvent"in window?new ClipboardEvent("").clipboardData:void 0;return Object(o)===o&&("length"in o?Array.from(o):[o]).forEach(i=>{r.items.add(i)}),{files:r.files}}catch{return{files:void 0}}}return v(t===!0?()=>{if(e.type==="file")return n()}:n)}const k0=/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/,E0=/[\u4e00-\u9fff\u3400-\u4dbf\u{20000}-\u{2a6df}\u{2a700}-\u{2b73f}\u{2b740}-\u{2b81f}\u{2b820}-\u{2ceaf}\uf900-\ufaff\u3300-\u33ff\ufe30-\ufe4f\uf900-\ufaff\u{2f800}-\u{2fa1f}]/u,q0=/[\u3131-\u314e\u314f-\u3163\uac00-\ud7a3]/,T0=/[a-z0-9_ -]$/i;function ah(e){return function(n){if(n.type==="compositionend"||n.type==="change"){if(n.target.qComposing!==!0)return;n.target.qComposing=!1,e(n)}else n.type==="compositionupdate"&&n.target.qComposing!==!0&&typeof n.data=="string"&&(Ne.is.firefox===!0?T0.test(n.data)===!1:k0.test(n.data)===!0||E0.test(n.data)===!0||q0.test(n.data)===!0)===!0&&(n.target.qComposing=!0)}}const to=Pe({name:"QInput",inheritAttrs:!1,props:{...Qi,..._0,...Ji,modelValue:{required:!1},shadowText:String,type:{type:String,default:"text"},debounce:[String,Number],autogrow:Boolean,inputClass:[Array,String,Object],inputStyle:[Array,String,Object]},emits:[...ua,"paste","change","keydown","animationend"],setup(e,{emit:t,attrs:n}){const{proxy:o}=qe(),{$q:r}=o,i={};let l=NaN,s,a,c,u;const f=W(null),d=sh(e),{innerValue:h,hasMask:m,moveCursorForPaste:g,updateMaskValue:b,onMaskedKeydown:T}=S0(e,t,le,f),k=C0(e,!0),E=v(()=>_r(h.value)),x=ah(Q),P=ca(),C=v(()=>e.type==="textarea"||e.autogrow===!0),S=v(()=>C.value===!0||["text","search","url","tel","password"].includes(e.type)),p=v(()=>{const M={...P.splitAttrs.listeners.value,onInput:Q,onPaste:I,onChange:L,onBlur:U,onFocus:Et};return M.onCompositionstart=M.onCompositionupdate=M.onCompositionend=x,m.value===!0&&(M.onKeydown=T),e.autogrow===!0&&(M.onAnimationend=H),M}),$=v(()=>{const M={tabindex:0,"data-autofocus":e.autofocus===!0||void 0,rows:e.type==="textarea"?6:void 0,"aria-label":e.label,name:d.value,...P.splitAttrs.attributes.value,id:P.targetUid.value,maxlength:e.maxlength,disabled:e.disable===!0,readonly:e.readonly===!0};return C.value===!1&&(M.type=e.type),e.autogrow===!0&&(M.rows=1),M});fe(()=>e.type,()=>{f.value&&(f.value.value=e.modelValue)}),fe(()=>e.modelValue,M=>{if(m.value===!0){if(a===!0&&(a=!1,String(M)===l))return;b(M)}else h.value!==M&&(h.value=M,e.type==="number"&&i.hasOwnProperty("value")===!0&&(s===!0?s=!1:delete i.value));e.autogrow===!0&&ze(N)}),fe(()=>e.autogrow,M=>{M===!0?ze(N):f.value!==null&&n.rows>0&&(f.value.style.height="auto")}),fe(()=>e.dense,()=>{e.autogrow===!0&&ze(N)});function R(){Wi(()=>{const M=document.activeElement;f.value!==null&&f.value!==M&&(M===null||M.id!==P.targetUid.value)&&f.value.focus({preventScroll:!0})})}function B(){f.value!==null&&f.value.select()}function I(M){if(m.value===!0&&e.reverseFillMask!==!0){const te=M.target;g(te,te.selectionStart,te.selectionEnd)}t("paste",M)}function Q(M){if(!M||!M.target)return;if(e.type==="file"){t("update:modelValue",M.target.files);return}const te=M.target.value;if(M.target.qComposing===!0){i.value=te;return}if(m.value===!0)b(te,!1,M.inputType);else if(le(te),S.value===!0&&M.target===document.activeElement){const{selectionStart:ae,selectionEnd:Se}=M.target;ae!==void 0&&Se!==void 0&&ze(()=>{M.target===document.activeElement&&te.indexOf(M.target.value)===0&&M.target.setSelectionRange(ae,Se)})}e.autogrow===!0&&N()}function H(M){t("animationend",M),N()}function le(M,te){u=()=>{e.type!=="number"&&i.hasOwnProperty("value")===!0&&delete i.value,e.modelValue!==M&&l!==M&&(l=M,te===!0&&(a=!0),t("update:modelValue",M),ze(()=>{l===M&&(l=NaN)})),u=void 0},e.type==="number"&&(s=!0,i.value=M),e.debounce!==void 0?(clearTimeout(c),i.value=M,c=setTimeout(u,e.debounce)):u()}function N(){requestAnimationFrame(()=>{const M=f.value;if(M!==null){const te=M.parentNode.style,{overflow:ae}=M.style;r.platform.is.firefox!==!0&&(M.style.overflow="hidden"),te.marginBottom=M.scrollHeight-1+"px",M.style.height="1px",M.style.height=M.scrollHeight+"px",M.style.overflow=ae,te.marginBottom=""}})}function L(M){x(M),clearTimeout(c),u!==void 0&&u(),t("change",M.target.value)}function U(M){M!==void 0&&Et(M),clearTimeout(c),u!==void 0&&u(),s=!1,a=!1,delete i.value,e.type!=="file"&&setTimeout(()=>{f.value!==null&&(f.value.value=h.value!==void 0?h.value:"")})}function pe(){return i.hasOwnProperty("value")===!0?i.value:h.value!==void 0?h.value:""}We(()=>{U()}),ct(()=>{e.autogrow===!0&&N()}),Object.assign(P,{innerValue:h,fieldClass:v(()=>`q-${C.value===!0?"textarea":"input"}`+(e.autogrow===!0?" q-textarea--autogrow":"")),hasShadow:v(()=>e.type!=="file"&&typeof e.shadowText=="string"&&e.shadowText.length>0),inputRef:f,emitValue:le,hasValue:E,floatingLabel:v(()=>E.value===!0||_r(e.displayValue)),getControl:()=>_(C.value===!0?"textarea":"input",{ref:f,class:["q-field__native q-placeholder",e.inputClass],style:e.inputStyle,...$.value,...p.value,...e.type!=="file"?{value:pe()}:k.value}),getShadowControl:()=>_("div",{class:"q-field__native q-field__shadow absolute-bottom no-pointer-events"+(C.value===!0?"":" text-no-wrap")},[_("span",{class:"invisible"},pe()),_("span",e.shadowText)])});const G=fa(P);return Object.assign(o,{focus:R,select:B,getNativeElement:()=>f.value}),At(o,"nativeEl",()=>f.value),G}}),Un=Pe({name:"QCardSection",props:{tag:{type:String,default:"div"},horizontal:Boolean},setup(e,{slots:t}){const n=v(()=>`q-card__section q-card__section--${e.horizontal===!0?"horiz row no-wrap":"vert"}`);return()=>_(e.tag,{class:n.value},je(t.default))}}),da=Pe({name:"QCard",props:{...St,tag:{type:String,default:"div"},square:Boolean,flat:Boolean,bordered:Boolean},setup(e,{slots:t}){const{proxy:{$q:n}}=qe(),o=xt(e,n),r=v(()=>"q-card"+(o.value===!0?" q-card--dark q-dark":"")+(e.bordered===!0?" q-card--bordered":"")+(e.square===!0?" q-card--square no-border-radius":"")+(e.flat===!0?" q-card--flat no-shadow":""));return()=>_(e.tag,{class:r.value},je(t.default))}}),uh=Pe({name:"QTh",props:{props:Object,autoWidth:Boolean},emits:["click"],setup(e,{slots:t,emit:n}){const o=qe(),{proxy:{$q:r}}=o,i=l=>{n("click",l)};return()=>{if(e.props===void 0)return _("th",{class:e.autoWidth===!0?"q-table--col-auto-width":"",onClick:i},je(t.default));let l,s;const a=o.vnode.key;if(a){if(l=e.props.colsMap[a],l===void 0)return}else l=e.props.col;if(l.sortable===!0){const u=l.align==="right"?"unshift":"push";s=Hs(t.default,[]),s[u](_(yt,{class:l.__iconClass,name:r.iconSet.table.arrowUp}))}else s=je(t.default);const c={class:l.__thClass+(e.autoWidth===!0?" q-table--col-auto-width":""),style:l.headerStyle,onClick:u=>{l.sortable===!0&&e.props.sort(l),i(u)}};return _("th",c,s)}}}),P0={true:"inset",item:"item-inset","item-thumbnail":"item-thumbnail-inset"},Al={xs:2,sm:4,md:8,lg:16,xl:24},ch=Pe({name:"QSeparator",props:{...St,spaced:[Boolean,String],inset:[Boolean,String],vertical:Boolean,color:String,size:String},setup(e){const t=qe(),n=xt(e,t.proxy.$q),o=v(()=>e.vertical===!0?"vertical":"horizontal"),r=v(()=>` q-separator--${o.value}`),i=v(()=>e.inset!==!1?`${r.value}-${P0[e.inset]}`:""),l=v(()=>`q-separator${r.value}${i.value}`+(e.color!==void 0?` bg-${e.color}`:"")+(n.value===!0?" q-separator--dark":"")),s=v(()=>{const a={};if(e.size!==void 0&&(a[e.vertical===!0?"width":"height"]=e.size),e.spaced!==!1){const c=e.spaced===!0?`${Al.md}px`:e.spaced in Al?`${Al[e.spaced]}px`:e.spaced,u=e.vertical===!0?["Left","Right"]:["Top","Bottom"];a[`margin${u[0]}`]=a[`margin${u[1]}`]=c}return a});return()=>_("hr",{class:l.value,style:s.value,"aria-orientation":o.value})}}),R0=Pe({name:"QList",props:{...St,bordered:Boolean,dense:Boolean,separator:Boolean,padding:Boolean,tag:{type:String,default:"div"}},setup(e,{slots:t}){const n=qe(),o=xt(e,n.proxy.$q),r=v(()=>"q-list"+(e.bordered===!0?" q-list--bordered":"")+(e.dense===!0?" q-list--dense":"")+(e.separator===!0?" q-list--separator":"")+(o.value===!0?" q-list--dark":"")+(e.padding===!0?" q-list--padding":""));return()=>_(e.tag,{class:r.value},je(t.default))}}),A0=["horizontal","vertical","cell","none"],O0=Pe({name:"QMarkupTable",props:{...St,dense:Boolean,flat:Boolean,bordered:Boolean,square:Boolean,wrapCells:Boolean,separator:{type:String,default:"horizontal",validator:e=>A0.includes(e)}},setup(e,{slots:t}){const n=qe(),o=xt(e,n.proxy.$q),r=v(()=>`q-markup-table q-table__container q-table__card q-table--${e.separator}-separator`+(o.value===!0?" q-table--dark q-table__card--dark q-dark":"")+(e.dense===!0?" q-table--dense":"")+(e.flat===!0?" q-table--flat":"")+(e.bordered===!0?" q-table--bordered":"")+(e.square===!0?" q-table--square":"")+(e.wrapCells===!1?" q-table--no-wrap":""));return()=>_("div",{class:r.value},[_("table",{class:"q-table"},je(t.default))])}});function fh(e,t){return _("div",e,[_("table",{class:"q-table"},t)])}let gi=!1;{const e=document.createElement("div");e.setAttribute("dir","rtl"),Object.assign(e.style,{width:"1px",height:"1px",overflow:"auto"});const t=document.createElement("div");Object.assign(t.style,{width:"1000px",height:"1px"}),document.body.appendChild(e),e.appendChild(t),e.scrollLeft=-1e3,gi=e.scrollLeft>=0,e.remove()}const Vt=1e3,$0=["start","center","end","start-force","center-force","end-force"],dh=Array.prototype.filter,L0=window.getComputedStyle(document.body).overflowAnchor===void 0?hn:function(e,t){e!==null&&(cancelAnimationFrame(e._qOverflowAnimationFrame),e._qOverflowAnimationFrame=requestAnimationFrame(()=>{if(e===null)return;const n=e.children||[];dh.call(n,r=>r.dataset&&r.dataset.qVsAnchor!==void 0).forEach(r=>{delete r.dataset.qVsAnchor});const o=n[t];o&&o.dataset&&(o.dataset.qVsAnchor="")}))};function Co(e,t){return e+t}function Ol(e,t,n,o,r,i,l,s){const a=e===window?document.scrollingElement||document.documentElement:e,c=r===!0?"offsetWidth":"offsetHeight",u={scrollStart:0,scrollViewSize:-l-s,scrollMaxSize:0,offsetStart:-l,offsetEnd:-s};if(r===!0?(e===window?(u.scrollStart=window.pageXOffset||window.scrollX||document.body.scrollLeft||0,u.scrollViewSize+=document.documentElement.clientWidth):(u.scrollStart=a.scrollLeft,u.scrollViewSize+=a.clientWidth),u.scrollMaxSize=a.scrollWidth,i===!0&&(u.scrollStart=(gi===!0?u.scrollMaxSize-u.scrollViewSize:0)-u.scrollStart)):(e===window?(u.scrollStart=window.pageYOffset||window.scrollY||document.body.scrollTop||0,u.scrollViewSize+=document.documentElement.clientHeight):(u.scrollStart=a.scrollTop,u.scrollViewSize+=a.clientHeight),u.scrollMaxSize=a.scrollHeight),n!==null)for(let f=n.previousElementSibling;f!==null;f=f.previousElementSibling)f.classList.contains("q-virtual-scroll--skip")===!1&&(u.offsetStart+=f[c]);if(o!==null)for(let f=o.nextElementSibling;f!==null;f=f.nextElementSibling)f.classList.contains("q-virtual-scroll--skip")===!1&&(u.offsetEnd+=f[c]);if(t!==e){const f=a.getBoundingClientRect(),d=t.getBoundingClientRect();r===!0?(u.offsetStart+=d.left-f.left,u.offsetEnd-=d.width):(u.offsetStart+=d.top-f.top,u.offsetEnd-=d.height),e!==window&&(u.offsetStart+=u.scrollStart),u.offsetEnd+=u.scrollMaxSize-u.offsetStart}return u}function xc(e,t,n,o){t==="end"&&(t=(e===window?document.body:e)[n===!0?"scrollWidth":"scrollHeight"]),e===window?n===!0?(o===!0&&(t=(gi===!0?document.body.scrollWidth-document.documentElement.clientWidth:0)-t),window.scrollTo(t,window.pageYOffset||window.scrollY||document.body.scrollTop||0)):window.scrollTo(window.pageXOffset||window.scrollX||document.body.scrollLeft||0,t):n===!0?(o===!0&&(t=(gi===!0?e.scrollWidth-e.offsetWidth:0)-t),e.scrollLeft=t):e.scrollTop=t}function Uo(e,t,n,o){if(n>=o)return 0;const r=t.length,i=Math.floor(n/Vt),l=Math.floor((o-1)/Vt)+1;let s=e.slice(i,l).reduce(Co,0);return n%Vt!==0&&(s-=t.slice(i*Vt,n).reduce(Co,0)),o%Vt!==0&&o!==r&&(s-=t.slice(o,l*Vt).reduce(Co,0)),s}const hh={virtualScrollSliceSize:{type:[Number,String],default:null},virtualScrollSliceRatioBefore:{type:[Number,String],default:1},virtualScrollSliceRatioAfter:{type:[Number,String],default:1},virtualScrollItemSize:{type:[Number,String],default:24},virtualScrollStickySizeStart:{type:[Number,String],default:0},virtualScrollStickySizeEnd:{type:[Number,String],default:0},tableColspan:[Number,String]},mh=Object.keys(hh),vh={virtualScrollHorizontal:Boolean,onVirtualScroll:Function,...hh};function gh({virtualScrollLength:e,getVirtualScrollTarget:t,getVirtualScrollEl:n,virtualScrollItemSizeComputed:o}){const r=qe(),{props:i,emit:l,proxy:s}=r,{$q:a}=s;let c,u,f,d=[],h;const m=W(0),g=W(0),b=W({}),T=W(null),k=W(null),E=W(null),x=W({from:0,to:0}),P=v(()=>i.tableColspan!==void 0?i.tableColspan:100);o===void 0&&(o=v(()=>i.virtualScrollItemSize));const C=v(()=>o.value+";"+i.virtualScrollHorizontal),S=v(()=>C.value+";"+i.virtualScrollSliceRatioBefore+";"+i.virtualScrollSliceRatioAfter);fe(S,()=>{N()}),fe(C,p);function p(){le(u,!0)}function $(M){le(M===void 0?u:M)}function R(M,te){const ae=t();if(ae==null||ae.nodeType===8)return;const Se=Ol(ae,n(),T.value,k.value,i.virtualScrollHorizontal,a.lang.rtl,i.virtualScrollStickySizeStart,i.virtualScrollStickySizeEnd);f!==Se.scrollViewSize&&N(Se.scrollViewSize),I(ae,Se,Math.min(e.value-1,Math.max(0,parseInt(M,10)||0)),0,$0.indexOf(te)>-1?te:u>-1&&M>u?"end":"start")}function B(){const M=t();if(M==null||M.nodeType===8)return;const te=Ol(M,n(),T.value,k.value,i.virtualScrollHorizontal,a.lang.rtl,i.virtualScrollStickySizeStart,i.virtualScrollStickySizeEnd),ae=e.value-1,Se=te.scrollMaxSize-te.offsetStart-te.offsetEnd-g.value;if(c===te.scrollStart)return;if(te.scrollMaxSize<=0){I(M,te,0,0);return}f!==te.scrollViewSize&&N(te.scrollViewSize),Q(x.value.from);const Me=Math.floor(te.scrollMaxSize-Math.max(te.scrollViewSize,te.offsetEnd)-Math.min(h[ae],te.scrollViewSize/2));if(Me>0&&Math.ceil(te.scrollStart)>=Me){I(M,te,ae,te.scrollMaxSize-te.offsetEnd-d.reduce(Co,0));return}let oe=0,A=te.scrollStart-te.offsetStart,ee=A;if(A<=Se&&A+te.scrollViewSize>=m.value)A-=m.value,oe=x.value.from,ee=A;else for(let F=0;A>=d[F]&&oe<ae;F++)A-=d[F],oe+=Vt;for(;A>0&&oe<ae;)A-=h[oe],A>-te.scrollViewSize?(oe++,ee=A):ee=h[oe]+A;I(M,te,oe,ee)}function I(M,te,ae,Se,Me){const oe=typeof Me=="string"&&Me.indexOf("-force")>-1,A=oe===!0?Me.replace("-force",""):Me,ee=A!==void 0?A:"start";let F=Math.max(0,ae-b.value[ee]),ie=F+b.value.total;ie>e.value&&(ie=e.value,F=Math.max(0,ie-b.value.total)),c=te.scrollStart;const xe=F!==x.value.from||ie!==x.value.to;if(xe===!1&&A===void 0){U(ae);return}const{activeElement:y}=document,w=E.value;xe===!0&&w!==null&&w!==y&&w.contains(y)===!0&&(w.addEventListener("focusout",H),setTimeout(()=>{w!==null&&w.removeEventListener("focusout",H)})),L0(w,ae-F);const O=A!==void 0?h.slice(F,ae).reduce(Co,0):0;if(xe===!0){const V=ie>=x.value.from&&F<=x.value.to?x.value.to:ie;x.value={from:F,to:V},m.value=Uo(d,h,0,F),g.value=Uo(d,h,ie,e.value),requestAnimationFrame(()=>{x.value.to!==ie&&c===te.scrollStart&&(x.value={from:x.value.from,to:ie},g.value=Uo(d,h,ie,e.value))})}requestAnimationFrame(()=>{if(c!==te.scrollStart)return;xe===!0&&Q(F);const V=h.slice(F,ae).reduce(Co,0),D=V+te.offsetStart+m.value,X=D+h[ae];let se=D+Se;if(A!==void 0){const ne=V-O,Y=te.scrollStart+ne;se=oe!==!0&&Y<D&&X<Y+te.scrollViewSize?Y:A==="end"?X-te.scrollViewSize:D-(A==="start"?0:Math.round((te.scrollViewSize-h[ae])/2))}c=se,xc(M,se,i.virtualScrollHorizontal,a.lang.rtl),U(ae)})}function Q(M){const te=E.value;if(te){const ae=dh.call(te.children,F=>F.classList&&F.classList.contains("q-virtual-scroll--skip")===!1),Se=ae.length,Me=i.virtualScrollHorizontal===!0?F=>F.getBoundingClientRect().width:F=>F.offsetHeight;let oe=M,A,ee;for(let F=0;F<Se;){for(A=Me(ae[F]),F++;F<Se&&ae[F].classList.contains("q-virtual-scroll--with-prev")===!0;)A+=Me(ae[F]),F++;ee=A-h[oe],ee!==0&&(h[oe]+=ee,d[Math.floor(oe/Vt)]+=ee),oe++}}}function H(){E.value!==null&&E.value!==void 0&&E.value.focus()}function le(M,te){const ae=1*o.value;(te===!0||Array.isArray(h)===!1)&&(h=[]);const Se=h.length;h.length=e.value;for(let oe=e.value-1;oe>=Se;oe--)h[oe]=ae;const Me=Math.floor((e.value-1)/Vt);d=[];for(let oe=0;oe<=Me;oe++){let A=0;const ee=Math.min((oe+1)*Vt,e.value);for(let F=oe*Vt;F<ee;F++)A+=h[F];d.push(A)}u=-1,c=void 0,m.value=Uo(d,h,0,x.value.from),g.value=Uo(d,h,x.value.to,e.value),M>=0?(Q(x.value.from),ze(()=>{R(M)})):pe()}function N(M){if(M===void 0&&typeof window<"u"){const A=t();A!=null&&A.nodeType!==8&&(M=Ol(A,n(),T.value,k.value,i.virtualScrollHorizontal,a.lang.rtl,i.virtualScrollStickySizeStart,i.virtualScrollStickySizeEnd).scrollViewSize)}f=M;const te=parseFloat(i.virtualScrollSliceRatioBefore)||0,ae=parseFloat(i.virtualScrollSliceRatioAfter)||0,Se=1+te+ae,Me=M===void 0||M<=0?1:Math.ceil(M/o.value),oe=Math.max(1,Me,Math.ceil((i.virtualScrollSliceSize>0?i.virtualScrollSliceSize:10)/Se));b.value={total:Math.ceil(oe*Se),start:Math.ceil(oe*te),center:Math.ceil(oe*(.5+te)),end:Math.ceil(oe*(1+te)),view:Me}}function L(M,te){const ae=i.virtualScrollHorizontal===!0?"width":"height",Se={["--q-virtual-scroll-item-"+ae]:o.value+"px"};return[M==="tbody"?_(M,{class:"q-virtual-scroll__padding",key:"before",ref:T},[_("tr",[_("td",{style:{[ae]:`${m.value}px`,...Se},colspan:P.value})])]):_(M,{class:"q-virtual-scroll__padding",key:"before",ref:T,style:{[ae]:`${m.value}px`,...Se}}),_(M,{class:"q-virtual-scroll__content",key:"content",ref:E,tabindex:-1},te.flat()),M==="tbody"?_(M,{class:"q-virtual-scroll__padding",key:"after",ref:k},[_("tr",[_("td",{style:{[ae]:`${g.value}px`,...Se},colspan:P.value})])]):_(M,{class:"q-virtual-scroll__padding",key:"after",ref:k,style:{[ae]:`${g.value}px`,...Se}})]}function U(M){u!==M&&(i.onVirtualScroll!==void 0&&l("virtualScroll",{index:M,from:x.value.from,to:x.value.to-1,direction:M<u?"decrease":"increase",ref:s}),u=M)}N();const pe=zi(B,a.platform.is.ios===!0?120:35);Cr(()=>{N()});let G=!1;return An(()=>{G=!0}),Fo(()=>{if(G!==!0)return;const M=t();c!==void 0&&M!==void 0&&M!==null&&M.nodeType!==8?xc(M,c,i.virtualScrollHorizontal,a.lang.rtl):R(u)}),We(()=>{pe.cancel()}),Object.assign(s,{scrollTo:R,reset:p,refresh:$}),{virtualScrollSliceRange:x,virtualScrollSliceSizeComputed:b,setVirtualScrollSize:N,onVirtualScrollEvt:pe,localResetVirtualScroll:le,padVirtualScroll:L,scrollTo:R,reset:p,refresh:$}}const M0={list:R0,table:O0},F0=["list","table","__qtable"],B0=Pe({name:"QVirtualScroll",props:{...vh,type:{type:String,default:"list",validator:e=>F0.includes(e)},items:{type:Array,default:()=>[]},itemsFn:Function,itemsSize:Number,scrollTarget:{default:void 0}},setup(e,{slots:t,attrs:n}){let o;const r=W(null),i=v(()=>e.itemsSize>=0&&e.itemsFn!==void 0?parseInt(e.itemsSize,10):Array.isArray(e.items)?e.items.length:0),{virtualScrollSliceRange:l,localResetVirtualScroll:s,padVirtualScroll:a,onVirtualScrollEvt:c}=gh({virtualScrollLength:i,getVirtualScrollTarget:m,getVirtualScrollEl:h}),u=v(()=>{if(i.value===0)return[];const k=(E,x)=>({index:l.value.from+x,item:E});return e.itemsFn===void 0?e.items.slice(l.value.from,l.value.to).map(k):e.itemsFn(l.value.from,l.value.to-l.value.from).map(k)}),f=v(()=>"q-virtual-scroll q-virtual-scroll"+(e.virtualScrollHorizontal===!0?"--horizontal":"--vertical")+(e.scrollTarget!==void 0?"":" scroll")),d=v(()=>e.scrollTarget!==void 0?{}:{tabindex:0});fe(i,()=>{s()}),fe(()=>e.scrollTarget,()=>{b(),g()});function h(){return r.value.$el||r.value}function m(){return o}function g(){o=ea(h(),e.scrollTarget),o.addEventListener("scroll",c,Ye.passive)}function b(){o!==void 0&&(o.removeEventListener("scroll",c,Ye.passive),o=void 0)}function T(){let k=a(e.type==="list"?"div":"tbody",u.value.map(t.default));return t.before!==void 0&&(k=t.before().concat(k)),Ot(t.after,k)}return Cr(()=>{s()}),ct(()=>{g()}),Fo(()=>{g()}),An(()=>{b()}),We(()=>{b()}),()=>{if(t.default===void 0){console.error("QVirtualScroll: default scoped slot is required for rendering");return}return e.type==="__qtable"?fh({ref:r,class:"q-table__middle "+f.value},T()):_(M0[e.type],{...n,ref:r,class:[n.class,f.value],...d.value},T)}}}),I0=Pe({name:"QField",inheritAttrs:!1,props:Qi,emits:ua,setup(){return fa(ca())}}),z0={xs:8,sm:10,md:14,lg:20,xl:24},V0=Pe({name:"QChip",props:{...St,...oo,dense:Boolean,icon:String,iconRight:String,iconRemove:String,iconSelected:String,label:[String,Number],color:String,textColor:String,modelValue:{type:Boolean,default:!0},selected:{type:Boolean,default:null},square:Boolean,outline:Boolean,clickable:Boolean,removable:Boolean,removeAriaLabel:String,tabindex:[String,Number],disable:Boolean,ripple:{type:[Boolean,Object],default:!0}},emits:["update:modelValue","update:selected","remove","click"],setup(e,{slots:t,emit:n}){const{proxy:{$q:o}}=qe(),r=xt(e,o),i=ro(e,z0),l=v(()=>e.selected===!0||e.icon!==void 0),s=v(()=>e.selected===!0?e.iconSelected||o.iconSet.chip.selected:e.icon),a=v(()=>e.iconRemove||o.iconSet.chip.remove),c=v(()=>e.disable===!1&&(e.clickable===!0||e.selected!==null)),u=v(()=>{const b=e.outline===!0&&e.color||e.textColor;return"q-chip row inline no-wrap items-center"+(e.outline===!1&&e.color!==void 0?` bg-${e.color}`:"")+(b?` text-${b} q-chip--colored`:"")+(e.disable===!0?" disabled":"")+(e.dense===!0?" q-chip--dense":"")+(e.outline===!0?" q-chip--outline":"")+(e.selected===!0?" q-chip--selected":"")+(c.value===!0?" q-chip--clickable cursor-pointer non-selectable q-hoverable":"")+(e.square===!0?" q-chip--square":"")+(r.value===!0?" q-chip--dark q-dark":"")}),f=v(()=>{const b=e.disable===!0?{tabindex:-1,"aria-disabled":"true"}:{tabindex:e.tabindex||0},T={...b,role:"button","aria-hidden":"false","aria-label":e.removeAriaLabel||o.lang.label.remove};return{chip:b,remove:T}});function d(b){b.keyCode===13&&h(b)}function h(b){e.disable||(n("update:selected",!e.selected),n("click",b))}function m(b){(b.keyCode===void 0||b.keyCode===13)&&(Je(b),e.disable===!1&&(n("update:modelValue",!1),n("remove")))}function g(){const b=[];c.value===!0&&b.push(_("div",{class:"q-focus-helper"})),l.value===!0&&b.push(_(yt,{class:"q-chip__icon q-chip__icon--left",name:s.value}));const T=e.label!==void 0?[_("div",{class:"ellipsis"},[e.label])]:void 0;return b.push(_("div",{class:"q-chip__content col row no-wrap items-center q-anchor--skip"},od(t.default,T))),e.iconRight&&b.push(_(yt,{class:"q-chip__icon q-chip__icon--right",name:e.iconRight})),e.removable===!0&&b.push(_(yt,{class:"q-chip__icon q-chip__icon--remove cursor-pointer",name:a.value,...f.value.remove,onClick:m,onKeyup:m})),b}return()=>{if(e.modelValue===!1)return;const b={class:u.value,style:i.value};return c.value===!0&&Object.assign(b,f.value.chip,{onClick:h,onKeyup:d}),Gl("div",b,g(),"ripple",e.ripple!==!1&&e.disable!==!0,()=>[[yo,e.ripple]])}}}),N0=Pe({name:"QItemLabel",props:{overline:Boolean,caption:Boolean,header:Boolean,lines:[Number,String]},setup(e,{slots:t}){const n=v(()=>parseInt(e.lines,10)),o=v(()=>"q-item__label"+(e.overline===!0?" q-item__label--overline text-overline":"")+(e.caption===!0?" q-item__label--caption text-caption":"")+(e.header===!0?" q-item__label--header":"")+(n.value===1?" ellipsis":"")),r=v(()=>e.lines!==void 0&&n.value>1?{overflow:"hidden",display:"-webkit-box","-webkit-box-orient":"vertical","-webkit-line-clamp":n.value}:null);return()=>_("div",{style:r.value,class:o.value},je(t.default))}}),j0={target:{default:!0},noParentEvent:Boolean,contextMenu:Boolean};function D0({showing:e,avoidEmit:t,configureAnchorEl:n}){const{props:o,proxy:r,emit:i}=qe(),l=W(null);let s;function a(h){return l.value===null?!1:h===void 0||h.touches===void 0||h.touches.length<=1}const c={};n===void 0&&(Object.assign(c,{hide(h){r.hide(h)},toggle(h){r.toggle(h),h.qAnchorHandled=!0},toggleKey(h){Rn(h,13)===!0&&c.toggle(h)},contextClick(h){r.hide(h),bt(h),ze(()=>{r.show(h),h.qAnchorHandled=!0})},prevent:bt,mobileTouch(h){if(c.mobileCleanup(h),a(h)!==!0)return;r.hide(h),l.value.classList.add("non-selectable");const m=h.target;Dn(c,"anchor",[[m,"touchmove","mobileCleanup","passive"],[m,"touchend","mobileCleanup","passive"],[m,"touchcancel","mobileCleanup","passive"],[l.value,"contextmenu","prevent","notPassive"]]),s=setTimeout(()=>{r.show(h),h.qAnchorHandled=!0},300)},mobileCleanup(h){l.value.classList.remove("non-selectable"),clearTimeout(s),e.value===!0&&h!==void 0&&jd()}}),n=function(h=o.contextMenu){if(o.noParentEvent===!0||l.value===null)return;let m;h===!0?r.$q.platform.is.mobile===!0?m=[[l.value,"touchstart","mobileTouch","passive"]]:m=[[l.value,"mousedown","hide","passive"],[l.value,"contextmenu","contextClick","notPassive"]]:m=[[l.value,"click","toggle","passive"],[l.value,"keyup","toggleKey","passive"]],Dn(c,"anchor",m)});function u(){er(c,"anchor")}function f(h){for(l.value=h;l.value.classList.contains("q-anchor--skip");)l.value=l.value.parentNode;n()}function d(){if(o.target===!1||o.target===""||r.$el.parentNode===null)l.value=null;else if(o.target===!0)f(r.$el.parentNode);else{let h=o.target;if(typeof o.target=="string")try{h=document.querySelector(o.target)}catch{h=void 0}h!=null?(l.value=h.$el||h,n()):(l.value=null,console.error(`Anchor: target "${o.target}" not found`))}}return fe(()=>o.contextMenu,h=>{l.value!==null&&(u(),n(h))}),fe(()=>o.target,()=>{l.value!==null&&u(),d()}),fe(()=>o.noParentEvent,h=>{l.value!==null&&(h===!0?u():n())}),ct(()=>{d(),t!==!0&&o.modelValue===!0&&l.value===null&&i("update:modelValue",!1)}),We(()=>{clearTimeout(s),u()}),{anchorEl:l,canShow:a,anchorEvents:c}}function H0(e,t){const n=W(null);let o;function r(s,a){const c=`${a!==void 0?"add":"remove"}EventListener`,u=a!==void 0?a:o;s!==window&&s[c]("scroll",u,Ye.passive),window[c]("scroll",u,Ye.passive),o=a}function i(){n.value!==null&&(r(n.value),n.value=null)}const l=fe(()=>e.noParentEvent,()=>{n.value!==null&&(i(),t())});return We(l),{localScrollTarget:n,unconfigureScrollTarget:i,changeScrollEvent:r}}const ko=[];function U0(e){return ko.find(t=>t.contentEl!==null&&t.contentEl.contains(e))}function ph(e,t){do{if(e.$options.name==="QMenu"){if(e.hide(t),e.$props.separateClosePopup===!0)return Jr(e)}else if(e.__qPortal===!0){const n=Jr(e);return n!==void 0&&n.$options.name==="QPopupProxy"?(e.hide(t),n):e}e=Jr(e)}while(e!=null)}function K0(e,t,n){for(;n!==0&&e!==void 0&&e!==null;){if(e.__qPortal===!0){if(n--,e.$options.name==="QMenu"){e=ph(e,t);continue}e.hide(t)}e=Jr(e)}}function W0(e){for(e=e.parent;e!=null;){if(e.type.name==="QGlobalDialog")return!0;if(e.type.name==="QDialog"||e.type.name==="QMenu")return!1;e=e.parent}return!1}function bh(e,t,n,o){const r=W(!1),i=W(!1);let l=null;const s={},a=o===!0&&W0(e);function c(f){if(f===!0){wc(s),i.value=!0;return}i.value=!1,r.value===!1&&(a===!1&&l===null&&(l=vd()),r.value=!0,ko.push(e.proxy),b0(s))}function u(f){if(i.value=!1,f!==!0)return;wc(s),r.value=!1;const d=ko.indexOf(e.proxy);d!==-1&&ko.splice(d,1),l!==null&&(_p(l),l=null)}return Bo(()=>{u(!0)}),e.proxy.__qPortal=!0,At(e.proxy,"contentEl",()=>t.value),{showPortal:c,hidePortal:u,portalIsActive:r,portalIsAccessible:i,renderPortal:()=>a===!0?n():r.value===!0?[_(Mv,{to:l},n())]:void 0}}const yh={transitionShow:{type:String,default:"fade"},transitionHide:{type:String,default:"fade"},transitionDuration:{type:[String,Number],default:300}};function wh(e,t=()=>{},n=()=>{}){return{transitionProps:v(()=>{const o=`q-transition--${e.transitionShow||t()}`,r=`q-transition--${e.transitionHide||n()}`;return{appear:!0,enterFromClass:`${o}-enter-from`,enterActiveClass:`${o}-enter-active`,enterToClass:`${o}-enter-to`,leaveFromClass:`${r}-leave-from`,leaveActiveClass:`${r}-leave-active`,leaveToClass:`${r}-leave-to`}}),transitionStyle:v(()=>`--q-transition-duration: ${e.transitionDuration}ms`)}}function _h(){let e;const t=qe();function n(){e=void 0}return An(n),We(n),{removeTick:n,registerTick(o){e=o,ze(()=>{e===o&&(dd(t)===!1&&e(),e=void 0)})}}}const Xn=[];let Ao;function Q0(e){Ao=e.keyCode===27}function J0(){Ao===!0&&(Ao=!1)}function X0(e){Ao===!0&&(Ao=!1,Rn(e,27)===!0&&Xn[Xn.length-1](e))}function Sh(e){window[e]("keydown",Q0),window[e]("blur",J0),window[e]("keyup",X0),Ao=!1}function xh(e){Ne.is.desktop===!0&&(Xn.push(e),Xn.length===1&&Sh("addEventListener"))}function pi(e){const t=Xn.indexOf(e);t>-1&&(Xn.splice(t,1),Xn.length===0&&Sh("removeEventListener"))}const Yn=[];function Ch(e){Yn[Yn.length-1](e)}function kh(e){Ne.is.desktop===!0&&(Yn.push(e),Yn.length===1&&document.body.addEventListener("focusin",Ch))}function vs(e){const t=Yn.indexOf(e);t>-1&&(Yn.splice(t,1),Yn.length===0&&document.body.removeEventListener("focusin",Ch))}let Eh;const{notPassiveCapture:bi}=Ye,Gn=[];function yi(e){clearTimeout(Eh);const t=e.target;if(t===void 0||t.nodeType===8||t.classList.contains("no-pointer-events")===!0)return;let n=ko.length-1;for(;n>=0;){const o=ko[n].$;if(o.type.name!=="QDialog")break;if(o.props.seamless!==!0)return;n--}for(let o=Gn.length-1;o>=0;o--){const r=Gn[o];if((r.anchorEl.value===null||r.anchorEl.value.contains(t)===!1)&&(t===document.body||r.innerRef.value!==null&&r.innerRef.value.contains(t)===!1))e.qClickOutside=!0,r.onClickOutside(e);else return}}function Y0(e){Gn.push(e),Gn.length===1&&(document.addEventListener("mousedown",yi,bi),document.addEventListener("touchstart",yi,bi))}function Cc(e){const t=Gn.findIndex(n=>n===e);t>-1&&(Gn.splice(t,1),Gn.length===0&&(clearTimeout(Eh),document.removeEventListener("mousedown",yi,bi),document.removeEventListener("touchstart",yi,bi)))}let kc,Ec;function qc(e){const t=e.split(" ");return t.length!==2?!1:["top","center","bottom"].includes(t[0])!==!0?(console.error("Anchor/Self position must start with one of top/center/bottom"),!1):["left","middle","right","start","end"].includes(t[1])!==!0?(console.error("Anchor/Self position must end with one of left/middle/right/start/end"),!1):!0}function G0(e){return e?!(e.length!==2||typeof e[0]!="number"||typeof e[1]!="number"):!0}const gs={"start#ltr":"left","start#rtl":"right","end#ltr":"right","end#rtl":"left"};["left","middle","right"].forEach(e=>{gs[`${e}#ltr`]=e,gs[`${e}#rtl`]=e});function Tc(e,t){const n=e.split(" ");return{vertical:n[0],horizontal:gs[`${n[1]}#${t===!0?"rtl":"ltr"}`]}}function Z0(e,t){let{top:n,left:o,right:r,bottom:i,width:l,height:s}=e.getBoundingClientRect();return t!==void 0&&(n-=t[1],o-=t[0],i+=t[1],r+=t[0],l+=t[0],s+=t[1]),{top:n,left:o,right:r,bottom:i,width:l,height:s,middle:o+(r-o)/2,center:n+(i-n)/2}}function ew(e){return{top:0,center:e.offsetHeight/2,bottom:e.offsetHeight,left:0,middle:e.offsetWidth/2,right:e.offsetWidth}}function tw(e){if(Ne.is.ios===!0&&window.visualViewport!==void 0){const s=document.body.style,{offsetLeft:a,offsetTop:c}=window.visualViewport;a!==kc&&(s.setProperty("--q-pe-left",a+"px"),kc=a),c!==Ec&&(s.setProperty("--q-pe-top",c+"px"),Ec=c)}let t;const{scrollLeft:n,scrollTop:o}=e.el;if(e.absoluteOffset===void 0)t=Z0(e.anchorEl,e.cover===!0?[0,0]:e.offset);else{const{top:s,left:a}=e.anchorEl.getBoundingClientRect(),c=s+e.absoluteOffset.top,u=a+e.absoluteOffset.left;t={top:c,left:u,width:1,height:1,right:u+1,center:c,middle:u,bottom:c+1}}let r={maxHeight:e.maxHeight,maxWidth:e.maxWidth,visibility:"visible"};(e.fit===!0||e.cover===!0)&&(r.minWidth=t.width+"px",e.cover===!0&&(r.minHeight=t.height+"px")),Object.assign(e.el.style,r);const i=ew(e.el),l={top:t[e.anchorOrigin.vertical]-i[e.selfOrigin.vertical],left:t[e.anchorOrigin.horizontal]-i[e.selfOrigin.horizontal]};nw(l,t,i,e.anchorOrigin,e.selfOrigin),r={top:l.top+"px",left:l.left+"px"},l.maxHeight!==void 0&&(r.maxHeight=l.maxHeight+"px",t.height>l.maxHeight&&(r.minHeight=r.maxHeight)),l.maxWidth!==void 0&&(r.maxWidth=l.maxWidth+"px",t.width>l.maxWidth&&(r.minWidth=r.maxWidth)),Object.assign(e.el.style,r),e.el.scrollTop!==o&&(e.el.scrollTop=o),e.el.scrollLeft!==n&&(e.el.scrollLeft=n)}function nw(e,t,n,o,r){const i=n.bottom,l=n.right,s=ti(),a=window.innerHeight-s,c=document.body.clientWidth;if(e.top<0||e.top+i>a)if(r.vertical==="center")e.top=t[o.vertical]>a/2?Math.max(0,a-i):0,e.maxHeight=Math.min(i,a);else if(t[o.vertical]>a/2){const u=Math.min(a,o.vertical==="center"?t.center:o.vertical===r.vertical?t.bottom:t.top);e.maxHeight=Math.min(i,u),e.top=Math.max(0,u-i)}else e.top=Math.max(0,o.vertical==="center"?t.center:o.vertical===r.vertical?t.top:t.bottom),e.maxHeight=Math.min(i,a-e.top);if(e.left<0||e.left+l>c)if(e.maxWidth=Math.min(l,c),r.horizontal==="middle")e.left=t[o.horizontal]>c/2?Math.max(0,c-l):0;else if(t[o.horizontal]>c/2){const u=Math.min(c,o.horizontal==="middle"?t.middle:o.horizontal===r.horizontal?t.right:t.left);e.maxWidth=Math.min(l,u),e.left=Math.max(0,u-e.maxWidth)}else e.left=Math.max(0,o.horizontal==="middle"?t.middle:o.horizontal===r.horizontal?t.left:t.right),e.maxWidth=Math.min(l,c-e.left)}const ow=Pe({name:"QMenu",inheritAttrs:!1,props:{...j0,...ra,...St,...yh,persistent:Boolean,autoClose:Boolean,separateClosePopup:Boolean,noRouteDismiss:Boolean,noRefocus:Boolean,noFocus:Boolean,fit:Boolean,cover:Boolean,square:Boolean,anchor:{type:String,validator:qc},self:{type:String,validator:qc},offset:{type:Array,validator:G0},scrollTarget:{default:void 0},touchPosition:Boolean,maxHeight:{type:String,default:null},maxWidth:{type:String,default:null}},emits:[...ia,"click","escapeKey"],setup(e,{slots:t,emit:n,attrs:o}){let r=null,i,l,s;const a=qe(),{proxy:c}=a,{$q:u}=c,f=W(null),d=W(!1),h=v(()=>e.persistent!==!0&&e.noRouteDismiss!==!0),m=xt(e,u),{registerTick:g,removeTick:b}=_h(),{registerTimeout:T}=sa(),{transitionProps:k,transitionStyle:E}=wh(e),{localScrollTarget:x,changeScrollEvent:P,unconfigureScrollTarget:C}=H0(e,ae),{anchorEl:S,canShow:p}=D0({showing:d}),{hide:$}=la({showing:d,canShow:p,handleShow:G,handleHide:M,hideOnRouteChange:h,processOnMount:!0}),{showPortal:R,hidePortal:B,renderPortal:I}=bh(a,f,ee),Q={anchorEl:S,innerRef:f,onClickOutside(F){if(e.persistent!==!0&&d.value===!0)return $(F),(F.type==="touchstart"||F.target.classList.contains("q-dialog__backdrop"))&&Je(F),!0}},H=v(()=>Tc(e.anchor||(e.cover===!0?"center middle":"bottom start"),u.lang.rtl)),le=v(()=>e.cover===!0?H.value:Tc(e.self||"top start",u.lang.rtl)),N=v(()=>(e.square===!0?" q-menu--square":"")+(m.value===!0?" q-menu--dark q-dark":"")),L=v(()=>e.autoClose===!0?{onClick:Se}:{}),U=v(()=>d.value===!0&&e.persistent!==!0);fe(U,F=>{F===!0?(xh(oe),Y0(Q)):(pi(oe),Cc(Q))});function pe(){Wi(()=>{let F=f.value;F&&F.contains(document.activeElement)!==!0&&(F=F.querySelector("[autofocus][tabindex], [data-autofocus][tabindex]")||F.querySelector("[autofocus] [tabindex], [data-autofocus] [tabindex]")||F.querySelector("[autofocus], [data-autofocus]")||F,F.focus({preventScroll:!0}))})}function G(F){if(r=e.noRefocus===!1?document.activeElement:null,kh(Me),R(),ae(),i=void 0,F!==void 0&&(e.touchPosition||e.contextMenu)){const ie=mr(F);if(ie.left!==void 0){const{top:xe,left:y}=S.value.getBoundingClientRect();i={left:ie.left-y,top:ie.top-xe}}}l===void 0&&(l=fe(()=>u.screen.width+"|"+u.screen.height+"|"+e.self+"|"+e.anchor+"|"+u.lang.rtl,A)),e.noFocus!==!0&&document.activeElement.blur(),g(()=>{A(),e.noFocus!==!0&&pe()}),T(()=>{u.platform.is.ios===!0&&(s=e.autoClose,f.value.click()),A(),R(!0),n("show",F)},e.transitionDuration)}function M(F){b(),B(),te(!0),r!==null&&(F===void 0||F.qClickOutside!==!0)&&(((F&&F.type.indexOf("key")===0?r.closest('[tabindex]:not([tabindex^="-"])'):void 0)||r).focus(),r=null),T(()=>{B(!0),n("hide",F)},e.transitionDuration)}function te(F){i=void 0,l!==void 0&&(l(),l=void 0),(F===!0||d.value===!0)&&(vs(Me),C(),Cc(Q),pi(oe)),F!==!0&&(r=null)}function ae(){(S.value!==null||e.scrollTarget!==void 0)&&(x.value=ea(S.value,e.scrollTarget),P(x.value,A))}function Se(F){s!==!0?(ph(c,F),n("click",F)):s=!1}function Me(F){U.value===!0&&e.noFocus!==!0&&ad(f.value,F.target)!==!0&&pe()}function oe(F){n("escapeKey"),$(F)}function A(){const F=f.value;F===null||S.value===null||tw({el:F,offset:e.offset,anchorEl:S.value,anchorOrigin:H.value,selfOrigin:le.value,absoluteOffset:i,fit:e.fit,cover:e.cover,maxHeight:e.maxHeight,maxWidth:e.maxWidth})}function ee(){return _(Zn,k.value,()=>d.value===!0?_("div",{role:"menu",...o,ref:f,tabindex:-1,class:["q-menu q-position-engine scroll"+N.value,o.class],style:[o.style,E.value],...L.value},je(t.default)):null)}return We(te),Object.assign(c,{focus:pe,updatePosition:A}),I}});let Hr=0;const rw={standard:"fixed-full flex-center",top:"fixed-top justify-center",bottom:"fixed-bottom justify-center",right:"fixed-right items-center",left:"fixed-left items-center"},Pc={standard:["scale","scale"],top:["slide-down","slide-up"],bottom:["slide-up","slide-down"],right:["slide-left","slide-right"],left:["slide-right","slide-left"]},qh=Pe({name:"QDialog",inheritAttrs:!1,props:{...ra,...yh,transitionShow:String,transitionHide:String,persistent:Boolean,autoClose:Boolean,allowFocusOutside:Boolean,noEscDismiss:Boolean,noBackdropDismiss:Boolean,noRouteDismiss:Boolean,noRefocus:Boolean,noFocus:Boolean,noShake:Boolean,seamless:Boolean,maximized:Boolean,fullWidth:Boolean,fullHeight:Boolean,square:Boolean,position:{type:String,default:"standard",validator:e=>e==="standard"||["top","bottom","left","right"].includes(e)}},emits:[...ia,"shake","click","escapeKey"],setup(e,{slots:t,emit:n,attrs:o}){const r=qe(),i=W(null),l=W(!1),s=W(!1);let a,c=null,u,f;const d=v(()=>e.persistent!==!0&&e.noRouteDismiss!==!0&&e.seamless!==!0),{preventBodyScroll:h}=Hd(),{registerTimeout:m}=sa(),{registerTick:g,removeTick:b}=_h(),{transitionProps:T,transitionStyle:k}=wh(e,()=>Pc[e.position][0],()=>Pc[e.position][1]),{showPortal:E,hidePortal:x,portalIsAccessible:P,renderPortal:C}=bh(r,i,Me,!0),{hide:S}=la({showing:l,hideOnRouteChange:d,handleShow:H,handleHide:le,processOnMount:!0}),{addToHistory:p,removeFromHistory:$}=Dd(l,S,d),R=v(()=>`q-dialog__inner flex no-pointer-events q-dialog__inner--${e.maximized===!0?"maximized":"minimized"} q-dialog__inner--${e.position} ${rw[e.position]}`+(s.value===!0?" q-dialog__inner--animating":"")+(e.fullWidth===!0?" q-dialog__inner--fullwidth":"")+(e.fullHeight===!0?" q-dialog__inner--fullheight":"")+(e.square===!0?" q-dialog__inner--square":"")),B=v(()=>l.value===!0&&e.seamless!==!0),I=v(()=>e.autoClose===!0?{onClick:M}:{}),Q=v(()=>[`q-dialog fullscreen no-pointer-events q-dialog--${B.value===!0?"modal":"seamless"}`,o.class]);fe(()=>e.maximized,oe=>{l.value===!0&&G(oe)}),fe(B,oe=>{h(oe),oe===!0?(kh(ae),xh(U)):(vs(ae),pi(U))});function H(oe){p(),c=e.noRefocus===!1&&document.activeElement!==null?document.activeElement:null,G(e.maximized),E(),s.value=!0,e.noFocus!==!0?(document.activeElement!==null&&document.activeElement.blur(),g(N)):b(),m(()=>{if(r.proxy.$q.platform.is.ios===!0){if(e.seamless!==!0&&document.activeElement){const{top:A,bottom:ee}=document.activeElement.getBoundingClientRect(),{innerHeight:F}=window,ie=window.visualViewport!==void 0?window.visualViewport.height:F;A>0&&ee>ie/2&&(document.scrollingElement.scrollTop=Math.min(document.scrollingElement.scrollHeight-ie,ee>=F?1/0:Math.ceil(document.scrollingElement.scrollTop+ee-ie/2))),document.activeElement.scrollIntoView()}f=!0,i.value.click(),f=!1}E(!0),s.value=!1,n("show",oe)},e.transitionDuration)}function le(oe){b(),$(),pe(!0),s.value=!0,x(),c!==null&&(((oe&&oe.type.indexOf("key")===0?c.closest('[tabindex]:not([tabindex^="-"])'):void 0)||c).focus(),c=null),m(()=>{x(!0),s.value=!1,n("hide",oe)},e.transitionDuration)}function N(oe){Wi(()=>{let A=i.value;A===null||A.contains(document.activeElement)===!0||(A=(oe!==""?A.querySelector(oe):null)||A.querySelector("[autofocus][tabindex], [data-autofocus][tabindex]")||A.querySelector("[autofocus] [tabindex], [data-autofocus] [tabindex]")||A.querySelector("[autofocus], [data-autofocus]")||A,A.focus({preventScroll:!0}))})}function L(oe){oe&&typeof oe.focus=="function"?oe.focus({preventScroll:!0}):N(),n("shake");const A=i.value;A!==null&&(A.classList.remove("q-animate--scale"),A.classList.add("q-animate--scale"),clearTimeout(a),a=setTimeout(()=>{i.value!==null&&(A.classList.remove("q-animate--scale"),N())},170))}function U(){e.seamless!==!0&&(e.persistent===!0||e.noEscDismiss===!0?e.maximized!==!0&&e.noShake!==!0&&L():(n("escapeKey"),S()))}function pe(oe){clearTimeout(a),(oe===!0||l.value===!0)&&(G(!1),e.seamless!==!0&&(h(!1),vs(ae),pi(U))),oe!==!0&&(c=null)}function G(oe){oe===!0?u!==!0&&(Hr<1&&document.body.classList.add("q-body--dialog"),Hr++,u=!0):u===!0&&(Hr<2&&document.body.classList.remove("q-body--dialog"),Hr--,u=!1)}function M(oe){f!==!0&&(S(oe),n("click",oe))}function te(oe){e.persistent!==!0&&e.noBackdropDismiss!==!0?S(oe):e.noShake!==!0&&L(oe.relatedTarget)}function ae(oe){e.allowFocusOutside!==!0&&P.value===!0&&ad(i.value,oe.target)!==!0&&N('[tabindex]:not([tabindex="-1"])')}Object.assign(r.proxy,{focus:N,shake:L,__updateRefocusTarget(oe){c=oe||null}}),We(pe);const Se=r.proxy.$q.platform.is.ios===!0?"onClick":"onFocusin";function Me(){return _("div",{role:"dialog","aria-modal":B.value===!0?"true":"false",...o,class:Q.value},[_(Zn,{name:"q-transition--fade",appear:!0},()=>B.value===!0?_("div",{class:"q-dialog__backdrop fixed-full",style:k.value,"aria-hidden":"true",tabindex:-1,[Se]:te}):null),_(Zn,T.value,()=>l.value===!0?_("div",{ref:i,class:R.value,style:k.value,tabindex:-1,...I.value},je(t.default)):null)])}return C}}),Rc=e=>["add","add-unique","toggle"].includes(e),iw=".*+?^${}()|[]\\",lw=Object.keys(Qi),sw=Pe({name:"QSelect",inheritAttrs:!1,props:{...vh,...Ji,...Qi,modelValue:{required:!0},multiple:Boolean,displayValue:[String,Number],displayValueHtml:Boolean,dropdownIcon:String,options:{type:Array,default:()=>[]},optionValue:[Function,String],optionLabel:[Function,String],optionDisable:[Function,String],hideSelected:Boolean,hideDropdownIcon:Boolean,fillInput:Boolean,maxValues:[Number,String],optionsDense:Boolean,optionsDark:{type:Boolean,default:null},optionsSelectedClass:String,optionsHtml:Boolean,optionsCover:Boolean,menuShrink:Boolean,menuAnchor:String,menuSelf:String,menuOffset:Array,popupContentClass:String,popupContentStyle:[String,Array,Object],useInput:Boolean,useChips:Boolean,newValueMode:{type:String,validator:Rc},mapOptions:Boolean,emitValue:Boolean,inputDebounce:{type:[Number,String],default:500},inputClass:[Array,String,Object],inputStyle:[Array,String,Object],tabindex:{type:[String,Number],default:0},autocomplete:String,transitionShow:String,transitionHide:String,transitionDuration:[String,Number],behavior:{type:String,validator:e=>["default","menu","dialog"].includes(e),default:"default"},virtualScrollItemSize:{type:[Number,String],default:void 0},onNewValue:Function,onFilter:Function},emits:[...ua,"add","remove","inputValue","newValue","keyup","keypress","keydown","filterAbort"],setup(e,{slots:t,emit:n}){const{proxy:o}=qe(),{$q:r}=o,i=W(!1),l=W(!1),s=W(-1),a=W(""),c=W(!1),u=W(!1);let f,d,h,m,g,b,T,k,E;const x=W(null),P=W(null),C=W(null),S=W(null),p=W(null),$=sh(e),R=ah(j),B=v(()=>Array.isArray(e.options)?e.options.length:0),I=v(()=>e.virtualScrollItemSize===void 0?e.optionsDense===!0?24:48:e.virtualScrollItemSize),{virtualScrollSliceRange:Q,virtualScrollSliceSizeComputed:H,localResetVirtualScroll:le,padVirtualScroll:N,onVirtualScrollEvt:L,scrollTo:U,setVirtualScrollSize:pe}=gh({virtualScrollLength:B,getVirtualScrollTarget:el,getVirtualScrollEl:Pr,virtualScrollItemSizeComputed:I}),G=ca(),M=v(()=>{const q=e.mapOptions===!0&&e.multiple!==!0,he=e.modelValue!==void 0&&(e.modelValue!==null||q===!0)?e.multiple===!0&&Array.isArray(e.modelValue)?e.modelValue:[e.modelValue]:[];if(e.mapOptions===!0&&Array.isArray(e.options)===!0){const ce=e.mapOptions===!0&&d!==void 0?d:[],ke=he.map(De=>Lt(De,ce));return e.modelValue===null&&q===!0?ke.filter(De=>De!==null):ke}return he}),te=v(()=>{const q={};return lw.forEach(he=>{const ce=e[he];ce!==void 0&&(q[he]=ce)}),q}),ae=v(()=>e.optionsDark===null?G.isDark.value:e.optionsDark),Se=v(()=>_r(M.value)),Me=v(()=>{let q="q-field__input q-placeholder col";return e.hideSelected===!0||M.value.length===0?[q,e.inputClass]:(q+=" q-field__input--padding",e.inputClass===void 0?q:[q,e.inputClass])}),oe=v(()=>(e.virtualScrollHorizontal===!0?"q-virtual-scroll--horizontal":"")+(e.popupContentClass?" "+e.popupContentClass:"")),A=v(()=>B.value===0),ee=v(()=>M.value.map(q=>J.value(q)).join(", ")),F=v(()=>e.displayValue!==void 0?e.displayValue:ee.value),ie=v(()=>e.optionsHtml===!0?()=>!0:q=>q!=null&&q.html===!0),xe=v(()=>e.displayValueHtml===!0||e.displayValue===void 0&&(e.optionsHtml===!0||M.value.some(ie.value))),y=v(()=>G.focused.value===!0?e.tabindex:-1),w=v(()=>{const q={tabindex:e.tabindex,role:"combobox","aria-label":e.label,"aria-readonly":e.readonly===!0?"true":"false","aria-autocomplete":e.useInput===!0?"list":"none","aria-expanded":i.value===!0?"true":"false","aria-controls":`${G.targetUid.value}_lb`};return s.value>=0&&(q["aria-activedescendant"]=`${G.targetUid.value}_${s.value}`),q}),O=v(()=>({id:`${G.targetUid.value}_lb`,role:"listbox","aria-multiselectable":e.multiple===!0?"true":"false"})),V=v(()=>M.value.map((q,he)=>({index:he,opt:q,html:ie.value(q),selected:!0,removeAtIndex:Le,toggleOption:Fe,tabindex:y.value}))),D=v(()=>{if(B.value===0)return[];const{from:q,to:he}=Q.value;return e.options.slice(q,he).map((ce,ke)=>{const De=me.value(ce)===!0,Be=q+ke,Ge={clickable:!0,active:!1,activeClass:ne.value,manualFocus:!0,focused:!1,disable:De,tabindex:-1,dense:e.optionsDense,dark:ae.value,role:"option",id:`${G.targetUid.value}_${Be}`,onClick:()=>{Fe(ce)}};return De!==!0&&(tn(ce)===!0&&(Ge.active=!0),s.value===Be&&(Ge.focused=!0),Ge["aria-selected"]=Ge.active===!0?"true":"false",r.platform.is.desktop===!0&&(Ge.onMousemove=()=>{i.value===!0&&Xe(Be)})),{index:Be,opt:ce,html:ie.value(ce),label:J.value(ce),selected:Ge.active,focused:Ge.focused,toggleOption:Fe,setOptionIndex:Xe,itemProps:Ge}})}),X=v(()=>e.dropdownIcon!==void 0?e.dropdownIcon:r.iconSet.arrow.dropdown),se=v(()=>e.optionsCover===!1&&e.outlined!==!0&&e.standout!==!0&&e.borderless!==!0&&e.rounded!==!0),ne=v(()=>e.optionsSelectedClass!==void 0?e.optionsSelectedClass:e.color!==void 0?`text-${e.color}`:""),Y=v(()=>Mt(e.optionValue,"value")),J=v(()=>Mt(e.optionLabel,"label")),me=v(()=>Mt(e.optionDisable,"disable")),z=v(()=>M.value.map(q=>Y.value(q))),re=v(()=>{const q={onInput:j,onChange:R,onKeydown:On,onKeyup:nn,onKeypress:zo,onFocus:tt,onClick(he){h===!0&&Et(he)}};return q.onCompositionstart=q.onCompositionupdate=q.onCompositionend=R,q});fe(M,q=>{d=q,e.useInput===!0&&e.fillInput===!0&&e.multiple!==!0&&G.innerLoading.value!==!0&&(l.value!==!0&&i.value!==!0||Se.value!==!0)&&(m!==!0&&uo(),(l.value===!0||i.value===!0)&&_e(""))},{immediate:!0}),fe(()=>e.fillInput,uo),fe(i,rl),fe(B,Xh);function ve(q){return e.emitValue===!0?Y.value(q):q}function we(q){if(q>-1&&q<M.value.length)if(e.multiple===!0){const he=e.modelValue.slice();n("remove",{index:q,value:he.splice(q,1)[0]}),n("update:modelValue",he)}else n("update:modelValue",null)}function Le(q){we(q),G.focus()}function Ae(q,he){const ce=ve(q);if(e.multiple!==!0){e.fillInput===!0&&ye(J.value(q),!0,!0),n("update:modelValue",ce);return}if(M.value.length===0){n("add",{index:0,value:ce}),n("update:modelValue",e.multiple===!0?[ce]:ce);return}if(he===!0&&tn(q)===!0||e.maxValues!==void 0&&e.modelValue.length>=e.maxValues)return;const ke=e.modelValue.slice();n("add",{index:ke.length,value:ce}),ke.push(ce),n("update:modelValue",ke)}function Fe(q,he){if(G.editable.value!==!0||q===void 0||me.value(q)===!0)return;const ce=Y.value(q);if(e.multiple!==!0){he!==!0&&(ye(e.fillInput===!0?J.value(q):"",!0,!0),$n()),P.value!==null&&P.value.focus(),(M.value.length===0||Cn(Y.value(M.value[0]),ce)!==!0)&&n("update:modelValue",e.emitValue===!0?ce:q);return}if((h!==!0||c.value===!0)&&G.focus(),tt(),M.value.length===0){const Be=e.emitValue===!0?ce:q;n("add",{index:0,value:Be}),n("update:modelValue",e.multiple===!0?[Be]:Be);return}const ke=e.modelValue.slice(),De=z.value.findIndex(Be=>Cn(Be,ce));if(De>-1)n("remove",{index:De,value:ke.splice(De,1)[0]});else{if(e.maxValues!==void 0&&ke.length>=e.maxValues)return;const Be=e.emitValue===!0?ce:q;n("add",{index:ke.length,value:Be}),ke.push(Be)}n("update:modelValue",ke)}function Xe(q){if(r.platform.is.desktop!==!0)return;const he=q>-1&&q<B.value?q:-1;s.value!==he&&(s.value=he)}function it(q=1,he){if(i.value===!0){let ce=s.value;do ce=ju(ce+q,-1,B.value-1);while(ce!==-1&&ce!==s.value&&me.value(e.options[ce])===!0);s.value!==ce&&(Xe(ce),U(ce),he!==!0&&e.useInput===!0&&e.fillInput===!0&&de(ce>=0?J.value(e.options[ce]):b))}}function Lt(q,he){const ce=ke=>Cn(Y.value(ke),q);return e.options.find(ce)||he.find(ce)||q}function Mt(q,he){const ce=q!==void 0?q:he;return typeof ce=="function"?ce:ke=>ke!==null&&typeof ke=="object"&&ce in ke?ke[ce]:ke}function tn(q){const he=Y.value(q);return z.value.find(ce=>Cn(ce,he))!==void 0}function tt(q){e.useInput===!0&&P.value!==null&&(q===void 0||P.value===q.target&&q.target.value===ee.value)&&P.value.select()}function vt(q){Rn(q,27)===!0&&i.value===!0&&(Et(q),$n(),uo()),n("keyup",q)}function nn(q){const{value:he}=q.target;if(q.keyCode!==void 0){vt(q);return}if(q.target.value="",clearTimeout(f),uo(),typeof he=="string"&&he.length>0){const ce=he.toLocaleLowerCase(),ke=Be=>{const Ge=e.options.find(gt=>Be.value(gt).toLocaleLowerCase()===ce);return Ge===void 0?!1:(M.value.indexOf(Ge)===-1?Fe(Ge):$n(),!0)},De=Be=>{ke(Y)!==!0&&(ke(J)===!0||Be===!0||_e(he,!0,()=>De(!0)))};De()}else G.clearValue(q)}function zo(q){n("keypress",q)}function On(q){if(n("keydown",q),js(q)===!0)return;const he=a.value.length>0&&(e.newValueMode!==void 0||e.onNewValue!==void 0),ce=q.shiftKey!==!0&&e.multiple!==!0&&(s.value>-1||he===!0);if(q.keyCode===27){bt(q);return}if(q.keyCode===9&&ce===!1){so();return}if(q.target===void 0||q.target.id!==G.targetUid.value)return;if(q.keyCode===40&&G.innerLoading.value!==!0&&i.value===!1){Je(q),ao();return}if(q.keyCode===8&&e.hideSelected!==!0&&a.value.length===0){e.multiple===!0&&Array.isArray(e.modelValue)===!0?we(e.modelValue.length-1):e.multiple!==!0&&e.modelValue!==null&&n("update:modelValue",null);return}(q.keyCode===35||q.keyCode===36)&&(typeof a.value!="string"||a.value.length===0)&&(Je(q),s.value=-1,it(q.keyCode===36?1:-1,e.multiple)),(q.keyCode===33||q.keyCode===34)&&H.value!==void 0&&(Je(q),s.value=Math.max(-1,Math.min(B.value,s.value+(q.keyCode===33?-1:1)*H.value.view)),it(q.keyCode===33?1:-1,e.multiple)),(q.keyCode===38||q.keyCode===40)&&(Je(q),it(q.keyCode===38?-1:1,e.multiple));const ke=B.value;if((k===void 0||E<Date.now())&&(k=""),ke>0&&e.useInput!==!0&&q.key!==void 0&&q.key.length===1&&q.altKey===!1&&q.ctrlKey===!1&&q.metaKey===!1&&(q.keyCode!==32||k.length>0)){i.value!==!0&&ao(q);const De=q.key.toLocaleLowerCase(),Be=k.length===1&&k[0]===De;E=Date.now()+1500,Be===!1&&(Je(q),k+=De);const Ge=new RegExp("^"+k.split("").map(il=>iw.indexOf(il)>-1?"\\"+il:il).join(".*"),"i");let gt=s.value;if(Be===!0||gt<0||Ge.test(J.value(e.options[gt]))!==!0)do gt=ju(gt+1,-1,ke-1);while(gt!==s.value&&(me.value(e.options[gt])===!0||Ge.test(J.value(e.options[gt]))!==!0));s.value!==gt&&ze(()=>{Xe(gt),U(gt),gt>=0&&e.useInput===!0&&e.fillInput===!0&&de(J.value(e.options[gt]))});return}if(!(q.keyCode!==13&&(q.keyCode!==32||e.useInput===!0||k!=="")&&(q.keyCode!==9||ce===!1))){if(q.keyCode!==9&&Je(q),s.value>-1&&s.value<ke){Fe(e.options[s.value]);return}if(he===!0){const De=(Be,Ge)=>{if(Ge){if(Rc(Ge)!==!0)return}else Ge=e.newValueMode;if(Be==null)return;ye("",e.multiple!==!0,!0),(Ge==="toggle"?Fe:Ae)(Be,Ge==="add-unique"),e.multiple!==!0&&(P.value!==null&&P.value.focus(),$n())};if(e.onNewValue!==void 0?n("newValue",a.value,De):De(a.value),e.multiple!==!0)return}i.value===!0?so():G.innerLoading.value!==!0&&ao()}}function Pr(){return h===!0?p.value:C.value!==null&&C.value.contentEl!==null?C.value.contentEl:void 0}function el(){return Pr()}function tl(){return e.hideSelected===!0?[]:t["selected-item"]!==void 0?V.value.map(q=>t["selected-item"](q)).slice():t.selected!==void 0?[].concat(t.selected()):e.useChips===!0?V.value.map((q,he)=>_(V0,{key:"option-"+he,removable:G.editable.value===!0&&me.value(q.opt)!==!0,dense:!0,textColor:e.color,tabindex:y.value,onRemove(){q.removeAtIndex(he)}},()=>_("span",{class:"ellipsis",[q.html===!0?"innerHTML":"textContent"]:J.value(q.opt)}))):[_("span",{[xe.value===!0?"innerHTML":"textContent"]:F.value})]}function Rr(){if(A.value===!0)return t["no-option"]!==void 0?t["no-option"]({inputValue:a.value}):void 0;const q=t.option!==void 0?t.option:ce=>_(Jo,{key:ce.index,...ce.itemProps},()=>_(ln,()=>_(N0,()=>_("span",{[ce.html===!0?"innerHTML":"textContent"]:ce.label}))));let he=N("div",D.value.map(q));return t["before-options"]!==void 0&&(he=t["before-options"]().concat(he)),Ot(t["after-options"],he)}function nl(q,he){const ce=he===!0?{...w.value,...G.splitAttrs.attributes.value}:void 0,ke={ref:he===!0?P:void 0,key:"i_t",class:Me.value,style:e.inputStyle,value:a.value!==void 0?a.value:"",type:"search",...ce,id:he===!0?G.targetUid.value:void 0,maxlength:e.maxlength,autocomplete:e.autocomplete,"data-autofocus":q===!0||e.autofocus===!0||void 0,disabled:e.disable===!0,readonly:e.readonly===!0,...re.value};return q!==!0&&h===!0&&(Array.isArray(ke.class)===!0?ke.class=[...ke.class,"no-pointer-events"]:ke.class+=" no-pointer-events"),_("input",ke)}function j(q){clearTimeout(f),!(q&&q.target&&q.target.qComposing===!0)&&(de(q.target.value||""),m=!0,b=a.value,G.focused.value!==!0&&(h!==!0||c.value===!0)&&G.focus(),e.onFilter!==void 0&&(f=setTimeout(()=>{_e(a.value)},e.inputDebounce)))}function de(q){a.value!==q&&(a.value=q,n("inputValue",q))}function ye(q,he,ce){m=ce!==!0,e.useInput===!0&&(de(q),(he===!0||ce!==!0)&&(b=q),he!==!0&&_e(q))}function _e(q,he,ce){if(e.onFilter===void 0||he!==!0&&G.focused.value!==!0)return;G.innerLoading.value===!0?n("filterAbort"):(G.innerLoading.value=!0,u.value=!0),q!==""&&e.multiple!==!0&&M.value.length>0&&m!==!0&&q===J.value(M.value[0])&&(q="");const ke=setTimeout(()=>{i.value===!0&&(i.value=!1)},10);clearTimeout(g),g=ke,n("filter",q,(De,Be)=>{(he===!0||G.focused.value===!0)&&g===ke&&(clearTimeout(g),typeof De=="function"&&De(),u.value=!1,ze(()=>{G.innerLoading.value=!1,G.editable.value===!0&&(he===!0?i.value===!0&&$n():i.value===!0?rl(!0):i.value=!0),typeof Be=="function"&&ze(()=>{Be(o)}),typeof ce=="function"&&ze(()=>{ce(o)})}))},()=>{G.focused.value===!0&&g===ke&&(clearTimeout(g),G.innerLoading.value=!1,u.value=!1),i.value===!0&&(i.value=!1)})}function Re(){return _(ow,{ref:C,class:oe.value,style:e.popupContentStyle,modelValue:i.value,fit:e.menuShrink!==!0,cover:e.optionsCover===!0&&A.value!==!0&&e.useInput!==!0,anchor:e.menuAnchor,self:e.menuSelf,offset:e.menuOffset,dark:ae.value,noParentEvent:!0,noRefocus:!0,noFocus:!0,square:se.value,transitionShow:e.transitionShow,transitionHide:e.transitionHide,transitionDuration:e.transitionDuration,separateClosePopup:!0,...O.value,onScrollPassive:L,onBeforeShow:Sa,onBeforeHide:Qe,onShow:Ke},Rr)}function Qe(q){xa(q),so()}function Ke(){pe()}function Ft(q){Et(q),P.value!==null&&P.value.focus(),c.value=!0,window.scrollTo(window.pageXOffset||window.scrollX||document.body.scrollLeft||0,0)}function ft(q){Et(q),ze(()=>{c.value=!1})}function io(){const q=[_(I0,{class:`col-auto ${G.fieldClass.value}`,...te.value,for:G.targetUid.value,dark:ae.value,square:!0,loading:u.value,itemAligned:!1,filled:!0,stackLabel:a.value.length>0,...G.splitAttrs.listeners.value,onFocus:Ft,onBlur:ft},{...t,rawControl:()=>G.getControl(!0),before:void 0,after:void 0})];return i.value===!0&&q.push(_("div",{ref:p,class:oe.value+" scroll",style:e.popupContentStyle,...O.value,onClick:bt,onScrollPassive:L},Rr())),_(qh,{ref:S,modelValue:l.value,position:e.useInput===!0?"top":void 0,transitionShow:T,transitionHide:e.transitionHide,transitionDuration:e.transitionDuration,onBeforeShow:Sa,onBeforeHide:lo,onHide:ol,onShow:Jh},()=>_("div",{class:"q-select__dialog"+(ae.value===!0?" q-select__dialog--dark q-dark":"")+(c.value===!0?" q-select__dialog--focused":"")},q))}function lo(q){xa(q),S.value!==null&&S.value.__updateRefocusTarget(G.rootRef.value.querySelector(".q-field__native > [tabindex]:last-child")),G.focused.value=!1}function ol(q){$n(),G.focused.value===!1&&n("blur",q),uo()}function Jh(){const q=document.activeElement;(q===null||q.id!==G.targetUid.value)&&P.value!==null&&P.value!==q&&P.value.focus(),pe()}function so(){l.value!==!0&&(s.value=-1,i.value===!0&&(i.value=!1),G.focused.value===!1&&(clearTimeout(g),g=void 0,G.innerLoading.value===!0&&(n("filterAbort"),G.innerLoading.value=!1,u.value=!1)))}function ao(q){G.editable.value===!0&&(h===!0?(G.onControlFocusin(q),l.value=!0,ze(()=>{G.focus()})):G.focus(),e.onFilter!==void 0?_e(a.value):(A.value!==!0||t["no-option"]!==void 0)&&(i.value=!0))}function $n(){l.value=!1,so()}function uo(){e.useInput===!0&&ye(e.multiple!==!0&&e.fillInput===!0&&M.value.length>0&&J.value(M.value[0])||"",!0,!0)}function rl(q){let he=-1;if(q===!0){if(M.value.length>0){const ce=Y.value(M.value[0]);he=e.options.findIndex(ke=>Cn(Y.value(ke),ce))}le(he)}Xe(he)}function Xh(q,he){i.value===!0&&G.innerLoading.value===!1&&(le(-1,!0),ze(()=>{i.value===!0&&G.innerLoading.value===!1&&(q>he?le():rl(!0))}))}function _a(){l.value===!1&&C.value!==null&&C.value.updatePosition()}function Sa(q){q!==void 0&&Et(q),n("popupShow",q),G.hasPopupOpen=!0,G.onControlFocusin(q)}function xa(q){q!==void 0&&Et(q),n("popupHide",q),G.hasPopupOpen=!1,G.onControlFocusout(q)}function Ca(){h=r.platform.is.mobile!==!0&&e.behavior!=="dialog"?!1:e.behavior!=="menu"&&(e.useInput===!0?t["no-option"]!==void 0||e.onFilter!==void 0||A.value===!1:!0),T=r.platform.is.ios===!0&&h===!0&&e.useInput===!0?"fade":e.transitionShow}return $i(Ca),Bs(_a),Ca(),We(()=>{clearTimeout(f)}),Object.assign(o,{showPopup:ao,hidePopup:$n,removeAtIndex:we,add:Ae,toggleOption:Fe,getOptionIndex:()=>s.value,setOptionIndex:Xe,moveOptionSelection:it,filter:_e,updateMenuPosition:_a,updateInputValue:ye,isOptionSelected:tn,getEmittingOptionValue:ve,isOptionDisabled:(...q)=>me.value.apply(null,q)===!0,getOptionValue:(...q)=>Y.value.apply(null,q),getOptionLabel:(...q)=>J.value.apply(null,q)}),Object.assign(G,{innerValue:M,fieldClass:v(()=>`q-select q-field--auto-height q-select--with${e.useInput!==!0?"out":""}-input q-select--with${e.useChips!==!0?"out":""}-chips q-select--${e.multiple===!0?"multiple":"single"}`),inputRef:x,targetRef:P,hasValue:Se,showPopup:ao,floatingLabel:v(()=>e.hideSelected!==!0&&Se.value===!0||typeof a.value=="number"||a.value.length>0||_r(e.displayValue)),getControlChild:()=>{if(G.editable.value!==!1&&(l.value===!0||A.value!==!0||t["no-option"]!==void 0))return h===!0?io():Re();G.hasPopupOpen===!0&&(G.hasPopupOpen=!1)},controlEvents:{onFocusin(q){G.onControlFocusin(q)},onFocusout(q){G.onControlFocusout(q,()=>{uo(),so()})},onClick(q){if(bt(q),h!==!0&&i.value===!0){so(),P.value!==null&&P.value.focus();return}ao(q)}},getControl:q=>{const he=tl(),ce=q===!0||l.value!==!0||h!==!0;if(e.useInput===!0)he.push(nl(q,ce));else if(G.editable.value===!0){const De=ce===!0?w.value:void 0;he.push(_("input",{ref:ce===!0?P:void 0,key:"d_t",class:"q-select__focus-target",id:ce===!0?G.targetUid.value:void 0,value:F.value,readonly:!0,"data-autofocus":q===!0||e.autofocus===!0||void 0,...De,onKeydown:On,onKeyup:vt,onKeypress:zo})),ce===!0&&typeof e.autocomplete=="string"&&e.autocomplete.length>0&&he.push(_("input",{class:"q-select__autocomplete-input",autocomplete:e.autocomplete,tabindex:-1,onKeyup:nn}))}if($.value!==void 0&&e.disable!==!0&&z.value.length>0){const De=z.value.map(Be=>_("option",{value:Be,selected:!0}));he.push(_("select",{class:"hidden",name:$.value,multiple:e.multiple},De))}const ke=e.useInput===!0||ce!==!0?void 0:G.splitAttrs.attributes.value;return _("div",{class:"q-field__native row items-center",...ke},he)},getInnerAppend:()=>e.loading!==!0&&u.value!==!0&&e.hideDropdownIcon!==!0?[_(yt,{class:"q-select__dropdown-icon"+(i.value===!0?" rotate-180":""),name:X.value})]:null}),fa(G)}}),aw={xs:2,sm:4,md:6,lg:10,xl:14};function Ac(e,t,n){return{transform:t===!0?`translateX(${n.lang.rtl===!0?"-":""}100%) scale3d(${-e},1,1)`:`scale3d(${e},1,1)`}}const uw=Pe({name:"QLinearProgress",props:{...St,...oo,value:{type:Number,default:0},buffer:Number,color:String,trackColor:String,reverse:Boolean,stripe:Boolean,indeterminate:Boolean,query:Boolean,rounded:Boolean,animationSpeed:{type:[String,Number],default:2100},instantFeedback:Boolean},setup(e,{slots:t}){const{proxy:n}=qe(),o=xt(e,n.$q),r=ro(e,aw),i=v(()=>e.indeterminate===!0||e.query===!0),l=v(()=>e.reverse!==e.query),s=v(()=>({...r.value!==null?r.value:{},"--q-linear-progress-speed":`${e.animationSpeed}ms`})),a=v(()=>"q-linear-progress"+(e.color!==void 0?` text-${e.color}`:"")+(e.reverse===!0||e.query===!0?" q-linear-progress--reverse":"")+(e.rounded===!0?" rounded-borders":"")),c=v(()=>Ac(e.buffer!==void 0?e.buffer:1,l.value,n.$q)),u=v(()=>`with${e.instantFeedback===!0?"out":""}-transition`),f=v(()=>`q-linear-progress__track absolute-full q-linear-progress__track--${u.value} q-linear-progress__track--${o.value===!0?"dark":"light"}`+(e.trackColor!==void 0?` bg-${e.trackColor}`:"")),d=v(()=>Ac(i.value===!0?1:e.value,l.value,n.$q)),h=v(()=>`q-linear-progress__model absolute-full q-linear-progress__model--${u.value} q-linear-progress__model--${i.value===!0?"in":""}determinate`),m=v(()=>({width:`${e.value*100}%`})),g=v(()=>`q-linear-progress__stripe absolute-${e.reverse===!0?"right":"left"} q-linear-progress__stripe--${u.value}`);return()=>{const b=[_("div",{class:f.value,style:c.value}),_("div",{class:h.value,style:d.value})];return e.stripe===!0&&i.value===!1&&b.push(_("div",{class:g.value,style:m.value})),_("div",{class:a.value,style:s.value,role:"progressbar","aria-valuemin":0,"aria-valuemax":1,"aria-valuenow":e.indeterminate===!0?void 0:e.value},Ot(t.default,b))}}});function cw(e,t){const n=W(null),o=v(()=>e.disable===!0?null:_("span",{ref:n,class:"no-outline",tabindex:-1}));function r(i){const l=t.value;i!==void 0&&i.type.indexOf("key")===0?l!==null&&document.activeElement!==l&&l.contains(document.activeElement)===!0&&l.focus():n.value!==null&&(i===void 0||l!==null&&l.contains(i.target)===!0)&&n.value.focus()}return{refocusTargetEl:o,refocusTarget:r}}const fw={xs:30,sm:35,md:40,lg:50,xl:60},dw={...St,...oo,...Ji,modelValue:{required:!0,default:null},val:{},trueValue:{default:!0},falseValue:{default:!1},indeterminateValue:{default:null},checkedIcon:String,uncheckedIcon:String,indeterminateIcon:String,toggleOrder:{type:String,validator:e=>e==="tf"||e==="ft"},toggleIndeterminate:Boolean,label:String,leftLabel:Boolean,color:String,keepColor:Boolean,dense:Boolean,disable:Boolean,tabindex:[String,Number]},hw=["update:modelValue"];function mw(e,t){const{props:n,slots:o,emit:r,proxy:i}=qe(),{$q:l}=i,s=xt(n,l),a=W(null),{refocusTargetEl:c,refocusTarget:u}=cw(n,a),f=ro(n,fw),d=v(()=>n.val!==void 0&&Array.isArray(n.modelValue)),h=v(()=>{const I=Te(n.val);return d.value===!0?n.modelValue.findIndex(Q=>Te(Q)===I):-1}),m=v(()=>d.value===!0?h.value>-1:Te(n.modelValue)===Te(n.trueValue)),g=v(()=>d.value===!0?h.value===-1:Te(n.modelValue)===Te(n.falseValue)),b=v(()=>m.value===!1&&g.value===!1),T=v(()=>n.disable===!0?-1:n.tabindex||0),k=v(()=>`q-${e} cursor-pointer no-outline row inline no-wrap items-center`+(n.disable===!0?" disabled":"")+(s.value===!0?` q-${e}--dark`:"")+(n.dense===!0?` q-${e}--dense`:"")+(n.leftLabel===!0?" reverse":"")),E=v(()=>{const I=m.value===!0?"truthy":g.value===!0?"falsy":"indet",Q=n.color!==void 0&&(n.keepColor===!0||(e==="toggle"?m.value===!0:g.value!==!0))?` text-${n.color}`:"";return`q-${e}__inner relative-position non-selectable q-${e}__inner--${I}${Q}`}),x=v(()=>{const I={type:"checkbox"};return n.name!==void 0&&Object.assign(I,{".checked":m.value,"^checked":m.value===!0?"checked":void 0,name:n.name,value:d.value===!0?n.val:n.trueValue}),I}),P=lh(x),C=v(()=>{const I={tabindex:T.value,role:e==="toggle"?"switch":"checkbox","aria-label":n.label,"aria-checked":b.value===!0?"mixed":m.value===!0?"true":"false"};return n.disable===!0&&(I["aria-disabled"]="true"),I});function S(I){I!==void 0&&(Je(I),u(I)),n.disable!==!0&&r("update:modelValue",p(),I)}function p(){if(d.value===!0){if(m.value===!0){const I=n.modelValue.slice();return I.splice(h.value,1),I}return n.modelValue.concat([n.val])}if(m.value===!0){if(n.toggleOrder!=="ft"||n.toggleIndeterminate===!1)return n.falseValue}else if(g.value===!0){if(n.toggleOrder==="ft"||n.toggleIndeterminate===!1)return n.trueValue}else return n.toggleOrder!=="ft"?n.trueValue:n.falseValue;return n.indeterminateValue}function $(I){(I.keyCode===13||I.keyCode===32)&&Je(I)}function R(I){(I.keyCode===13||I.keyCode===32)&&S(I)}const B=t(m,b);return Object.assign(i,{toggle:S}),()=>{const I=B();n.disable!==!0&&P(I,"unshift",` q-${e}__native absolute q-ma-none q-pa-none`);const Q=[_("div",{class:E.value,style:f.value,"aria-hidden":"true"},I)];c.value!==null&&Q.push(c.value);const H=n.label!==void 0?Ot(o.default,[n.label]):je(o.default);return H!==void 0&&Q.push(_("div",{class:`q-${e}__label q-anchor--skip`},H)),_("div",{ref:a,class:k.value,...C.value,onClick:S,onKeydown:$,onKeyup:R},Q)}}const vw=_("div",{key:"svg",class:"q-checkbox__bg absolute"},[_("svg",{class:"q-checkbox__svg fit absolute-full",viewBox:"0 0 24 24"},[_("path",{class:"q-checkbox__truthy",fill:"none",d:"M1.73,12.91 8.1,19.28 22.79,4.59"}),_("path",{class:"q-checkbox__indet",d:"M4,14H20V10H4"})])]),$l=Pe({name:"QCheckbox",props:dw,emits:hw,setup(e){function t(n,o){const r=v(()=>(n.value===!0?e.checkedIcon:o.value===!0?e.indeterminateIcon:e.uncheckedIcon)||null);return()=>r.value!==null?[_("div",{key:"icon",class:"q-checkbox__icon-container absolute-full flex flex-center no-wrap"},[_(yt,{class:"q-checkbox__icon",name:r.value})])]:[vw]}return mw("checkbox",t)}});let Ko=0;const gw={fullscreen:Boolean,noRouteFullscreenExit:Boolean},pw=["update:fullscreen","fullscreen"];function bw(){const e=qe(),{props:t,emit:n,proxy:o}=e;let r,i,l;const s=W(!1);Ks(e)===!0&&fe(()=>o.$route.fullPath,()=>{t.noRouteFullscreenExit!==!0&&u()}),fe(()=>t.fullscreen,f=>{s.value!==f&&a()}),fe(s,f=>{n("update:fullscreen",f),n("fullscreen",f)});function a(){s.value===!0?u():c()}function c(){s.value!==!0&&(s.value=!0,l=o.$el.parentNode,l.replaceChild(i,o.$el),document.body.appendChild(o.$el),Ko++,Ko===1&&document.body.classList.add("q-body--fullscreen-mixin"),r={handler:u},vr.add(r))}function u(){s.value===!0&&(r!==void 0&&(vr.remove(r),r=void 0),l.replaceChild(o.$el,i),s.value=!1,Ko=Math.max(0,Ko-1),Ko===0&&(document.body.classList.remove("q-body--fullscreen-mixin"),o.$el.scrollIntoView!==void 0&&setTimeout(()=>{o.$el.scrollIntoView()})))}return Cr(()=>{i=document.createElement("span")}),ct(()=>{t.fullscreen===!0&&c()}),We(u),Object.assign(o,{toggleFullscreen:a,setFullscreen:c,exitFullscreen:u}),{inFullscreen:s,toggleFullscreen:a}}function yw(e,t){return new Date(e)-new Date(t)}const ww={sortMethod:Function,binaryStateSort:Boolean,columnSortOrder:{type:String,validator:e=>e==="ad"||e==="da",default:"ad"}};function _w(e,t,n,o){const r=v(()=>{const{sortBy:s}=t.value;return s&&n.value.find(a=>a.name===s)||null}),i=v(()=>e.sortMethod!==void 0?e.sortMethod:(s,a,c)=>{const u=n.value.find(h=>h.name===a);if(u===void 0||u.field===void 0)return s;const f=c===!0?-1:1,d=typeof u.field=="function"?h=>u.field(h):h=>h[u.field];return s.sort((h,m)=>{let g=d(h),b=d(m);return g==null?-1*f:b==null?1*f:u.sort!==void 0?u.sort(g,b,h,m)*f:Xl(g)===!0&&Xl(b)===!0?(g-b)*f:uu(g)===!0&&uu(b)===!0?yw(g,b)*f:typeof g=="boolean"&&typeof b=="boolean"?(g-b)*f:([g,b]=[g,b].map(T=>(T+"").toLocaleString().toLowerCase()),g<b?-1*f:g===b?0:f)})});function l(s){let a=e.columnSortOrder;if(To(s)===!0)s.sortOrder&&(a=s.sortOrder),s=s.name;else{const f=n.value.find(d=>d.name===s);f!==void 0&&f.sortOrder&&(a=f.sortOrder)}let{sortBy:c,descending:u}=t.value;c!==s?(c=s,u=a==="da"):e.binaryStateSort===!0?u=!u:u===!0?a==="ad"?c=null:u=!1:a==="ad"?u=!0:c=null,o({sortBy:c,descending:u,page:1})}return{columnToSort:r,computedSortMethod:i,sort:l}}const Sw={filter:[String,Object],filterMethod:Function};function xw(e,t){const n=v(()=>e.filterMethod!==void 0?e.filterMethod:(o,r,i,l)=>{const s=r?r.toLowerCase():"";return o.filter(a=>i.some(c=>{const u=l(c,a)+"";return(u==="undefined"||u==="null"?"":u.toLowerCase()).indexOf(s)!==-1}))});return fe(()=>e.filter,()=>{ze(()=>{t({page:1},!0)})},{deep:!0}),{computedFilterMethod:n}}function Cw(e,t){for(const n in t)if(t[n]!==e[n])return!1;return!0}function Oc(e){return e.page<1&&(e.page=1),e.rowsPerPage!==void 0&&e.rowsPerPage<1&&(e.rowsPerPage=0),e}const kw={pagination:Object,rowsPerPageOptions:{type:Array,default:()=>[5,7,10,15,20,25,50,0]},"onUpdate:pagination":[Function,Array]};function Ew(e,t){const{props:n,emit:o}=e,r=W(Object.assign({sortBy:null,descending:!1,page:1,rowsPerPage:n.rowsPerPageOptions.length>0?n.rowsPerPageOptions[0]:5},n.pagination)),i=v(()=>{const u=n["onUpdate:pagination"]!==void 0?{...r.value,...n.pagination}:r.value;return Oc(u)}),l=v(()=>i.value.rowsNumber!==void 0);function s(u){a({pagination:u,filter:n.filter})}function a(u={}){ze(()=>{o("request",{pagination:u.pagination||i.value,filter:u.filter||n.filter,getCellValue:t})})}function c(u,f){const d=Oc({...i.value,...u});if(Cw(i.value,d)===!0){l.value===!0&&f===!0&&s(d);return}if(l.value===!0){s(d);return}n.pagination!==void 0&&n["onUpdate:pagination"]!==void 0?o("update:pagination",d):r.value=d}return{innerPagination:r,computedPagination:i,isServerSide:l,requestServerInteraction:a,setPagination:c}}function qw(e,t,n,o,r,i){const{props:l,emit:s,proxy:{$q:a}}=e,c=v(()=>o.value===!0?n.value.rowsNumber||0:i.value),u=v(()=>{const{page:x,rowsPerPage:P}=n.value;return(x-1)*P}),f=v(()=>{const{page:x,rowsPerPage:P}=n.value;return x*P}),d=v(()=>n.value.page===1),h=v(()=>n.value.rowsPerPage===0?1:Math.max(1,Math.ceil(c.value/n.value.rowsPerPage))),m=v(()=>f.value===0?!0:n.value.page>=h.value),g=v(()=>(l.rowsPerPageOptions.includes(t.value.rowsPerPage)?l.rowsPerPageOptions:[t.value.rowsPerPage].concat(l.rowsPerPageOptions)).map(P=>({label:P===0?a.lang.table.allRows:""+P,value:P})));fe(h,(x,P)=>{if(x===P)return;const C=n.value.page;x&&!C?r({page:1}):x<C&&r({page:x})});function b(){r({page:1})}function T(){const{page:x}=n.value;x>1&&r({page:x-1})}function k(){const{page:x,rowsPerPage:P}=n.value;f.value>0&&x*P<c.value&&r({page:x+1})}function E(){r({page:h.value})}return l["onUpdate:pagination"]!==void 0&&s("update:pagination",{...n.value}),{firstRowIndex:u,lastRowIndex:f,isFirstPage:d,isLastPage:m,pagesNumber:h,computedRowsPerPageOptions:g,computedRowsNumber:c,firstPage:b,prevPage:T,nextPage:k,lastPage:E}}const Tw={selection:{type:String,default:"none",validator:e=>["single","multiple","none"].includes(e)},selected:{type:Array,default:()=>[]}},Pw=["update:selected","selection"];function Rw(e,t,n,o){const r=v(()=>{const m={};return e.selected.map(o.value).forEach(g=>{m[g]=!0}),m}),i=v(()=>e.selection!=="none"),l=v(()=>e.selection==="single"),s=v(()=>e.selection==="multiple"),a=v(()=>n.value.length>0&&n.value.every(m=>r.value[o.value(m)]===!0)),c=v(()=>a.value!==!0&&n.value.some(m=>r.value[o.value(m)]===!0)),u=v(()=>e.selected.length);function f(m){return r.value[m]===!0}function d(){t("update:selected",[])}function h(m,g,b,T){t("selection",{rows:g,added:b,keys:m,evt:T});const k=l.value===!0?b===!0?g:[]:b===!0?e.selected.concat(g):e.selected.filter(E=>m.includes(o.value(E))===!1);t("update:selected",k)}return{hasSelectionMode:i,singleSelection:l,multipleSelection:s,allRowsSelected:a,someRowsSelected:c,rowsSelectedNumber:u,isRowSelected:f,clearSelection:d,updateSelection:h}}function $c(e){return Array.isArray(e)?e.slice():[]}const Aw={expanded:Array},Ow=["update:expanded"];function $w(e,t){const n=W($c(e.expanded));fe(()=>e.expanded,l=>{n.value=$c(l)});function o(l){return n.value.includes(l)}function r(l){e.expanded!==void 0?t("update:expanded",l):n.value=l}function i(l,s){const a=n.value.slice(),c=a.indexOf(l);s===!0?c===-1&&(a.push(l),r(a)):c!==-1&&(a.splice(c,1),r(a))}return{isRowExpanded:o,setExpanded:r,updateExpanded:i}}const Lw={visibleColumns:Array};function Mw(e,t,n){const o=v(()=>{if(e.columns!==void 0)return e.columns;const s=e.rows[0];return s!==void 0?Object.keys(s).map(a=>({name:a,label:a.toUpperCase(),field:a,align:Xl(s[a])?"right":"left",sortable:!0})):[]}),r=v(()=>{const{sortBy:s,descending:a}=t.value;return(e.visibleColumns!==void 0?o.value.filter(u=>u.required===!0||e.visibleColumns.includes(u.name)===!0):o.value).map(u=>{const f=u.align||"right",d=`text-${f}`;return{...u,align:f,__iconClass:`q-table__sort-icon q-table__sort-icon--${f}`,__thClass:d+(u.headerClasses!==void 0?" "+u.headerClasses:"")+(u.sortable===!0?" sortable":"")+(u.name===s?` sorted ${a===!0?"sort-desc":""}`:""),__tdStyle:u.style!==void 0?typeof u.style!="function"?()=>u.style:u.style:()=>null,__tdClass:u.classes!==void 0?typeof u.classes!="function"?()=>d+" "+u.classes:h=>d+" "+u.classes(h):()=>d}})}),i=v(()=>{const s={};return r.value.forEach(a=>{s[a.name]=a}),s}),l=v(()=>e.tableColspan!==void 0?e.tableColspan:r.value.length+(n.value===!0?1:0));return{colList:o,computedCols:r,computedColsMap:i,computedColspan:l}}const Ur="q-table__bottom row items-center",Th={};mh.forEach(e=>{Th[e]={}});const Ph=Pe({name:"QTable",props:{rows:{type:Array,default:()=>[]},rowKey:{type:[String,Function],default:"id"},columns:Array,loading:Boolean,iconFirstPage:String,iconPrevPage:String,iconNextPage:String,iconLastPage:String,title:String,hideHeader:Boolean,grid:Boolean,gridHeader:Boolean,dense:Boolean,flat:Boolean,bordered:Boolean,square:Boolean,separator:{type:String,default:"horizontal",validator:e=>["horizontal","vertical","cell","none"].includes(e)},wrapCells:Boolean,virtualScroll:Boolean,virtualScrollTarget:{default:void 0},...Th,noDataLabel:String,noResultsLabel:String,loadingLabel:String,selectedRowsLabel:Function,rowsPerPageLabel:String,paginationLabel:Function,color:{type:String,default:"grey-8"},titleClass:[String,Array,Object],tableStyle:[String,Array,Object],tableClass:[String,Array,Object],tableHeaderStyle:[String,Array,Object],tableHeaderClass:[String,Array,Object],cardContainerClass:[String,Array,Object],cardContainerStyle:[String,Array,Object],cardStyle:[String,Array,Object],cardClass:[String,Array,Object],hideBottom:Boolean,hideSelectedBanner:Boolean,hideNoData:Boolean,hidePagination:Boolean,onRowClick:Function,onRowDblclick:Function,onRowContextmenu:Function,...St,...gw,...Lw,...Sw,...kw,...Aw,...Tw,...ww},emits:["request","virtualScroll",...pw,...Ow,...Pw],setup(e,{slots:t,emit:n}){const o=qe(),{proxy:{$q:r}}=o,i=xt(e,r),{inFullscreen:l,toggleFullscreen:s}=bw(),a=v(()=>typeof e.rowKey=="function"?e.rowKey:j=>j[e.rowKey]),c=W(null),u=W(null),f=v(()=>e.grid!==!0&&e.virtualScroll===!0),d=v(()=>" q-table__card"+(i.value===!0?" q-table__card--dark q-dark":"")+(e.square===!0?" q-table--square":"")+(e.flat===!0?" q-table--flat":"")+(e.bordered===!0?" q-table--bordered":"")),h=v(()=>`q-table__container q-table--${e.separator}-separator column no-wrap`+(e.grid===!0?" q-table--grid":d.value)+(i.value===!0?" q-table--dark":"")+(e.dense===!0?" q-table--dense":"")+(e.wrapCells===!1?" q-table--no-wrap":"")+(l.value===!0?" fullscreen scroll":"")),m=v(()=>h.value+(e.loading===!0?" q-table--loading":""));fe(()=>e.tableStyle+e.tableClass+e.tableHeaderStyle+e.tableHeaderClass+h.value,()=>{f.value===!0&&u.value!==null&&u.value.reset()});const{innerPagination:g,computedPagination:b,isServerSide:T,requestServerInteraction:k,setPagination:E}=Ew(o,it),{computedFilterMethod:x}=xw(e,E),{isRowExpanded:P,setExpanded:C,updateExpanded:S}=$w(e,n),p=v(()=>{let j=e.rows;if(T.value===!0||j.length===0)return j;const{sortBy:de,descending:ye}=b.value;return e.filter&&(j=x.value(j,e.filter,M.value,it)),Se.value!==null&&(j=Me.value(e.rows===j?j.slice():j,de,ye)),j}),$=v(()=>p.value.length),R=v(()=>{let j=p.value;if(T.value===!0)return j;const{rowsPerPage:de}=b.value;return de!==0&&(A.value===0&&e.rows!==j?j.length>ee.value&&(j=j.slice(0,ee.value)):j=j.slice(A.value,ee.value)),j}),{hasSelectionMode:B,singleSelection:I,multipleSelection:Q,allRowsSelected:H,someRowsSelected:le,rowsSelectedNumber:N,isRowSelected:L,clearSelection:U,updateSelection:pe}=Rw(e,n,R,a),{colList:G,computedCols:M,computedColsMap:te,computedColspan:ae}=Mw(e,b,B),{columnToSort:Se,computedSortMethod:Me,sort:oe}=_w(e,b,G,E),{firstRowIndex:A,lastRowIndex:ee,isFirstPage:F,isLastPage:ie,pagesNumber:xe,computedRowsPerPageOptions:y,computedRowsNumber:w,firstPage:O,prevPage:V,nextPage:D,lastPage:X}=qw(o,g,b,T,E,$),se=v(()=>R.value.length===0),ne=v(()=>{const j={};return mh.forEach(de=>{j[de]=e[de]}),j.virtualScrollItemSize===void 0&&(j.virtualScrollItemSize=e.dense===!0?28:48),j});function Y(){f.value===!0&&u.value.reset()}function J(){if(e.grid===!0)return nl();const j=e.hideHeader!==!0?tt:null;if(f.value===!0){const ye=t["top-row"],_e=t["bottom-row"],Re={default:Qe=>ve(Qe.item,t.body,Qe.index)};if(ye!==void 0){const Qe=_("tbody",ye({cols:M.value}));Re.before=j===null?()=>Qe:()=>[j()].concat(Qe)}else j!==null&&(Re.before=j);return _e!==void 0&&(Re.after=()=>_("tbody",_e({cols:M.value}))),_(B0,{ref:u,class:e.tableClass,style:e.tableStyle,...ne.value,scrollTarget:e.virtualScrollTarget,items:R.value,type:"__qtable",tableColspan:ae.value,onVirtualScroll:z},Re)}const de=[we()];return j!==null&&de.unshift(j()),fh({class:["q-table__middle scroll",e.tableClass],style:e.tableStyle},de)}function me(j,de){if(u.value!==null){u.value.scrollTo(j,de);return}j=parseInt(j,10);const ye=c.value.querySelector(`tbody tr:nth-of-type(${j+1})`);if(ye!==null){const _e=c.value.querySelector(".q-table__middle.scroll"),Re=ye.offsetTop-e.virtualScrollStickySizeStart,Qe=Re<_e.scrollTop?"decrease":"increase";_e.scrollTop=Re,n("virtualScroll",{index:j,from:0,to:g.value.rowsPerPage-1,direction:Qe})}}function z(j){n("virtualScroll",j)}function re(){return[_(uw,{class:"q-table__linear-progress",color:e.color,dark:i.value,indeterminate:!0,trackColor:"transparent"})]}function ve(j,de,ye){const _e=a.value(j),Re=L(_e);if(de!==void 0)return de(Le({key:_e,row:j,pageIndex:ye,__trClass:Re?"selected":""}));const Qe=t["body-cell"],Ke=M.value.map(ft=>{const io=t[`body-cell-${ft.name}`],lo=io!==void 0?io:Qe;return lo!==void 0?lo(Ae({key:_e,row:j,pageIndex:ye,col:ft})):_("td",{class:ft.__tdClass(j),style:ft.__tdStyle(j)},it(ft,j))});if(B.value===!0){const ft=t["body-selection"],io=ft!==void 0?ft(Fe({key:_e,row:j,pageIndex:ye})):[_($l,{modelValue:Re,color:e.color,dark:i.value,dense:e.dense,"onUpdate:modelValue":(lo,ol)=>{pe([_e],[j],lo,ol)}})];Ke.unshift(_("td",{class:"q-table--col-auto-width"},io))}const Ft={key:_e,class:{selected:Re}};return e.onRowClick!==void 0&&(Ft.class["cursor-pointer"]=!0,Ft.onClick=ft=>{n("RowClick",ft,j,ye)}),e.onRowDblclick!==void 0&&(Ft.class["cursor-pointer"]=!0,Ft.onDblclick=ft=>{n("RowDblclick",ft,j,ye)}),e.onRowContextmenu!==void 0&&(Ft.class["cursor-pointer"]=!0,Ft.onContextmenu=ft=>{n("RowContextmenu",ft,j,ye)}),_("tr",Ft,Ke)}function we(){const j=t.body,de=t["top-row"],ye=t["bottom-row"];let _e=R.value.map((Re,Qe)=>ve(Re,j,Qe));return de!==void 0&&(_e=de({cols:M.value}).concat(_e)),ye!==void 0&&(_e=_e.concat(ye({cols:M.value}))),_("tbody",_e)}function Le(j){return Xe(j),j.cols=j.cols.map(de=>At({...de},"value",()=>it(de,j.row))),j}function Ae(j){return Xe(j),At(j,"value",()=>it(j.col,j.row)),j}function Fe(j){return Xe(j),j}function Xe(j){Object.assign(j,{cols:M.value,colsMap:te.value,sort:oe,rowIndex:A.value+j.pageIndex,color:e.color,dark:i.value,dense:e.dense}),B.value===!0&&At(j,"selected",()=>L(j.key),(de,ye)=>{pe([j.key],[j.row],de,ye)}),At(j,"expand",()=>P(j.key),de=>{S(j.key,de)})}function it(j,de){const ye=typeof j.field=="function"?j.field(de):de[j.field];return j.format!==void 0?j.format(ye,de):ye}const Lt=v(()=>({pagination:b.value,pagesNumber:xe.value,isFirstPage:F.value,isLastPage:ie.value,firstPage:O,prevPage:V,nextPage:D,lastPage:X,inFullscreen:l.value,toggleFullscreen:s}));function Mt(){const j=t.top,de=t["top-left"],ye=t["top-right"],_e=t["top-selection"],Re=B.value===!0&&_e!==void 0&&N.value>0,Qe="q-table__top relative-position row items-center";if(j!==void 0)return _("div",{class:Qe},[j(Lt.value)]);let Ke;if(Re===!0?Ke=_e(Lt.value).slice():(Ke=[],de!==void 0?Ke.push(_("div",{class:"q-table-control"},[de(Lt.value)])):e.title&&Ke.push(_("div",{class:"q-table__control"},[_("div",{class:["q-table__title",e.titleClass]},e.title)]))),ye!==void 0&&(Ke.push(_("div",{class:"q-table__separator col"})),Ke.push(_("div",{class:"q-table__control"},[ye(Lt.value)]))),Ke.length!==0)return _("div",{class:Qe},Ke)}const tn=v(()=>le.value===!0?null:H.value);function tt(){const j=vt();return e.loading===!0&&t.loading===void 0&&j.push(_("tr",{class:"q-table__progress"},[_("th",{class:"relative-position",colspan:ae.value},re())])),_("thead",j)}function vt(){const j=t.header,de=t["header-cell"];if(j!==void 0)return j(nn({header:!0})).slice();const ye=M.value.map(_e=>{const Re=t[`header-cell-${_e.name}`],Qe=Re!==void 0?Re:de,Ke=nn({col:_e});return Qe!==void 0?Qe(Ke):_(uh,{key:_e.name,props:Ke},()=>_e.label)});if(I.value===!0&&e.grid!==!0)ye.unshift(_("th",{class:"q-table--col-auto-width"}," "));else if(Q.value===!0){const _e=t["header-selection"],Re=_e!==void 0?_e(nn({})):[_($l,{color:e.color,modelValue:tn.value,dark:i.value,dense:e.dense,"onUpdate:modelValue":zo})];ye.unshift(_("th",{class:"q-table--col-auto-width"},Re))}return[_("tr",{class:e.tableHeaderClass,style:e.tableHeaderStyle},ye)]}function nn(j){return Object.assign(j,{cols:M.value,sort:oe,colsMap:te.value,color:e.color,dark:i.value,dense:e.dense}),Q.value===!0&&At(j,"selected",()=>tn.value,zo),j}function zo(j){le.value===!0&&(j=!1),pe(R.value.map(a.value),R.value,j)}const On=v(()=>{const j=[e.iconFirstPage||r.iconSet.table.firstPage,e.iconPrevPage||r.iconSet.table.prevPage,e.iconNextPage||r.iconSet.table.nextPage,e.iconLastPage||r.iconSet.table.lastPage];return r.lang.rtl===!0?j.reverse():j});function Pr(){if(e.hideBottom===!0)return;if(se.value===!0){if(e.hideNoData===!0)return;const ye=e.loading===!0?e.loadingLabel||r.lang.table.loading:e.filter?e.noResultsLabel||r.lang.table.noResults:e.noDataLabel||r.lang.table.noData,_e=t["no-data"],Re=_e!==void 0?[_e({message:ye,icon:r.iconSet.table.warning,filter:e.filter})]:[_(yt,{class:"q-table__bottom-nodata-icon",name:r.iconSet.table.warning}),ye];return _("div",{class:Ur+" q-table__bottom--nodata"},Re)}const j=t.bottom;if(j!==void 0)return _("div",{class:Ur},[j(Lt.value)]);const de=e.hideSelectedBanner!==!0&&B.value===!0&&N.value>0?[_("div",{class:"q-table__control"},[_("div",[(e.selectedRowsLabel||r.lang.table.selectedRecords)(N.value)])])]:[];if(e.hidePagination!==!0)return _("div",{class:Ur+" justify-end"},tl(de));if(de.length>0)return _("div",{class:Ur},de)}function el(j){E({page:1,rowsPerPage:j.value})}function tl(j){let de;const{rowsPerPage:ye}=b.value,_e=e.paginationLabel||r.lang.table.pagination,Re=t.pagination,Qe=e.rowsPerPageOptions.length>1;if(j.push(_("div",{class:"q-table__separator col"})),Qe===!0&&j.push(_("div",{class:"q-table__control"},[_("span",{class:"q-table__bottom-item"},[e.rowsPerPageLabel||r.lang.table.recordsPerPage]),_(sw,{class:"q-table__select inline q-table__bottom-item",color:e.color,modelValue:ye,options:y.value,displayValue:ye===0?r.lang.table.allRows:ye,dark:i.value,borderless:!0,dense:!0,optionsDense:!0,optionsCover:!0,"onUpdate:modelValue":el})])),Re!==void 0)de=Re(Lt.value);else if(de=[_("span",ye!==0?{class:"q-table__bottom-item"}:{},[ye?_e(A.value+1,Math.min(ee.value,w.value),w.value):_e(1,$.value,w.value)])],ye!==0&&xe.value>1){const Ke={color:e.color,round:!0,dense:!0,flat:!0};e.dense===!0&&(Ke.size="sm"),xe.value>2&&de.push(_(ot,{key:"pgFirst",...Ke,icon:On.value[0],disable:F.value,onClick:O})),de.push(_(ot,{key:"pgPrev",...Ke,icon:On.value[1],disable:F.value,onClick:V}),_(ot,{key:"pgNext",...Ke,icon:On.value[2],disable:ie.value,onClick:D})),xe.value>2&&de.push(_(ot,{key:"pgLast",...Ke,icon:On.value[3],disable:ie.value,onClick:X}))}return j.push(_("div",{class:"q-table__control"},de)),j}function Rr(){const j=e.gridHeader===!0?[_("table",{class:"q-table"},[tt()])]:e.loading===!0&&t.loading===void 0?re():void 0;return _("div",{class:"q-table__middle"},j)}function nl(){const j=t.item!==void 0?t.item:de=>{const ye=de.cols.map(Re=>_("div",{class:"q-table__grid-item-row"},[_("div",{class:"q-table__grid-item-title"},[Re.label]),_("div",{class:"q-table__grid-item-value"},[Re.value])]));if(B.value===!0){const Re=t["body-selection"],Qe=Re!==void 0?Re(de):[_($l,{modelValue:de.selected,color:e.color,dark:i.value,dense:e.dense,"onUpdate:modelValue":(Ke,Ft)=>{pe([de.key],[de.row],Ke,Ft)}})];ye.unshift(_("div",{class:"q-table__grid-item-row"},Qe),_(ch,{dark:i.value}))}const _e={class:["q-table__grid-item-card"+d.value,e.cardClass],style:e.cardStyle};return(e.onRowClick!==void 0||e.onRowDblclick!==void 0)&&(_e.class[0]+=" cursor-pointer",e.onRowClick!==void 0&&(_e.onClick=Re=>{n("RowClick",Re,de.row,de.pageIndex)}),e.onRowDblclick!==void 0&&(_e.onDblclick=Re=>{n("RowDblclick",Re,de.row,de.pageIndex)})),_("div",{class:"q-table__grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3"+(de.selected===!0?" q-table__grid-item--selected":"")},[_("div",_e,ye)])};return _("div",{class:["q-table__grid-content row",e.cardContainerClass],style:e.cardContainerStyle},R.value.map((de,ye)=>j(Le({key:a.value(de),row:de,pageIndex:ye}))))}return Object.assign(o.proxy,{requestServerInteraction:k,setPagination:E,firstPage:O,prevPage:V,nextPage:D,lastPage:X,isRowSelected:L,clearSelection:U,isRowExpanded:P,setExpanded:C,sort:oe,resetVirtualScroll:Y,scrollTo:me,getCellValue:it}),qg(o.proxy,{filteredSortedRows:()=>p.value,computedRows:()=>R.value,computedRowsNumber:()=>w.value}),()=>{const j=[Mt()],de={ref:c,class:m.value};return e.grid===!0?j.push(Rr()):Object.assign(de,{class:[de.class,e.cardClass],style:e.cardStyle}),j.push(J(),Pr()),e.loading===!0&&t.loading!==void 0&&j.push(t.loading()),_("div",de,j)}}});function Rh(e,t){return function(){return e.apply(t,arguments)}}const{toString:Ah}=Object.prototype,{getPrototypeOf:ha}=Object,ma=(e=>t=>{const n=Ah.call(t);return e[n]||(e[n]=n.slice(8,-1).toLowerCase())})(Object.create(null)),vn=e=>(e=e.toLowerCase(),t=>ma(t)===e),Xi=e=>t=>typeof t===e,{isArray:Io}=Array,Sr=Xi("undefined");function Fw(e){return e!==null&&!Sr(e)&&e.constructor!==null&&!Sr(e.constructor)&&no(e.constructor.isBuffer)&&e.constructor.isBuffer(e)}const Oh=vn("ArrayBuffer");function Bw(e){let t;return typeof ArrayBuffer<"u"&&ArrayBuffer.isView?t=ArrayBuffer.isView(e):t=e&&e.buffer&&Oh(e.buffer),t}const Iw=Xi("string"),no=Xi("function"),$h=Xi("number"),va=e=>e!==null&&typeof e=="object",zw=e=>e===!0||e===!1,ni=e=>{if(ma(e)!=="object")return!1;const t=ha(e);return(t===null||t===Object.prototype||Object.getPrototypeOf(t)===null)&&!(Symbol.toStringTag in e)&&!(Symbol.iterator in e)},Vw=vn("Date"),Nw=vn("File"),jw=vn("Blob"),Dw=vn("FileList"),Hw=e=>va(e)&&no(e.pipe),Uw=e=>{const t="[object FormData]";return e&&(typeof FormData=="function"&&e instanceof FormData||Ah.call(e)===t||no(e.toString)&&e.toString()===t)},Kw=vn("URLSearchParams"),Ww=e=>e.trim?e.trim():e.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,"");function kr(e,t,{allOwnKeys:n=!1}={}){if(e===null||typeof e>"u")return;let o,r;if(typeof e!="object"&&(e=[e]),Io(e))for(o=0,r=e.length;o<r;o++)t.call(null,e[o],o,e);else{const i=n?Object.getOwnPropertyNames(e):Object.keys(e),l=i.length;let s;for(o=0;o<l;o++)s=i[o],t.call(null,e[s],s,e)}}function Lh(e,t){t=t.toLowerCase();const n=Object.keys(e);let o=n.length,r;for(;o-- >0;)if(r=n[o],t===r.toLowerCase())return r;return null}const Mh=(()=>typeof globalThis<"u"?globalThis:typeof self<"u"?self:typeof window<"u"?window:global)(),Fh=e=>!Sr(e)&&e!==Mh;function ps(){const{caseless:e}=Fh(this)&&this||{},t={},n=(o,r)=>{const i=e&&Lh(t,r)||r;ni(t[i])&&ni(o)?t[i]=ps(t[i],o):ni(o)?t[i]=ps({},o):Io(o)?t[i]=o.slice():t[i]=o};for(let o=0,r=arguments.length;o<r;o++)arguments[o]&&kr(arguments[o],n);return t}const Qw=(e,t,n,{allOwnKeys:o}={})=>(kr(t,(r,i)=>{n&&no(r)?e[i]=Rh(r,n):e[i]=r},{allOwnKeys:o}),e),Jw=e=>(e.charCodeAt(0)===65279&&(e=e.slice(1)),e),Xw=(e,t,n,o)=>{e.prototype=Object.create(t.prototype,o),e.prototype.constructor=e,Object.defineProperty(e,"super",{value:t.prototype}),n&&Object.assign(e.prototype,n)},Yw=(e,t,n,o)=>{let r,i,l;const s={};if(t=t||{},e==null)return t;do{for(r=Object.getOwnPropertyNames(e),i=r.length;i-- >0;)l=r[i],(!o||o(l,e,t))&&!s[l]&&(t[l]=e[l],s[l]=!0);e=n!==!1&&ha(e)}while(e&&(!n||n(e,t))&&e!==Object.prototype);return t},Gw=(e,t,n)=>{e=String(e),(n===void 0||n>e.length)&&(n=e.length),n-=t.length;const o=e.indexOf(t,n);return o!==-1&&o===n},Zw=e=>{if(!e)return null;if(Io(e))return e;let t=e.length;if(!$h(t))return null;const n=new Array(t);for(;t-- >0;)n[t]=e[t];return n},e_=(e=>t=>e&&t instanceof e)(typeof Uint8Array<"u"&&ha(Uint8Array)),t_=(e,t)=>{const o=(e&&e[Symbol.iterator]).call(e);let r;for(;(r=o.next())&&!r.done;){const i=r.value;t.call(e,i[0],i[1])}},n_=(e,t)=>{let n;const o=[];for(;(n=e.exec(t))!==null;)o.push(n);return o},o_=vn("HTMLFormElement"),r_=e=>e.toLowerCase().replace(/[_-\s]([a-z\d])(\w*)/g,function(n,o,r){return o.toUpperCase()+r}),Lc=(({hasOwnProperty:e})=>(t,n)=>e.call(t,n))(Object.prototype),i_=vn("RegExp"),Bh=(e,t)=>{const n=Object.getOwnPropertyDescriptors(e),o={};kr(n,(r,i)=>{t(r,i,e)!==!1&&(o[i]=r)}),Object.defineProperties(e,o)},l_=e=>{Bh(e,(t,n)=>{if(no(e)&&["arguments","caller","callee"].indexOf(n)!==-1)return!1;const o=e[n];if(!!no(o)){if(t.enumerable=!1,"writable"in t){t.writable=!1;return}t.set||(t.set=()=>{throw Error("Can not rewrite read-only method '"+n+"'")})}})},s_=(e,t)=>{const n={},o=r=>{r.forEach(i=>{n[i]=!0})};return Io(e)?o(e):o(String(e).split(t)),n},a_=()=>{},u_=(e,t)=>(e=+e,Number.isFinite(e)?e:t),c_=e=>{const t=new Array(10),n=(o,r)=>{if(va(o)){if(t.indexOf(o)>=0)return;if(!("toJSON"in o)){t[r]=o;const i=Io(o)?[]:{};return kr(o,(l,s)=>{const a=n(l,r+1);!Sr(a)&&(i[s]=a)}),t[r]=void 0,i}}return o};return n(e,0)},K={isArray:Io,isArrayBuffer:Oh,isBuffer:Fw,isFormData:Uw,isArrayBufferView:Bw,isString:Iw,isNumber:$h,isBoolean:zw,isObject:va,isPlainObject:ni,isUndefined:Sr,isDate:Vw,isFile:Nw,isBlob:jw,isRegExp:i_,isFunction:no,isStream:Hw,isURLSearchParams:Kw,isTypedArray:e_,isFileList:Dw,forEach:kr,merge:ps,extend:Qw,trim:Ww,stripBOM:Jw,inherits:Xw,toFlatObject:Yw,kindOf:ma,kindOfTest:vn,endsWith:Gw,toArray:Zw,forEachEntry:t_,matchAll:n_,isHTMLForm:o_,hasOwnProperty:Lc,hasOwnProp:Lc,reduceDescriptors:Bh,freezeMethods:l_,toObjectSet:s_,toCamelCase:r_,noop:a_,toFiniteNumber:u_,findKey:Lh,global:Mh,isContextDefined:Fh,toJSONObject:c_};function $e(e,t,n,o,r){Error.call(this),Error.captureStackTrace?Error.captureStackTrace(this,this.constructor):this.stack=new Error().stack,this.message=e,this.name="AxiosError",t&&(this.code=t),n&&(this.config=n),o&&(this.request=o),r&&(this.response=r)}K.inherits($e,Error,{toJSON:function(){return{message:this.message,name:this.name,description:this.description,number:this.number,fileName:this.fileName,lineNumber:this.lineNumber,columnNumber:this.columnNumber,stack:this.stack,config:K.toJSONObject(this.config),code:this.code,status:this.response&&this.response.status?this.response.status:null}}});const Ih=$e.prototype,zh={};["ERR_BAD_OPTION_VALUE","ERR_BAD_OPTION","ECONNABORTED","ETIMEDOUT","ERR_NETWORK","ERR_FR_TOO_MANY_REDIRECTS","ERR_DEPRECATED","ERR_BAD_RESPONSE","ERR_BAD_REQUEST","ERR_CANCELED","ERR_NOT_SUPPORT","ERR_INVALID_URL"].forEach(e=>{zh[e]={value:e}});Object.defineProperties($e,zh);Object.defineProperty(Ih,"isAxiosError",{value:!0});$e.from=(e,t,n,o,r,i)=>{const l=Object.create(Ih);return K.toFlatObject(e,l,function(a){return a!==Error.prototype},s=>s!=="isAxiosError"),$e.call(l,e.message,t,n,o,r),l.cause=e,l.name=e.name,i&&Object.assign(l,i),l};var f_=typeof self=="object"?self.FormData:window.FormData;const d_=f_;function bs(e){return K.isPlainObject(e)||K.isArray(e)}function Vh(e){return K.endsWith(e,"[]")?e.slice(0,-2):e}function Mc(e,t,n){return e?e.concat(t).map(function(r,i){return r=Vh(r),!n&&i?"["+r+"]":r}).join(n?".":""):t}function h_(e){return K.isArray(e)&&!e.some(bs)}const m_=K.toFlatObject(K,{},null,function(t){return/^is[A-Z]/.test(t)});function v_(e){return e&&K.isFunction(e.append)&&e[Symbol.toStringTag]==="FormData"&&e[Symbol.iterator]}function Yi(e,t,n){if(!K.isObject(e))throw new TypeError("target must be an object");t=t||new(d_||FormData),n=K.toFlatObject(n,{metaTokens:!0,dots:!1,indexes:!1},!1,function(g,b){return!K.isUndefined(b[g])});const o=n.metaTokens,r=n.visitor||u,i=n.dots,l=n.indexes,a=(n.Blob||typeof Blob<"u"&&Blob)&&v_(t);if(!K.isFunction(r))throw new TypeError("visitor must be a function");function c(m){if(m===null)return"";if(K.isDate(m))return m.toISOString();if(!a&&K.isBlob(m))throw new $e("Blob is not supported. Use a Buffer instead.");return K.isArrayBuffer(m)||K.isTypedArray(m)?a&&typeof Blob=="function"?new Blob([m]):Buffer.from(m):m}function u(m,g,b){let T=m;if(m&&!b&&typeof m=="object"){if(K.endsWith(g,"{}"))g=o?g:g.slice(0,-2),m=JSON.stringify(m);else if(K.isArray(m)&&h_(m)||K.isFileList(m)||K.endsWith(g,"[]")&&(T=K.toArray(m)))return g=Vh(g),T.forEach(function(E,x){!(K.isUndefined(E)||E===null)&&t.append(l===!0?Mc([g],x,i):l===null?g:g+"[]",c(E))}),!1}return bs(m)?!0:(t.append(Mc(b,g,i),c(m)),!1)}const f=[],d=Object.assign(m_,{defaultVisitor:u,convertValue:c,isVisitable:bs});function h(m,g){if(!K.isUndefined(m)){if(f.indexOf(m)!==-1)throw Error("Circular reference detected in "+g.join("."));f.push(m),K.forEach(m,function(T,k){(!(K.isUndefined(T)||T===null)&&r.call(t,T,K.isString(k)?k.trim():k,g,d))===!0&&h(T,g?g.concat(k):[k])}),f.pop()}}if(!K.isObject(e))throw new TypeError("data must be an object");return h(e),t}function Fc(e){const t={"!":"%21","'":"%27","(":"%28",")":"%29","~":"%7E","%20":"+","%00":"\0"};return encodeURIComponent(e).replace(/[!'()~]|%20|%00/g,function(o){return t[o]})}function ga(e,t){this._pairs=[],e&&Yi(e,this,t)}const Nh=ga.prototype;Nh.append=function(t,n){this._pairs.push([t,n])};Nh.toString=function(t){const n=t?function(o){return t.call(this,o,Fc)}:Fc;return this._pairs.map(function(r){return n(r[0])+"="+n(r[1])},"").join("&")};function g_(e){return encodeURIComponent(e).replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"+").replace(/%5B/gi,"[").replace(/%5D/gi,"]")}function jh(e,t,n){if(!t)return e;const o=n&&n.encode||g_,r=n&&n.serialize;let i;if(r?i=r(t,n):i=K.isURLSearchParams(t)?t.toString():new ga(t,n).toString(o),i){const l=e.indexOf("#");l!==-1&&(e=e.slice(0,l)),e+=(e.indexOf("?")===-1?"?":"&")+i}return e}class p_{constructor(){this.handlers=[]}use(t,n,o){return this.handlers.push({fulfilled:t,rejected:n,synchronous:o?o.synchronous:!1,runWhen:o?o.runWhen:null}),this.handlers.length-1}eject(t){this.handlers[t]&&(this.handlers[t]=null)}clear(){this.handlers&&(this.handlers=[])}forEach(t){K.forEach(this.handlers,function(o){o!==null&&t(o)})}}const Bc=p_,Dh={silentJSONParsing:!0,forcedJSONParsing:!0,clarifyTimeoutError:!1},b_=typeof URLSearchParams<"u"?URLSearchParams:ga,y_=FormData,w_=(()=>{let e;return typeof navigator<"u"&&((e=navigator.product)==="ReactNative"||e==="NativeScript"||e==="NS")?!1:typeof window<"u"&&typeof document<"u"})(),__=(()=>typeof WorkerGlobalScope<"u"&&self instanceof WorkerGlobalScope&&typeof self.importScripts=="function")(),Gt={isBrowser:!0,classes:{URLSearchParams:b_,FormData:y_,Blob},isStandardBrowserEnv:w_,isStandardBrowserWebWorkerEnv:__,protocols:["http","https","file","blob","url","data"]};function S_(e,t){return Yi(e,new Gt.classes.URLSearchParams,Object.assign({visitor:function(n,o,r,i){return Gt.isNode&&K.isBuffer(n)?(this.append(o,n.toString("base64")),!1):i.defaultVisitor.apply(this,arguments)}},t))}function x_(e){return K.matchAll(/\w+|\[(\w*)]/g,e).map(t=>t[0]==="[]"?"":t[1]||t[0])}function C_(e){const t={},n=Object.keys(e);let o;const r=n.length;let i;for(o=0;o<r;o++)i=n[o],t[i]=e[i];return t}function Hh(e){function t(n,o,r,i){let l=n[i++];const s=Number.isFinite(+l),a=i>=n.length;return l=!l&&K.isArray(r)?r.length:l,a?(K.hasOwnProp(r,l)?r[l]=[r[l],o]:r[l]=o,!s):((!r[l]||!K.isObject(r[l]))&&(r[l]=[]),t(n,o,r[l],i)&&K.isArray(r[l])&&(r[l]=C_(r[l])),!s)}if(K.isFormData(e)&&K.isFunction(e.entries)){const n={};return K.forEachEntry(e,(o,r)=>{t(x_(o),r,n,0)}),n}return null}const k_={"Content-Type":void 0};function E_(e,t,n){if(K.isString(e))try{return(t||JSON.parse)(e),K.trim(e)}catch(o){if(o.name!=="SyntaxError")throw o}return(n||JSON.stringify)(e)}const Gi={transitional:Dh,adapter:["xhr","http"],transformRequest:[function(t,n){const o=n.getContentType()||"",r=o.indexOf("application/json")>-1,i=K.isObject(t);if(i&&K.isHTMLForm(t)&&(t=new FormData(t)),K.isFormData(t))return r&&r?JSON.stringify(Hh(t)):t;if(K.isArrayBuffer(t)||K.isBuffer(t)||K.isStream(t)||K.isFile(t)||K.isBlob(t))return t;if(K.isArrayBufferView(t))return t.buffer;if(K.isURLSearchParams(t))return n.setContentType("application/x-www-form-urlencoded;charset=utf-8",!1),t.toString();let s;if(i){if(o.indexOf("application/x-www-form-urlencoded")>-1)return S_(t,this.formSerializer).toString();if((s=K.isFileList(t))||o.indexOf("multipart/form-data")>-1){const a=this.env&&this.env.FormData;return Yi(s?{"files[]":t}:t,a&&new a,this.formSerializer)}}return i||r?(n.setContentType("application/json",!1),E_(t)):t}],transformResponse:[function(t){const n=this.transitional||Gi.transitional,o=n&&n.forcedJSONParsing,r=this.responseType==="json";if(t&&K.isString(t)&&(o&&!this.responseType||r)){const l=!(n&&n.silentJSONParsing)&&r;try{return JSON.parse(t)}catch(s){if(l)throw s.name==="SyntaxError"?$e.from(s,$e.ERR_BAD_RESPONSE,this,null,this.response):s}}return t}],timeout:0,xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN",maxContentLength:-1,maxBodyLength:-1,env:{FormData:Gt.classes.FormData,Blob:Gt.classes.Blob},validateStatus:function(t){return t>=200&&t<300},headers:{common:{Accept:"application/json, text/plain, */*"}}};K.forEach(["delete","get","head"],function(t){Gi.headers[t]={}});K.forEach(["post","put","patch"],function(t){Gi.headers[t]=K.merge(k_)});const pa=Gi,q_=K.toObjectSet(["age","authorization","content-length","content-type","etag","expires","from","host","if-modified-since","if-unmodified-since","last-modified","location","max-forwards","proxy-authorization","referer","retry-after","user-agent"]),T_=e=>{const t={};let n,o,r;return e&&e.split(`
-`).forEach(function(l){r=l.indexOf(":"),n=l.substring(0,r).trim().toLowerCase(),o=l.substring(r+1).trim(),!(!n||t[n]&&q_[n])&&(n==="set-cookie"?t[n]?t[n].push(o):t[n]=[o]:t[n]=t[n]?t[n]+", "+o:o)}),t},Ic=Symbol("internals");function Wo(e){return e&&String(e).trim().toLowerCase()}function oi(e){return e===!1||e==null?e:K.isArray(e)?e.map(oi):String(e)}function P_(e){const t=Object.create(null),n=/([^\s,;=]+)\s*(?:=\s*([^,;]+))?/g;let o;for(;o=n.exec(e);)t[o[1]]=o[2];return t}function R_(e){return/^[-_a-zA-Z]+$/.test(e.trim())}function zc(e,t,n,o){if(K.isFunction(o))return o.call(this,t,n);if(!!K.isString(t)){if(K.isString(o))return t.indexOf(o)!==-1;if(K.isRegExp(o))return o.test(t)}}function A_(e){return e.trim().toLowerCase().replace(/([a-z\d])(\w*)/g,(t,n,o)=>n.toUpperCase()+o)}function O_(e,t){const n=K.toCamelCase(" "+t);["get","set","has"].forEach(o=>{Object.defineProperty(e,o+n,{value:function(r,i,l){return this[o].call(this,t,r,i,l)},configurable:!0})})}class Zi{constructor(t){t&&this.set(t)}set(t,n,o){const r=this;function i(s,a,c){const u=Wo(a);if(!u)throw new Error("header name must be a non-empty string");const f=K.findKey(r,u);(!f||r[f]===void 0||c===!0||c===void 0&&r[f]!==!1)&&(r[f||a]=oi(s))}const l=(s,a)=>K.forEach(s,(c,u)=>i(c,u,a));return K.isPlainObject(t)||t instanceof this.constructor?l(t,n):K.isString(t)&&(t=t.trim())&&!R_(t)?l(T_(t),n):t!=null&&i(n,t,o),this}get(t,n){if(t=Wo(t),t){const o=K.findKey(this,t);if(o){const r=this[o];if(!n)return r;if(n===!0)return P_(r);if(K.isFunction(n))return n.call(this,r,o);if(K.isRegExp(n))return n.exec(r);throw new TypeError("parser must be boolean|regexp|function")}}}has(t,n){if(t=Wo(t),t){const o=K.findKey(this,t);return!!(o&&(!n||zc(this,this[o],o,n)))}return!1}delete(t,n){const o=this;let r=!1;function i(l){if(l=Wo(l),l){const s=K.findKey(o,l);s&&(!n||zc(o,o[s],s,n))&&(delete o[s],r=!0)}}return K.isArray(t)?t.forEach(i):i(t),r}clear(){return Object.keys(this).forEach(this.delete.bind(this))}normalize(t){const n=this,o={};return K.forEach(this,(r,i)=>{const l=K.findKey(o,i);if(l){n[l]=oi(r),delete n[i];return}const s=t?A_(i):String(i).trim();s!==i&&delete n[i],n[s]=oi(r),o[s]=!0}),this}concat(...t){return this.constructor.concat(this,...t)}toJSON(t){const n=Object.create(null);return K.forEach(this,(o,r)=>{o!=null&&o!==!1&&(n[r]=t&&K.isArray(o)?o.join(", "):o)}),n}[Symbol.iterator](){return Object.entries(this.toJSON())[Symbol.iterator]()}toString(){return Object.entries(this.toJSON()).map(([t,n])=>t+": "+n).join(`
-`)}get[Symbol.toStringTag](){return"AxiosHeaders"}static from(t){return t instanceof this?t:new this(t)}static concat(t,...n){const o=new this(t);return n.forEach(r=>o.set(r)),o}static accessor(t){const o=(this[Ic]=this[Ic]={accessors:{}}).accessors,r=this.prototype;function i(l){const s=Wo(l);o[s]||(O_(r,l),o[s]=!0)}return K.isArray(t)?t.forEach(i):i(t),this}}Zi.accessor(["Content-Type","Content-Length","Accept","Accept-Encoding","User-Agent"]);K.freezeMethods(Zi.prototype);K.freezeMethods(Zi);const cn=Zi;function Ll(e,t){const n=this||pa,o=t||n,r=cn.from(o.headers);let i=o.data;return K.forEach(e,function(s){i=s.call(n,i,r.normalize(),t?t.status:void 0)}),r.normalize(),i}function Uh(e){return!!(e&&e.__CANCEL__)}function Er(e,t,n){$e.call(this,e==null?"canceled":e,$e.ERR_CANCELED,t,n),this.name="CanceledError"}K.inherits(Er,$e,{__CANCEL__:!0});const $_=null;function L_(e,t,n){const o=n.config.validateStatus;!n.status||!o||o(n.status)?e(n):t(new $e("Request failed with status code "+n.status,[$e.ERR_BAD_REQUEST,$e.ERR_BAD_RESPONSE][Math.floor(n.status/100)-4],n.config,n.request,n))}const M_=Gt.isStandardBrowserEnv?function(){return{write:function(n,o,r,i,l,s){const a=[];a.push(n+"="+encodeURIComponent(o)),K.isNumber(r)&&a.push("expires="+new Date(r).toGMTString()),K.isString(i)&&a.push("path="+i),K.isString(l)&&a.push("domain="+l),s===!0&&a.push("secure"),document.cookie=a.join("; ")},read:function(n){const o=document.cookie.match(new RegExp("(^|;\\s*)("+n+")=([^;]*)"));return o?decodeURIComponent(o[3]):null},remove:function(n){this.write(n,"",Date.now()-864e5)}}}():function(){return{write:function(){},read:function(){return null},remove:function(){}}}();function F_(e){return/^([a-z][a-z\d+\-.]*:)?\/\//i.test(e)}function B_(e,t){return t?e.replace(/\/+$/,"")+"/"+t.replace(/^\/+/,""):e}function Kh(e,t){return e&&!F_(t)?B_(e,t):t}const I_=Gt.isStandardBrowserEnv?function(){const t=/(msie|trident)/i.test(navigator.userAgent),n=document.createElement("a");let o;function r(i){let l=i;return t&&(n.setAttribute("href",l),l=n.href),n.setAttribute("href",l),{href:n.href,protocol:n.protocol?n.protocol.replace(/:$/,""):"",host:n.host,search:n.search?n.search.replace(/^\?/,""):"",hash:n.hash?n.hash.replace(/^#/,""):"",hostname:n.hostname,port:n.port,pathname:n.pathname.charAt(0)==="/"?n.pathname:"/"+n.pathname}}return o=r(window.location.href),function(l){const s=K.isString(l)?r(l):l;return s.protocol===o.protocol&&s.host===o.host}}():function(){return function(){return!0}}();function z_(e){const t=/^([-+\w]{1,25})(:?\/\/|:)/.exec(e);return t&&t[1]||""}function V_(e,t){e=e||10;const n=new Array(e),o=new Array(e);let r=0,i=0,l;return t=t!==void 0?t:1e3,function(a){const c=Date.now(),u=o[i];l||(l=c),n[r]=a,o[r]=c;let f=i,d=0;for(;f!==r;)d+=n[f++],f=f%e;if(r=(r+1)%e,r===i&&(i=(i+1)%e),c-l<t)return;const h=u&&c-u;return h?Math.round(d*1e3/h):void 0}}function Vc(e,t){let n=0;const o=V_(50,250);return r=>{const i=r.loaded,l=r.lengthComputable?r.total:void 0,s=i-n,a=o(s),c=i<=l;n=i;const u={loaded:i,total:l,progress:l?i/l:void 0,bytes:s,rate:a||void 0,estimated:a&&l&&c?(l-i)/a:void 0,event:r};u[t?"download":"upload"]=!0,e(u)}}const N_=typeof XMLHttpRequest<"u",j_=N_&&function(e){return new Promise(function(n,o){let r=e.data;const i=cn.from(e.headers).normalize(),l=e.responseType;let s;function a(){e.cancelToken&&e.cancelToken.unsubscribe(s),e.signal&&e.signal.removeEventListener("abort",s)}K.isFormData(r)&&(Gt.isStandardBrowserEnv||Gt.isStandardBrowserWebWorkerEnv)&&i.setContentType(!1);let c=new XMLHttpRequest;if(e.auth){const h=e.auth.username||"",m=e.auth.password?unescape(encodeURIComponent(e.auth.password)):"";i.set("Authorization","Basic "+btoa(h+":"+m))}const u=Kh(e.baseURL,e.url);c.open(e.method.toUpperCase(),jh(u,e.params,e.paramsSerializer),!0),c.timeout=e.timeout;function f(){if(!c)return;const h=cn.from("getAllResponseHeaders"in c&&c.getAllResponseHeaders()),g={data:!l||l==="text"||l==="json"?c.responseText:c.response,status:c.status,statusText:c.statusText,headers:h,config:e,request:c};L_(function(T){n(T),a()},function(T){o(T),a()},g),c=null}if("onloadend"in c?c.onloadend=f:c.onreadystatechange=function(){!c||c.readyState!==4||c.status===0&&!(c.responseURL&&c.responseURL.indexOf("file:")===0)||setTimeout(f)},c.onabort=function(){!c||(o(new $e("Request aborted",$e.ECONNABORTED,e,c)),c=null)},c.onerror=function(){o(new $e("Network Error",$e.ERR_NETWORK,e,c)),c=null},c.ontimeout=function(){let m=e.timeout?"timeout of "+e.timeout+"ms exceeded":"timeout exceeded";const g=e.transitional||Dh;e.timeoutErrorMessage&&(m=e.timeoutErrorMessage),o(new $e(m,g.clarifyTimeoutError?$e.ETIMEDOUT:$e.ECONNABORTED,e,c)),c=null},Gt.isStandardBrowserEnv){const h=(e.withCredentials||I_(u))&&e.xsrfCookieName&&M_.read(e.xsrfCookieName);h&&i.set(e.xsrfHeaderName,h)}r===void 0&&i.setContentType(null),"setRequestHeader"in c&&K.forEach(i.toJSON(),function(m,g){c.setRequestHeader(g,m)}),K.isUndefined(e.withCredentials)||(c.withCredentials=!!e.withCredentials),l&&l!=="json"&&(c.responseType=e.responseType),typeof e.onDownloadProgress=="function"&&c.addEventListener("progress",Vc(e.onDownloadProgress,!0)),typeof e.onUploadProgress=="function"&&c.upload&&c.upload.addEventListener("progress",Vc(e.onUploadProgress)),(e.cancelToken||e.signal)&&(s=h=>{!c||(o(!h||h.type?new Er(null,e,c):h),c.abort(),c=null)},e.cancelToken&&e.cancelToken.subscribe(s),e.signal&&(e.signal.aborted?s():e.signal.addEventListener("abort",s)));const d=z_(u);if(d&&Gt.protocols.indexOf(d)===-1){o(new $e("Unsupported protocol "+d+":",$e.ERR_BAD_REQUEST,e));return}c.send(r||null)})},ri={http:$_,xhr:j_};K.forEach(ri,(e,t)=>{if(e){try{Object.defineProperty(e,"name",{value:t})}catch{}Object.defineProperty(e,"adapterName",{value:t})}});const D_={getAdapter:e=>{e=K.isArray(e)?e:[e];const{length:t}=e;let n,o;for(let r=0;r<t&&(n=e[r],!(o=K.isString(n)?ri[n.toLowerCase()]:n));r++);if(!o)throw o===!1?new $e(`Adapter ${n} is not supported by the environment`,"ERR_NOT_SUPPORT"):new Error(K.hasOwnProp(ri,n)?`Adapter '${n}' is not available in the build`:`Unknown adapter '${n}'`);if(!K.isFunction(o))throw new TypeError("adapter is not a function");return o},adapters:ri};function Ml(e){if(e.cancelToken&&e.cancelToken.throwIfRequested(),e.signal&&e.signal.aborted)throw new Er(null,e)}function Nc(e){return Ml(e),e.headers=cn.from(e.headers),e.data=Ll.call(e,e.transformRequest),["post","put","patch"].indexOf(e.method)!==-1&&e.headers.setContentType("application/x-www-form-urlencoded",!1),D_.getAdapter(e.adapter||pa.adapter)(e).then(function(o){return Ml(e),o.data=Ll.call(e,e.transformResponse,o),o.headers=cn.from(o.headers),o},function(o){return Uh(o)||(Ml(e),o&&o.response&&(o.response.data=Ll.call(e,e.transformResponse,o.response),o.response.headers=cn.from(o.response.headers))),Promise.reject(o)})}const jc=e=>e instanceof cn?e.toJSON():e;function Oo(e,t){t=t||{};const n={};function o(c,u,f){return K.isPlainObject(c)&&K.isPlainObject(u)?K.merge.call({caseless:f},c,u):K.isPlainObject(u)?K.merge({},u):K.isArray(u)?u.slice():u}function r(c,u,f){if(K.isUndefined(u)){if(!K.isUndefined(c))return o(void 0,c,f)}else return o(c,u,f)}function i(c,u){if(!K.isUndefined(u))return o(void 0,u)}function l(c,u){if(K.isUndefined(u)){if(!K.isUndefined(c))return o(void 0,c)}else return o(void 0,u)}function s(c,u,f){if(f in t)return o(c,u);if(f in e)return o(void 0,c)}const a={url:i,method:i,data:i,baseURL:l,transformRequest:l,transformResponse:l,paramsSerializer:l,timeout:l,timeoutMessage:l,withCredentials:l,adapter:l,responseType:l,xsrfCookieName:l,xsrfHeaderName:l,onUploadProgress:l,onDownloadProgress:l,decompress:l,maxContentLength:l,maxBodyLength:l,beforeRedirect:l,transport:l,httpAgent:l,httpsAgent:l,cancelToken:l,socketPath:l,responseEncoding:l,validateStatus:s,headers:(c,u)=>r(jc(c),jc(u),!0)};return K.forEach(Object.keys(e).concat(Object.keys(t)),function(u){const f=a[u]||r,d=f(e[u],t[u],u);K.isUndefined(d)&&f!==s||(n[u]=d)}),n}const Wh="1.2.2",ba={};["object","boolean","number","function","string","symbol"].forEach((e,t)=>{ba[e]=function(o){return typeof o===e||"a"+(t<1?"n ":" ")+e}});const Dc={};ba.transitional=function(t,n,o){function r(i,l){return"[Axios v"+Wh+"] Transitional option '"+i+"'"+l+(o?". "+o:"")}return(i,l,s)=>{if(t===!1)throw new $e(r(l," has been removed"+(n?" in "+n:"")),$e.ERR_DEPRECATED);return n&&!Dc[l]&&(Dc[l]=!0,console.warn(r(l," has been deprecated since v"+n+" and will be removed in the near future"))),t?t(i,l,s):!0}};function H_(e,t,n){if(typeof e!="object")throw new $e("options must be an object",$e.ERR_BAD_OPTION_VALUE);const o=Object.keys(e);let r=o.length;for(;r-- >0;){const i=o[r],l=t[i];if(l){const s=e[i],a=s===void 0||l(s,i,e);if(a!==!0)throw new $e("option "+i+" must be "+a,$e.ERR_BAD_OPTION_VALUE);continue}if(n!==!0)throw new $e("Unknown option "+i,$e.ERR_BAD_OPTION)}}const ys={assertOptions:H_,validators:ba},yn=ys.validators;class wi{constructor(t){this.defaults=t,this.interceptors={request:new Bc,response:new Bc}}request(t,n){typeof t=="string"?(n=n||{},n.url=t):n=t||{},n=Oo(this.defaults,n);const{transitional:o,paramsSerializer:r,headers:i}=n;o!==void 0&&ys.assertOptions(o,{silentJSONParsing:yn.transitional(yn.boolean),forcedJSONParsing:yn.transitional(yn.boolean),clarifyTimeoutError:yn.transitional(yn.boolean)},!1),r!==void 0&&ys.assertOptions(r,{encode:yn.function,serialize:yn.function},!0),n.method=(n.method||this.defaults.method||"get").toLowerCase();let l;l=i&&K.merge(i.common,i[n.method]),l&&K.forEach(["delete","get","head","post","put","patch","common"],m=>{delete i[m]}),n.headers=cn.concat(l,i);const s=[];let a=!0;this.interceptors.request.forEach(function(g){typeof g.runWhen=="function"&&g.runWhen(n)===!1||(a=a&&g.synchronous,s.unshift(g.fulfilled,g.rejected))});const c=[];this.interceptors.response.forEach(function(g){c.push(g.fulfilled,g.rejected)});let u,f=0,d;if(!a){const m=[Nc.bind(this),void 0];for(m.unshift.apply(m,s),m.push.apply(m,c),d=m.length,u=Promise.resolve(n);f<d;)u=u.then(m[f++],m[f++]);return u}d=s.length;let h=n;for(f=0;f<d;){const m=s[f++],g=s[f++];try{h=m(h)}catch(b){g.call(this,b);break}}try{u=Nc.call(this,h)}catch(m){return Promise.reject(m)}for(f=0,d=c.length;f<d;)u=u.then(c[f++],c[f++]);return u}getUri(t){t=Oo(this.defaults,t);const n=Kh(t.baseURL,t.url);return jh(n,t.params,t.paramsSerializer)}}K.forEach(["delete","get","head","options"],function(t){wi.prototype[t]=function(n,o){return this.request(Oo(o||{},{method:t,url:n,data:(o||{}).data}))}});K.forEach(["post","put","patch"],function(t){function n(o){return function(i,l,s){return this.request(Oo(s||{},{method:t,headers:o?{"Content-Type":"multipart/form-data"}:{},url:i,data:l}))}}wi.prototype[t]=n(),wi.prototype[t+"Form"]=n(!0)});const ii=wi;class ya{constructor(t){if(typeof t!="function")throw new TypeError("executor must be a function.");let n;this.promise=new Promise(function(i){n=i});const o=this;this.promise.then(r=>{if(!o._listeners)return;let i=o._listeners.length;for(;i-- >0;)o._listeners[i](r);o._listeners=null}),this.promise.then=r=>{let i;const l=new Promise(s=>{o.subscribe(s),i=s}).then(r);return l.cancel=function(){o.unsubscribe(i)},l},t(function(i,l,s){o.reason||(o.reason=new Er(i,l,s),n(o.reason))})}throwIfRequested(){if(this.reason)throw this.reason}subscribe(t){if(this.reason){t(this.reason);return}this._listeners?this._listeners.push(t):this._listeners=[t]}unsubscribe(t){if(!this._listeners)return;const n=this._listeners.indexOf(t);n!==-1&&this._listeners.splice(n,1)}static source(){let t;return{token:new ya(function(r){t=r}),cancel:t}}}const U_=ya;function K_(e){return function(n){return e.apply(null,n)}}function W_(e){return K.isObject(e)&&e.isAxiosError===!0}const ws={Continue:100,SwitchingProtocols:101,Processing:102,EarlyHints:103,Ok:200,Created:201,Accepted:202,NonAuthoritativeInformation:203,NoContent:204,ResetContent:205,PartialContent:206,MultiStatus:207,AlreadyReported:208,ImUsed:226,MultipleChoices:300,MovedPermanently:301,Found:302,SeeOther:303,NotModified:304,UseProxy:305,Unused:306,TemporaryRedirect:307,PermanentRedirect:308,BadRequest:400,Unauthorized:401,PaymentRequired:402,Forbidden:403,NotFound:404,MethodNotAllowed:405,NotAcceptable:406,ProxyAuthenticationRequired:407,RequestTimeout:408,Conflict:409,Gone:410,LengthRequired:411,PreconditionFailed:412,PayloadTooLarge:413,UriTooLong:414,UnsupportedMediaType:415,RangeNotSatisfiable:416,ExpectationFailed:417,ImATeapot:418,MisdirectedRequest:421,UnprocessableEntity:422,Locked:423,FailedDependency:424,TooEarly:425,UpgradeRequired:426,PreconditionRequired:428,TooManyRequests:429,RequestHeaderFieldsTooLarge:431,UnavailableForLegalReasons:451,InternalServerError:500,NotImplemented:501,BadGateway:502,ServiceUnavailable:503,GatewayTimeout:504,HttpVersionNotSupported:505,VariantAlsoNegotiates:506,InsufficientStorage:507,LoopDetected:508,NotExtended:510,NetworkAuthenticationRequired:511};Object.entries(ws).forEach(([e,t])=>{ws[t]=e});const Q_=ws;function Qh(e){const t=new ii(e),n=Rh(ii.prototype.request,t);return K.extend(n,ii.prototype,t,{allOwnKeys:!0}),K.extend(n,t,null,{allOwnKeys:!0}),n.create=function(r){return Qh(Oo(e,r))},n}const rt=Qh(pa);rt.Axios=ii;rt.CanceledError=Er;rt.CancelToken=U_;rt.isCancel=Uh;rt.VERSION=Wh;rt.toFormData=Yi;rt.AxiosError=$e;rt.Cancel=rt.CanceledError;rt.all=function(t){return Promise.all(t)};rt.spread=K_;rt.isAxiosError=W_;rt.mergeConfig=Oo;rt.AxiosHeaders=cn;rt.formToJSON=e=>Hh(K.isHTMLForm(e)?new FormData(e):e);rt.HttpStatusCode=Q_;rt.default=rt;const Bn=rt;let J_=W(""),X_=W("");const qr=Lp("diaryStore",()=>{const e={name:"G\xFCltekin \xD6zt\xFCrk",mail:"oeztuerk.g54@gmail.com",tel:"06605800032"},t=W([{name:"seite",align:"center",label:"Seite",field:"page",sortable:!0},{name:"title",align:"center",label:"Eintragstitel",field:"title",sortable:!0},{name:"datum",align:"center",label:"Datum",field:"date",sortable:!0},{name:"lastchangefull",align:"center",label:"Zuletzt Ge\xE4ndert",field:"last_changed",sortable:!0},{name:"plz",align:"center",label:"PLZ",field:"plz",sortable:!0},{name:"ort",align:"center",label:"Ort",field:"ort",sortable:!0},{name:"stra\xDFe",align:"center",label:"Stra\xDFe",field:"stra\xDFe",sortable:!0},{name:"mood",align:"center",label:"Mood",field:"mood",sortable:!0},{name:"aktionen",align:"center",label:"Aktionen",sortable:!1}]);let n=W([]),o=null,r=async(g=!0)=>{try{let{data:b}=await Bn.get("/api/eintraege");n.value=b,g&&!o&&(o=setInterval(async()=>{try{let{data:T}=await Bn.get("/api/eintraege");n.value=T}catch(T){console.error("Fehler beim Abrufen der Daten:",T)}},2e3))}catch(b){console.error("Fehler beim Abrufen der Daten:",b)}};const i=()=>{o&&(clearInterval(o),o=null)};let l=W({}),s=async g=>{let{data:b}=await Bn.get(`/api/eintraege/${g}`);l.value=b};const a=W({}),c=async g=>{await s(g),a.value=l.value};let u=async(g,b,T,k)=>{try{let E=await Bn.get(`/api/eintraege/${g}`);const x=new Date;let P=E.data;P.title=b,P.description=T,P.mood=k,P.last_changed_date=x.toLocaleDateString(),P.last_changed_time=x.toLocaleTimeString(),P.last_changed=`${P.last_changed_date} ${P.last_changed_time}`,await Bn.patch(`/eintraege/${g}`,P)}catch(E){console.error(`Fehler beim Patchen des Eintrags mit ID ${g}:`,E)}},f=async(g,b,T,k,E,x,P,C)=>{const S=new Date;let p=S.toLocaleDateString(),$=S.toLocaleTimeString(),R=`${p} ${$}`;console.log(R),await Bn.post("/api/eintraege",{title:g,page:d()+1,description:b,date:R,mood:k,ort:E,stra\u00DFe:x,plz:P,time:C})};const d=()=>n.value.length===0?0:Math.max(...n.value.map(g=>Number(g.page)||0));let h=async g=>{await Bn.delete(`/api/eintraege/${g}`),r()},m=W();return{deleteeintrag:h,patchtdataById:u,stopPolling:i,list:n,getdata:r,obj:l,getdataById:s,owner:e,columns:t,text:J_,textareaModel:X_,detail:a,fetchDetail:c,posteintrag:f,pathTO:m}});const Y_=(e,t)=>{const n=e.__vccOpts||e;for(const[o,r]of t)n[o]=r;return n},G_=e=>(Gm("data-v-1e394e6f"),e=e(),Zm(),e),Z_={class:"column items-center q-mt-lg full-width"},eS={class:"row items-center justify-between q-mb-xl header-row full-width"},tS=G_(()=>be("div",{class:"text-h4 text-weight-bold header-title"},"Eintr\xE4ge",-1)),nS={class:"q-pa-md row items-center q-gutter-md"},oS={style:{"max-width":"280px"}},rS=["onClick"],iS={class:"seite"},lS={class:"info-content"},sS={class:"text-caption text-bold"},aS={class:"text-caption text-italic"},uS={__name:"HomeView",setup(e){const t=qr(),n=W(""),o=W([]);return t.getdata(!0),Bo(()=>t.stopPolling()),fe(n,r=>{o.value=t.list.filter(i=>i.title.toLowerCase().includes(r.toLowerCase()))}),(r,i)=>{const l=Wn("icon");return Ze(),_t("div",Z_,[be("div",eS,[tS,Z(to,{dense:"",debounce:"300",modelValue:n.value,"onUpdate:modelValue":i[0]||(i[0]=s=>n.value=s),placeholder:"Search",outlined:"",rounded:"",class:"header-search gradient-border"},{append:ge(()=>[Z(l,{icon:"ic:outline-search"})]),_:1},8,["modelValue"])]),Z(Ph,{flat:"",bordered:"",grid:"",rows:o.value.length>0?o.value:ue(t).list,columns:ue(t).columns,"row-key":"name","hide-header":"","card-container-class":"justify-center"},{item:ge(s=>[be("div",nS,[be("div",oS,[Z(da,{class:"cursor-pointer my-card"},{default:ge(()=>[be("div",{class:"column text-h1 text-center justify-center",style:{width:"280px",height:"180px","border-radius":"20px",position:"relative"},onClick:()=>r.$router.push(`/read/${s.row.id}`)},[be("span",iS,It(s.row.page),1)],8,rS),Z(Un,{class:"info-section"},{default:ge(()=>[be("div",lS,[be("div",sS,It(s.row.title),1),be("div",aS,It(s.row.date),1)])]),_:2},1024)]),_:2},1024)])])]),_:1},8,["rows","columns"])])}}},cS=Y_(uS,[["__scopeId","data-v-1e394e6f"]]),fS=Pe({name:"QTr",props:{props:Object,noHover:Boolean},setup(e,{slots:t}){const n=v(()=>"q-tr"+(e.props===void 0||e.props.header===!0?"":" "+e.props.__trClass)+(e.noHover===!0?" q-tr--no-hover":""));return()=>_("tr",{class:n.value},je(t.default))}}),xr=Pe({name:"QRating",props:{...oo,...Ji,modelValue:{type:Number,required:!0},max:{type:[String,Number],default:5},icon:[String,Array],iconHalf:[String,Array],iconSelected:[String,Array],iconAriaLabel:[String,Array],color:[String,Array],colorHalf:[String,Array],colorSelected:[String,Array],noReset:Boolean,noDimming:Boolean,readonly:Boolean,disable:Boolean},emits:["update:modelValue"],setup(e,{slots:t,emit:n}){const{proxy:{$q:o}}=qe(),r=ro(e),i=x0(e),l=lh(i),s=W(0);let a={};const c=v(()=>e.readonly!==!0&&e.disable!==!0),u=v(()=>`q-rating row inline items-center q-rating--${c.value===!0?"":"non-"}editable`+(e.noDimming===!0?" q-rating--no-dimming":"")+(e.disable===!0?" disabled":"")+(e.color!==void 0&&Array.isArray(e.color)===!1?` text-${e.color}`:"")),f=v(()=>{const E=Array.isArray(e.icon)===!0?e.icon.length:0,x=Array.isArray(e.iconSelected)===!0?e.iconSelected.length:0,P=Array.isArray(e.iconHalf)===!0?e.iconHalf.length:0,C=Array.isArray(e.color)===!0?e.color.length:0,S=Array.isArray(e.colorSelected)===!0?e.colorSelected.length:0,p=Array.isArray(e.colorHalf)===!0?e.colorHalf.length:0;return{iconLen:E,icon:E>0?e.icon[E-1]:e.icon,selIconLen:x,selIcon:x>0?e.iconSelected[x-1]:e.iconSelected,halfIconLen:P,halfIcon:P>0?e.iconHalf[x-1]:e.iconHalf,colorLen:C,color:C>0?e.color[C-1]:e.color,selColorLen:S,selColor:S>0?e.colorSelected[S-1]:e.colorSelected,halfColorLen:p,halfColor:p>0?e.colorHalf[p-1]:e.colorHalf}}),d=v(()=>{if(typeof e.iconAriaLabel=="string"){const E=e.iconAriaLabel.length>0?`${e.iconAriaLabel} `:"";return x=>`${E}${x}`}if(Array.isArray(e.iconAriaLabel)===!0){const E=e.iconAriaLabel.length;if(E>0)return x=>e.iconAriaLabel[Math.min(x,E)-1]}return(E,x)=>`${x} ${E}`}),h=v(()=>{const E=[],x=f.value,P=Math.ceil(e.modelValue),C=c.value===!0?0:null,S=e.iconHalf===void 0||P===e.modelValue?-1:P;for(let p=1;p<=e.max;p++){const $=s.value===0&&e.modelValue>=p||s.value>0&&s.value>=p,R=S===p&&s.value<p,B=s.value>0&&(R===!0?P:e.modelValue)>=p&&s.value<p,I=R===!0?p<=x.halfColorLen?e.colorHalf[p-1]:x.halfColor:x.selColor!==void 0&&$===!0?p<=x.selColorLen?e.colorSelected[p-1]:x.selColor:p<=x.colorLen?e.color[p-1]:x.color,Q=(R===!0?p<=x.halfIconLen?e.iconHalf[p-1]:x.halfIcon:x.selIcon!==void 0&&($===!0||B===!0)?p<=x.selIconLen?e.iconSelected[p-1]:x.selIcon:p<=x.iconLen?e.icon[p-1]:x.icon)||o.iconSet.rating.icon;E.push({name:(R===!0?p<=x.halfIconLen?e.iconHalf[p-1]:x.halfIcon:x.selIcon!==void 0&&($===!0||B===!0)?p<=x.selIconLen?e.iconSelected[p-1]:x.selIcon:p<=x.iconLen?e.icon[p-1]:x.icon)||o.iconSet.rating.icon,attrs:{tabindex:C,role:"radio","aria-checked":e.modelValue===p?"true":"false","aria-label":d.value(p,Q)},iconClass:"q-rating__icon"+($===!0||R===!0?" q-rating__icon--active":"")+(B===!0?" q-rating__icon--exselected":"")+(s.value===p?" q-rating__icon--hovered":"")+(I!==void 0?` text-${I}`:"")})}return E}),m=v(()=>{const E={role:"radiogroup"};return e.disable===!0&&(E["aria-disabled"]="true"),e.readonly===!0&&(E["aria-readonly"]="true"),E});function g(E){if(c.value===!0){const x=an(parseInt(E,10),1,parseInt(e.max,10)),P=e.noReset!==!0&&e.modelValue===x?0:x;P!==e.modelValue&&n("update:modelValue",P),s.value=0}}function b(E){c.value===!0&&(s.value=E)}function T(E,x){switch(E.keyCode){case 13:case 32:return g(x),Je(E);case 37:case 40:return a[`rt${x-1}`]&&a[`rt${x-1}`].$el.focus(),Je(E);case 39:case 38:return a[`rt${x+1}`]&&a[`rt${x+1}`].$el.focus(),Je(E)}}function k(){s.value=0}return $i(()=>{a={}}),()=>{const E=[];return h.value.forEach(({iconClass:x,name:P,attrs:C},S)=>{const p=S+1;E.push(_("div",{key:p,ref:$=>{a[`rt${p}`]=$},class:"q-rating__icon-container flex flex-center",...C,onClick(){g(p)},onMouseover(){b(p)},onMouseout:k,onFocus(){b(p)},onBlur:k,onKeyup($){T($,p)}},Ot(t[`tip-${p}`],[_(yt,{class:x,name:P})])))}),e.name!==void 0&&e.disable!==!0&&l(E,"push"),_("div",{class:u.value,style:r.value,...m.value},E)}}}),Fl=Pe({name:"QTd",props:{props:Object,autoWidth:Boolean,noHover:Boolean},setup(e,{slots:t}){const n=qe(),o=v(()=>"q-td"+(e.autoWidth===!0?" q-table--col-auto-width":"")+(e.noHover===!0?" q-td--no-hover":"")+" ");return()=>{if(e.props===void 0)return _("td",{class:o.value},je(t.default));const r=n.vnode.key,i=(e.props.colsMap!==void 0?e.props.colsMap[r]:null)||e.props.col;if(i===void 0)return;const{row:l}=e.props;return _("td",{class:o.value+i.__tdClass(l),style:i.__tdStyle(l)},je(t.default))}}}),dS={class:"column items-center q-mt-md"},hS={class:"q-pa-xs col-xs-12 col-sm-6 col-md-4"},mS={style:{"min-width":"250px"}},vS=be("br",null,null,-1),gS={align:"left",class:"col",style:{"overflow-wrap":"break-word"}},pS={class:"text-weight-bolder"},bS={align:"right",class:"col"},yS={__name:"EditView",setup(e){let t=["sentiment_very_dissatisfied","sentiment_dissatisfied","sentiment_satisfied","sentiment_very_satisfied"];const n=qr();ct(()=>{n.getdata()});let o=!1;fe(()=>n.list,()=>{o||(console.log("s"),o=!0,n.getdata().then(()=>{o=!1}))});const r=i=>{switch(i){case 1:return"red-6";case 2:return"orange-5";case 3:return"light-green-5";case 4:return"green-6";default:return"grey-5"}};return(i,l)=>{const s=Wn("icon");return Ze(),_t("div",dS,[Z(Ph,{grid:i.$q.screen.lt.md,class:"q-ma-lg",style:{"border-radius":"18px"},flat:"",bordered:"",title:"Meine Eintr\xE4ge",rows:ue(n).list,columns:ue(n).columns,"row-key":"name"},{header:ge(a=>[Z(fS,null,{default:ge(()=>[(Ze(!0),_t(kt,null,vv(a.cols,c=>(Ze(),bo(uh,{class:"text-bold",props:a,key:c.name},{default:ge(()=>[Yt(It(c.label),1)]),_:2},1032,["props"]))),128))]),_:2},1024)]),"body-cell-mood":ge(a=>[Z(Fl,{class:"q-gutter-xs",props:a},{default:ge(()=>[Z(xr,{color:r(a.row.mood),size:"2.5em",modelValue:a.row.mood,"onUpdate:modelValue":c=>a.row.mood=c,max:4,icon:ue(t),readonly:""},null,8,["color","modelValue","onUpdate:modelValue","icon"])]),_:2},1032,["props"])]),"body-cell-lastchange":ge(a=>[Z(Fl,{class:"q-gutter-xs",props:a},{default:ge(()=>[be("div",null,It(new Date(a.row.last_changed_date).toLocaleDateString()),1),be("div",null,It(new Date(a.row.last_changed_time).toLocaleTimeString()),1)]),_:2},1032,["props"])]),"body-cell-aktionen":ge(a=>[Z(Fl,{class:"q-gutter-xs",props:a},{default:ge(()=>[Z(ot,{style:{"border-radius":"15px",height:"50px","background-color":"#4a90e2"},class:"shadow-4",stack:"",size:"sm",to:`/edit/input/${a.row.id}`},{default:ge(()=>[Z(s,{style:{width:"20px",height:"20px",color:"white"},icon:"material-symbols:edit-rounded"})]),_:2},1032,["to"]),Z(ot,{class:"shadow-4 q-ml-sm",style:{"border-radius":"15px",height:"50px"},onClick:c=>ue(n).deleteeintrag(a.row.id),stack:"",size:"sm",color:"red"},{default:ge(()=>[Z(s,{style:{width:"20px",height:"20px"},icon:"ic:sharp-delete"})]),_:2},1032,["onClick"])]),_:2},1032,["props"])]),item:ge(a=>[be("div",hS,[be("div",mS,[Z(da,{flat:"",bordered:"",class:"q-mx-xs q-my-xs",style:{"border-radius":"10px"}},{default:ge(()=>[Z(Un,{class:"text-center"},{default:ge(()=>[Yt(' "'+It(a.row.title)+'" ',1),vS,be("strong",null,It(a.row.name),1)]),_:2},1024),Z(ch),Z(Un,{align:"right",class:"flex flex-center"},{default:ge(()=>[Z(xr,{color:r(a.row.mood),modelValue:a.row.mood,"onUpdate:modelValue":c=>a.row.mood=c,max:4,size:"3.5em",icon:ue(t),readonly:""},null,8,["color","modelValue","onUpdate:modelValue","icon"])]),_:2},1024),Z(Un,{class:"row",style:_i({fontSize:a.row.calories/2+"px"})},{default:ge(()=>[be("div",gS,[be("span",pS,It(a.row.ort),1),Yt(", "+It(a.row.date),1)]),be("div",bS,"Seite "+It(a.row.page),1)]),_:2},1032,["style"]),Z(Un,{class:"row justify-end"},{default:ge(()=>[Z(ot,{class:"shadow-4",style:{"border-radius":"18px",height:"50px"},stack:"",size:"sm",to:`/edit/input/${a.row.id}`},{default:ge(()=>[Z(s,{style:{width:"20px",height:"20px"},icon:"material-symbols:edit-rounded"})]),_:2},1032,["to"]),Z(ot,{class:"shadow-4",style:{"border-radius":"18px",height:"50px","margin-left":"8px"},onClick:c=>ue(n).deleteeintrag(a.row.id),label:"",stack:"",size:"sm",color:"red"},{default:ge(()=>[Z(s,{style:{width:"20px",height:"20px"},icon:"ic:sharp-delete"})]),_:2},1032,["onClick"])]),_:2},1024)]),_:2},1024)])])]),_:1},8,["grid","rows","columns"])])}}},wS=Pe({name:"QCardActions",props:{...cd,vertical:Boolean},setup(e,{slots:t}){const n=fd(e),o=v(()=>`q-card__actions ${n.value} q-card__actions--${e.vertical===!0?"vert column":"horiz row"}`);return()=>_("div",{class:o.value},je(t.default))}});function Hc(e){if(e===!1)return 0;if(e===!0||e===void 0)return 1;const t=parseInt(e,10);return isNaN(t)?0:t}const Uc=Ds({name:"close-popup",beforeMount(e,{value:t}){const n={depth:Hc(t),handler(o){n.depth!==0&&setTimeout(()=>{const r=U0(e);r!==void 0&&K0(r,o,n.depth)})},handlerKey(o){Rn(o,13)===!0&&n.handler(o)}};e.__qclosepopup=n,e.addEventListener("click",n.handler),e.addEventListener("keyup",n.handlerKey)},updated(e,{value:t,oldValue:n}){t!==n&&(e.__qclosepopup.depth=Hc(t))},beforeUnmount(e){const t=e.__qclosepopup;e.removeEventListener("click",t.handler),e.removeEventListener("keyup",t.handlerKey),delete e.__qclosepopup}});function wa(){return ut(td)}const _S={class:"row wrap justify-between items-end"},SS={class:"col"},xS={class:"col text-right"},CS={key:0},kS={class:"q-ma-xl col"},ES={class:"row justify-between q-ml-xl q-mr-xl"},qS=be("div",{class:"text-h5 text-bold"},"Dein Mood:",-1),TS={class:"q-mt-sm"},PS={key:0},RS={key:0},AS={class:"text-h5 column items-center text-center"},OS=be("span",{class:"row"},"Achtung !",-1),$S={__name:"EditInpView",props:{id:String},setup(e){const t=e,n=oh(),o=qr();let r=W(!1),i=W(),l=W(!1);const s=wa();let a=["sentiment_very_dissatisfied","sentiment_dissatisfied","sentiment_satisfied","sentiment_very_satisfied"],c=W(o.detail.title),u=W(o.detail.description),f=W(o.detail.mood);const d=S=>{const p=S.getDate().toString().padStart(2,"0"),$=(S.getMonth()+1).toString().padStart(2,"0"),R=S.getFullYear();return`${p}.${$}.${R}`},h=S=>{const p=S.getHours().toString().padStart(2,"0"),$=S.getMinutes().toString().padStart(2,"0"),R=S.getSeconds().toString().padStart(2,"0");return`${p}:${$}:${R}`};let m=d(new Date),g=h(new Date);console.log(`${m} - ${g}`);let b=W();o.fetchDetail(t.id);let T=()=>{b.value=!0,i.value=!1,o.pathTO?(n.push(o.pathTO),o.pathTO=""):(n.push("/edit"),o.pathTO="")},k=()=>{!r.value&&(c.value!==o.detail.title||u.value!==o.detail.description||f.value!==o.detail.mood)?i.value=!0:(i.value=!1,n.push("/edit/"))};t0((S,p)=>!b.value&&!r.value&&(c.value!==o.detail.title||u.value!==o.detail.description||f.value!==o.detail.mood)?(o.pathTO=S.path,i.value=!0,!1):!0);let E=function(){l.value=!0,s.notify({message:"Gespeichert",color:"#4a90e2",icon:"done"}),r.value=!0};ct(async()=>{await o.fetchDetail(t.id),c.value=o.detail.title,u.value=o.detail.description,f.value=o.detail.mood});const x=()=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(async S=>{const p=S.coords.latitude,$=S.coords.longitude;console.log("Latitude:",p),console.log("Longitude:",$);try{const{city:R,street:B,postcode:I,county:Q}=await P(p,$);console.log("City:",R),console.log("Street:",B);const H=I?`Aktuelle Position: ${I}, ${R}, ${B}`:`Aktuelle Position: ${R}, ${B}`;s.notify({message:H,color:"#4a90e2",icon:"done"})}catch(R){console.error("Fehler bei der Abfrage der Standortdetails:",R.message),s.notify({message:"Fehler bei der Abfrage der Standortdetails: "+R.message,color:"red-5",icon:"report_problem"})}},S=>{console.error("Geolocation Fehler:",S.message),s.notify({message:"Fehler bei der Geolocation: "+S.message,color:"red-5",icon:"report_problem"})}):(console.error("Geolocation wird nicht unterst\xFCtzt."),s.notify({message:"Geolocation wird nicht unterst\xFCtzt.",color:"yellow-5",icon:"warning"}))},P=async(S,p)=>{try{const $=`https://nominatim.openstreetmap.org/reverse?lat=${S}&lon=${p}&format=json`,R=await fetch($),B=await R.json();if(R.ok)if(B.address){const I=B.address.city||B.address.town||B.address.village||B.address.hamlet,Q=B.address.road||B.address.pedestrian,H=B.address.postcode,le=B.address.county;return{city:I,street:Q,postcode:H,county:le}}else throw new Error("Adressinformationen fehlen");else throw new Error("Ung\xFCltige API-Antwort")}catch($){throw console.error("Fehler beim Reverse-Geocoding:",$.message),$}},C=v(()=>{switch(f.value){case 1:return"red-6";case 2:return"orange-5";case 3:return"light-green-5";case 4:return"green-6";default:return"grey-5"}});return(S,p)=>{const $=Wn("icon");return Ze(),_t("div",null,[be("div",_S,[be("div",SS,[Z(to,{color:"#4a90e2",class:ht(ue(s).screen.lt.sm?"q-pl-xl q-pt-lg text-h6":"q-pl-xl q-pt-lg text-h5"),modelValue:ue(c),"onUpdate:modelValue":p[0]||(p[0]=R=>Ve(c)?c.value=R:c=R),label:"Titel","stack-label":"",dense:S.dense},null,8,["class","modelValue","dense"])]),be("div",xS,[Z(ot,{disabled:!0,color:"grey-2",class:"text-red text-weight-bold q-mr-xl q-mt-lg",onClick:x},{default:ge(()=>[Z($,{class:"q-mr-sm",style:{width:"20px",height:"20px"},icon:"ic:outline-gps-fixed"}),ue(s).screen.lt.sm?Qn("",!0):(Ze(),_t("span",CS,"Get Location"))]),_:1})])]),be("div",kS,[Z(to,{class:ht(ue(s).screen.lt.sm?"text-h7":"text-h6"),modelValue:ue(u),"onUpdate:modelValue":p[1]||(p[1]=R=>Ve(u)?u.value=R:u=R),filled:"",clearable:"",type:"textarea",color:"#4a90e2",label:"Eintrag f\xFCr heute",hint:"Press TAB to autocomplete suggested value or ESC to cancel suggestion","shadow-text":S.textareaShadowText,onKeydown:S.processTextareaFill,onFocus:S.processTextareaFill,rows:"20"},null,8,["class","modelValue","shadow-text","onKeydown","onFocus"])]),be("div",ES,[be("div",null,[qS,be("div",TS,[Z(xr,{size:ue(s).screen.lt.sm?"2.5em":"4.5em",modelValue:ue(f),"onUpdate:modelValue":p[2]||(p[2]=R=>Ve(f)?f.value=R:f=R),max:4,icon:ue(a),color:ue(C)},null,8,["size","modelValue","icon","color"])])]),be("div",{align:"center",class:ht(ue(s).screen.lt.sm?"row q-gutter-md q-mb-md justify-center q-mt-lg":"fixed-bottom-right absolute-bottom-right row q-gutter-md q-mb-md q-mr-xl")},[be("div",null,[Z(ot,{onClick:p[3]||(p[3]=R=>ue(k)())},{default:ge(()=>[Z($,{class:ht(ue(s).screen.lt.sm?"":"q-mr-sm"),style:{width:"20px",height:"20px"},icon:"ic:twotone-clear"},null,8,["class"]),ue(s).screen.lt.sm?Qn("",!0):(Ze(),_t("span",PS,"Verwerfen"))]),_:1})]),be("div",null,[Z(ot,{onClick:p[4]||(p[4]=()=>{ue(E)(),ue(o).patchtdataById(t.id,ue(c),ue(u),ue(f),ue(m),ue(g)),S.$router.push("/edit/")}),class:""},{default:ge(()=>[Z($,{class:ht(ue(s).screen.lt.sm?"":"q-mr-sm"),style:{width:"20px",height:"20px"},icon:"material-symbols:save"},null,8,["class"]),ue(s).screen.lt.sm?Qn("",!0):(Ze(),_t("span",RS,"Speichern"))]),_:1})])],2)]),Z(qh,{modelValue:ue(i),"onUpdate:modelValue":p[6]||(p[6]=R=>Ve(i)?i.value=R:i=R)},{default:ge(()=>[Z(da,null,{default:ge(()=>[Z(Un,null,{default:ge(()=>[be("div",AS,[Z(yt,{name:"warning",size:"3em",class:"row",color:"#4a90e2"}),OS])]),_:1}),Z(Un,{class:"q-pt-none text-center"},{default:ge(()=>[Yt(" Es sieht so aus, als ob Sie Ihre Fortschritte nicht gespeichert haben. M\xF6chten Sie fortfahren, ohne zu speichern? ")]),_:1}),Z(wS,{align:"right"},{default:ge(()=>[Dt(Z(ot,{flat:"",label:"abbrechen",style:{color:"black"}},null,512),[[Uc]]),Dt(Z(ot,{flat:"",label:"Fortsetzen",style:{color:"#4a90e2"},onClick:p[5]||(p[5]=R=>ue(T)())},null,512),[[Uc]])]),_:1})]),_:1})]),_:1},8,["modelValue"])])}}};const LS={class:"readonly-view"},MS={class:"row wrap justify-between items-end"},FS={class:"q-ma-xl col"},BS=be("div",{class:"q-ml-xl text-h5 text-bold"},"Dein Mood:",-1),IS={class:"q-ml-xl q-mt-sm"},zS={__name:"ReadInpView",props:{id:String},setup(e){const t=e;oh();const n=qr(),o=wa(),r=["sentiment_very_dissatisfied","sentiment_dissatisfied","sentiment_satisfied","sentiment_very_satisfied"],i=v(()=>{switch(n.detail.mood){case 1:return"red-6";case 2:return"orange-5";case 3:return"light-green-5";case 4:return"green-6";default:return"grey-5"}});return n.fetchDetail(t.id),(l,s)=>(Ze(),_t("div",LS,[be("div",MS,[Z(to,{readonly:"",color:"green-5",class:ht(ue(o).screen.lt.sm?"q-pl-xl q-pt-lg text-h6":"q-pl-xl q-pt-lg text-h5"),modelValue:ue(n).detail.title,"onUpdate:modelValue":s[0]||(s[0]=a=>ue(n).detail.title=a),label:"Titel","stack-label":"",dense:l.dense},null,8,["class","modelValue","dense"])]),be("div",FS,[Z(to,{readonly:"",class:ht(ue(o).screen.lt.sm?"text-h7":"text-h6"),modelValue:ue(n).detail.description,"onUpdate:modelValue":s[1]||(s[1]=a=>ue(n).detail.description=a),filled:"",clearable:"",type:"textarea",label:"Eintrag f\xFCr heute","shadow-text":l.textareaShadowText,onKeydown:l.processTextareaFill,onFocus:l.processTextareaFill,rows:"20"},null,8,["class","modelValue","shadow-text","onKeydown","onFocus"])]),BS,be("div",IS,[Z(xr,{size:ue(o).screen.lt.sm?"2.5em":"4.5em",readonly:"",modelValue:ue(n).detail.mood,"onUpdate:modelValue":s[2]||(s[2]=a=>ue(n).detail.mood=a),max:4,icon:r,color:ue(i)},null,8,["size","modelValue","color"])])]))}},VS={class:"col justify-center"},NS={class:"row justify-between items-end"},jS={class:"col"},DS={class:"col text-right"},HS={key:0},US={class:"q-ma-xl col"},KS={class:"row justify-between q-ml-xl q-mr-xl"},WS=be("div",{class:"text-h5 text-bold"},"Dein Mood:",-1),QS={class:"q-mt-sm"},JS={key:0},XS={key:0},YS={__name:"InputView",setup(e){let t=qr();t.getdata();let n=t.list;console.log(n);const o=wa();let r=["sentiment_very_dissatisfied","sentiment_dissatisfied","sentiment_satisfied","sentiment_very_satisfied"];console.log(t.list.length);let i=W(""),l=W(""),s=W(0),a=W(""),c=W(""),u=W(0),f=W(""),d=W(),h=W("");const m=x=>{const P=x.getDate().toString().padStart(2,"0"),C=(x.getMonth()+1).toString().padStart(2,"0"),S=x.getFullYear();return`${P}.${C}.${S}`},g=x=>{const P=x.getHours().toString().padStart(2,"0"),C=x.getMinutes().toString().padStart(2,"0"),S=x.getSeconds().toString().padStart(2,"0");return`${P}:${C}:${S}`},b=()=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(async x=>{const P=x.coords.latitude,C=x.coords.longitude;console.log("Latitude:",P),console.log("Longitude:",C);try{const{city:S,street:p,postcode:$}=await T(P,C);console.log("City:",S),console.log("Street:",p),console.log("PLZ:",$),a.value=S,c.value=p,u.value=$;const R=$?`Aktuelle Position: ${$}, ${S}, ${p}`:`Aktuelle Position: ${S}, ${p}`;o.notify({message:R,color:"#4a90e2",icon:"done"})}catch(S){console.error("Fehler bei der Abfrage der Standortdetails:",S.message),o.notify({message:"Fehler bei der Abfrage der Standortdetails: "+S.message,color:"red-5",icon:"report_problem"})}},x=>{console.error("Geolocation Fehler:",x.message),o.notify({message:"Fehler bei der Geolocation: "+x.message,color:"red-5",icon:"report_problem"})}):(console.error("Geolocation wird nicht unterst\xFCtzt."),o.notify({message:"Geolocation wird nicht unterst\xFCtzt.",color:"yellow-5",icon:"warning"}))},T=async(x,P)=>{try{const C=`https://nominatim.openstreetmap.org/reverse?lat=${x}&lon=${P}&format=json`,S=await fetch(C),p=await S.json();if(S.ok)if(p.address){const $=p.address.city||p.address.town||p.address.village||p.address.hamlet,R=p.address.road||p.address.pedestrian,B=p.address.postcode;return{city:$,street:R,postcode:B}}else throw new Error("Adressinformationen fehlen");else throw new Error("Ung\xFCltige API-Antwort")}catch(C){throw console.error("Fehler beim Reverse-Geocoding:",C.message),C}};f.value=m(new Date),h.value=g(new Date),Cr(()=>{k()});const k=()=>{d.value=t.list.length+1};fe(()=>t.list.length,()=>{k()});const E=v(()=>{switch(s.value){case 1:return"red-6";case 2:return"orange-5";case 3:return"light-green-5";case 4:return"green-6";default:return"grey-5"}});return(x,P)=>{const C=Wn("icon");return Ze(),_t("div",VS,[be("div",NS,[be("div",jS,[Z(to,{color:"#4a90e2",class:ht(ue(o).screen.lt.sm?"q-pl-xl q-pt-lg text-h6":"q-pl-xl q-pt-lg text-h5"),modelValue:ue(i),"onUpdate:modelValue":P[0]||(P[0]=S=>Ve(i)?i.value=S:i=S),label:"Titel","stack-label":"",dense:x.dense},null,8,["class","modelValue","dense"])]),be("div",DS,[Z(ot,{color:"grey-2",class:"text-red text-weight-bold q-mr-xl q-mt-lg",onClick:P[1]||(P[1]=S=>b())},{default:ge(()=>[Z(C,{class:ht(ue(o).screen.lt.sm?"":"q-mr-sm"),style:{width:"20px",height:"20px"},icon:"ic:outline-gps-fixed"},null,8,["class"]),ue(o).screen.lt.sm?Qn("",!0):(Ze(),_t("span",HS,"Get Location"))]),_:1})])]),be("div",US,[Z(to,{class:ht(ue(o).screen.lt.sm?"text-h7":"text-h6"),modelValue:ue(l),"onUpdate:modelValue":P[2]||(P[2]=S=>Ve(l)?l.value=S:l=S),filled:"",clearable:"",type:"textarea",color:"#4a90e2",label:"Eintrag f\xFCr heute",hint:"Press TAB to autocomplete suggested value or ESC to cancel suggestion","shadow-text":x.textareaShadowText,onKeydown:x.processTextareaFill,onFocus:x.processTextareaFill,rows:"20"},null,8,["class","modelValue","shadow-text","onKeydown","onFocus"])]),be("div",KS,[be("div",null,[WS,be("div",QS,[Z(xr,{size:ue(o).screen.lt.sm?"2.5em":"4.5em",modelValue:ue(s),"onUpdate:modelValue":P[3]||(P[3]=S=>Ve(s)?s.value=S:s=S),max:4,icon:ue(r),color:ue(E)},null,8,["size","modelValue","icon","color"])])]),be("div",{align:"center",class:ht(ue(o).screen.lt.sm?"row q-gutter-md q-mb-md justify-center q-mt-lg":"fixed-bottom-right absolute-bottom-right row q-gutter-md q-mb-md q-mr-xl")},[be("div",null,[Z(ot,null,{default:ge(()=>[Z(C,{class:ht(ue(o).screen.lt.sm?"":"q-mr-sm"),style:{width:"20px",height:"20px"},icon:"ic:twotone-clear"},null,8,["class"]),ue(o).screen.lt.sm?Qn("",!0):(Ze(),_t("span",JS,"Verwerfen"))]),_:1})]),be("div",null,[Z(ot,{onClick:P[4]||(P[4]=S=>(ue(t).posteintrag(ue(i),ue(l),ue(f),ue(s),ue(a),ue(c),ue(u),ue(h)),x.$router.push("/"))),class:""},{default:ge(()=>[Z(C,{class:ht(ue(o).screen.lt.sm?"":"q-mr-sm"),style:{width:"20px",height:"20px"},icon:"material-symbols:save"},null,8,["class"]),ue(o).screen.lt.sm?Qn("",!0):(Ze(),_t("span",XS,"Speichern"))]),_:1})])],2)])])}}},GS=u0({history:Cy("/"),routes:[{path:"/",name:"home",component:cS},{path:"/edit",name:"edit",component:yS},{path:"/edit/input/:id",props:!0,name:"edit input",component:$S},{path:"/read/:id",props:!0,name:"read input",component:zS},{path:"/input/",name:"input",component:YS},{path:"/about",name:"about",component:()=>Gu(()=>import("./AboutView.f34e6889.js"),["assets/AboutView.f34e6889.js","assets/AboutView.a606d748.css"])},{path:"/login",name:"login",component:()=>Gu(()=>import("./LoginView.7d8c457a.js"),["assets/LoginView.7d8c457a.js","assets/LoginView.be9c2af4.css"])}]}),Tr=Jf(ry);Tr.component("Icon",Lb);Tr.use(Pp());Tr.use(GS);Tr.use(Yg,{plugins:{Notify:qp},iconSet:ed});Tr.mount("#app");export{da as Q,Y_ as _,Z as a,Un as b,_t as c,be as d,ue as e,Yt as f,Zm as g,Wn as h,to as i,Ve as j,yt as k,ot as l,Ze as o,Gm as p,W as r,It as t,qr as u,ge as w};
+(function () {
+  const t = document.createElement('link').relList;
+  if (t && t.supports && t.supports('modulepreload')) return;
+  for (const r of document.querySelectorAll('link[rel="modulepreload"]')) o(r);
+  new MutationObserver((r) => {
+    for (const i of r)
+      if (i.type === 'childList')
+        for (const l of i.addedNodes) l.tagName === 'LINK' && l.rel === 'modulepreload' && o(l);
+  }).observe(document, { childList: !0, subtree: !0 });
+  function n(r) {
+    const i = {};
+    return (
+      r.integrity && (i.integrity = r.integrity),
+      r.referrerpolicy && (i.referrerPolicy = r.referrerpolicy),
+      r.crossorigin === 'use-credentials'
+        ? (i.credentials = 'include')
+        : r.crossorigin === 'anonymous'
+        ? (i.credentials = 'omit')
+        : (i.credentials = 'same-origin'),
+      i
+    );
+  }
+  function o(r) {
+    if (r.ep) return;
+    r.ep = !0;
+    const i = n(r);
+    fetch(r.href, i);
+  }
+})();
+function _s(e, t) {
+  const n = Object.create(null),
+    o = e.split(',');
+  for (let r = 0; r < o.length; r++) n[o[r]] = !0;
+  return t ? (r) => !!n[r.toLowerCase()] : (r) => !!n[r];
+}
+function _i(e) {
+  if (Ce(e)) {
+    const t = {};
+    for (let n = 0; n < e.length; n++) {
+      const o = e[n],
+        r = et(o) ? em(o) : _i(o);
+      if (r) for (const i in r) t[i] = r[i];
+    }
+    return t;
+  } else {
+    if (et(e)) return e;
+    if (Ue(e)) return e;
+  }
+}
+const Yh = /;(?![^(]*\))/g,
+  Gh = /:([^]+)/,
+  Zh = /\/\*.*?\*\//gs;
+function em(e) {
+  const t = {};
+  return (
+    e
+      .replace(Zh, '')
+      .split(Yh)
+      .forEach((n) => {
+        if (n) {
+          const o = n.split(Gh);
+          o.length > 1 && (t[o[0].trim()] = o[1].trim());
+        }
+      }),
+    t
+  );
+}
+function ht(e) {
+  let t = '';
+  if (et(e)) t = e;
+  else if (Ce(e))
+    for (let n = 0; n < e.length; n++) {
+      const o = ht(e[n]);
+      o && (t += o + ' ');
+    }
+  else if (Ue(e)) for (const n in e) e[n] && (t += n + ' ');
+  return t.trim();
+}
+const tm = 'itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly',
+  nm = _s(tm);
+function Kc(e) {
+  return !!e || e === '';
+}
+const It = (e) =>
+    et(e)
+      ? e
+      : e == null
+      ? ''
+      : Ce(e) || (Ue(e) && (e.toString === Xc || !Ee(e.toString)))
+      ? JSON.stringify(e, Wc, 2)
+      : String(e),
+  Wc = (e, t) =>
+    t && t.__v_isRef
+      ? Wc(e, t.value)
+      : _o(t)
+      ? { [`Map(${t.size})`]: [...t.entries()].reduce((n, [o, r]) => ((n[`${o} =>`] = r), n), {}) }
+      : Qc(t)
+      ? { [`Set(${t.size})`]: [...t.values()] }
+      : Ue(t) && !Ce(t) && !Yc(t)
+      ? String(t)
+      : t,
+  He = {},
+  wo = [],
+  Ut = () => {},
+  om = () => !1,
+  rm = /^on[^a-z]/,
+  Si = (e) => rm.test(e),
+  Ss = (e) => e.startsWith('onUpdate:'),
+  st = Object.assign,
+  xs = (e, t) => {
+    const n = e.indexOf(t);
+    n > -1 && e.splice(n, 1);
+  },
+  im = Object.prototype.hasOwnProperty,
+  Oe = (e, t) => im.call(e, t),
+  Ce = Array.isArray,
+  _o = (e) => xi(e) === '[object Map]',
+  Qc = (e) => xi(e) === '[object Set]',
+  Ee = (e) => typeof e == 'function',
+  et = (e) => typeof e == 'string',
+  Cs = (e) => typeof e == 'symbol',
+  Ue = (e) => e !== null && typeof e == 'object',
+  Jc = (e) => Ue(e) && Ee(e.then) && Ee(e.catch),
+  Xc = Object.prototype.toString,
+  xi = (e) => Xc.call(e),
+  lm = (e) => xi(e).slice(8, -1),
+  Yc = (e) => xi(e) === '[object Object]',
+  ks = (e) => et(e) && e !== 'NaN' && e[0] !== '-' && '' + parseInt(e, 10) === e,
+  Kr = _s(
+    ',key,ref,ref_for,ref_key,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted',
+  ),
+  Ci = (e) => {
+    const t = Object.create(null);
+    return (n) => t[n] || (t[n] = e(n));
+  },
+  sm = /-(\w)/g,
+  Zt = Ci((e) => e.replace(sm, (t, n) => (n ? n.toUpperCase() : ''))),
+  am = /\B([A-Z])/g,
+  $o = Ci((e) => e.replace(am, '-$1').toLowerCase()),
+  ki = Ci((e) => e.charAt(0).toUpperCase() + e.slice(1)),
+  ll = Ci((e) => (e ? `on${ki(e)}` : '')),
+  lr = (e, t) => !Object.is(e, t),
+  sl = (e, t) => {
+    for (let n = 0; n < e.length; n++) e[n](t);
+  },
+  li = (e, t, n) => {
+    Object.defineProperty(e, t, { configurable: !0, enumerable: !1, value: n });
+  },
+  Es = (e) => {
+    const t = parseFloat(e);
+    return isNaN(t) ? e : t;
+  };
+let ka;
+const um = () =>
+  ka ||
+  (ka =
+    typeof globalThis < 'u'
+      ? globalThis
+      : typeof self < 'u'
+      ? self
+      : typeof window < 'u'
+      ? window
+      : typeof global < 'u'
+      ? global
+      : {});
+let Ct;
+class Gc {
+  constructor(t = !1) {
+    (this.detached = t),
+      (this.active = !0),
+      (this.effects = []),
+      (this.cleanups = []),
+      (this.parent = Ct),
+      !t && Ct && (this.index = (Ct.scopes || (Ct.scopes = [])).push(this) - 1);
+  }
+  run(t) {
+    if (this.active) {
+      const n = Ct;
+      try {
+        return (Ct = this), t();
+      } finally {
+        Ct = n;
+      }
+    }
+  }
+  on() {
+    Ct = this;
+  }
+  off() {
+    Ct = this.parent;
+  }
+  stop(t) {
+    if (this.active) {
+      let n, o;
+      for (n = 0, o = this.effects.length; n < o; n++) this.effects[n].stop();
+      for (n = 0, o = this.cleanups.length; n < o; n++) this.cleanups[n]();
+      if (this.scopes) for (n = 0, o = this.scopes.length; n < o; n++) this.scopes[n].stop(!0);
+      if (!this.detached && this.parent && !t) {
+        const r = this.parent.scopes.pop();
+        r && r !== this && ((this.parent.scopes[this.index] = r), (r.index = this.index));
+      }
+      (this.parent = void 0), (this.active = !1);
+    }
+  }
+}
+function Zc(e) {
+  return new Gc(e);
+}
+function cm(e, t = Ct) {
+  t && t.active && t.effects.push(e);
+}
+function fm() {
+  return Ct;
+}
+function dm(e) {
+  Ct && Ct.cleanups.push(e);
+}
+const qs = (e) => {
+    const t = new Set(e);
+    return (t.w = 0), (t.n = 0), t;
+  },
+  ef = (e) => (e.w & Tn) > 0,
+  tf = (e) => (e.n & Tn) > 0,
+  hm = ({ deps: e }) => {
+    if (e.length) for (let t = 0; t < e.length; t++) e[t].w |= Tn;
+  },
+  mm = (e) => {
+    const { deps: t } = e;
+    if (t.length) {
+      let n = 0;
+      for (let o = 0; o < t.length; o++) {
+        const r = t[o];
+        ef(r) && !tf(r) ? r.delete(e) : (t[n++] = r), (r.w &= ~Tn), (r.n &= ~Tn);
+      }
+      t.length = n;
+    }
+  },
+  Bl = new WeakMap();
+let Qo = 0,
+  Tn = 1;
+const Il = 30;
+let Nt;
+const Kn = Symbol(''),
+  zl = Symbol('');
+class Ts {
+  constructor(t, n = null, o) {
+    (this.fn = t),
+      (this.scheduler = n),
+      (this.active = !0),
+      (this.deps = []),
+      (this.parent = void 0),
+      cm(this, o);
+  }
+  run() {
+    if (!this.active) return this.fn();
+    let t = Nt,
+      n = kn;
+    for (; t; ) {
+      if (t === this) return;
+      t = t.parent;
+    }
+    try {
+      return (
+        (this.parent = Nt),
+        (Nt = this),
+        (kn = !0),
+        (Tn = 1 << ++Qo),
+        Qo <= Il ? hm(this) : Ea(this),
+        this.fn()
+      );
+    } finally {
+      Qo <= Il && mm(this),
+        (Tn = 1 << --Qo),
+        (Nt = this.parent),
+        (kn = n),
+        (this.parent = void 0),
+        this.deferStop && this.stop();
+    }
+  }
+  stop() {
+    Nt === this
+      ? (this.deferStop = !0)
+      : this.active && (Ea(this), this.onStop && this.onStop(), (this.active = !1));
+  }
+}
+function Ea(e) {
+  const { deps: t } = e;
+  if (t.length) {
+    for (let n = 0; n < t.length; n++) t[n].delete(e);
+    t.length = 0;
+  }
+}
+let kn = !0;
+const nf = [];
+function Lo() {
+  nf.push(kn), (kn = !1);
+}
+function Mo() {
+  const e = nf.pop();
+  kn = e === void 0 ? !0 : e;
+}
+function Tt(e, t, n) {
+  if (kn && Nt) {
+    let o = Bl.get(e);
+    o || Bl.set(e, (o = new Map()));
+    let r = o.get(n);
+    r || o.set(n, (r = qs())), of(r);
+  }
+}
+function of(e, t) {
+  let n = !1;
+  Qo <= Il ? tf(e) || ((e.n |= Tn), (n = !ef(e))) : (n = !e.has(Nt)),
+    n && (e.add(Nt), Nt.deps.push(e));
+}
+function fn(e, t, n, o, r, i) {
+  const l = Bl.get(e);
+  if (!l) return;
+  let s = [];
+  if (t === 'clear') s = [...l.values()];
+  else if (n === 'length' && Ce(e)) {
+    const a = Es(o);
+    l.forEach((c, u) => {
+      (u === 'length' || u >= a) && s.push(c);
+    });
+  } else
+    switch ((n !== void 0 && s.push(l.get(n)), t)) {
+      case 'add':
+        Ce(e) ? ks(n) && s.push(l.get('length')) : (s.push(l.get(Kn)), _o(e) && s.push(l.get(zl)));
+        break;
+      case 'delete':
+        Ce(e) || (s.push(l.get(Kn)), _o(e) && s.push(l.get(zl)));
+        break;
+      case 'set':
+        _o(e) && s.push(l.get(Kn));
+        break;
+    }
+  if (s.length === 1) s[0] && Vl(s[0]);
+  else {
+    const a = [];
+    for (const c of s) c && a.push(...c);
+    Vl(qs(a));
+  }
+}
+function Vl(e, t) {
+  const n = Ce(e) ? e : [...e];
+  for (const o of n) o.computed && qa(o);
+  for (const o of n) o.computed || qa(o);
+}
+function qa(e, t) {
+  (e !== Nt || e.allowRecurse) && (e.scheduler ? e.scheduler() : e.run());
+}
+const vm = _s('__proto__,__v_isRef,__isVue'),
+  rf = new Set(
+    Object.getOwnPropertyNames(Symbol)
+      .filter((e) => e !== 'arguments' && e !== 'caller')
+      .map((e) => Symbol[e])
+      .filter(Cs),
+  ),
+  gm = Ps(),
+  pm = Ps(!1, !0),
+  bm = Ps(!0),
+  Ta = ym();
+function ym() {
+  const e = {};
+  return (
+    ['includes', 'indexOf', 'lastIndexOf'].forEach((t) => {
+      e[t] = function (...n) {
+        const o = Te(this);
+        for (let i = 0, l = this.length; i < l; i++) Tt(o, 'get', i + '');
+        const r = o[t](...n);
+        return r === -1 || r === !1 ? o[t](...n.map(Te)) : r;
+      };
+    }),
+    ['push', 'pop', 'shift', 'unshift', 'splice'].forEach((t) => {
+      e[t] = function (...n) {
+        Lo();
+        const o = Te(this)[t].apply(this, n);
+        return Mo(), o;
+      };
+    }),
+    e
+  );
+}
+function Ps(e = !1, t = !1) {
+  return function (o, r, i) {
+    if (r === '__v_isReactive') return !e;
+    if (r === '__v_isReadonly') return e;
+    if (r === '__v_isShallow') return t;
+    if (r === '__v_raw' && i === (e ? (t ? Mm : cf) : t ? uf : af).get(o)) return o;
+    const l = Ce(o);
+    if (!e && l && Oe(Ta, r)) return Reflect.get(Ta, r, i);
+    const s = Reflect.get(o, r, i);
+    return (Cs(r) ? rf.has(r) : vm(r)) || (e || Tt(o, 'get', r), t)
+      ? s
+      : Ve(s)
+      ? l && ks(r)
+        ? s
+        : s.value
+      : Ue(s)
+      ? e
+        ? df(s)
+        : jt(s)
+      : s;
+  };
+}
+const wm = lf(),
+  _m = lf(!0);
+function lf(e = !1) {
+  return function (n, o, r, i) {
+    let l = n[o];
+    if (Eo(l) && Ve(l) && !Ve(r)) return !1;
+    if (!e && (!si(r) && !Eo(r) && ((l = Te(l)), (r = Te(r))), !Ce(n) && Ve(l) && !Ve(r)))
+      return (l.value = r), !0;
+    const s = Ce(n) && ks(o) ? Number(o) < n.length : Oe(n, o),
+      a = Reflect.set(n, o, r, i);
+    return n === Te(i) && (s ? lr(r, l) && fn(n, 'set', o, r) : fn(n, 'add', o, r)), a;
+  };
+}
+function Sm(e, t) {
+  const n = Oe(e, t);
+  e[t];
+  const o = Reflect.deleteProperty(e, t);
+  return o && n && fn(e, 'delete', t, void 0), o;
+}
+function xm(e, t) {
+  const n = Reflect.has(e, t);
+  return (!Cs(t) || !rf.has(t)) && Tt(e, 'has', t), n;
+}
+function Cm(e) {
+  return Tt(e, 'iterate', Ce(e) ? 'length' : Kn), Reflect.ownKeys(e);
+}
+const sf = { get: gm, set: wm, deleteProperty: Sm, has: xm, ownKeys: Cm },
+  km = {
+    get: bm,
+    set(e, t) {
+      return !0;
+    },
+    deleteProperty(e, t) {
+      return !0;
+    },
+  },
+  Em = st({}, sf, { get: pm, set: _m }),
+  Rs = (e) => e,
+  Ei = (e) => Reflect.getPrototypeOf(e);
+function Ar(e, t, n = !1, o = !1) {
+  e = e.__v_raw;
+  const r = Te(e),
+    i = Te(t);
+  n || (t !== i && Tt(r, 'get', t), Tt(r, 'get', i));
+  const { has: l } = Ei(r),
+    s = o ? Rs : n ? $s : sr;
+  if (l.call(r, t)) return s(e.get(t));
+  if (l.call(r, i)) return s(e.get(i));
+  e !== r && e.get(t);
+}
+function Or(e, t = !1) {
+  const n = this.__v_raw,
+    o = Te(n),
+    r = Te(e);
+  return (
+    t || (e !== r && Tt(o, 'has', e), Tt(o, 'has', r)), e === r ? n.has(e) : n.has(e) || n.has(r)
+  );
+}
+function $r(e, t = !1) {
+  return (e = e.__v_raw), !t && Tt(Te(e), 'iterate', Kn), Reflect.get(e, 'size', e);
+}
+function Pa(e) {
+  e = Te(e);
+  const t = Te(this);
+  return Ei(t).has.call(t, e) || (t.add(e), fn(t, 'add', e, e)), this;
+}
+function Ra(e, t) {
+  t = Te(t);
+  const n = Te(this),
+    { has: o, get: r } = Ei(n);
+  let i = o.call(n, e);
+  i || ((e = Te(e)), (i = o.call(n, e)));
+  const l = r.call(n, e);
+  return n.set(e, t), i ? lr(t, l) && fn(n, 'set', e, t) : fn(n, 'add', e, t), this;
+}
+function Aa(e) {
+  const t = Te(this),
+    { has: n, get: o } = Ei(t);
+  let r = n.call(t, e);
+  r || ((e = Te(e)), (r = n.call(t, e))), o && o.call(t, e);
+  const i = t.delete(e);
+  return r && fn(t, 'delete', e, void 0), i;
+}
+function Oa() {
+  const e = Te(this),
+    t = e.size !== 0,
+    n = e.clear();
+  return t && fn(e, 'clear', void 0, void 0), n;
+}
+function Lr(e, t) {
+  return function (o, r) {
+    const i = this,
+      l = i.__v_raw,
+      s = Te(l),
+      a = t ? Rs : e ? $s : sr;
+    return !e && Tt(s, 'iterate', Kn), l.forEach((c, u) => o.call(r, a(c), a(u), i));
+  };
+}
+function Mr(e, t, n) {
+  return function (...o) {
+    const r = this.__v_raw,
+      i = Te(r),
+      l = _o(i),
+      s = e === 'entries' || (e === Symbol.iterator && l),
+      a = e === 'keys' && l,
+      c = r[e](...o),
+      u = n ? Rs : t ? $s : sr;
+    return (
+      !t && Tt(i, 'iterate', a ? zl : Kn),
+      {
+        next() {
+          const { value: f, done: d } = c.next();
+          return d ? { value: f, done: d } : { value: s ? [u(f[0]), u(f[1])] : u(f), done: d };
+        },
+        [Symbol.iterator]() {
+          return this;
+        },
+      }
+    );
+  };
+}
+function gn(e) {
+  return function (...t) {
+    return e === 'delete' ? !1 : this;
+  };
+}
+function qm() {
+  const e = {
+      get(i) {
+        return Ar(this, i);
+      },
+      get size() {
+        return $r(this);
+      },
+      has: Or,
+      add: Pa,
+      set: Ra,
+      delete: Aa,
+      clear: Oa,
+      forEach: Lr(!1, !1),
+    },
+    t = {
+      get(i) {
+        return Ar(this, i, !1, !0);
+      },
+      get size() {
+        return $r(this);
+      },
+      has: Or,
+      add: Pa,
+      set: Ra,
+      delete: Aa,
+      clear: Oa,
+      forEach: Lr(!1, !0),
+    },
+    n = {
+      get(i) {
+        return Ar(this, i, !0);
+      },
+      get size() {
+        return $r(this, !0);
+      },
+      has(i) {
+        return Or.call(this, i, !0);
+      },
+      add: gn('add'),
+      set: gn('set'),
+      delete: gn('delete'),
+      clear: gn('clear'),
+      forEach: Lr(!0, !1),
+    },
+    o = {
+      get(i) {
+        return Ar(this, i, !0, !0);
+      },
+      get size() {
+        return $r(this, !0);
+      },
+      has(i) {
+        return Or.call(this, i, !0);
+      },
+      add: gn('add'),
+      set: gn('set'),
+      delete: gn('delete'),
+      clear: gn('clear'),
+      forEach: Lr(!0, !0),
+    };
+  return (
+    ['keys', 'values', 'entries', Symbol.iterator].forEach((i) => {
+      (e[i] = Mr(i, !1, !1)),
+        (n[i] = Mr(i, !0, !1)),
+        (t[i] = Mr(i, !1, !0)),
+        (o[i] = Mr(i, !0, !0));
+    }),
+    [e, n, t, o]
+  );
+}
+const [Tm, Pm, Rm, Am] = qm();
+function As(e, t) {
+  const n = t ? (e ? Am : Rm) : e ? Pm : Tm;
+  return (o, r, i) =>
+    r === '__v_isReactive'
+      ? !e
+      : r === '__v_isReadonly'
+      ? e
+      : r === '__v_raw'
+      ? o
+      : Reflect.get(Oe(n, r) && r in o ? n : o, r, i);
+}
+const Om = { get: As(!1, !1) },
+  $m = { get: As(!1, !0) },
+  Lm = { get: As(!0, !1) },
+  af = new WeakMap(),
+  uf = new WeakMap(),
+  cf = new WeakMap(),
+  Mm = new WeakMap();
+function Fm(e) {
+  switch (e) {
+    case 'Object':
+    case 'Array':
+      return 1;
+    case 'Map':
+    case 'Set':
+    case 'WeakMap':
+    case 'WeakSet':
+      return 2;
+    default:
+      return 0;
+  }
+}
+function Bm(e) {
+  return e.__v_skip || !Object.isExtensible(e) ? 0 : Fm(lm(e));
+}
+function jt(e) {
+  return Eo(e) ? e : Os(e, !1, sf, Om, af);
+}
+function ff(e) {
+  return Os(e, !1, Em, $m, uf);
+}
+function df(e) {
+  return Os(e, !0, km, Lm, cf);
+}
+function Os(e, t, n, o, r) {
+  if (!Ue(e) || (e.__v_raw && !(t && e.__v_isReactive))) return e;
+  const i = r.get(e);
+  if (i) return i;
+  const l = Bm(e);
+  if (l === 0) return e;
+  const s = new Proxy(e, l === 2 ? o : n);
+  return r.set(e, s), s;
+}
+function En(e) {
+  return Eo(e) ? En(e.__v_raw) : !!(e && e.__v_isReactive);
+}
+function Eo(e) {
+  return !!(e && e.__v_isReadonly);
+}
+function si(e) {
+  return !!(e && e.__v_isShallow);
+}
+function hf(e) {
+  return En(e) || Eo(e);
+}
+function Te(e) {
+  const t = e && e.__v_raw;
+  return t ? Te(t) : e;
+}
+function dn(e) {
+  return li(e, '__v_skip', !0), e;
+}
+const sr = (e) => (Ue(e) ? jt(e) : e),
+  $s = (e) => (Ue(e) ? df(e) : e);
+function mf(e) {
+  kn && Nt && ((e = Te(e)), of(e.dep || (e.dep = qs())));
+}
+function vf(e, t) {
+  (e = Te(e)), e.dep && Vl(e.dep);
+}
+function Ve(e) {
+  return !!(e && e.__v_isRef === !0);
+}
+function W(e) {
+  return gf(e, !1);
+}
+function Im(e) {
+  return gf(e, !0);
+}
+function gf(e, t) {
+  return Ve(e) ? e : new zm(e, t);
+}
+class zm {
+  constructor(t, n) {
+    (this.__v_isShallow = n),
+      (this.dep = void 0),
+      (this.__v_isRef = !0),
+      (this._rawValue = n ? t : Te(t)),
+      (this._value = n ? t : sr(t));
+  }
+  get value() {
+    return mf(this), this._value;
+  }
+  set value(t) {
+    const n = this.__v_isShallow || si(t) || Eo(t);
+    (t = n ? t : Te(t)),
+      lr(t, this._rawValue) && ((this._rawValue = t), (this._value = n ? t : sr(t)), vf(this));
+  }
+}
+function ue(e) {
+  return Ve(e) ? e.value : e;
+}
+const Vm = {
+  get: (e, t, n) => ue(Reflect.get(e, t, n)),
+  set: (e, t, n, o) => {
+    const r = e[t];
+    return Ve(r) && !Ve(n) ? ((r.value = n), !0) : Reflect.set(e, t, n, o);
+  },
+};
+function pf(e) {
+  return En(e) ? e : new Proxy(e, Vm);
+}
+function Nm(e) {
+  const t = Ce(e) ? new Array(e.length) : {};
+  for (const n in e) t[n] = Dm(e, n);
+  return t;
+}
+class jm {
+  constructor(t, n, o) {
+    (this._object = t), (this._key = n), (this._defaultValue = o), (this.__v_isRef = !0);
+  }
+  get value() {
+    const t = this._object[this._key];
+    return t === void 0 ? this._defaultValue : t;
+  }
+  set value(t) {
+    this._object[this._key] = t;
+  }
+}
+function Dm(e, t, n) {
+  const o = e[t];
+  return Ve(o) ? o : new jm(e, t, n);
+}
+var bf;
+class Hm {
+  constructor(t, n, o, r) {
+    (this._setter = n),
+      (this.dep = void 0),
+      (this.__v_isRef = !0),
+      (this[bf] = !1),
+      (this._dirty = !0),
+      (this.effect = new Ts(t, () => {
+        this._dirty || ((this._dirty = !0), vf(this));
+      })),
+      (this.effect.computed = this),
+      (this.effect.active = this._cacheable = !r),
+      (this.__v_isReadonly = o);
+  }
+  get value() {
+    const t = Te(this);
+    return (
+      mf(t), (t._dirty || !t._cacheable) && ((t._dirty = !1), (t._value = t.effect.run())), t._value
+    );
+  }
+  set value(t) {
+    this._setter(t);
+  }
+}
+bf = '__v_isReadonly';
+function Um(e, t, n = !1) {
+  let o, r;
+  const i = Ee(e);
+  return i ? ((o = e), (r = Ut)) : ((o = e.get), (r = e.set)), new Hm(o, r, i || !r, n);
+}
+function qn(e, t, n, o) {
+  let r;
+  try {
+    r = o ? e(...o) : e();
+  } catch (i) {
+    qi(i, t, n);
+  }
+  return r;
+}
+function $t(e, t, n, o) {
+  if (Ee(e)) {
+    const i = qn(e, t, n, o);
+    return (
+      i &&
+        Jc(i) &&
+        i.catch((l) => {
+          qi(l, t, n);
+        }),
+      i
+    );
+  }
+  const r = [];
+  for (let i = 0; i < e.length; i++) r.push($t(e[i], t, n, o));
+  return r;
+}
+function qi(e, t, n, o = !0) {
+  const r = t ? t.vnode : null;
+  if (t) {
+    let i = t.parent;
+    const l = t.proxy,
+      s = n;
+    for (; i; ) {
+      const c = i.ec;
+      if (c) {
+        for (let u = 0; u < c.length; u++) if (c[u](e, l, s) === !1) return;
+      }
+      i = i.parent;
+    }
+    const a = t.appContext.config.errorHandler;
+    if (a) {
+      qn(a, null, 10, [e, l, s]);
+      return;
+    }
+  }
+  Km(e, n, r, o);
+}
+function Km(e, t, n, o = !0) {
+  console.error(e);
+}
+let ar = !1,
+  Nl = !1;
+const mt = [];
+let Xt = 0;
+const So = [];
+let sn = null,
+  zn = 0;
+const yf = Promise.resolve();
+let Ls = null;
+function ze(e) {
+  const t = Ls || yf;
+  return e ? t.then(this ? e.bind(this) : e) : t;
+}
+function Wm(e) {
+  let t = Xt + 1,
+    n = mt.length;
+  for (; t < n; ) {
+    const o = (t + n) >>> 1;
+    ur(mt[o]) < e ? (t = o + 1) : (n = o);
+  }
+  return t;
+}
+function Ms(e) {
+  (!mt.length || !mt.includes(e, ar && e.allowRecurse ? Xt + 1 : Xt)) &&
+    (e.id == null ? mt.push(e) : mt.splice(Wm(e.id), 0, e), wf());
+}
+function wf() {
+  !ar && !Nl && ((Nl = !0), (Ls = yf.then(Sf)));
+}
+function Qm(e) {
+  const t = mt.indexOf(e);
+  t > Xt && mt.splice(t, 1);
+}
+function Jm(e) {
+  Ce(e) ? So.push(...e) : (!sn || !sn.includes(e, e.allowRecurse ? zn + 1 : zn)) && So.push(e),
+    wf();
+}
+function $a(e, t = ar ? Xt + 1 : 0) {
+  for (; t < mt.length; t++) {
+    const n = mt[t];
+    n && n.pre && (mt.splice(t, 1), t--, n());
+  }
+}
+function _f(e) {
+  if (So.length) {
+    const t = [...new Set(So)];
+    if (((So.length = 0), sn)) {
+      sn.push(...t);
+      return;
+    }
+    for (sn = t, sn.sort((n, o) => ur(n) - ur(o)), zn = 0; zn < sn.length; zn++) sn[zn]();
+    (sn = null), (zn = 0);
+  }
+}
+const ur = (e) => (e.id == null ? 1 / 0 : e.id),
+  Xm = (e, t) => {
+    const n = ur(e) - ur(t);
+    if (n === 0) {
+      if (e.pre && !t.pre) return -1;
+      if (t.pre && !e.pre) return 1;
+    }
+    return n;
+  };
+function Sf(e) {
+  (Nl = !1), (ar = !0), mt.sort(Xm);
+  const t = Ut;
+  try {
+    for (Xt = 0; Xt < mt.length; Xt++) {
+      const n = mt[Xt];
+      n && n.active !== !1 && qn(n, null, 14);
+    }
+  } finally {
+    (Xt = 0), (mt.length = 0), _f(), (ar = !1), (Ls = null), (mt.length || So.length) && Sf();
+  }
+}
+function Ym(e, t, ...n) {
+  if (e.isUnmounted) return;
+  const o = e.vnode.props || He;
+  let r = n;
+  const i = t.startsWith('update:'),
+    l = i && t.slice(7);
+  if (l && l in o) {
+    const u = `${l === 'modelValue' ? 'model' : l}Modifiers`,
+      { number: f, trim: d } = o[u] || He;
+    d && (r = n.map((h) => (et(h) ? h.trim() : h))), f && (r = n.map(Es));
+  }
+  let s,
+    a = o[(s = ll(t))] || o[(s = ll(Zt(t)))];
+  !a && i && (a = o[(s = ll($o(t)))]), a && $t(a, e, 6, r);
+  const c = o[s + 'Once'];
+  if (c) {
+    if (!e.emitted) e.emitted = {};
+    else if (e.emitted[s]) return;
+    (e.emitted[s] = !0), $t(c, e, 6, r);
+  }
+}
+function xf(e, t, n = !1) {
+  const o = t.emitsCache,
+    r = o.get(e);
+  if (r !== void 0) return r;
+  const i = e.emits;
+  let l = {},
+    s = !1;
+  if (!Ee(e)) {
+    const a = (c) => {
+      const u = xf(c, t, !0);
+      u && ((s = !0), st(l, u));
+    };
+    !n && t.mixins.length && t.mixins.forEach(a),
+      e.extends && a(e.extends),
+      e.mixins && e.mixins.forEach(a);
+  }
+  return !i && !s
+    ? (Ue(e) && o.set(e, null), null)
+    : (Ce(i) ? i.forEach((a) => (l[a] = null)) : st(l, i), Ue(e) && o.set(e, l), l);
+}
+function Ti(e, t) {
+  return !e || !Si(t)
+    ? !1
+    : ((t = t.slice(2).replace(/Once$/, '')),
+      Oe(e, t[0].toLowerCase() + t.slice(1)) || Oe(e, $o(t)) || Oe(e, t));
+}
+let qt = null,
+  Pi = null;
+function ai(e) {
+  const t = qt;
+  return (qt = e), (Pi = (e && e.type.__scopeId) || null), t;
+}
+function Gm(e) {
+  Pi = e;
+}
+function Zm() {
+  Pi = null;
+}
+function ge(e, t = qt, n) {
+  if (!t || e._n) return e;
+  const o = (...r) => {
+    o._d && Ha(-1);
+    const i = ai(t);
+    let l;
+    try {
+      l = e(...r);
+    } finally {
+      ai(i), o._d && Ha(1);
+    }
+    return l;
+  };
+  return (o._n = !0), (o._c = !0), (o._d = !0), o;
+}
+function al(e) {
+  const {
+    type: t,
+    vnode: n,
+    proxy: o,
+    withProxy: r,
+    props: i,
+    propsOptions: [l],
+    slots: s,
+    attrs: a,
+    emit: c,
+    render: u,
+    renderCache: f,
+    data: d,
+    setupState: h,
+    ctx: m,
+    inheritAttrs: g,
+  } = e;
+  let b, T;
+  const k = ai(e);
+  try {
+    if (n.shapeFlag & 4) {
+      const x = r || o;
+      (b = Jt(u.call(x, x, f, i, h, d, m))), (T = a);
+    } else {
+      const x = t;
+      (b = Jt(x.length > 1 ? x(i, { attrs: a, slots: s, emit: c }) : x(i, null))),
+        (T = t.props ? a : ev(a));
+    }
+  } catch (x) {
+    (Zo.length = 0), qi(x, e, 1), (b = Z(Kt));
+  }
+  let E = b;
+  if (T && g !== !1) {
+    const x = Object.keys(T),
+      { shapeFlag: P } = E;
+    x.length && P & 7 && (l && x.some(Ss) && (T = tv(T, l)), (E = Pn(E, T)));
+  }
+  return (
+    n.dirs && ((E = Pn(E)), (E.dirs = E.dirs ? E.dirs.concat(n.dirs) : n.dirs)),
+    n.transition && (E.transition = n.transition),
+    (b = E),
+    ai(k),
+    b
+  );
+}
+const ev = (e) => {
+    let t;
+    for (const n in e) (n === 'class' || n === 'style' || Si(n)) && ((t || (t = {}))[n] = e[n]);
+    return t;
+  },
+  tv = (e, t) => {
+    const n = {};
+    for (const o in e) (!Ss(o) || !(o.slice(9) in t)) && (n[o] = e[o]);
+    return n;
+  };
+function nv(e, t, n) {
+  const { props: o, children: r, component: i } = e,
+    { props: l, children: s, patchFlag: a } = t,
+    c = i.emitsOptions;
+  if (t.dirs || t.transition) return !0;
+  if (n && a >= 0) {
+    if (a & 1024) return !0;
+    if (a & 16) return o ? La(o, l, c) : !!l;
+    if (a & 8) {
+      const u = t.dynamicProps;
+      for (let f = 0; f < u.length; f++) {
+        const d = u[f];
+        if (l[d] !== o[d] && !Ti(c, d)) return !0;
+      }
+    }
+  } else
+    return (r || s) && (!s || !s.$stable) ? !0 : o === l ? !1 : o ? (l ? La(o, l, c) : !0) : !!l;
+  return !1;
+}
+function La(e, t, n) {
+  const o = Object.keys(t);
+  if (o.length !== Object.keys(e).length) return !0;
+  for (let r = 0; r < o.length; r++) {
+    const i = o[r];
+    if (t[i] !== e[i] && !Ti(n, i)) return !0;
+  }
+  return !1;
+}
+function ov({ vnode: e, parent: t }, n) {
+  for (; t && t.subTree === e; ) ((e = t.vnode).el = n), (t = t.parent);
+}
+const rv = (e) => e.__isSuspense;
+function iv(e, t) {
+  t && t.pendingBranch ? (Ce(e) ? t.effects.push(...e) : t.effects.push(e)) : Jm(e);
+}
+function xo(e, t) {
+  if (lt) {
+    let n = lt.provides;
+    const o = lt.parent && lt.parent.provides;
+    o === n && (n = lt.provides = Object.create(o)), (n[e] = t);
+  }
+}
+function ut(e, t, n = !1) {
+  const o = lt || qt;
+  if (o) {
+    const r =
+      o.parent == null ? o.vnode.appContext && o.vnode.appContext.provides : o.parent.provides;
+    if (r && e in r) return r[e];
+    if (arguments.length > 1) return n && Ee(t) ? t.call(o.proxy) : t;
+  }
+}
+const Fr = {};
+function fe(e, t, n) {
+  return Cf(e, t, n);
+}
+function Cf(e, t, { immediate: n, deep: o, flush: r, onTrack: i, onTrigger: l } = He) {
+  const s = lt;
+  let a,
+    c = !1,
+    u = !1;
+  if (
+    (Ve(e)
+      ? ((a = () => e.value), (c = si(e)))
+      : En(e)
+      ? ((a = () => e), (o = !0))
+      : Ce(e)
+      ? ((u = !0),
+        (c = e.some((E) => En(E) || si(E))),
+        (a = () =>
+          e.map((E) => {
+            if (Ve(E)) return E.value;
+            if (En(E)) return jn(E);
+            if (Ee(E)) return qn(E, s, 2);
+          })))
+      : Ee(e)
+      ? t
+        ? (a = () => qn(e, s, 2))
+        : (a = () => {
+            if (!(s && s.isUnmounted)) return f && f(), $t(e, s, 3, [d]);
+          })
+      : (a = Ut),
+    t && o)
+  ) {
+    const E = a;
+    a = () => jn(E());
+  }
+  let f,
+    d = (E) => {
+      f = T.onStop = () => {
+        qn(E, s, 4);
+      };
+    },
+    h;
+  if (hr)
+    if (((d = Ut), t ? n && $t(t, s, 3, [a(), u ? [] : void 0, d]) : a(), r === 'sync')) {
+      const E = Xv();
+      h = E.__watcherHandles || (E.__watcherHandles = []);
+    } else return Ut;
+  let m = u ? new Array(e.length).fill(Fr) : Fr;
+  const g = () => {
+    if (!!T.active)
+      if (t) {
+        const E = T.run();
+        (o || c || (u ? E.some((x, P) => lr(x, m[P])) : lr(E, m))) &&
+          (f && f(), $t(t, s, 3, [E, m === Fr ? void 0 : u && m[0] === Fr ? [] : m, d]), (m = E));
+      } else T.run();
+  };
+  g.allowRecurse = !!t;
+  let b;
+  r === 'sync'
+    ? (b = g)
+    : r === 'post'
+    ? (b = () => wt(g, s && s.suspense))
+    : ((g.pre = !0), s && (g.id = s.uid), (b = () => Ms(g)));
+  const T = new Ts(a, b);
+  t ? (n ? g() : (m = T.run())) : r === 'post' ? wt(T.run.bind(T), s && s.suspense) : T.run();
+  const k = () => {
+    T.stop(), s && s.scope && xs(s.scope.effects, T);
+  };
+  return h && h.push(k), k;
+}
+function lv(e, t, n) {
+  const o = this.proxy,
+    r = et(e) ? (e.includes('.') ? kf(o, e) : () => o[e]) : e.bind(o, o);
+  let i;
+  Ee(t) ? (i = t) : ((i = t.handler), (n = t));
+  const l = lt;
+  qo(this);
+  const s = Cf(r, i.bind(o), n);
+  return l ? qo(l) : Jn(), s;
+}
+function kf(e, t) {
+  const n = t.split('.');
+  return () => {
+    let o = e;
+    for (let r = 0; r < n.length && o; r++) o = o[n[r]];
+    return o;
+  };
+}
+function jn(e, t) {
+  if (!Ue(e) || e.__v_skip || ((t = t || new Set()), t.has(e))) return e;
+  if ((t.add(e), Ve(e))) jn(e.value, t);
+  else if (Ce(e)) for (let n = 0; n < e.length; n++) jn(e[n], t);
+  else if (Qc(e) || _o(e))
+    e.forEach((n) => {
+      jn(n, t);
+    });
+  else if (Yc(e)) for (const n in e) jn(e[n], t);
+  return e;
+}
+function Ef() {
+  const e = { isMounted: !1, isLeaving: !1, isUnmounting: !1, leavingVNodes: new Map() };
+  return (
+    ct(() => {
+      e.isMounted = !0;
+    }),
+    We(() => {
+      e.isUnmounting = !0;
+    }),
+    e
+  );
+}
+const Pt = [Function, Array],
+  sv = {
+    name: 'BaseTransition',
+    props: {
+      mode: String,
+      appear: Boolean,
+      persisted: Boolean,
+      onBeforeEnter: Pt,
+      onEnter: Pt,
+      onAfterEnter: Pt,
+      onEnterCancelled: Pt,
+      onBeforeLeave: Pt,
+      onLeave: Pt,
+      onAfterLeave: Pt,
+      onLeaveCancelled: Pt,
+      onBeforeAppear: Pt,
+      onAppear: Pt,
+      onAfterAppear: Pt,
+      onAppearCancelled: Pt,
+    },
+    setup(e, { slots: t }) {
+      const n = qe(),
+        o = Ef();
+      let r;
+      return () => {
+        const i = t.default && Fs(t.default(), !0);
+        if (!i || !i.length) return;
+        let l = i[0];
+        if (i.length > 1) {
+          for (const g of i)
+            if (g.type !== Kt) {
+              l = g;
+              break;
+            }
+        }
+        const s = Te(e),
+          { mode: a } = s;
+        if (o.isLeaving) return ul(l);
+        const c = Ma(l);
+        if (!c) return ul(l);
+        const u = cr(c, s, o, n);
+        fr(c, u);
+        const f = n.subTree,
+          d = f && Ma(f);
+        let h = !1;
+        const { getTransitionKey: m } = c.type;
+        if (m) {
+          const g = m();
+          r === void 0 ? (r = g) : g !== r && ((r = g), (h = !0));
+        }
+        if (d && d.type !== Kt && (!Vn(c, d) || h)) {
+          const g = cr(d, s, o, n);
+          if ((fr(d, g), a === 'out-in'))
+            return (
+              (o.isLeaving = !0),
+              (g.afterLeave = () => {
+                (o.isLeaving = !1), n.update.active !== !1 && n.update();
+              }),
+              ul(l)
+            );
+          a === 'in-out' &&
+            c.type !== Kt &&
+            (g.delayLeave = (b, T, k) => {
+              const E = Tf(o, d);
+              (E[String(d.key)] = d),
+                (b._leaveCb = () => {
+                  T(), (b._leaveCb = void 0), delete u.delayedLeave;
+                }),
+                (u.delayedLeave = k);
+            });
+        }
+        return l;
+      };
+    },
+  },
+  qf = sv;
+function Tf(e, t) {
+  const { leavingVNodes: n } = e;
+  let o = n.get(t.type);
+  return o || ((o = Object.create(null)), n.set(t.type, o)), o;
+}
+function cr(e, t, n, o) {
+  const {
+      appear: r,
+      mode: i,
+      persisted: l = !1,
+      onBeforeEnter: s,
+      onEnter: a,
+      onAfterEnter: c,
+      onEnterCancelled: u,
+      onBeforeLeave: f,
+      onLeave: d,
+      onAfterLeave: h,
+      onLeaveCancelled: m,
+      onBeforeAppear: g,
+      onAppear: b,
+      onAfterAppear: T,
+      onAppearCancelled: k,
+    } = t,
+    E = String(e.key),
+    x = Tf(n, e),
+    P = (p, $) => {
+      p && $t(p, o, 9, $);
+    },
+    C = (p, $) => {
+      const R = $[1];
+      P(p, $), Ce(p) ? p.every((B) => B.length <= 1) && R() : p.length <= 1 && R();
+    },
+    S = {
+      mode: i,
+      persisted: l,
+      beforeEnter(p) {
+        let $ = s;
+        if (!n.isMounted)
+          if (r) $ = g || s;
+          else return;
+        p._leaveCb && p._leaveCb(!0);
+        const R = x[E];
+        R && Vn(e, R) && R.el._leaveCb && R.el._leaveCb(), P($, [p]);
+      },
+      enter(p) {
+        let $ = a,
+          R = c,
+          B = u;
+        if (!n.isMounted)
+          if (r) ($ = b || a), (R = T || c), (B = k || u);
+          else return;
+        let I = !1;
+        const Q = (p._enterCb = (H) => {
+          I ||
+            ((I = !0),
+            H ? P(B, [p]) : P(R, [p]),
+            S.delayedLeave && S.delayedLeave(),
+            (p._enterCb = void 0));
+        });
+        $ ? C($, [p, Q]) : Q();
+      },
+      leave(p, $) {
+        const R = String(e.key);
+        if ((p._enterCb && p._enterCb(!0), n.isUnmounting)) return $();
+        P(f, [p]);
+        let B = !1;
+        const I = (p._leaveCb = (Q) => {
+          B ||
+            ((B = !0),
+            $(),
+            Q ? P(m, [p]) : P(h, [p]),
+            (p._leaveCb = void 0),
+            x[R] === e && delete x[R]);
+        });
+        (x[R] = e), d ? C(d, [p, I]) : I();
+      },
+      clone(p) {
+        return cr(p, t, n, o);
+      },
+    };
+  return S;
+}
+function ul(e) {
+  if (Ai(e)) return (e = Pn(e)), (e.children = null), e;
+}
+function Ma(e) {
+  return Ai(e) ? (e.children ? e.children[0] : void 0) : e;
+}
+function fr(e, t) {
+  e.shapeFlag & 6 && e.component
+    ? fr(e.component.subTree, t)
+    : e.shapeFlag & 128
+    ? ((e.ssContent.transition = t.clone(e.ssContent)),
+      (e.ssFallback.transition = t.clone(e.ssFallback)))
+    : (e.transition = t);
+}
+function Fs(e, t = !1, n) {
+  let o = [],
+    r = 0;
+  for (let i = 0; i < e.length; i++) {
+    let l = e[i];
+    const s = n == null ? l.key : String(n) + String(l.key != null ? l.key : i);
+    l.type === kt
+      ? (l.patchFlag & 128 && r++, (o = o.concat(Fs(l.children, t, s))))
+      : (t || l.type !== Kt) && o.push(s != null ? Pn(l, { key: s }) : l);
+  }
+  if (r > 1) for (let i = 0; i < o.length; i++) o[i].patchFlag = -2;
+  return o;
+}
+function Ri(e) {
+  return Ee(e) ? { setup: e, name: e.name } : e;
+}
+const Wr = (e) => !!e.type.__asyncLoader,
+  Ai = (e) => e.type.__isKeepAlive;
+function Fo(e, t) {
+  Pf(e, 'a', t);
+}
+function An(e, t) {
+  Pf(e, 'da', t);
+}
+function Pf(e, t, n = lt) {
+  const o =
+    e.__wdc ||
+    (e.__wdc = () => {
+      let r = n;
+      for (; r; ) {
+        if (r.isDeactivated) return;
+        r = r.parent;
+      }
+      return e();
+    });
+  if ((Oi(t, o, n), n)) {
+    let r = n.parent;
+    for (; r && r.parent; ) Ai(r.parent.vnode) && av(o, t, n, r), (r = r.parent);
+  }
+}
+function av(e, t, n, o) {
+  const r = Oi(t, e, o, !0);
+  Bo(() => {
+    xs(o[t], r);
+  }, n);
+}
+function Oi(e, t, n = lt, o = !1) {
+  if (n) {
+    const r = n[e] || (n[e] = []),
+      i =
+        t.__weh ||
+        (t.__weh = (...l) => {
+          if (n.isUnmounted) return;
+          Lo(), qo(n);
+          const s = $t(t, n, e, l);
+          return Jn(), Mo(), s;
+        });
+    return o ? r.unshift(i) : r.push(i), i;
+  }
+}
+const mn =
+    (e) =>
+    (t, n = lt) =>
+      (!hr || e === 'sp') && Oi(e, (...o) => t(...o), n),
+  Cr = mn('bm'),
+  ct = mn('m'),
+  $i = mn('bu'),
+  Bs = mn('u'),
+  We = mn('bum'),
+  Bo = mn('um'),
+  uv = mn('sp'),
+  cv = mn('rtg'),
+  fv = mn('rtc');
+function dv(e, t = lt) {
+  Oi('ec', e, t);
+}
+function Dt(e, t) {
+  const n = qt;
+  if (n === null) return e;
+  const o = Fi(n) || n.proxy,
+    r = e.dirs || (e.dirs = []);
+  for (let i = 0; i < t.length; i++) {
+    let [l, s, a, c = He] = t[i];
+    l &&
+      (Ee(l) && (l = { mounted: l, updated: l }),
+      l.deep && jn(s),
+      r.push({ dir: l, instance: o, value: s, oldValue: void 0, arg: a, modifiers: c }));
+  }
+  return e;
+}
+function Ln(e, t, n, o) {
+  const r = e.dirs,
+    i = t && t.dirs;
+  for (let l = 0; l < r.length; l++) {
+    const s = r[l];
+    i && (s.oldValue = i[l].value);
+    let a = s.dir[o];
+    a && (Lo(), $t(a, n, 8, [e.el, s, e, t]), Mo());
+  }
+}
+const Rf = 'components';
+function Wn(e, t) {
+  return mv(Rf, e, !0, t) || e;
+}
+const hv = Symbol();
+function mv(e, t, n = !0, o = !1) {
+  const r = qt || lt;
+  if (r) {
+    const i = r.type;
+    if (e === Rf) {
+      const s = Wv(i, !1);
+      if (s && (s === t || s === Zt(t) || s === ki(Zt(t)))) return i;
+    }
+    const l = Fa(r[e] || i[e], t) || Fa(r.appContext[e], t);
+    return !l && o ? i : l;
+  }
+}
+function Fa(e, t) {
+  return e && (e[t] || e[Zt(t)] || e[ki(Zt(t))]);
+}
+function vv(e, t, n, o) {
+  let r;
+  const i = n && n[o];
+  if (Ce(e) || et(e)) {
+    r = new Array(e.length);
+    for (let l = 0, s = e.length; l < s; l++) r[l] = t(e[l], l, void 0, i && i[l]);
+  } else if (typeof e == 'number') {
+    r = new Array(e);
+    for (let l = 0; l < e; l++) r[l] = t(l + 1, l, void 0, i && i[l]);
+  } else if (Ue(e))
+    if (e[Symbol.iterator]) r = Array.from(e, (l, s) => t(l, s, void 0, i && i[s]));
+    else {
+      const l = Object.keys(e);
+      r = new Array(l.length);
+      for (let s = 0, a = l.length; s < a; s++) {
+        const c = l[s];
+        r[s] = t(e[c], c, s, i && i[s]);
+      }
+    }
+  else r = [];
+  return n && (n[o] = r), r;
+}
+const jl = (e) => (e ? (Nf(e) ? Fi(e) || e.proxy : jl(e.parent)) : null),
+  Yo = st(Object.create(null), {
+    $: (e) => e,
+    $el: (e) => e.vnode.el,
+    $data: (e) => e.data,
+    $props: (e) => e.props,
+    $attrs: (e) => e.attrs,
+    $slots: (e) => e.slots,
+    $refs: (e) => e.refs,
+    $parent: (e) => jl(e.parent),
+    $root: (e) => jl(e.root),
+    $emit: (e) => e.emit,
+    $options: (e) => Is(e),
+    $forceUpdate: (e) => e.f || (e.f = () => Ms(e.update)),
+    $nextTick: (e) => e.n || (e.n = ze.bind(e.proxy)),
+    $watch: (e) => lv.bind(e),
+  }),
+  cl = (e, t) => e !== He && !e.__isScriptSetup && Oe(e, t),
+  gv = {
+    get({ _: e }, t) {
+      const {
+        ctx: n,
+        setupState: o,
+        data: r,
+        props: i,
+        accessCache: l,
+        type: s,
+        appContext: a,
+      } = e;
+      let c;
+      if (t[0] !== '$') {
+        const h = l[t];
+        if (h !== void 0)
+          switch (h) {
+            case 1:
+              return o[t];
+            case 2:
+              return r[t];
+            case 4:
+              return n[t];
+            case 3:
+              return i[t];
+          }
+        else {
+          if (cl(o, t)) return (l[t] = 1), o[t];
+          if (r !== He && Oe(r, t)) return (l[t] = 2), r[t];
+          if ((c = e.propsOptions[0]) && Oe(c, t)) return (l[t] = 3), i[t];
+          if (n !== He && Oe(n, t)) return (l[t] = 4), n[t];
+          Dl && (l[t] = 0);
+        }
+      }
+      const u = Yo[t];
+      let f, d;
+      if (u) return t === '$attrs' && Tt(e, 'get', t), u(e);
+      if ((f = s.__cssModules) && (f = f[t])) return f;
+      if (n !== He && Oe(n, t)) return (l[t] = 4), n[t];
+      if (((d = a.config.globalProperties), Oe(d, t))) return d[t];
+    },
+    set({ _: e }, t, n) {
+      const { data: o, setupState: r, ctx: i } = e;
+      return cl(r, t)
+        ? ((r[t] = n), !0)
+        : o !== He && Oe(o, t)
+        ? ((o[t] = n), !0)
+        : Oe(e.props, t) || (t[0] === '$' && t.slice(1) in e)
+        ? !1
+        : ((i[t] = n), !0);
+    },
+    has(
+      { _: { data: e, setupState: t, accessCache: n, ctx: o, appContext: r, propsOptions: i } },
+      l,
+    ) {
+      let s;
+      return (
+        !!n[l] ||
+        (e !== He && Oe(e, l)) ||
+        cl(t, l) ||
+        ((s = i[0]) && Oe(s, l)) ||
+        Oe(o, l) ||
+        Oe(Yo, l) ||
+        Oe(r.config.globalProperties, l)
+      );
+    },
+    defineProperty(e, t, n) {
+      return (
+        n.get != null ? (e._.accessCache[t] = 0) : Oe(n, 'value') && this.set(e, t, n.value, null),
+        Reflect.defineProperty(e, t, n)
+      );
+    },
+  };
+let Dl = !0;
+function pv(e) {
+  const t = Is(e),
+    n = e.proxy,
+    o = e.ctx;
+  (Dl = !1), t.beforeCreate && Ba(t.beforeCreate, e, 'bc');
+  const {
+    data: r,
+    computed: i,
+    methods: l,
+    watch: s,
+    provide: a,
+    inject: c,
+    created: u,
+    beforeMount: f,
+    mounted: d,
+    beforeUpdate: h,
+    updated: m,
+    activated: g,
+    deactivated: b,
+    beforeDestroy: T,
+    beforeUnmount: k,
+    destroyed: E,
+    unmounted: x,
+    render: P,
+    renderTracked: C,
+    renderTriggered: S,
+    errorCaptured: p,
+    serverPrefetch: $,
+    expose: R,
+    inheritAttrs: B,
+    components: I,
+    directives: Q,
+    filters: H,
+  } = t;
+  if ((c && bv(c, o, null, e.appContext.config.unwrapInjectedRef), l))
+    for (const L in l) {
+      const U = l[L];
+      Ee(U) && (o[L] = U.bind(n));
+    }
+  if (r) {
+    const L = r.call(n, n);
+    Ue(L) && (e.data = jt(L));
+  }
+  if (((Dl = !0), i))
+    for (const L in i) {
+      const U = i[L],
+        pe = Ee(U) ? U.bind(n, n) : Ee(U.get) ? U.get.bind(n, n) : Ut,
+        G = !Ee(U) && Ee(U.set) ? U.set.bind(n) : Ut,
+        M = v({ get: pe, set: G });
+      Object.defineProperty(o, L, {
+        enumerable: !0,
+        configurable: !0,
+        get: () => M.value,
+        set: (te) => (M.value = te),
+      });
+    }
+  if (s) for (const L in s) Af(s[L], o, n, L);
+  if (a) {
+    const L = Ee(a) ? a.call(n) : a;
+    Reflect.ownKeys(L).forEach((U) => {
+      xo(U, L[U]);
+    });
+  }
+  u && Ba(u, e, 'c');
+  function N(L, U) {
+    Ce(U) ? U.forEach((pe) => L(pe.bind(n))) : U && L(U.bind(n));
+  }
+  if (
+    (N(Cr, f),
+    N(ct, d),
+    N($i, h),
+    N(Bs, m),
+    N(Fo, g),
+    N(An, b),
+    N(dv, p),
+    N(fv, C),
+    N(cv, S),
+    N(We, k),
+    N(Bo, x),
+    N(uv, $),
+    Ce(R))
+  )
+    if (R.length) {
+      const L = e.exposed || (e.exposed = {});
+      R.forEach((U) => {
+        Object.defineProperty(L, U, { get: () => n[U], set: (pe) => (n[U] = pe) });
+      });
+    } else e.exposed || (e.exposed = {});
+  P && e.render === Ut && (e.render = P),
+    B != null && (e.inheritAttrs = B),
+    I && (e.components = I),
+    Q && (e.directives = Q);
+}
+function bv(e, t, n = Ut, o = !1) {
+  Ce(e) && (e = Hl(e));
+  for (const r in e) {
+    const i = e[r];
+    let l;
+    Ue(i)
+      ? 'default' in i
+        ? (l = ut(i.from || r, i.default, !0))
+        : (l = ut(i.from || r))
+      : (l = ut(i)),
+      Ve(l) && o
+        ? Object.defineProperty(t, r, {
+            enumerable: !0,
+            configurable: !0,
+            get: () => l.value,
+            set: (s) => (l.value = s),
+          })
+        : (t[r] = l);
+  }
+}
+function Ba(e, t, n) {
+  $t(Ce(e) ? e.map((o) => o.bind(t.proxy)) : e.bind(t.proxy), t, n);
+}
+function Af(e, t, n, o) {
+  const r = o.includes('.') ? kf(n, o) : () => n[o];
+  if (et(e)) {
+    const i = t[e];
+    Ee(i) && fe(r, i);
+  } else if (Ee(e)) fe(r, e.bind(n));
+  else if (Ue(e))
+    if (Ce(e)) e.forEach((i) => Af(i, t, n, o));
+    else {
+      const i = Ee(e.handler) ? e.handler.bind(n) : t[e.handler];
+      Ee(i) && fe(r, i, e);
+    }
+}
+function Is(e) {
+  const t = e.type,
+    { mixins: n, extends: o } = t,
+    {
+      mixins: r,
+      optionsCache: i,
+      config: { optionMergeStrategies: l },
+    } = e.appContext,
+    s = i.get(t);
+  let a;
+  return (
+    s
+      ? (a = s)
+      : !r.length && !n && !o
+      ? (a = t)
+      : ((a = {}), r.length && r.forEach((c) => ui(a, c, l, !0)), ui(a, t, l)),
+    Ue(t) && i.set(t, a),
+    a
+  );
+}
+function ui(e, t, n, o = !1) {
+  const { mixins: r, extends: i } = t;
+  i && ui(e, i, n, !0), r && r.forEach((l) => ui(e, l, n, !0));
+  for (const l in t)
+    if (!(o && l === 'expose')) {
+      const s = yv[l] || (n && n[l]);
+      e[l] = s ? s(e[l], t[l]) : t[l];
+    }
+  return e;
+}
+const yv = {
+  data: Ia,
+  props: In,
+  emits: In,
+  methods: In,
+  computed: In,
+  beforeCreate: pt,
+  created: pt,
+  beforeMount: pt,
+  mounted: pt,
+  beforeUpdate: pt,
+  updated: pt,
+  beforeDestroy: pt,
+  beforeUnmount: pt,
+  destroyed: pt,
+  unmounted: pt,
+  activated: pt,
+  deactivated: pt,
+  errorCaptured: pt,
+  serverPrefetch: pt,
+  components: In,
+  directives: In,
+  watch: _v,
+  provide: Ia,
+  inject: wv,
+};
+function Ia(e, t) {
+  return t
+    ? e
+      ? function () {
+          return st(Ee(e) ? e.call(this, this) : e, Ee(t) ? t.call(this, this) : t);
+        }
+      : t
+    : e;
+}
+function wv(e, t) {
+  return In(Hl(e), Hl(t));
+}
+function Hl(e) {
+  if (Ce(e)) {
+    const t = {};
+    for (let n = 0; n < e.length; n++) t[e[n]] = e[n];
+    return t;
+  }
+  return e;
+}
+function pt(e, t) {
+  return e ? [...new Set([].concat(e, t))] : t;
+}
+function In(e, t) {
+  return e ? st(st(Object.create(null), e), t) : t;
+}
+function _v(e, t) {
+  if (!e) return t;
+  if (!t) return e;
+  const n = st(Object.create(null), e);
+  for (const o in t) n[o] = pt(e[o], t[o]);
+  return n;
+}
+function Sv(e, t, n, o = !1) {
+  const r = {},
+    i = {};
+  li(i, Mi, 1), (e.propsDefaults = Object.create(null)), Of(e, t, r, i);
+  for (const l in e.propsOptions[0]) l in r || (r[l] = void 0);
+  n ? (e.props = o ? r : ff(r)) : e.type.props ? (e.props = r) : (e.props = i), (e.attrs = i);
+}
+function xv(e, t, n, o) {
+  const {
+      props: r,
+      attrs: i,
+      vnode: { patchFlag: l },
+    } = e,
+    s = Te(r),
+    [a] = e.propsOptions;
+  let c = !1;
+  if ((o || l > 0) && !(l & 16)) {
+    if (l & 8) {
+      const u = e.vnode.dynamicProps;
+      for (let f = 0; f < u.length; f++) {
+        let d = u[f];
+        if (Ti(e.emitsOptions, d)) continue;
+        const h = t[d];
+        if (a)
+          if (Oe(i, d)) h !== i[d] && ((i[d] = h), (c = !0));
+          else {
+            const m = Zt(d);
+            r[m] = Ul(a, s, m, h, e, !1);
+          }
+        else h !== i[d] && ((i[d] = h), (c = !0));
+      }
+    }
+  } else {
+    Of(e, t, r, i) && (c = !0);
+    let u;
+    for (const f in s)
+      (!t || (!Oe(t, f) && ((u = $o(f)) === f || !Oe(t, u)))) &&
+        (a
+          ? n && (n[f] !== void 0 || n[u] !== void 0) && (r[f] = Ul(a, s, f, void 0, e, !0))
+          : delete r[f]);
+    if (i !== s) for (const f in i) (!t || (!Oe(t, f) && !0)) && (delete i[f], (c = !0));
+  }
+  c && fn(e, 'set', '$attrs');
+}
+function Of(e, t, n, o) {
+  const [r, i] = e.propsOptions;
+  let l = !1,
+    s;
+  if (t)
+    for (let a in t) {
+      if (Kr(a)) continue;
+      const c = t[a];
+      let u;
+      r && Oe(r, (u = Zt(a)))
+        ? !i || !i.includes(u)
+          ? (n[u] = c)
+          : ((s || (s = {}))[u] = c)
+        : Ti(e.emitsOptions, a) || ((!(a in o) || c !== o[a]) && ((o[a] = c), (l = !0)));
+    }
+  if (i) {
+    const a = Te(n),
+      c = s || He;
+    for (let u = 0; u < i.length; u++) {
+      const f = i[u];
+      n[f] = Ul(r, a, f, c[f], e, !Oe(c, f));
+    }
+  }
+  return l;
+}
+function Ul(e, t, n, o, r, i) {
+  const l = e[n];
+  if (l != null) {
+    const s = Oe(l, 'default');
+    if (s && o === void 0) {
+      const a = l.default;
+      if (l.type !== Function && Ee(a)) {
+        const { propsDefaults: c } = r;
+        n in c ? (o = c[n]) : (qo(r), (o = c[n] = a.call(null, t)), Jn());
+      } else o = a;
+    }
+    l[0] && (i && !s ? (o = !1) : l[1] && (o === '' || o === $o(n)) && (o = !0));
+  }
+  return o;
+}
+function $f(e, t, n = !1) {
+  const o = t.propsCache,
+    r = o.get(e);
+  if (r) return r;
+  const i = e.props,
+    l = {},
+    s = [];
+  let a = !1;
+  if (!Ee(e)) {
+    const u = (f) => {
+      a = !0;
+      const [d, h] = $f(f, t, !0);
+      st(l, d), h && s.push(...h);
+    };
+    !n && t.mixins.length && t.mixins.forEach(u),
+      e.extends && u(e.extends),
+      e.mixins && e.mixins.forEach(u);
+  }
+  if (!i && !a) return Ue(e) && o.set(e, wo), wo;
+  if (Ce(i))
+    for (let u = 0; u < i.length; u++) {
+      const f = Zt(i[u]);
+      za(f) && (l[f] = He);
+    }
+  else if (i)
+    for (const u in i) {
+      const f = Zt(u);
+      if (za(f)) {
+        const d = i[u],
+          h = (l[f] = Ce(d) || Ee(d) ? { type: d } : Object.assign({}, d));
+        if (h) {
+          const m = ja(Boolean, h.type),
+            g = ja(String, h.type);
+          (h[0] = m > -1), (h[1] = g < 0 || m < g), (m > -1 || Oe(h, 'default')) && s.push(f);
+        }
+      }
+    }
+  const c = [l, s];
+  return Ue(e) && o.set(e, c), c;
+}
+function za(e) {
+  return e[0] !== '$';
+}
+function Va(e) {
+  const t = e && e.toString().match(/^\s*function (\w+)/);
+  return t ? t[1] : e === null ? 'null' : '';
+}
+function Na(e, t) {
+  return Va(e) === Va(t);
+}
+function ja(e, t) {
+  return Ce(t) ? t.findIndex((n) => Na(n, e)) : Ee(t) && Na(t, e) ? 0 : -1;
+}
+const Lf = (e) => e[0] === '_' || e === '$stable',
+  zs = (e) => (Ce(e) ? e.map(Jt) : [Jt(e)]),
+  Cv = (e, t, n) => {
+    if (t._n) return t;
+    const o = ge((...r) => zs(t(...r)), n);
+    return (o._c = !1), o;
+  },
+  Mf = (e, t, n) => {
+    const o = e._ctx;
+    for (const r in e) {
+      if (Lf(r)) continue;
+      const i = e[r];
+      if (Ee(i)) t[r] = Cv(r, i, o);
+      else if (i != null) {
+        const l = zs(i);
+        t[r] = () => l;
+      }
+    }
+  },
+  Ff = (e, t) => {
+    const n = zs(t);
+    e.slots.default = () => n;
+  },
+  kv = (e, t) => {
+    if (e.vnode.shapeFlag & 32) {
+      const n = t._;
+      n ? ((e.slots = Te(t)), li(t, '_', n)) : Mf(t, (e.slots = {}));
+    } else (e.slots = {}), t && Ff(e, t);
+    li(e.slots, Mi, 1);
+  },
+  Ev = (e, t, n) => {
+    const { vnode: o, slots: r } = e;
+    let i = !0,
+      l = He;
+    if (o.shapeFlag & 32) {
+      const s = t._;
+      s
+        ? n && s === 1
+          ? (i = !1)
+          : (st(r, t), !n && s === 1 && delete r._)
+        : ((i = !t.$stable), Mf(t, r)),
+        (l = t);
+    } else t && (Ff(e, t), (l = { default: 1 }));
+    if (i) for (const s in r) !Lf(s) && !(s in l) && delete r[s];
+  };
+function Bf() {
+  return {
+    app: null,
+    config: {
+      isNativeTag: om,
+      performance: !1,
+      globalProperties: {},
+      optionMergeStrategies: {},
+      errorHandler: void 0,
+      warnHandler: void 0,
+      compilerOptions: {},
+    },
+    mixins: [],
+    components: {},
+    directives: {},
+    provides: Object.create(null),
+    optionsCache: new WeakMap(),
+    propsCache: new WeakMap(),
+    emitsCache: new WeakMap(),
+  };
+}
+let qv = 0;
+function Tv(e, t) {
+  return function (o, r = null) {
+    Ee(o) || (o = Object.assign({}, o)), r != null && !Ue(r) && (r = null);
+    const i = Bf(),
+      l = new Set();
+    let s = !1;
+    const a = (i.app = {
+      _uid: qv++,
+      _component: o,
+      _props: r,
+      _container: null,
+      _context: i,
+      _instance: null,
+      version: Yv,
+      get config() {
+        return i.config;
+      },
+      set config(c) {},
+      use(c, ...u) {
+        return (
+          l.has(c) ||
+            (c && Ee(c.install) ? (l.add(c), c.install(a, ...u)) : Ee(c) && (l.add(c), c(a, ...u))),
+          a
+        );
+      },
+      mixin(c) {
+        return i.mixins.includes(c) || i.mixins.push(c), a;
+      },
+      component(c, u) {
+        return u ? ((i.components[c] = u), a) : i.components[c];
+      },
+      directive(c, u) {
+        return u ? ((i.directives[c] = u), a) : i.directives[c];
+      },
+      mount(c, u, f) {
+        if (!s) {
+          const d = Z(o, r);
+          return (
+            (d.appContext = i),
+            u && t ? t(d, c) : e(d, c, f),
+            (s = !0),
+            (a._container = c),
+            (c.__vue_app__ = a),
+            Fi(d.component) || d.component.proxy
+          );
+        }
+      },
+      unmount() {
+        s && (e(null, a._container), delete a._container.__vue_app__);
+      },
+      provide(c, u) {
+        return (i.provides[c] = u), a;
+      },
+    });
+    return a;
+  };
+}
+function Kl(e, t, n, o, r = !1) {
+  if (Ce(e)) {
+    e.forEach((d, h) => Kl(d, t && (Ce(t) ? t[h] : t), n, o, r));
+    return;
+  }
+  if (Wr(o) && !r) return;
+  const i = o.shapeFlag & 4 ? Fi(o.component) || o.component.proxy : o.el,
+    l = r ? null : i,
+    { i: s, r: a } = e,
+    c = t && t.r,
+    u = s.refs === He ? (s.refs = {}) : s.refs,
+    f = s.setupState;
+  if (
+    (c != null &&
+      c !== a &&
+      (et(c) ? ((u[c] = null), Oe(f, c) && (f[c] = null)) : Ve(c) && (c.value = null)),
+    Ee(a))
+  )
+    qn(a, s, 12, [l, u]);
+  else {
+    const d = et(a),
+      h = Ve(a);
+    if (d || h) {
+      const m = () => {
+        if (e.f) {
+          const g = d ? (Oe(f, a) ? f[a] : u[a]) : a.value;
+          r
+            ? Ce(g) && xs(g, i)
+            : Ce(g)
+            ? g.includes(i) || g.push(i)
+            : d
+            ? ((u[a] = [i]), Oe(f, a) && (f[a] = u[a]))
+            : ((a.value = [i]), e.k && (u[e.k] = a.value));
+        } else d ? ((u[a] = l), Oe(f, a) && (f[a] = l)) : h && ((a.value = l), e.k && (u[e.k] = l));
+      };
+      l ? ((m.id = -1), wt(m, n)) : m();
+    }
+  }
+}
+const wt = iv;
+function Pv(e) {
+  return Rv(e);
+}
+function Rv(e, t) {
+  const n = um();
+  n.__VUE__ = !0;
+  const {
+      insert: o,
+      remove: r,
+      patchProp: i,
+      createElement: l,
+      createText: s,
+      createComment: a,
+      setText: c,
+      setElementText: u,
+      parentNode: f,
+      nextSibling: d,
+      setScopeId: h = Ut,
+      insertStaticContent: m,
+    } = e,
+    g = (y, w, O, V = null, D = null, X = null, se = !1, ne = null, Y = !!w.dynamicChildren) => {
+      if (y === w) return;
+      y && !Vn(y, w) && ((V = A(y)), te(y, D, X, !0), (y = null)),
+        w.patchFlag === -2 && ((Y = !1), (w.dynamicChildren = null));
+      const { type: J, ref: me, shapeFlag: z } = w;
+      switch (J) {
+        case Li:
+          b(y, w, O, V);
+          break;
+        case Kt:
+          T(y, w, O, V);
+          break;
+        case fl:
+          y == null && k(w, O, V, se);
+          break;
+        case kt:
+          I(y, w, O, V, D, X, se, ne, Y);
+          break;
+        default:
+          z & 1
+            ? P(y, w, O, V, D, X, se, ne, Y)
+            : z & 6
+            ? Q(y, w, O, V, D, X, se, ne, Y)
+            : (z & 64 || z & 128) && J.process(y, w, O, V, D, X, se, ne, Y, F);
+      }
+      me != null && D && Kl(me, y && y.ref, X, w || y, !w);
+    },
+    b = (y, w, O, V) => {
+      if (y == null) o((w.el = s(w.children)), O, V);
+      else {
+        const D = (w.el = y.el);
+        w.children !== y.children && c(D, w.children);
+      }
+    },
+    T = (y, w, O, V) => {
+      y == null ? o((w.el = a(w.children || '')), O, V) : (w.el = y.el);
+    },
+    k = (y, w, O, V) => {
+      [y.el, y.anchor] = m(y.children, w, O, V, y.el, y.anchor);
+    },
+    E = ({ el: y, anchor: w }, O, V) => {
+      let D;
+      for (; y && y !== w; ) (D = d(y)), o(y, O, V), (y = D);
+      o(w, O, V);
+    },
+    x = ({ el: y, anchor: w }) => {
+      let O;
+      for (; y && y !== w; ) (O = d(y)), r(y), (y = O);
+      r(w);
+    },
+    P = (y, w, O, V, D, X, se, ne, Y) => {
+      (se = se || w.type === 'svg'),
+        y == null ? C(w, O, V, D, X, se, ne, Y) : $(y, w, D, X, se, ne, Y);
+    },
+    C = (y, w, O, V, D, X, se, ne) => {
+      let Y, J;
+      const { type: me, props: z, shapeFlag: re, transition: ve, dirs: we } = y;
+      if (
+        ((Y = y.el = l(y.type, X, z && z.is, z)),
+        re & 8
+          ? u(Y, y.children)
+          : re & 16 && p(y.children, Y, null, V, D, X && me !== 'foreignObject', se, ne),
+        we && Ln(y, null, V, 'created'),
+        z)
+      ) {
+        for (const Ae in z)
+          Ae !== 'value' && !Kr(Ae) && i(Y, Ae, null, z[Ae], X, y.children, V, D, oe);
+        'value' in z && i(Y, 'value', null, z.value), (J = z.onVnodeBeforeMount) && Qt(J, V, y);
+      }
+      S(Y, y, y.scopeId, se, V), we && Ln(y, null, V, 'beforeMount');
+      const Le = (!D || (D && !D.pendingBranch)) && ve && !ve.persisted;
+      Le && ve.beforeEnter(Y),
+        o(Y, w, O),
+        ((J = z && z.onVnodeMounted) || Le || we) &&
+          wt(() => {
+            J && Qt(J, V, y), Le && ve.enter(Y), we && Ln(y, null, V, 'mounted');
+          }, D);
+    },
+    S = (y, w, O, V, D) => {
+      if ((O && h(y, O), V)) for (let X = 0; X < V.length; X++) h(y, V[X]);
+      if (D) {
+        let X = D.subTree;
+        if (w === X) {
+          const se = D.vnode;
+          S(y, se, se.scopeId, se.slotScopeIds, D.parent);
+        }
+      }
+    },
+    p = (y, w, O, V, D, X, se, ne, Y = 0) => {
+      for (let J = Y; J < y.length; J++) {
+        const me = (y[J] = ne ? _n(y[J]) : Jt(y[J]));
+        g(null, me, w, O, V, D, X, se, ne);
+      }
+    },
+    $ = (y, w, O, V, D, X, se) => {
+      const ne = (w.el = y.el);
+      let { patchFlag: Y, dynamicChildren: J, dirs: me } = w;
+      Y |= y.patchFlag & 16;
+      const z = y.props || He,
+        re = w.props || He;
+      let ve;
+      O && Mn(O, !1),
+        (ve = re.onVnodeBeforeUpdate) && Qt(ve, O, w, y),
+        me && Ln(w, y, O, 'beforeUpdate'),
+        O && Mn(O, !0);
+      const we = D && w.type !== 'foreignObject';
+      if (
+        (J ? R(y.dynamicChildren, J, ne, O, V, we, X) : se || U(y, w, ne, null, O, V, we, X, !1),
+        Y > 0)
+      ) {
+        if (Y & 16) B(ne, w, z, re, O, V, D);
+        else if (
+          (Y & 2 && z.class !== re.class && i(ne, 'class', null, re.class, D),
+          Y & 4 && i(ne, 'style', z.style, re.style, D),
+          Y & 8)
+        ) {
+          const Le = w.dynamicProps;
+          for (let Ae = 0; Ae < Le.length; Ae++) {
+            const Fe = Le[Ae],
+              Xe = z[Fe],
+              it = re[Fe];
+            (it !== Xe || Fe === 'value') && i(ne, Fe, Xe, it, D, y.children, O, V, oe);
+          }
+        }
+        Y & 1 && y.children !== w.children && u(ne, w.children);
+      } else !se && J == null && B(ne, w, z, re, O, V, D);
+      ((ve = re.onVnodeUpdated) || me) &&
+        wt(() => {
+          ve && Qt(ve, O, w, y), me && Ln(w, y, O, 'updated');
+        }, V);
+    },
+    R = (y, w, O, V, D, X, se) => {
+      for (let ne = 0; ne < w.length; ne++) {
+        const Y = y[ne],
+          J = w[ne],
+          me = Y.el && (Y.type === kt || !Vn(Y, J) || Y.shapeFlag & 70) ? f(Y.el) : O;
+        g(Y, J, me, null, V, D, X, se, !0);
+      }
+    },
+    B = (y, w, O, V, D, X, se) => {
+      if (O !== V) {
+        if (O !== He)
+          for (const ne in O)
+            !Kr(ne) && !(ne in V) && i(y, ne, O[ne], null, se, w.children, D, X, oe);
+        for (const ne in V) {
+          if (Kr(ne)) continue;
+          const Y = V[ne],
+            J = O[ne];
+          Y !== J && ne !== 'value' && i(y, ne, J, Y, se, w.children, D, X, oe);
+        }
+        'value' in V && i(y, 'value', O.value, V.value);
+      }
+    },
+    I = (y, w, O, V, D, X, se, ne, Y) => {
+      const J = (w.el = y ? y.el : s('')),
+        me = (w.anchor = y ? y.anchor : s(''));
+      let { patchFlag: z, dynamicChildren: re, slotScopeIds: ve } = w;
+      ve && (ne = ne ? ne.concat(ve) : ve),
+        y == null
+          ? (o(J, O, V), o(me, O, V), p(w.children, O, me, D, X, se, ne, Y))
+          : z > 0 && z & 64 && re && y.dynamicChildren
+          ? (R(y.dynamicChildren, re, O, D, X, se, ne),
+            (w.key != null || (D && w === D.subTree)) && Vs(y, w, !0))
+          : U(y, w, O, me, D, X, se, ne, Y);
+    },
+    Q = (y, w, O, V, D, X, se, ne, Y) => {
+      (w.slotScopeIds = ne),
+        y == null
+          ? w.shapeFlag & 512
+            ? D.ctx.activate(w, O, V, se, Y)
+            : H(w, O, V, D, X, se, Y)
+          : le(y, w, Y);
+    },
+    H = (y, w, O, V, D, X, se) => {
+      const ne = (y.component = jv(y, V, D));
+      if ((Ai(y) && (ne.ctx.renderer = F), Dv(ne), ne.asyncDep)) {
+        if ((D && D.registerDep(ne, N), !y.el)) {
+          const Y = (ne.subTree = Z(Kt));
+          T(null, Y, w, O);
+        }
+        return;
+      }
+      N(ne, y, w, O, D, X, se);
+    },
+    le = (y, w, O) => {
+      const V = (w.component = y.component);
+      if (nv(y, w, O))
+        if (V.asyncDep && !V.asyncResolved) {
+          L(V, w, O);
+          return;
+        } else (V.next = w), Qm(V.update), V.update();
+      else (w.el = y.el), (V.vnode = w);
+    },
+    N = (y, w, O, V, D, X, se) => {
+      const ne = () => {
+          if (y.isMounted) {
+            let { next: me, bu: z, u: re, parent: ve, vnode: we } = y,
+              Le = me,
+              Ae;
+            Mn(y, !1),
+              me ? ((me.el = we.el), L(y, me, se)) : (me = we),
+              z && sl(z),
+              (Ae = me.props && me.props.onVnodeBeforeUpdate) && Qt(Ae, ve, me, we),
+              Mn(y, !0);
+            const Fe = al(y),
+              Xe = y.subTree;
+            (y.subTree = Fe),
+              g(Xe, Fe, f(Xe.el), A(Xe), y, D, X),
+              (me.el = Fe.el),
+              Le === null && ov(y, Fe.el),
+              re && wt(re, D),
+              (Ae = me.props && me.props.onVnodeUpdated) && wt(() => Qt(Ae, ve, me, we), D);
+          } else {
+            let me;
+            const { el: z, props: re } = w,
+              { bm: ve, m: we, parent: Le } = y,
+              Ae = Wr(w);
+            if (
+              (Mn(y, !1),
+              ve && sl(ve),
+              !Ae && (me = re && re.onVnodeBeforeMount) && Qt(me, Le, w),
+              Mn(y, !0),
+              z && xe)
+            ) {
+              const Fe = () => {
+                (y.subTree = al(y)), xe(z, y.subTree, y, D, null);
+              };
+              Ae ? w.type.__asyncLoader().then(() => !y.isUnmounted && Fe()) : Fe();
+            } else {
+              const Fe = (y.subTree = al(y));
+              g(null, Fe, O, V, y, D, X), (w.el = Fe.el);
+            }
+            if ((we && wt(we, D), !Ae && (me = re && re.onVnodeMounted))) {
+              const Fe = w;
+              wt(() => Qt(me, Le, Fe), D);
+            }
+            (w.shapeFlag & 256 || (Le && Wr(Le.vnode) && Le.vnode.shapeFlag & 256)) &&
+              y.a &&
+              wt(y.a, D),
+              (y.isMounted = !0),
+              (w = O = V = null);
+          }
+        },
+        Y = (y.effect = new Ts(ne, () => Ms(J), y.scope)),
+        J = (y.update = () => Y.run());
+      (J.id = y.uid), Mn(y, !0), J();
+    },
+    L = (y, w, O) => {
+      w.component = y;
+      const V = y.vnode.props;
+      (y.vnode = w), (y.next = null), xv(y, w.props, V, O), Ev(y, w.children, O), Lo(), $a(), Mo();
+    },
+    U = (y, w, O, V, D, X, se, ne, Y = !1) => {
+      const J = y && y.children,
+        me = y ? y.shapeFlag : 0,
+        z = w.children,
+        { patchFlag: re, shapeFlag: ve } = w;
+      if (re > 0) {
+        if (re & 128) {
+          G(J, z, O, V, D, X, se, ne, Y);
+          return;
+        } else if (re & 256) {
+          pe(J, z, O, V, D, X, se, ne, Y);
+          return;
+        }
+      }
+      ve & 8
+        ? (me & 16 && oe(J, D, X), z !== J && u(O, z))
+        : me & 16
+        ? ve & 16
+          ? G(J, z, O, V, D, X, se, ne, Y)
+          : oe(J, D, X, !0)
+        : (me & 8 && u(O, ''), ve & 16 && p(z, O, V, D, X, se, ne, Y));
+    },
+    pe = (y, w, O, V, D, X, se, ne, Y) => {
+      (y = y || wo), (w = w || wo);
+      const J = y.length,
+        me = w.length,
+        z = Math.min(J, me);
+      let re;
+      for (re = 0; re < z; re++) {
+        const ve = (w[re] = Y ? _n(w[re]) : Jt(w[re]));
+        g(y[re], ve, O, null, D, X, se, ne, Y);
+      }
+      J > me ? oe(y, D, X, !0, !1, z) : p(w, O, V, D, X, se, ne, Y, z);
+    },
+    G = (y, w, O, V, D, X, se, ne, Y) => {
+      let J = 0;
+      const me = w.length;
+      let z = y.length - 1,
+        re = me - 1;
+      for (; J <= z && J <= re; ) {
+        const ve = y[J],
+          we = (w[J] = Y ? _n(w[J]) : Jt(w[J]));
+        if (Vn(ve, we)) g(ve, we, O, null, D, X, se, ne, Y);
+        else break;
+        J++;
+      }
+      for (; J <= z && J <= re; ) {
+        const ve = y[z],
+          we = (w[re] = Y ? _n(w[re]) : Jt(w[re]));
+        if (Vn(ve, we)) g(ve, we, O, null, D, X, se, ne, Y);
+        else break;
+        z--, re--;
+      }
+      if (J > z) {
+        if (J <= re) {
+          const ve = re + 1,
+            we = ve < me ? w[ve].el : V;
+          for (; J <= re; ) g(null, (w[J] = Y ? _n(w[J]) : Jt(w[J])), O, we, D, X, se, ne, Y), J++;
+        }
+      } else if (J > re) for (; J <= z; ) te(y[J], D, X, !0), J++;
+      else {
+        const ve = J,
+          we = J,
+          Le = new Map();
+        for (J = we; J <= re; J++) {
+          const tt = (w[J] = Y ? _n(w[J]) : Jt(w[J]));
+          tt.key != null && Le.set(tt.key, J);
+        }
+        let Ae,
+          Fe = 0;
+        const Xe = re - we + 1;
+        let it = !1,
+          Lt = 0;
+        const Mt = new Array(Xe);
+        for (J = 0; J < Xe; J++) Mt[J] = 0;
+        for (J = ve; J <= z; J++) {
+          const tt = y[J];
+          if (Fe >= Xe) {
+            te(tt, D, X, !0);
+            continue;
+          }
+          let vt;
+          if (tt.key != null) vt = Le.get(tt.key);
+          else
+            for (Ae = we; Ae <= re; Ae++)
+              if (Mt[Ae - we] === 0 && Vn(tt, w[Ae])) {
+                vt = Ae;
+                break;
+              }
+          vt === void 0
+            ? te(tt, D, X, !0)
+            : ((Mt[vt - we] = J + 1),
+              vt >= Lt ? (Lt = vt) : (it = !0),
+              g(tt, w[vt], O, null, D, X, se, ne, Y),
+              Fe++);
+        }
+        const tn = it ? Av(Mt) : wo;
+        for (Ae = tn.length - 1, J = Xe - 1; J >= 0; J--) {
+          const tt = we + J,
+            vt = w[tt],
+            nn = tt + 1 < me ? w[tt + 1].el : V;
+          Mt[J] === 0
+            ? g(null, vt, O, nn, D, X, se, ne, Y)
+            : it && (Ae < 0 || J !== tn[Ae] ? M(vt, O, nn, 2) : Ae--);
+        }
+      }
+    },
+    M = (y, w, O, V, D = null) => {
+      const { el: X, type: se, transition: ne, children: Y, shapeFlag: J } = y;
+      if (J & 6) {
+        M(y.component.subTree, w, O, V);
+        return;
+      }
+      if (J & 128) {
+        y.suspense.move(w, O, V);
+        return;
+      }
+      if (J & 64) {
+        se.move(y, w, O, F);
+        return;
+      }
+      if (se === kt) {
+        o(X, w, O);
+        for (let z = 0; z < Y.length; z++) M(Y[z], w, O, V);
+        o(y.anchor, w, O);
+        return;
+      }
+      if (se === fl) {
+        E(y, w, O);
+        return;
+      }
+      if (V !== 2 && J & 1 && ne)
+        if (V === 0) ne.beforeEnter(X), o(X, w, O), wt(() => ne.enter(X), D);
+        else {
+          const { leave: z, delayLeave: re, afterLeave: ve } = ne,
+            we = () => o(X, w, O),
+            Le = () => {
+              z(X, () => {
+                we(), ve && ve();
+              });
+            };
+          re ? re(X, we, Le) : Le();
+        }
+      else o(X, w, O);
+    },
+    te = (y, w, O, V = !1, D = !1) => {
+      const {
+        type: X,
+        props: se,
+        ref: ne,
+        children: Y,
+        dynamicChildren: J,
+        shapeFlag: me,
+        patchFlag: z,
+        dirs: re,
+      } = y;
+      if ((ne != null && Kl(ne, null, O, y, !0), me & 256)) {
+        w.ctx.deactivate(y);
+        return;
+      }
+      const ve = me & 1 && re,
+        we = !Wr(y);
+      let Le;
+      if ((we && (Le = se && se.onVnodeBeforeUnmount) && Qt(Le, w, y), me & 6))
+        Me(y.component, O, V);
+      else {
+        if (me & 128) {
+          y.suspense.unmount(O, V);
+          return;
+        }
+        ve && Ln(y, null, w, 'beforeUnmount'),
+          me & 64
+            ? y.type.remove(y, w, O, D, F, V)
+            : J && (X !== kt || (z > 0 && z & 64))
+            ? oe(J, w, O, !1, !0)
+            : ((X === kt && z & 384) || (!D && me & 16)) && oe(Y, w, O),
+          V && ae(y);
+      }
+      ((we && (Le = se && se.onVnodeUnmounted)) || ve) &&
+        wt(() => {
+          Le && Qt(Le, w, y), ve && Ln(y, null, w, 'unmounted');
+        }, O);
+    },
+    ae = (y) => {
+      const { type: w, el: O, anchor: V, transition: D } = y;
+      if (w === kt) {
+        Se(O, V);
+        return;
+      }
+      if (w === fl) {
+        x(y);
+        return;
+      }
+      const X = () => {
+        r(O), D && !D.persisted && D.afterLeave && D.afterLeave();
+      };
+      if (y.shapeFlag & 1 && D && !D.persisted) {
+        const { leave: se, delayLeave: ne } = D,
+          Y = () => se(O, X);
+        ne ? ne(y.el, X, Y) : Y();
+      } else X();
+    },
+    Se = (y, w) => {
+      let O;
+      for (; y !== w; ) (O = d(y)), r(y), (y = O);
+      r(w);
+    },
+    Me = (y, w, O) => {
+      const { bum: V, scope: D, update: X, subTree: se, um: ne } = y;
+      V && sl(V),
+        D.stop(),
+        X && ((X.active = !1), te(se, y, w, O)),
+        ne && wt(ne, w),
+        wt(() => {
+          y.isUnmounted = !0;
+        }, w),
+        w &&
+          w.pendingBranch &&
+          !w.isUnmounted &&
+          y.asyncDep &&
+          !y.asyncResolved &&
+          y.suspenseId === w.pendingId &&
+          (w.deps--, w.deps === 0 && w.resolve());
+    },
+    oe = (y, w, O, V = !1, D = !1, X = 0) => {
+      for (let se = X; se < y.length; se++) te(y[se], w, O, V, D);
+    },
+    A = (y) =>
+      y.shapeFlag & 6
+        ? A(y.component.subTree)
+        : y.shapeFlag & 128
+        ? y.suspense.next()
+        : d(y.anchor || y.el),
+    ee = (y, w, O) => {
+      y == null
+        ? w._vnode && te(w._vnode, null, null, !0)
+        : g(w._vnode || null, y, w, null, null, null, O),
+        $a(),
+        _f(),
+        (w._vnode = y);
+    },
+    F = { p: g, um: te, m: M, r: ae, mt: H, mc: p, pc: U, pbc: R, n: A, o: e };
+  let ie, xe;
+  return t && ([ie, xe] = t(F)), { render: ee, hydrate: ie, createApp: Tv(ee, ie) };
+}
+function Mn({ effect: e, update: t }, n) {
+  e.allowRecurse = t.allowRecurse = n;
+}
+function Vs(e, t, n = !1) {
+  const o = e.children,
+    r = t.children;
+  if (Ce(o) && Ce(r))
+    for (let i = 0; i < o.length; i++) {
+      const l = o[i];
+      let s = r[i];
+      s.shapeFlag & 1 &&
+        !s.dynamicChildren &&
+        ((s.patchFlag <= 0 || s.patchFlag === 32) && ((s = r[i] = _n(r[i])), (s.el = l.el)),
+        n || Vs(l, s)),
+        s.type === Li && (s.el = l.el);
+    }
+}
+function Av(e) {
+  const t = e.slice(),
+    n = [0];
+  let o, r, i, l, s;
+  const a = e.length;
+  for (o = 0; o < a; o++) {
+    const c = e[o];
+    if (c !== 0) {
+      if (((r = n[n.length - 1]), e[r] < c)) {
+        (t[o] = r), n.push(o);
+        continue;
+      }
+      for (i = 0, l = n.length - 1; i < l; )
+        (s = (i + l) >> 1), e[n[s]] < c ? (i = s + 1) : (l = s);
+      c < e[n[i]] && (i > 0 && (t[o] = n[i - 1]), (n[i] = o));
+    }
+  }
+  for (i = n.length, l = n[i - 1]; i-- > 0; ) (n[i] = l), (l = t[l]);
+  return n;
+}
+const Ov = (e) => e.__isTeleport,
+  Go = (e) => e && (e.disabled || e.disabled === ''),
+  Da = (e) => typeof SVGElement < 'u' && e instanceof SVGElement,
+  Wl = (e, t) => {
+    const n = e && e.to;
+    return et(n) ? (t ? t(n) : null) : n;
+  },
+  $v = {
+    __isTeleport: !0,
+    process(e, t, n, o, r, i, l, s, a, c) {
+      const {
+          mc: u,
+          pc: f,
+          pbc: d,
+          o: { insert: h, querySelector: m, createText: g, createComment: b },
+        } = c,
+        T = Go(t.props);
+      let { shapeFlag: k, children: E, dynamicChildren: x } = t;
+      if (e == null) {
+        const P = (t.el = g('')),
+          C = (t.anchor = g(''));
+        h(P, n, o), h(C, n, o);
+        const S = (t.target = Wl(t.props, m)),
+          p = (t.targetAnchor = g(''));
+        S && (h(p, S), (l = l || Da(S)));
+        const $ = (R, B) => {
+          k & 16 && u(E, R, B, r, i, l, s, a);
+        };
+        T ? $(n, C) : S && $(S, p);
+      } else {
+        t.el = e.el;
+        const P = (t.anchor = e.anchor),
+          C = (t.target = e.target),
+          S = (t.targetAnchor = e.targetAnchor),
+          p = Go(e.props),
+          $ = p ? n : C,
+          R = p ? P : S;
+        if (
+          ((l = l || Da(C)),
+          x
+            ? (d(e.dynamicChildren, x, $, r, i, l, s), Vs(e, t, !0))
+            : a || f(e, t, $, R, r, i, l, s, !1),
+          T)
+        )
+          p || Br(t, n, P, c, 1);
+        else if ((t.props && t.props.to) !== (e.props && e.props.to)) {
+          const B = (t.target = Wl(t.props, m));
+          B && Br(t, B, null, c, 0);
+        } else p && Br(t, C, S, c, 1);
+      }
+      If(t);
+    },
+    remove(e, t, n, o, { um: r, o: { remove: i } }, l) {
+      const { shapeFlag: s, children: a, anchor: c, targetAnchor: u, target: f, props: d } = e;
+      if ((f && i(u), (l || !Go(d)) && (i(c), s & 16)))
+        for (let h = 0; h < a.length; h++) {
+          const m = a[h];
+          r(m, t, n, !0, !!m.dynamicChildren);
+        }
+    },
+    move: Br,
+    hydrate: Lv,
+  };
+function Br(e, t, n, { o: { insert: o }, m: r }, i = 2) {
+  i === 0 && o(e.targetAnchor, t, n);
+  const { el: l, anchor: s, shapeFlag: a, children: c, props: u } = e,
+    f = i === 2;
+  if ((f && o(l, t, n), (!f || Go(u)) && a & 16))
+    for (let d = 0; d < c.length; d++) r(c[d], t, n, 2);
+  f && o(s, t, n);
+}
+function Lv(e, t, n, o, r, i, { o: { nextSibling: l, parentNode: s, querySelector: a } }, c) {
+  const u = (t.target = Wl(t.props, a));
+  if (u) {
+    const f = u._lpa || u.firstChild;
+    if (t.shapeFlag & 16)
+      if (Go(t.props)) (t.anchor = c(l(e), t, s(e), n, o, r, i)), (t.targetAnchor = f);
+      else {
+        t.anchor = l(e);
+        let d = f;
+        for (; d; )
+          if (((d = l(d)), d && d.nodeType === 8 && d.data === 'teleport anchor')) {
+            (t.targetAnchor = d), (u._lpa = t.targetAnchor && l(t.targetAnchor));
+            break;
+          }
+        c(f, t, u, n, o, r, i);
+      }
+    If(t);
+  }
+  return t.anchor && l(t.anchor);
+}
+const Mv = $v;
+function If(e) {
+  const t = e.ctx;
+  if (t && t.ut) {
+    let n = e.children[0].el;
+    for (; n !== e.targetAnchor; )
+      n.nodeType === 1 && n.setAttribute('data-v-owner', t.uid), (n = n.nextSibling);
+    t.ut();
+  }
+}
+const kt = Symbol(void 0),
+  Li = Symbol(void 0),
+  Kt = Symbol(void 0),
+  fl = Symbol(void 0),
+  Zo = [];
+let Ht = null;
+function Ze(e = !1) {
+  Zo.push((Ht = e ? null : []));
+}
+function Fv() {
+  Zo.pop(), (Ht = Zo[Zo.length - 1] || null);
+}
+let dr = 1;
+function Ha(e) {
+  dr += e;
+}
+function zf(e) {
+  return (e.dynamicChildren = dr > 0 ? Ht || wo : null), Fv(), dr > 0 && Ht && Ht.push(e), e;
+}
+function _t(e, t, n, o, r, i) {
+  return zf(be(e, t, n, o, r, i, !0));
+}
+function bo(e, t, n, o, r) {
+  return zf(Z(e, t, n, o, r, !0));
+}
+function Ql(e) {
+  return e ? e.__v_isVNode === !0 : !1;
+}
+function Vn(e, t) {
+  return e.type === t.type && e.key === t.key;
+}
+const Mi = '__vInternal',
+  Vf = ({ key: e }) => (e != null ? e : null),
+  Qr = ({ ref: e, ref_key: t, ref_for: n }) =>
+    e != null ? (et(e) || Ve(e) || Ee(e) ? { i: qt, r: e, k: t, f: !!n } : e) : null;
+function be(e, t = null, n = null, o = 0, r = null, i = e === kt ? 0 : 1, l = !1, s = !1) {
+  const a = {
+    __v_isVNode: !0,
+    __v_skip: !0,
+    type: e,
+    props: t,
+    key: t && Vf(t),
+    ref: t && Qr(t),
+    scopeId: Pi,
+    slotScopeIds: null,
+    children: n,
+    component: null,
+    suspense: null,
+    ssContent: null,
+    ssFallback: null,
+    dirs: null,
+    transition: null,
+    el: null,
+    anchor: null,
+    target: null,
+    targetAnchor: null,
+    staticCount: 0,
+    shapeFlag: i,
+    patchFlag: o,
+    dynamicProps: r,
+    dynamicChildren: null,
+    appContext: null,
+    ctx: qt,
+  };
+  return (
+    s ? (Ns(a, n), i & 128 && e.normalize(a)) : n && (a.shapeFlag |= et(n) ? 8 : 16),
+    dr > 0 && !l && Ht && (a.patchFlag > 0 || i & 6) && a.patchFlag !== 32 && Ht.push(a),
+    a
+  );
+}
+const Z = Bv;
+function Bv(e, t = null, n = null, o = 0, r = null, i = !1) {
+  if (((!e || e === hv) && (e = Kt), Ql(e))) {
+    const s = Pn(e, t, !0);
+    return (
+      n && Ns(s, n),
+      dr > 0 && !i && Ht && (s.shapeFlag & 6 ? (Ht[Ht.indexOf(e)] = s) : Ht.push(s)),
+      (s.patchFlag |= -2),
+      s
+    );
+  }
+  if ((Qv(e) && (e = e.__vccOpts), t)) {
+    t = Iv(t);
+    let { class: s, style: a } = t;
+    s && !et(s) && (t.class = ht(s)),
+      Ue(a) && (hf(a) && !Ce(a) && (a = st({}, a)), (t.style = _i(a)));
+  }
+  const l = et(e) ? 1 : rv(e) ? 128 : Ov(e) ? 64 : Ue(e) ? 4 : Ee(e) ? 2 : 0;
+  return be(e, t, n, o, r, l, i, !0);
+}
+function Iv(e) {
+  return e ? (hf(e) || Mi in e ? st({}, e) : e) : null;
+}
+function Pn(e, t, n = !1) {
+  const { props: o, ref: r, patchFlag: i, children: l } = e,
+    s = t ? zv(o || {}, t) : o;
+  return {
+    __v_isVNode: !0,
+    __v_skip: !0,
+    type: e.type,
+    props: s,
+    key: s && Vf(s),
+    ref: t && t.ref ? (n && r ? (Ce(r) ? r.concat(Qr(t)) : [r, Qr(t)]) : Qr(t)) : r,
+    scopeId: e.scopeId,
+    slotScopeIds: e.slotScopeIds,
+    children: l,
+    target: e.target,
+    targetAnchor: e.targetAnchor,
+    staticCount: e.staticCount,
+    shapeFlag: e.shapeFlag,
+    patchFlag: t && e.type !== kt ? (i === -1 ? 16 : i | 16) : i,
+    dynamicProps: e.dynamicProps,
+    dynamicChildren: e.dynamicChildren,
+    appContext: e.appContext,
+    dirs: e.dirs,
+    transition: e.transition,
+    component: e.component,
+    suspense: e.suspense,
+    ssContent: e.ssContent && Pn(e.ssContent),
+    ssFallback: e.ssFallback && Pn(e.ssFallback),
+    el: e.el,
+    anchor: e.anchor,
+    ctx: e.ctx,
+  };
+}
+function Yt(e = ' ', t = 0) {
+  return Z(Li, null, e, t);
+}
+function Qn(e = '', t = !1) {
+  return t ? (Ze(), bo(Kt, null, e)) : Z(Kt, null, e);
+}
+function Jt(e) {
+  return e == null || typeof e == 'boolean'
+    ? Z(Kt)
+    : Ce(e)
+    ? Z(kt, null, e.slice())
+    : typeof e == 'object'
+    ? _n(e)
+    : Z(Li, null, String(e));
+}
+function _n(e) {
+  return (e.el === null && e.patchFlag !== -1) || e.memo ? e : Pn(e);
+}
+function Ns(e, t) {
+  let n = 0;
+  const { shapeFlag: o } = e;
+  if (t == null) t = null;
+  else if (Ce(t)) n = 16;
+  else if (typeof t == 'object')
+    if (o & 65) {
+      const r = t.default;
+      r && (r._c && (r._d = !1), Ns(e, r()), r._c && (r._d = !0));
+      return;
+    } else {
+      n = 32;
+      const r = t._;
+      !r && !(Mi in t)
+        ? (t._ctx = qt)
+        : r === 3 && qt && (qt.slots._ === 1 ? (t._ = 1) : ((t._ = 2), (e.patchFlag |= 1024)));
+    }
+  else
+    Ee(t)
+      ? ((t = { default: t, _ctx: qt }), (n = 32))
+      : ((t = String(t)), o & 64 ? ((n = 16), (t = [Yt(t)])) : (n = 8));
+  (e.children = t), (e.shapeFlag |= n);
+}
+function zv(...e) {
+  const t = {};
+  for (let n = 0; n < e.length; n++) {
+    const o = e[n];
+    for (const r in o)
+      if (r === 'class') t.class !== o.class && (t.class = ht([t.class, o.class]));
+      else if (r === 'style') t.style = _i([t.style, o.style]);
+      else if (Si(r)) {
+        const i = t[r],
+          l = o[r];
+        l && i !== l && !(Ce(i) && i.includes(l)) && (t[r] = i ? [].concat(i, l) : l);
+      } else r !== '' && (t[r] = o[r]);
+  }
+  return t;
+}
+function Qt(e, t, n, o = null) {
+  $t(e, t, 7, [n, o]);
+}
+const Vv = Bf();
+let Nv = 0;
+function jv(e, t, n) {
+  const o = e.type,
+    r = (t ? t.appContext : e.appContext) || Vv,
+    i = {
+      uid: Nv++,
+      vnode: e,
+      type: o,
+      parent: t,
+      appContext: r,
+      root: null,
+      next: null,
+      subTree: null,
+      effect: null,
+      update: null,
+      scope: new Gc(!0),
+      render: null,
+      proxy: null,
+      exposed: null,
+      exposeProxy: null,
+      withProxy: null,
+      provides: t ? t.provides : Object.create(r.provides),
+      accessCache: null,
+      renderCache: [],
+      components: null,
+      directives: null,
+      propsOptions: $f(o, r),
+      emitsOptions: xf(o, r),
+      emit: null,
+      emitted: null,
+      propsDefaults: He,
+      inheritAttrs: o.inheritAttrs,
+      ctx: He,
+      data: He,
+      props: He,
+      attrs: He,
+      slots: He,
+      refs: He,
+      setupState: He,
+      setupContext: null,
+      suspense: n,
+      suspenseId: n ? n.pendingId : 0,
+      asyncDep: null,
+      asyncResolved: !1,
+      isMounted: !1,
+      isUnmounted: !1,
+      isDeactivated: !1,
+      bc: null,
+      c: null,
+      bm: null,
+      m: null,
+      bu: null,
+      u: null,
+      um: null,
+      bum: null,
+      da: null,
+      a: null,
+      rtg: null,
+      rtc: null,
+      ec: null,
+      sp: null,
+    };
+  return (
+    (i.ctx = { _: i }), (i.root = t ? t.root : i), (i.emit = Ym.bind(null, i)), e.ce && e.ce(i), i
+  );
+}
+let lt = null;
+const qe = () => lt || qt,
+  qo = (e) => {
+    (lt = e), e.scope.on();
+  },
+  Jn = () => {
+    lt && lt.scope.off(), (lt = null);
+  };
+function Nf(e) {
+  return e.vnode.shapeFlag & 4;
+}
+let hr = !1;
+function Dv(e, t = !1) {
+  hr = t;
+  const { props: n, children: o } = e.vnode,
+    r = Nf(e);
+  Sv(e, n, r, t), kv(e, o);
+  const i = r ? Hv(e, t) : void 0;
+  return (hr = !1), i;
+}
+function Hv(e, t) {
+  const n = e.type;
+  (e.accessCache = Object.create(null)), (e.proxy = dn(new Proxy(e.ctx, gv)));
+  const { setup: o } = n;
+  if (o) {
+    const r = (e.setupContext = o.length > 1 ? Kv(e) : null);
+    qo(e), Lo();
+    const i = qn(o, e, 0, [e.props, r]);
+    if ((Mo(), Jn(), Jc(i))) {
+      if ((i.then(Jn, Jn), t))
+        return i
+          .then((l) => {
+            Ua(e, l, t);
+          })
+          .catch((l) => {
+            qi(l, e, 0);
+          });
+      e.asyncDep = i;
+    } else Ua(e, i, t);
+  } else jf(e, t);
+}
+function Ua(e, t, n) {
+  Ee(t)
+    ? e.type.__ssrInlineRender
+      ? (e.ssrRender = t)
+      : (e.render = t)
+    : Ue(t) && (e.setupState = pf(t)),
+    jf(e, n);
+}
+let Ka;
+function jf(e, t, n) {
+  const o = e.type;
+  if (!e.render) {
+    if (!t && Ka && !o.render) {
+      const r = o.template || Is(e).template;
+      if (r) {
+        const { isCustomElement: i, compilerOptions: l } = e.appContext.config,
+          { delimiters: s, compilerOptions: a } = o,
+          c = st(st({ isCustomElement: i, delimiters: s }, l), a);
+        o.render = Ka(r, c);
+      }
+    }
+    e.render = o.render || Ut;
+  }
+  qo(e), Lo(), pv(e), Mo(), Jn();
+}
+function Uv(e) {
+  return new Proxy(e.attrs, {
+    get(t, n) {
+      return Tt(e, 'get', '$attrs'), t[n];
+    },
+  });
+}
+function Kv(e) {
+  const t = (o) => {
+    e.exposed = o || {};
+  };
+  let n;
+  return {
+    get attrs() {
+      return n || (n = Uv(e));
+    },
+    slots: e.slots,
+    emit: e.emit,
+    expose: t,
+  };
+}
+function Fi(e) {
+  if (e.exposed)
+    return (
+      e.exposeProxy ||
+      (e.exposeProxy = new Proxy(pf(dn(e.exposed)), {
+        get(t, n) {
+          if (n in t) return t[n];
+          if (n in Yo) return Yo[n](e);
+        },
+        has(t, n) {
+          return n in t || n in Yo;
+        },
+      }))
+    );
+}
+function Wv(e, t = !0) {
+  return Ee(e) ? e.displayName || e.name : e.name || (t && e.__name);
+}
+function Qv(e) {
+  return Ee(e) && '__vccOpts' in e;
+}
+const v = (e, t) => Um(e, t, hr);
+function _(e, t, n) {
+  const o = arguments.length;
+  return o === 2
+    ? Ue(t) && !Ce(t)
+      ? Ql(t)
+        ? Z(e, null, [t])
+        : Z(e, t)
+      : Z(e, null, t)
+    : (o > 3 ? (n = Array.prototype.slice.call(arguments, 2)) : o === 3 && Ql(n) && (n = [n]),
+      Z(e, t, n));
+}
+const Jv = Symbol(''),
+  Xv = () => ut(Jv),
+  Yv = '3.2.45',
+  Gv = 'http://www.w3.org/2000/svg',
+  Nn = typeof document < 'u' ? document : null,
+  Wa = Nn && Nn.createElement('template'),
+  Zv = {
+    insert: (e, t, n) => {
+      t.insertBefore(e, n || null);
+    },
+    remove: (e) => {
+      const t = e.parentNode;
+      t && t.removeChild(e);
+    },
+    createElement: (e, t, n, o) => {
+      const r = t ? Nn.createElementNS(Gv, e) : Nn.createElement(e, n ? { is: n } : void 0);
+      return e === 'select' && o && o.multiple != null && r.setAttribute('multiple', o.multiple), r;
+    },
+    createText: (e) => Nn.createTextNode(e),
+    createComment: (e) => Nn.createComment(e),
+    setText: (e, t) => {
+      e.nodeValue = t;
+    },
+    setElementText: (e, t) => {
+      e.textContent = t;
+    },
+    parentNode: (e) => e.parentNode,
+    nextSibling: (e) => e.nextSibling,
+    querySelector: (e) => Nn.querySelector(e),
+    setScopeId(e, t) {
+      e.setAttribute(t, '');
+    },
+    insertStaticContent(e, t, n, o, r, i) {
+      const l = n ? n.previousSibling : t.lastChild;
+      if (r && (r === i || r.nextSibling))
+        for (; t.insertBefore(r.cloneNode(!0), n), !(r === i || !(r = r.nextSibling)); );
+      else {
+        Wa.innerHTML = o ? `<svg>${e}</svg>` : e;
+        const s = Wa.content;
+        if (o) {
+          const a = s.firstChild;
+          for (; a.firstChild; ) s.appendChild(a.firstChild);
+          s.removeChild(a);
+        }
+        t.insertBefore(s, n);
+      }
+      return [l ? l.nextSibling : t.firstChild, n ? n.previousSibling : t.lastChild];
+    },
+  };
+function eg(e, t, n) {
+  const o = e._vtc;
+  o && (t = (t ? [t, ...o] : [...o]).join(' ')),
+    t == null ? e.removeAttribute('class') : n ? e.setAttribute('class', t) : (e.className = t);
+}
+function tg(e, t, n) {
+  const o = e.style,
+    r = et(n);
+  if (n && !r) {
+    for (const i in n) Jl(o, i, n[i]);
+    if (t && !et(t)) for (const i in t) n[i] == null && Jl(o, i, '');
+  } else {
+    const i = o.display;
+    r ? t !== n && (o.cssText = n) : t && e.removeAttribute('style'),
+      '_vod' in e && (o.display = i);
+  }
+}
+const Qa = /\s*!important$/;
+function Jl(e, t, n) {
+  if (Ce(n)) n.forEach((o) => Jl(e, t, o));
+  else if ((n == null && (n = ''), t.startsWith('--'))) e.setProperty(t, n);
+  else {
+    const o = ng(e, t);
+    Qa.test(n) ? e.setProperty($o(o), n.replace(Qa, ''), 'important') : (e[o] = n);
+  }
+}
+const Ja = ['Webkit', 'Moz', 'ms'],
+  dl = {};
+function ng(e, t) {
+  const n = dl[t];
+  if (n) return n;
+  let o = Zt(t);
+  if (o !== 'filter' && o in e) return (dl[t] = o);
+  o = ki(o);
+  for (let r = 0; r < Ja.length; r++) {
+    const i = Ja[r] + o;
+    if (i in e) return (dl[t] = i);
+  }
+  return t;
+}
+const Xa = 'http://www.w3.org/1999/xlink';
+function og(e, t, n, o, r) {
+  if (o && t.startsWith('xlink:'))
+    n == null ? e.removeAttributeNS(Xa, t.slice(6, t.length)) : e.setAttributeNS(Xa, t, n);
+  else {
+    const i = nm(t);
+    n == null || (i && !Kc(n)) ? e.removeAttribute(t) : e.setAttribute(t, i ? '' : n);
+  }
+}
+function rg(e, t, n, o, r, i, l) {
+  if (t === 'innerHTML' || t === 'textContent') {
+    o && l(o, r, i), (e[t] = n == null ? '' : n);
+    return;
+  }
+  if (t === 'value' && e.tagName !== 'PROGRESS' && !e.tagName.includes('-')) {
+    e._value = n;
+    const a = n == null ? '' : n;
+    (e.value !== a || e.tagName === 'OPTION') && (e.value = a), n == null && e.removeAttribute(t);
+    return;
+  }
+  let s = !1;
+  if (n === '' || n == null) {
+    const a = typeof e[t];
+    a === 'boolean'
+      ? (n = Kc(n))
+      : n == null && a === 'string'
+      ? ((n = ''), (s = !0))
+      : a === 'number' && ((n = 0), (s = !0));
+  }
+  try {
+    e[t] = n;
+  } catch {}
+  s && e.removeAttribute(t);
+}
+function ig(e, t, n, o) {
+  e.addEventListener(t, n, o);
+}
+function lg(e, t, n, o) {
+  e.removeEventListener(t, n, o);
+}
+function sg(e, t, n, o, r = null) {
+  const i = e._vei || (e._vei = {}),
+    l = i[t];
+  if (o && l) l.value = o;
+  else {
+    const [s, a] = ag(t);
+    if (o) {
+      const c = (i[t] = fg(o, r));
+      ig(e, s, c, a);
+    } else l && (lg(e, s, l, a), (i[t] = void 0));
+  }
+}
+const Ya = /(?:Once|Passive|Capture)$/;
+function ag(e) {
+  let t;
+  if (Ya.test(e)) {
+    t = {};
+    let o;
+    for (; (o = e.match(Ya)); )
+      (e = e.slice(0, e.length - o[0].length)), (t[o[0].toLowerCase()] = !0);
+  }
+  return [e[2] === ':' ? e.slice(3) : $o(e.slice(2)), t];
+}
+let hl = 0;
+const ug = Promise.resolve(),
+  cg = () => hl || (ug.then(() => (hl = 0)), (hl = Date.now()));
+function fg(e, t) {
+  const n = (o) => {
+    if (!o._vts) o._vts = Date.now();
+    else if (o._vts <= n.attached) return;
+    $t(dg(o, n.value), t, 5, [o]);
+  };
+  return (n.value = e), (n.attached = cg()), n;
+}
+function dg(e, t) {
+  if (Ce(t)) {
+    const n = e.stopImmediatePropagation;
+    return (
+      (e.stopImmediatePropagation = () => {
+        n.call(e), (e._stopped = !0);
+      }),
+      t.map((o) => (r) => !r._stopped && o && o(r))
+    );
+  } else return t;
+}
+const Ga = /^on[a-z]/,
+  hg = (e, t, n, o, r = !1, i, l, s, a) => {
+    t === 'class'
+      ? eg(e, o, r)
+      : t === 'style'
+      ? tg(e, n, o)
+      : Si(t)
+      ? Ss(t) || sg(e, t, n, o, l)
+      : (
+          t[0] === '.'
+            ? ((t = t.slice(1)), !0)
+            : t[0] === '^'
+            ? ((t = t.slice(1)), !1)
+            : mg(e, t, o, r)
+        )
+      ? rg(e, t, o, i, l, s, a)
+      : (t === 'true-value' ? (e._trueValue = o) : t === 'false-value' && (e._falseValue = o),
+        og(e, t, o, r));
+  };
+function mg(e, t, n, o) {
+  return o
+    ? !!(t === 'innerHTML' || t === 'textContent' || (t in e && Ga.test(t) && Ee(n)))
+    : t === 'spellcheck' ||
+      t === 'draggable' ||
+      t === 'translate' ||
+      t === 'form' ||
+      (t === 'list' && e.tagName === 'INPUT') ||
+      (t === 'type' && e.tagName === 'TEXTAREA') ||
+      (Ga.test(t) && et(n))
+    ? !1
+    : t in e;
+}
+const pn = 'transition',
+  Vo = 'animation',
+  Zn = (e, { slots: t }) => _(qf, Hf(e), t);
+Zn.displayName = 'Transition';
+const Df = {
+    name: String,
+    type: String,
+    css: { type: Boolean, default: !0 },
+    duration: [String, Number, Object],
+    enterFromClass: String,
+    enterActiveClass: String,
+    enterToClass: String,
+    appearFromClass: String,
+    appearActiveClass: String,
+    appearToClass: String,
+    leaveFromClass: String,
+    leaveActiveClass: String,
+    leaveToClass: String,
+  },
+  vg = (Zn.props = st({}, qf.props, Df)),
+  Fn = (e, t = []) => {
+    Ce(e) ? e.forEach((n) => n(...t)) : e && e(...t);
+  },
+  Za = (e) => (e ? (Ce(e) ? e.some((t) => t.length > 1) : e.length > 1) : !1);
+function Hf(e) {
+  const t = {};
+  for (const I in e) I in Df || (t[I] = e[I]);
+  if (e.css === !1) return t;
+  const {
+      name: n = 'v',
+      type: o,
+      duration: r,
+      enterFromClass: i = `${n}-enter-from`,
+      enterActiveClass: l = `${n}-enter-active`,
+      enterToClass: s = `${n}-enter-to`,
+      appearFromClass: a = i,
+      appearActiveClass: c = l,
+      appearToClass: u = s,
+      leaveFromClass: f = `${n}-leave-from`,
+      leaveActiveClass: d = `${n}-leave-active`,
+      leaveToClass: h = `${n}-leave-to`,
+    } = e,
+    m = gg(r),
+    g = m && m[0],
+    b = m && m[1],
+    {
+      onBeforeEnter: T,
+      onEnter: k,
+      onEnterCancelled: E,
+      onLeave: x,
+      onLeaveCancelled: P,
+      onBeforeAppear: C = T,
+      onAppear: S = k,
+      onAppearCancelled: p = E,
+    } = t,
+    $ = (I, Q, H) => {
+      wn(I, Q ? u : s), wn(I, Q ? c : l), H && H();
+    },
+    R = (I, Q) => {
+      (I._isLeaving = !1), wn(I, f), wn(I, h), wn(I, d), Q && Q();
+    },
+    B = (I) => (Q, H) => {
+      const le = I ? S : k,
+        N = () => $(Q, I, H);
+      Fn(le, [Q, N]),
+        eu(() => {
+          wn(Q, I ? a : i), rn(Q, I ? u : s), Za(le) || tu(Q, o, g, N);
+        });
+    };
+  return st(t, {
+    onBeforeEnter(I) {
+      Fn(T, [I]), rn(I, i), rn(I, l);
+    },
+    onBeforeAppear(I) {
+      Fn(C, [I]), rn(I, a), rn(I, c);
+    },
+    onEnter: B(!1),
+    onAppear: B(!0),
+    onLeave(I, Q) {
+      I._isLeaving = !0;
+      const H = () => R(I, Q);
+      rn(I, f),
+        Kf(),
+        rn(I, d),
+        eu(() => {
+          !I._isLeaving || (wn(I, f), rn(I, h), Za(x) || tu(I, o, b, H));
+        }),
+        Fn(x, [I, H]);
+    },
+    onEnterCancelled(I) {
+      $(I, !1), Fn(E, [I]);
+    },
+    onAppearCancelled(I) {
+      $(I, !0), Fn(p, [I]);
+    },
+    onLeaveCancelled(I) {
+      R(I), Fn(P, [I]);
+    },
+  });
+}
+function gg(e) {
+  if (e == null) return null;
+  if (Ue(e)) return [ml(e.enter), ml(e.leave)];
+  {
+    const t = ml(e);
+    return [t, t];
+  }
+}
+function ml(e) {
+  return Es(e);
+}
+function rn(e, t) {
+  t.split(/\s+/).forEach((n) => n && e.classList.add(n)), (e._vtc || (e._vtc = new Set())).add(t);
+}
+function wn(e, t) {
+  t.split(/\s+/).forEach((o) => o && e.classList.remove(o));
+  const { _vtc: n } = e;
+  n && (n.delete(t), n.size || (e._vtc = void 0));
+}
+function eu(e) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(e);
+  });
+}
+let pg = 0;
+function tu(e, t, n, o) {
+  const r = (e._endId = ++pg),
+    i = () => {
+      r === e._endId && o();
+    };
+  if (n) return setTimeout(i, n);
+  const { type: l, timeout: s, propCount: a } = Uf(e, t);
+  if (!l) return o();
+  const c = l + 'end';
+  let u = 0;
+  const f = () => {
+      e.removeEventListener(c, d), i();
+    },
+    d = (h) => {
+      h.target === e && ++u >= a && f();
+    };
+  setTimeout(() => {
+    u < a && f();
+  }, s + 1),
+    e.addEventListener(c, d);
+}
+function Uf(e, t) {
+  const n = window.getComputedStyle(e),
+    o = (m) => (n[m] || '').split(', '),
+    r = o(`${pn}Delay`),
+    i = o(`${pn}Duration`),
+    l = nu(r, i),
+    s = o(`${Vo}Delay`),
+    a = o(`${Vo}Duration`),
+    c = nu(s, a);
+  let u = null,
+    f = 0,
+    d = 0;
+  t === pn
+    ? l > 0 && ((u = pn), (f = l), (d = i.length))
+    : t === Vo
+    ? c > 0 && ((u = Vo), (f = c), (d = a.length))
+    : ((f = Math.max(l, c)),
+      (u = f > 0 ? (l > c ? pn : Vo) : null),
+      (d = u ? (u === pn ? i.length : a.length) : 0));
+  const h = u === pn && /\b(transform|all)(,|$)/.test(o(`${pn}Property`).toString());
+  return { type: u, timeout: f, propCount: d, hasTransform: h };
+}
+function nu(e, t) {
+  for (; e.length < t.length; ) e = e.concat(e);
+  return Math.max(...t.map((n, o) => ou(n) + ou(e[o])));
+}
+function ou(e) {
+  return Number(e.slice(0, -1).replace(',', '.')) * 1e3;
+}
+function Kf() {
+  return document.body.offsetHeight;
+}
+const Wf = new WeakMap(),
+  Qf = new WeakMap(),
+  bg = {
+    name: 'TransitionGroup',
+    props: st({}, vg, { tag: String, moveClass: String }),
+    setup(e, { slots: t }) {
+      const n = qe(),
+        o = Ef();
+      let r, i;
+      return (
+        Bs(() => {
+          if (!r.length) return;
+          const l = e.moveClass || `${e.name || 'v'}-move`;
+          if (!xg(r[0].el, n.vnode.el, l)) return;
+          r.forEach(wg), r.forEach(_g);
+          const s = r.filter(Sg);
+          Kf(),
+            s.forEach((a) => {
+              const c = a.el,
+                u = c.style;
+              rn(c, l), (u.transform = u.webkitTransform = u.transitionDuration = '');
+              const f = (c._moveCb = (d) => {
+                (d && d.target !== c) ||
+                  ((!d || /transform$/.test(d.propertyName)) &&
+                    (c.removeEventListener('transitionend', f), (c._moveCb = null), wn(c, l)));
+              });
+              c.addEventListener('transitionend', f);
+            });
+        }),
+        () => {
+          const l = Te(e),
+            s = Hf(l);
+          let a = l.tag || kt;
+          (r = i), (i = t.default ? Fs(t.default()) : []);
+          for (let c = 0; c < i.length; c++) {
+            const u = i[c];
+            u.key != null && fr(u, cr(u, s, o, n));
+          }
+          if (r)
+            for (let c = 0; c < r.length; c++) {
+              const u = r[c];
+              fr(u, cr(u, s, o, n)), Wf.set(u, u.el.getBoundingClientRect());
+            }
+          return Z(a, null, i);
+        }
+      );
+    },
+  },
+  yg = bg;
+function wg(e) {
+  const t = e.el;
+  t._moveCb && t._moveCb(), t._enterCb && t._enterCb();
+}
+function _g(e) {
+  Qf.set(e, e.el.getBoundingClientRect());
+}
+function Sg(e) {
+  const t = Wf.get(e),
+    n = Qf.get(e),
+    o = t.left - n.left,
+    r = t.top - n.top;
+  if (o || r) {
+    const i = e.el.style;
+    return (
+      (i.transform = i.webkitTransform = `translate(${o}px,${r}px)`),
+      (i.transitionDuration = '0s'),
+      e
+    );
+  }
+}
+function xg(e, t, n) {
+  const o = e.cloneNode();
+  e._vtc &&
+    e._vtc.forEach((l) => {
+      l.split(/\s+/).forEach((s) => s && o.classList.remove(s));
+    }),
+    n.split(/\s+/).forEach((l) => l && o.classList.add(l)),
+    (o.style.display = 'none');
+  const r = t.nodeType === 1 ? t : t.parentNode;
+  r.appendChild(o);
+  const { hasTransform: i } = Uf(o);
+  return r.removeChild(o), i;
+}
+const Cg = st({ patchProp: hg }, Zv);
+let ru;
+function kg() {
+  return ru || (ru = Pv(Cg));
+}
+const Jf = (...e) => {
+  const t = kg().createApp(...e),
+    { mount: n } = t;
+  return (
+    (t.mount = (o) => {
+      const r = Eg(o);
+      if (!r) return;
+      const i = t._component;
+      !Ee(i) && !i.render && !i.template && (i.template = r.innerHTML), (r.innerHTML = '');
+      const l = n(r, !1, r instanceof SVGElement);
+      return (
+        r instanceof Element && (r.removeAttribute('v-cloak'), r.setAttribute('data-v-app', '')), l
+      );
+    }),
+    t
+  );
+};
+function Eg(e) {
+  return et(e) ? document.querySelector(e) : e;
+}
+function At(e, t, n, o) {
+  return Object.defineProperty(e, t, { get: n, set: o, enumerable: !0 }), e;
+}
+function qg(e, t) {
+  for (const n in t) At(e, n, t[n]);
+  return e;
+}
+const en = W(!1);
+let Bi;
+function Tg(e, t) {
+  const n =
+    /(edg|edge|edga|edgios)\/([\w.]+)/.exec(e) ||
+    /(opr)[\/]([\w.]+)/.exec(e) ||
+    /(vivaldi)[\/]([\w.]+)/.exec(e) ||
+    /(chrome|crios)[\/]([\w.]+)/.exec(e) ||
+    /(version)(applewebkit)[\/]([\w.]+).*(safari)[\/]([\w.]+)/.exec(e) ||
+    /(webkit)[\/]([\w.]+).*(version)[\/]([\w.]+).*(safari)[\/]([\w.]+)/.exec(e) ||
+    /(firefox|fxios)[\/]([\w.]+)/.exec(e) ||
+    /(webkit)[\/]([\w.]+)/.exec(e) ||
+    /(opera)(?:.*version|)[\/]([\w.]+)/.exec(e) ||
+    [];
+  return {
+    browser: n[5] || n[3] || n[1] || '',
+    version: n[2] || n[4] || '0',
+    versionNumber: n[4] || n[2] || '0',
+    platform: t[0] || '',
+  };
+}
+function Pg(e) {
+  return (
+    /(ipad)/.exec(e) ||
+    /(ipod)/.exec(e) ||
+    /(windows phone)/.exec(e) ||
+    /(iphone)/.exec(e) ||
+    /(kindle)/.exec(e) ||
+    /(silk)/.exec(e) ||
+    /(android)/.exec(e) ||
+    /(win)/.exec(e) ||
+    /(mac)/.exec(e) ||
+    /(linux)/.exec(e) ||
+    /(cros)/.exec(e) ||
+    /(playbook)/.exec(e) ||
+    /(bb)/.exec(e) ||
+    /(blackberry)/.exec(e) ||
+    []
+  );
+}
+const Xf = 'ontouchstart' in window || window.navigator.maxTouchPoints > 0;
+function Rg(e) {
+  (Bi = { is: { ...e } }), delete e.mac, delete e.desktop;
+  const t = Math.min(window.innerHeight, window.innerWidth) > 414 ? 'ipad' : 'iphone';
+  Object.assign(e, { mobile: !0, ios: !0, platform: t, [t]: !0 });
+}
+function Ag(e) {
+  const t = e.toLowerCase(),
+    n = Pg(t),
+    o = Tg(t, n),
+    r = {};
+  o.browser &&
+    ((r[o.browser] = !0),
+    (r.version = o.version),
+    (r.versionNumber = parseInt(o.versionNumber, 10))),
+    o.platform && (r[o.platform] = !0);
+  const i =
+    r.android ||
+    r.ios ||
+    r.bb ||
+    r.blackberry ||
+    r.ipad ||
+    r.iphone ||
+    r.ipod ||
+    r.kindle ||
+    r.playbook ||
+    r.silk ||
+    r['windows phone'];
+  return (
+    i === !0 || t.indexOf('mobile') > -1
+      ? ((r.mobile = !0),
+        r.edga || r.edgios
+          ? ((r.edge = !0), (o.browser = 'edge'))
+          : r.crios
+          ? ((r.chrome = !0), (o.browser = 'chrome'))
+          : r.fxios && ((r.firefox = !0), (o.browser = 'firefox')))
+      : (r.desktop = !0),
+    (r.ipod || r.ipad || r.iphone) && (r.ios = !0),
+    r['windows phone'] && ((r.winphone = !0), delete r['windows phone']),
+    (r.chrome || r.opr || r.safari || r.vivaldi || (r.mobile === !0 && r.ios !== !0 && i !== !0)) &&
+      (r.webkit = !0),
+    r.edg && ((o.browser = 'edgechromium'), (r.edgeChromium = !0)),
+    ((r.safari && r.blackberry) || r.bb) && ((o.browser = 'blackberry'), (r.blackberry = !0)),
+    r.safari && r.playbook && ((o.browser = 'playbook'), (r.playbook = !0)),
+    r.opr && ((o.browser = 'opera'), (r.opera = !0)),
+    r.safari && r.android && ((o.browser = 'android'), (r.android = !0)),
+    r.safari && r.kindle && ((o.browser = 'kindle'), (r.kindle = !0)),
+    r.safari && r.silk && ((o.browser = 'silk'), (r.silk = !0)),
+    r.vivaldi && ((o.browser = 'vivaldi'), (r.vivaldi = !0)),
+    (r.name = o.browser),
+    (r.platform = o.platform),
+    t.indexOf('electron') > -1
+      ? (r.electron = !0)
+      : document.location.href.indexOf('-extension://') > -1
+      ? (r.bex = !0)
+      : (window.Capacitor !== void 0
+          ? ((r.capacitor = !0), (r.nativeMobile = !0), (r.nativeMobileWrapper = 'capacitor'))
+          : (window._cordovaNative !== void 0 || window.cordova !== void 0) &&
+            ((r.cordova = !0), (r.nativeMobile = !0), (r.nativeMobileWrapper = 'cordova')),
+        Xf === !0 &&
+          r.mac === !0 &&
+          ((r.desktop === !0 && r.safari === !0) ||
+            (r.nativeMobile === !0 && r.android !== !0 && r.ios !== !0 && r.ipad !== !0)) &&
+          Rg(r)),
+    r
+  );
+}
+const iu = navigator.userAgent || navigator.vendor || window.opera,
+  Og = { has: { touch: !1, webStorage: !1 }, within: { iframe: !1 } },
+  Ne = {
+    userAgent: iu,
+    is: Ag(iu),
+    has: { touch: Xf },
+    within: { iframe: window.self !== window.top },
+  },
+  ci = {
+    install(e) {
+      const { $q: t } = e;
+      en.value === !0
+        ? (e.onSSRHydrated.push(() => {
+            Object.assign(t.platform, Ne), (en.value = !1), (Bi = void 0);
+          }),
+          (t.platform = jt(this)))
+        : (t.platform = this);
+    },
+  };
+{
+  let e;
+  At(Ne.has, 'webStorage', () => {
+    if (e !== void 0) return e;
+    try {
+      if (window.localStorage) return (e = !0), !0;
+    } catch {}
+    return (e = !1), !1;
+  }),
+    Ne.is.ios === !0 && window.navigator.vendor.toLowerCase().indexOf('apple'),
+    en.value === !0 ? Object.assign(ci, Ne, Bi, Og) : Object.assign(ci, Ne);
+}
+const Ii = (e, t) => {
+    const n = jt(e);
+    for (const o in e)
+      At(
+        t,
+        o,
+        () => n[o],
+        (r) => {
+          n[o] = r;
+        },
+      );
+    return t;
+  },
+  Ye = { hasPassive: !1, passiveCapture: !0, notPassiveCapture: !0 };
+try {
+  const e = Object.defineProperty({}, 'passive', {
+    get() {
+      Object.assign(Ye, {
+        hasPassive: !0,
+        passive: { passive: !0 },
+        notPassive: { passive: !1 },
+        passiveCapture: { passive: !0, capture: !0 },
+        notPassiveCapture: { passive: !1, capture: !0 },
+      });
+    },
+  });
+  window.addEventListener('qtest', null, e), window.removeEventListener('qtest', null, e);
+} catch {}
+function hn() {}
+function $g(e) {
+  return e.button === 0;
+}
+function mr(e) {
+  return (
+    e.touches && e.touches[0]
+      ? (e = e.touches[0])
+      : e.changedTouches && e.changedTouches[0]
+      ? (e = e.changedTouches[0])
+      : e.targetTouches && e.targetTouches[0] && (e = e.targetTouches[0]),
+    { top: e.clientY, left: e.clientX }
+  );
+}
+function Lg(e) {
+  if (e.path) return e.path;
+  if (e.composedPath) return e.composedPath();
+  const t = [];
+  let n = e.target;
+  for (; n; ) {
+    if ((t.push(n), n.tagName === 'HTML')) return t.push(document), t.push(window), t;
+    n = n.parentElement;
+  }
+}
+function Et(e) {
+  e.stopPropagation();
+}
+function bt(e) {
+  e.cancelable !== !1 && e.preventDefault();
+}
+function Je(e) {
+  e.cancelable !== !1 && e.preventDefault(), e.stopPropagation();
+}
+function vl(e, t) {
+  if (e === void 0 || (t === !0 && e.__dragPrevented === !0)) return;
+  const n =
+    t === !0
+      ? (o) => {
+          (o.__dragPrevented = !0), o.addEventListener('dragstart', bt, Ye.notPassiveCapture);
+        }
+      : (o) => {
+          delete o.__dragPrevented, o.removeEventListener('dragstart', bt, Ye.notPassiveCapture);
+        };
+  e.querySelectorAll('a, img').forEach(n);
+}
+function Dn(e, t, n) {
+  const o = `__q_${t}_evt`;
+  (e[o] = e[o] !== void 0 ? e[o].concat(n) : n),
+    n.forEach((r) => {
+      r[0].addEventListener(r[1], e[r[2]], Ye[r[3]]);
+    });
+}
+function er(e, t) {
+  const n = `__q_${t}_evt`;
+  e[n] !== void 0 &&
+    (e[n].forEach((o) => {
+      o[0].removeEventListener(o[1], e[o[2]], Ye[o[3]]);
+    }),
+    (e[n] = void 0));
+}
+function zi(e, t = 250, n) {
+  let o;
+  function r() {
+    const i = arguments,
+      l = () => {
+        (o = void 0), n !== !0 && e.apply(this, i);
+      };
+    clearTimeout(o), n === !0 && o === void 0 && e.apply(this, i), (o = setTimeout(l, t));
+  }
+  return (
+    (r.cancel = () => {
+      clearTimeout(o);
+    }),
+    r
+  );
+}
+const gl = ['sm', 'md', 'lg', 'xl'],
+  { passive: lu } = Ye,
+  Mg = Ii(
+    {
+      width: 0,
+      height: 0,
+      name: 'xs',
+      sizes: { sm: 600, md: 1024, lg: 1440, xl: 1920 },
+      lt: { sm: !0, md: !0, lg: !0, xl: !0 },
+      gt: { xs: !1, sm: !1, md: !1, lg: !1 },
+      xs: !0,
+      sm: !1,
+      md: !1,
+      lg: !1,
+      xl: !1,
+    },
+    {
+      setSizes: hn,
+      setDebounce: hn,
+      install({ $q: e, onSSRHydrated: t }) {
+        if (((e.screen = this), this.__installed === !0)) {
+          e.config.screen !== void 0 &&
+            (e.config.screen.bodyClasses === !1
+              ? document.body.classList.remove(`screen--${this.name}`)
+              : this.__update(!0));
+          return;
+        }
+        const { visualViewport: n } = window,
+          o = n || window,
+          r = document.scrollingElement || document.documentElement,
+          i =
+            n === void 0 || Ne.is.mobile === !0
+              ? () => [
+                  Math.max(window.innerWidth, r.clientWidth),
+                  Math.max(window.innerHeight, r.clientHeight),
+                ]
+              : () => [
+                  n.width * n.scale + window.innerWidth - r.clientWidth,
+                  n.height * n.scale + window.innerHeight - r.clientHeight,
+                ],
+          l = e.config.screen !== void 0 && e.config.screen.bodyClasses === !0;
+        this.__update = (f) => {
+          const [d, h] = i();
+          if ((h !== this.height && (this.height = h), d !== this.width)) this.width = d;
+          else if (f !== !0) return;
+          let m = this.sizes;
+          (this.gt.xs = d >= m.sm),
+            (this.gt.sm = d >= m.md),
+            (this.gt.md = d >= m.lg),
+            (this.gt.lg = d >= m.xl),
+            (this.lt.sm = d < m.sm),
+            (this.lt.md = d < m.md),
+            (this.lt.lg = d < m.lg),
+            (this.lt.xl = d < m.xl),
+            (this.xs = this.lt.sm),
+            (this.sm = this.gt.xs === !0 && this.lt.md === !0),
+            (this.md = this.gt.sm === !0 && this.lt.lg === !0),
+            (this.lg = this.gt.md === !0 && this.lt.xl === !0),
+            (this.xl = this.gt.lg),
+            (m =
+              (this.xs === !0 && 'xs') ||
+              (this.sm === !0 && 'sm') ||
+              (this.md === !0 && 'md') ||
+              (this.lg === !0 && 'lg') ||
+              'xl'),
+            m !== this.name &&
+              (l === !0 &&
+                (document.body.classList.remove(`screen--${this.name}`),
+                document.body.classList.add(`screen--${m}`)),
+              (this.name = m));
+        };
+        let s,
+          a = {},
+          c = 16;
+        (this.setSizes = (f) => {
+          gl.forEach((d) => {
+            f[d] !== void 0 && (a[d] = f[d]);
+          });
+        }),
+          (this.setDebounce = (f) => {
+            c = f;
+          });
+        const u = () => {
+          const f = getComputedStyle(document.body);
+          f.getPropertyValue('--q-size-sm') &&
+            gl.forEach((d) => {
+              this.sizes[d] = parseInt(f.getPropertyValue(`--q-size-${d}`), 10);
+            }),
+            (this.setSizes = (d) => {
+              gl.forEach((h) => {
+                d[h] && (this.sizes[h] = d[h]);
+              }),
+                this.__update(!0);
+            }),
+            (this.setDebounce = (d) => {
+              s !== void 0 && o.removeEventListener('resize', s, lu),
+                (s = d > 0 ? zi(this.__update, d) : this.__update),
+                o.addEventListener('resize', s, lu);
+            }),
+            this.setDebounce(c),
+            Object.keys(a).length > 0 ? (this.setSizes(a), (a = void 0)) : this.__update(),
+            l === !0 && this.name === 'xs' && document.body.classList.add('screen--xs');
+        };
+        en.value === !0 ? t.push(u) : u();
+      },
+    },
+  ),
+  dt = Ii(
+    { isActive: !1, mode: !1 },
+    {
+      __media: void 0,
+      set(e) {
+        (dt.mode = e),
+          e === 'auto'
+            ? (dt.__media === void 0 &&
+                ((dt.__media = window.matchMedia('(prefers-color-scheme: dark)')),
+                (dt.__updateMedia = () => {
+                  dt.set('auto');
+                }),
+                dt.__media.addListener(dt.__updateMedia)),
+              (e = dt.__media.matches))
+            : dt.__media !== void 0 &&
+              (dt.__media.removeListener(dt.__updateMedia), (dt.__media = void 0)),
+          (dt.isActive = e === !0),
+          document.body.classList.remove(`body--${e === !0 ? 'light' : 'dark'}`),
+          document.body.classList.add(`body--${e === !0 ? 'dark' : 'light'}`);
+      },
+      toggle() {
+        dt.set(dt.isActive === !1);
+      },
+      install({ $q: e, onSSRHydrated: t, ssrContext: n }) {
+        const { dark: o } = e.config;
+        if (((e.dark = this), this.__installed === !0 && o === void 0)) return;
+        this.isActive = o === !0;
+        const r = o !== void 0 ? o : !1;
+        if (en.value === !0) {
+          const i = (s) => {
+              this.__fromSSR = s;
+            },
+            l = this.set;
+          (this.set = i),
+            i(r),
+            t.push(() => {
+              (this.set = l), this.set(this.__fromSSR);
+            });
+        } else this.set(r);
+      },
+    },
+  ),
+  Yf = () => !0;
+function Fg(e) {
+  return typeof e == 'string' && e !== '' && e !== '/' && e !== '#/';
+}
+function Bg(e) {
+  return (
+    e.startsWith('#') === !0 && (e = e.substring(1)),
+    e.startsWith('/') === !1 && (e = '/' + e),
+    e.endsWith('/') === !0 && (e = e.substring(0, e.length - 1)),
+    '#' + e
+  );
+}
+function Ig(e) {
+  if (e.backButtonExit === !1) return () => !1;
+  if (e.backButtonExit === '*') return Yf;
+  const t = ['#/'];
+  return (
+    Array.isArray(e.backButtonExit) === !0 && t.push(...e.backButtonExit.filter(Fg).map(Bg)),
+    () => t.includes(window.location.hash)
+  );
+}
+const vr = {
+    __history: [],
+    add: hn,
+    remove: hn,
+    install({ $q: e }) {
+      if (this.__installed === !0) return;
+      const { cordova: t, capacitor: n } = Ne.is;
+      if (t !== !0 && n !== !0) return;
+      const o = e.config[t === !0 ? 'cordova' : 'capacitor'];
+      if (
+        (o !== void 0 && o.backButton === !1) ||
+        (n === !0 && (window.Capacitor === void 0 || window.Capacitor.Plugins.App === void 0))
+      )
+        return;
+      (this.add = (l) => {
+        l.condition === void 0 && (l.condition = Yf), this.__history.push(l);
+      }),
+        (this.remove = (l) => {
+          const s = this.__history.indexOf(l);
+          s >= 0 && this.__history.splice(s, 1);
+        });
+      const r = Ig(Object.assign({ backButtonExit: !0 }, o)),
+        i = () => {
+          if (this.__history.length) {
+            const l = this.__history[this.__history.length - 1];
+            l.condition() === !0 && (this.__history.pop(), l.handler());
+          } else r() === !0 ? navigator.app.exitApp() : window.history.back();
+        };
+      t === !0
+        ? document.addEventListener('deviceready', () => {
+            document.addEventListener('backbutton', i, !1);
+          })
+        : window.Capacitor.Plugins.App.addListener('backButton', i);
+    },
+  },
+  su = {
+    isoName: 'en-US',
+    nativeName: 'English (US)',
+    label: {
+      clear: 'Clear',
+      ok: 'OK',
+      cancel: 'Cancel',
+      close: 'Close',
+      set: 'Set',
+      select: 'Select',
+      reset: 'Reset',
+      remove: 'Remove',
+      update: 'Update',
+      create: 'Create',
+      search: 'Search',
+      filter: 'Filter',
+      refresh: 'Refresh',
+      expand: (e) => (e ? `Expand "${e}"` : 'Expand'),
+      collapse: (e) => (e ? `Collapse "${e}"` : 'Collapse'),
+    },
+    date: {
+      days: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+      daysShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+      months:
+        'January_February_March_April_May_June_July_August_September_October_November_December'.split(
+          '_',
+        ),
+      monthsShort: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+      firstDayOfWeek: 0,
+      format24h: !1,
+      pluralDay: 'days',
+    },
+    table: {
+      noData: 'No data available',
+      noResults: 'No matching records found',
+      loading: 'Loading...',
+      selectedRecords: (e) =>
+        e === 1 ? '1 record selected.' : (e === 0 ? 'No' : e) + ' records selected.',
+      recordsPerPage: 'Records per page:',
+      allRows: 'All',
+      pagination: (e, t, n) => e + '-' + t + ' of ' + n,
+      columns: 'Columns',
+    },
+    editor: {
+      url: 'URL',
+      bold: 'Bold',
+      italic: 'Italic',
+      strikethrough: 'Strikethrough',
+      underline: 'Underline',
+      unorderedList: 'Unordered List',
+      orderedList: 'Ordered List',
+      subscript: 'Subscript',
+      superscript: 'Superscript',
+      hyperlink: 'Hyperlink',
+      toggleFullscreen: 'Toggle Fullscreen',
+      quote: 'Quote',
+      left: 'Left align',
+      center: 'Center align',
+      right: 'Right align',
+      justify: 'Justify align',
+      print: 'Print',
+      outdent: 'Decrease indentation',
+      indent: 'Increase indentation',
+      removeFormat: 'Remove formatting',
+      formatting: 'Formatting',
+      fontSize: 'Font Size',
+      align: 'Align',
+      hr: 'Insert Horizontal Rule',
+      undo: 'Undo',
+      redo: 'Redo',
+      heading1: 'Heading 1',
+      heading2: 'Heading 2',
+      heading3: 'Heading 3',
+      heading4: 'Heading 4',
+      heading5: 'Heading 5',
+      heading6: 'Heading 6',
+      paragraph: 'Paragraph',
+      code: 'Code',
+      size1: 'Very small',
+      size2: 'A bit small',
+      size3: 'Normal',
+      size4: 'Medium-large',
+      size5: 'Big',
+      size6: 'Very big',
+      size7: 'Maximum',
+      defaultFont: 'Default Font',
+      viewSource: 'View Source',
+    },
+    tree: { noNodes: 'No nodes available', noResults: 'No matching nodes found' },
+  };
+function au() {
+  const e =
+    Array.isArray(navigator.languages) === !0 && navigator.languages.length > 0
+      ? navigator.languages[0]
+      : navigator.language;
+  if (typeof e == 'string')
+    return e
+      .split(/[-_]/)
+      .map((t, n) =>
+        n === 0
+          ? t.toLowerCase()
+          : n > 1 || t.length < 4
+          ? t.toUpperCase()
+          : t[0].toUpperCase() + t.slice(1).toLowerCase(),
+      )
+      .join('-');
+}
+const Bt = Ii(
+  { __langPack: {} },
+  {
+    getLocale: au,
+    set(e = su, t) {
+      const n = { ...e, rtl: e.rtl === !0, getLocale: au };
+      {
+        if (((n.set = Bt.set), Bt.__langConfig === void 0 || Bt.__langConfig.noHtmlAttrs !== !0)) {
+          const o = document.documentElement;
+          o.setAttribute('dir', n.rtl === !0 ? 'rtl' : 'ltr'), o.setAttribute('lang', n.isoName);
+        }
+        Object.assign(Bt.__langPack, n),
+          (Bt.props = n),
+          (Bt.isoName = n.isoName),
+          (Bt.nativeName = n.nativeName);
+      }
+    },
+    install({ $q: e, lang: t, ssrContext: n }) {
+      (e.lang = Bt.__langPack),
+        (Bt.__langConfig = e.config.lang),
+        this.__installed === !0 ? t !== void 0 && this.set(t) : this.set(t || su);
+    },
+  },
+);
+function zg(e, t, n = document.body) {
+  if (typeof e != 'string') throw new TypeError('Expected a string as propName');
+  if (typeof t != 'string') throw new TypeError('Expected a string as value');
+  if (!(n instanceof Element)) throw new TypeError('Expected a DOM element');
+  n.style.setProperty(`--q-${e}`, t);
+}
+let Gf = !1;
+function Vg(e) {
+  Gf = e.isComposing === !0;
+}
+function js(e) {
+  return Gf === !0 || e !== Object(e) || e.isComposing === !0 || e.qKeyEvent === !0;
+}
+function Rn(e, t) {
+  return js(e) === !0 ? !1 : [].concat(t).includes(e.keyCode);
+}
+function Zf(e) {
+  if (e.ios === !0) return 'ios';
+  if (e.android === !0) return 'android';
+}
+function Ng({ is: e, has: t, within: n }, o) {
+  const r = [e.desktop === !0 ? 'desktop' : 'mobile', `${t.touch === !1 ? 'no-' : ''}touch`];
+  if (e.mobile === !0) {
+    const i = Zf(e);
+    i !== void 0 && r.push('platform-' + i);
+  }
+  if (e.nativeMobile === !0) {
+    const i = e.nativeMobileWrapper;
+    r.push(i),
+      r.push('native-mobile'),
+      e.ios === !0 &&
+        (o[i] === void 0 || o[i].iosStatusBarPadding !== !1) &&
+        r.push('q-ios-padding');
+  } else e.electron === !0 ? r.push('electron') : e.bex === !0 && r.push('bex');
+  return n.iframe === !0 && r.push('within-iframe'), r;
+}
+function jg() {
+  const { is: e } = Ne,
+    t = document.body.className,
+    n = new Set(t.replace(/ {2}/g, ' ').split(' '));
+  if (Bi !== void 0) n.delete('desktop'), n.add('platform-ios'), n.add('mobile');
+  else if (e.nativeMobile !== !0 && e.electron !== !0 && e.bex !== !0) {
+    if (e.desktop === !0)
+      n.delete('mobile'), n.delete('platform-ios'), n.delete('platform-android'), n.add('desktop');
+    else if (e.mobile === !0) {
+      n.delete('desktop'), n.add('mobile');
+      const r = Zf(e);
+      r !== void 0
+        ? (n.add(`platform-${r}`), n.delete(`platform-${r === 'ios' ? 'android' : 'ios'}`))
+        : (n.delete('platform-ios'), n.delete('platform-android'));
+    }
+  }
+  Ne.has.touch === !0 && (n.delete('no-touch'), n.add('touch')),
+    Ne.within.iframe === !0 && n.add('within-iframe');
+  const o = Array.from(n).join(' ');
+  t !== o && (document.body.className = o);
+}
+function Dg(e) {
+  for (const t in e) zg(t, e[t]);
+}
+const Hg = {
+    install(e) {
+      if (this.__installed !== !0) {
+        if (en.value === !0) jg();
+        else {
+          const { $q: t } = e;
+          t.config.brand !== void 0 && Dg(t.config.brand);
+          const n = Ng(Ne, t.config);
+          document.body.classList.add.apply(document.body.classList, n);
+        }
+        Ne.is.ios === !0 && document.body.addEventListener('touchstart', hn),
+          window.addEventListener('keydown', Vg, !0);
+      }
+    },
+  },
+  ed = {
+    name: 'material-icons',
+    type: { positive: 'check_circle', negative: 'warning', info: 'info', warning: 'priority_high' },
+    arrow: {
+      up: 'arrow_upward',
+      right: 'arrow_forward',
+      down: 'arrow_downward',
+      left: 'arrow_back',
+      dropdown: 'arrow_drop_down',
+    },
+    chevron: { left: 'chevron_left', right: 'chevron_right' },
+    colorPicker: { spectrum: 'gradient', tune: 'tune', palette: 'style' },
+    pullToRefresh: { icon: 'refresh' },
+    carousel: {
+      left: 'chevron_left',
+      right: 'chevron_right',
+      up: 'keyboard_arrow_up',
+      down: 'keyboard_arrow_down',
+      navigationIcon: 'lens',
+    },
+    chip: { remove: 'cancel', selected: 'check' },
+    datetime: {
+      arrowLeft: 'chevron_left',
+      arrowRight: 'chevron_right',
+      now: 'access_time',
+      today: 'today',
+    },
+    editor: {
+      bold: 'format_bold',
+      italic: 'format_italic',
+      strikethrough: 'strikethrough_s',
+      underline: 'format_underlined',
+      unorderedList: 'format_list_bulleted',
+      orderedList: 'format_list_numbered',
+      subscript: 'vertical_align_bottom',
+      superscript: 'vertical_align_top',
+      hyperlink: 'link',
+      toggleFullscreen: 'fullscreen',
+      quote: 'format_quote',
+      left: 'format_align_left',
+      center: 'format_align_center',
+      right: 'format_align_right',
+      justify: 'format_align_justify',
+      print: 'print',
+      outdent: 'format_indent_decrease',
+      indent: 'format_indent_increase',
+      removeFormat: 'format_clear',
+      formatting: 'text_format',
+      fontSize: 'format_size',
+      align: 'format_align_left',
+      hr: 'remove',
+      undo: 'undo',
+      redo: 'redo',
+      heading: 'format_size',
+      code: 'code',
+      size: 'format_size',
+      font: 'font_download',
+      viewSource: 'code',
+    },
+    expansionItem: { icon: 'keyboard_arrow_down', denseIcon: 'arrow_drop_down' },
+    fab: { icon: 'add', activeIcon: 'close' },
+    field: { clear: 'cancel', error: 'error' },
+    pagination: {
+      first: 'first_page',
+      prev: 'keyboard_arrow_left',
+      next: 'keyboard_arrow_right',
+      last: 'last_page',
+    },
+    rating: { icon: 'grade' },
+    stepper: { done: 'check', active: 'edit', error: 'warning' },
+    tabs: {
+      left: 'chevron_left',
+      right: 'chevron_right',
+      up: 'keyboard_arrow_up',
+      down: 'keyboard_arrow_down',
+    },
+    table: {
+      arrowUp: 'arrow_upward',
+      warning: 'warning',
+      firstPage: 'first_page',
+      prevPage: 'chevron_left',
+      nextPage: 'chevron_right',
+      lastPage: 'last_page',
+    },
+    tree: { icon: 'play_arrow' },
+    uploader: {
+      done: 'done',
+      clear: 'clear',
+      add: 'add_box',
+      upload: 'cloud_upload',
+      removeQueue: 'clear_all',
+      removeUploaded: 'done_all',
+    },
+  },
+  fi = Ii(
+    { iconMapFn: null, __icons: {} },
+    {
+      set(e, t) {
+        const n = { ...e, rtl: e.rtl === !0 };
+        (n.set = fi.set), Object.assign(fi.__icons, n);
+      },
+      install({ $q: e, iconSet: t, ssrContext: n }) {
+        e.config.iconMapFn !== void 0 && (this.iconMapFn = e.config.iconMapFn),
+          (e.iconSet = this.__icons),
+          At(
+            e,
+            'iconMapFn',
+            () => this.iconMapFn,
+            (o) => {
+              this.iconMapFn = o;
+            },
+          ),
+          this.__installed === !0 ? t !== void 0 && this.set(t) : this.set(t || ed);
+      },
+    },
+  ),
+  td = '_q_',
+  Vi = '_q_l_',
+  Ug = '_q_pc_',
+  Kg = '_q_fo_',
+  un = () => {},
+  di = {};
+let nd = !1;
+function Wg() {
+  nd = !0;
+}
+function Cn(e, t) {
+  if (e === t) return !0;
+  if (e !== null && t !== null && typeof e == 'object' && typeof t == 'object') {
+    if (e.constructor !== t.constructor) return !1;
+    let n, o;
+    if (e.constructor === Array) {
+      if (((n = e.length), n !== t.length)) return !1;
+      for (o = n; o-- !== 0; ) if (Cn(e[o], t[o]) !== !0) return !1;
+      return !0;
+    }
+    if (e.constructor === Map) {
+      if (e.size !== t.size) return !1;
+      for (o = e.entries().next(); o.done !== !0; ) {
+        if (t.has(o.value[0]) !== !0) return !1;
+        o = o.next();
+      }
+      for (o = e.entries().next(); o.done !== !0; ) {
+        if (Cn(o.value[1], t.get(o.value[0])) !== !0) return !1;
+        o = o.next();
+      }
+      return !0;
+    }
+    if (e.constructor === Set) {
+      if (e.size !== t.size) return !1;
+      for (o = e.entries().next(); o.done !== !0; ) {
+        if (t.has(o.value[0]) !== !0) return !1;
+        o = o.next();
+      }
+      return !0;
+    }
+    if (e.buffer != null && e.buffer.constructor === ArrayBuffer) {
+      if (((n = e.length), n !== t.length)) return !1;
+      for (o = n; o-- !== 0; ) if (e[o] !== t[o]) return !1;
+      return !0;
+    }
+    if (e.constructor === RegExp) return e.source === t.source && e.flags === t.flags;
+    if (e.valueOf !== Object.prototype.valueOf) return e.valueOf() === t.valueOf();
+    if (e.toString !== Object.prototype.toString) return e.toString() === t.toString();
+    const r = Object.keys(e).filter((i) => e[i] !== void 0);
+    if (((n = r.length), n !== Object.keys(t).filter((i) => t[i] !== void 0).length)) return !1;
+    for (o = n; o-- !== 0; ) {
+      const i = r[o];
+      if (Cn(e[i], t[i]) !== !0) return !1;
+    }
+    return !0;
+  }
+  return e !== e && t !== t;
+}
+function To(e) {
+  return e !== null && typeof e == 'object' && Array.isArray(e) !== !0;
+}
+function uu(e) {
+  return Object.prototype.toString.call(e) === '[object Date]';
+}
+function Xl(e) {
+  return typeof e == 'number' && isFinite(e);
+}
+const cu = [ci, Hg, dt, Mg, vr, Bt, fi];
+function Qg(e, t) {
+  const n = Jf(e);
+  n.config.globalProperties = t.config.globalProperties;
+  const { reload: o, ...r } = t._context;
+  return Object.assign(n._context, r), n;
+}
+function fu(e, t) {
+  t.forEach((n) => {
+    n.install(e), (n.__installed = !0);
+  });
+}
+function Jg(e, t, n) {
+  (e.config.globalProperties.$q = n.$q),
+    e.provide(td, n.$q),
+    fu(n, cu),
+    t.components !== void 0 &&
+      Object.values(t.components).forEach((o) => {
+        To(o) === !0 && o.name !== void 0 && e.component(o.name, o);
+      }),
+    t.directives !== void 0 &&
+      Object.values(t.directives).forEach((o) => {
+        To(o) === !0 && o.name !== void 0 && e.directive(o.name, o);
+      }),
+    t.plugins !== void 0 &&
+      fu(
+        n,
+        Object.values(t.plugins).filter(
+          (o) => typeof o.install == 'function' && cu.includes(o) === !1,
+        ),
+      ),
+    en.value === !0 &&
+      (n.$q.onSSRHydrated = () => {
+        n.onSSRHydrated.forEach((o) => {
+          o();
+        }),
+          (n.$q.onSSRHydrated = () => {});
+      });
+}
+const Xg = function (e, t = {}) {
+    const n = { version: '2.11.3' };
+    nd === !1
+      ? (t.config !== void 0 && Object.assign(di, t.config), (n.config = { ...di }), Wg())
+      : (n.config = t.config || {}),
+      Jg(e, t, { parentApp: e, $q: n, lang: t.lang, iconSet: t.iconSet, onSSRHydrated: [] });
+  },
+  Yg = { version: '2.11.3', install: Xg, lang: Bt, iconSet: fi },
+  Yl = { xs: 18, sm: 24, md: 32, lg: 38, xl: 46 },
+  oo = { size: String };
+function ro(e, t = Yl) {
+  return v(() =>
+    e.size !== void 0 ? { fontSize: e.size in t ? `${t[e.size]}px` : e.size } : null,
+  );
+}
+const Pe = (e) => dn(Ri(e)),
+  Ds = (e) => dn(e);
+function je(e, t) {
+  return (e !== void 0 && e()) || t;
+}
+function Hs(e, t) {
+  if (e !== void 0) {
+    const n = e();
+    if (n != null) return n.slice();
+  }
+  return t;
+}
+function Ot(e, t) {
+  return e !== void 0 ? t.concat(e()) : t;
+}
+function od(e, t) {
+  return e === void 0 ? t : t !== void 0 ? t.concat(e()) : e();
+}
+function Gl(e, t, n, o, r, i) {
+  t.key = o + r;
+  const l = _(e, t, n);
+  return r === !0 ? Dt(l, i()) : l;
+}
+const du = '0 0 24 24',
+  hu = (e) => e,
+  pl = (e) => `ionicons ${e}`,
+  rd = {
+    'mdi-': (e) => `mdi ${e}`,
+    'icon-': hu,
+    'bt-': (e) => `bt ${e}`,
+    'eva-': (e) => `eva ${e}`,
+    'ion-md': pl,
+    'ion-ios': pl,
+    'ion-logo': pl,
+    'iconfont ': hu,
+    'ti-': (e) => `themify-icon ${e}`,
+    'bi-': (e) => `bootstrap-icons ${e}`,
+  },
+  id = { o_: '-outlined', r_: '-round', s_: '-sharp' },
+  ld = { sym_o_: '-outlined', sym_r_: '-rounded', sym_s_: '-sharp' },
+  Gg = new RegExp('^(' + Object.keys(rd).join('|') + ')'),
+  Zg = new RegExp('^(' + Object.keys(id).join('|') + ')'),
+  mu = new RegExp('^(' + Object.keys(ld).join('|') + ')'),
+  ep = /^[Mm]\s?[-+]?\.?\d/,
+  tp = /^img:/,
+  np = /^svguse:/,
+  op = /^ion-/,
+  rp = /^(fa-(solid|regular|light|brands|duotone|thin)|[lf]a[srlbdk]?) /,
+  yt = Pe({
+    name: 'QIcon',
+    props: {
+      ...oo,
+      tag: { type: String, default: 'i' },
+      name: String,
+      color: String,
+      left: Boolean,
+      right: Boolean,
+    },
+    setup(e, { slots: t }) {
+      const {
+          proxy: { $q: n },
+        } = qe(),
+        o = ro(e),
+        r = v(
+          () =>
+            'q-icon' +
+            (e.left === !0 ? ' on-left' : '') +
+            (e.right === !0 ? ' on-right' : '') +
+            (e.color !== void 0 ? ` text-${e.color}` : ''),
+        ),
+        i = v(() => {
+          let l,
+            s = e.name;
+          if (s === 'none' || !s) return { none: !0 };
+          if (n.iconMapFn !== null) {
+            const u = n.iconMapFn(s);
+            if (u !== void 0)
+              if (u.icon !== void 0) {
+                if (((s = u.icon), s === 'none' || !s)) return { none: !0 };
+              } else return { cls: u.cls, content: u.content !== void 0 ? u.content : ' ' };
+          }
+          if (ep.test(s) === !0) {
+            const [u, f = du] = s.split('|');
+            return {
+              svg: !0,
+              viewBox: f,
+              nodes: u.split('&&').map((d) => {
+                const [h, m, g] = d.split('@@');
+                return _('path', { style: m, d: h, transform: g });
+              }),
+            };
+          }
+          if (tp.test(s) === !0) return { img: !0, src: s.substring(4) };
+          if (np.test(s) === !0) {
+            const [u, f = du] = s.split('|');
+            return { svguse: !0, src: u.substring(7), viewBox: f };
+          }
+          let a = ' ';
+          const c = s.match(Gg);
+          if (c !== null) l = rd[c[1]](s);
+          else if (rp.test(s) === !0) l = s;
+          else if (op.test(s) === !0)
+            l = `ionicons ion-${n.platform.is.ios === !0 ? 'ios' : 'md'}${s.substring(3)}`;
+          else if (mu.test(s) === !0) {
+            l = 'notranslate material-symbols';
+            const u = s.match(mu);
+            u !== null && ((s = s.substring(6)), (l += ld[u[1]])), (a = s);
+          } else {
+            l = 'notranslate material-icons';
+            const u = s.match(Zg);
+            u !== null && ((s = s.substring(2)), (l += id[u[1]])), (a = s);
+          }
+          return { cls: l, content: a };
+        });
+      return () => {
+        const l = { class: r.value, style: o.value, 'aria-hidden': 'true', role: 'presentation' };
+        return i.value.none === !0
+          ? _(e.tag, l, je(t.default))
+          : i.value.img === !0
+          ? _('span', l, Ot(t.default, [_('img', { src: i.value.src })]))
+          : i.value.svg === !0
+          ? _(
+              'span',
+              l,
+              Ot(t.default, [_('svg', { viewBox: i.value.viewBox || '0 0 24 24' }, i.value.nodes)]),
+            )
+          : i.value.svguse === !0
+          ? _(
+              'span',
+              l,
+              Ot(t.default, [
+                _('svg', { viewBox: i.value.viewBox }, [_('use', { 'xlink:href': i.value.src })]),
+              ]),
+            )
+          : (i.value.cls !== void 0 && (l.class += ' ' + i.value.cls),
+            _(e.tag, l, Ot(t.default, [i.value.content])));
+      };
+    },
+  }),
+  sd = Pe({
+    name: 'QAvatar',
+    props: {
+      ...oo,
+      fontSize: String,
+      color: String,
+      textColor: String,
+      icon: String,
+      square: Boolean,
+      rounded: Boolean,
+    },
+    setup(e, { slots: t }) {
+      const n = ro(e),
+        o = v(
+          () =>
+            'q-avatar' +
+            (e.color ? ` bg-${e.color}` : '') +
+            (e.textColor ? ` text-${e.textColor} q-chip--colored` : '') +
+            (e.square === !0 ? ' q-avatar--square' : e.rounded === !0 ? ' rounded-borders' : ''),
+        ),
+        r = v(() => (e.fontSize ? { fontSize: e.fontSize } : null));
+      return () => {
+        const i = e.icon !== void 0 ? [_(yt, { name: e.icon })] : void 0;
+        return _('div', { class: o.value, style: n.value }, [
+          _(
+            'div',
+            { class: 'q-avatar__content row flex-center overflow-hidden', style: r.value },
+            od(t.default, i),
+          ),
+        ]);
+      };
+    },
+  }),
+  ip = { size: { type: [Number, String], default: '1em' }, color: String };
+function lp(e) {
+  return {
+    cSize: v(() => (e.size in Yl ? `${Yl[e.size]}px` : e.size)),
+    classes: v(() => 'q-spinner' + (e.color ? ` text-${e.color}` : '')),
+  };
+}
+const Us = Pe({
+  name: 'QSpinner',
+  props: { ...ip, thickness: { type: Number, default: 5 } },
+  setup(e) {
+    const { cSize: t, classes: n } = lp(e);
+    return () =>
+      _(
+        'svg',
+        {
+          class: n.value + ' q-spinner-mat',
+          width: t.value,
+          height: t.value,
+          viewBox: '25 25 50 50',
+        },
+        [
+          _('circle', {
+            class: 'path',
+            cx: '50',
+            cy: '50',
+            r: '20',
+            fill: 'none',
+            stroke: 'currentColor',
+            'stroke-width': e.thickness,
+            'stroke-miterlimit': '10',
+          }),
+        ],
+      );
+  },
+});
+function Zl(e, t) {
+  const n = e.style;
+  for (const o in t) n[o] = t[o];
+}
+function sp(e) {
+  if (e == null) return;
+  if (typeof e == 'string')
+    try {
+      return document.querySelector(e) || void 0;
+    } catch {
+      return;
+    }
+  const t = ue(e);
+  if (t) return t.$el || t;
+}
+function ad(e, t) {
+  if (e == null || e.contains(t) === !0) return !0;
+  for (let n = e.nextElementSibling; n !== null; n = n.nextElementSibling)
+    if (n.contains(t)) return !0;
+  return !1;
+}
+function ap(e, t = 250) {
+  let n = !1,
+    o;
+  return function () {
+    return (
+      n === !1 &&
+        ((n = !0),
+        setTimeout(() => {
+          n = !1;
+        }, t),
+        (o = e.apply(this, arguments))),
+      o
+    );
+  };
+}
+function vu(e, t, n, o) {
+  n.modifiers.stop === !0 && Et(e);
+  const r = n.modifiers.color;
+  let i = n.modifiers.center;
+  i = i === !0 || o === !0;
+  const l = document.createElement('span'),
+    s = document.createElement('span'),
+    a = mr(e),
+    { left: c, top: u, width: f, height: d } = t.getBoundingClientRect(),
+    h = Math.sqrt(f * f + d * d),
+    m = h / 2,
+    g = `${(f - h) / 2}px`,
+    b = i ? g : `${a.left - c - m}px`,
+    T = `${(d - h) / 2}px`,
+    k = i ? T : `${a.top - u - m}px`;
+  (s.className = 'q-ripple__inner'),
+    Zl(s, {
+      height: `${h}px`,
+      width: `${h}px`,
+      transform: `translate3d(${b},${k},0) scale3d(.2,.2,1)`,
+      opacity: 0,
+    }),
+    (l.className = `q-ripple${r ? ' text-' + r : ''}`),
+    l.setAttribute('dir', 'ltr'),
+    l.appendChild(s),
+    t.appendChild(l);
+  const E = () => {
+    l.remove(), clearTimeout(x);
+  };
+  n.abort.push(E);
+  let x = setTimeout(() => {
+    s.classList.add('q-ripple__inner--enter'),
+      (s.style.transform = `translate3d(${g},${T},0) scale3d(1,1,1)`),
+      (s.style.opacity = 0.2),
+      (x = setTimeout(() => {
+        s.classList.remove('q-ripple__inner--enter'),
+          s.classList.add('q-ripple__inner--leave'),
+          (s.style.opacity = 0),
+          (x = setTimeout(() => {
+            l.remove(), n.abort.splice(n.abort.indexOf(E), 1);
+          }, 275));
+      }, 250));
+  }, 50);
+}
+function gu(e, { modifiers: t, value: n, arg: o }) {
+  const r = Object.assign({}, e.cfg.ripple, t, n);
+  e.modifiers = {
+    early: r.early === !0,
+    stop: r.stop === !0,
+    center: r.center === !0,
+    color: r.color || o,
+    keyCodes: [].concat(r.keyCodes || 13),
+  };
+}
+const yo = Ds({
+    name: 'ripple',
+    beforeMount(e, t) {
+      const n = t.instance.$.appContext.config.globalProperties.$q.config || {};
+      if (n.ripple === !1) return;
+      const o = {
+        cfg: n,
+        enabled: t.value !== !1,
+        modifiers: {},
+        abort: [],
+        start(r) {
+          o.enabled === !0 &&
+            r.qSkipRipple !== !0 &&
+            r.type === (o.modifiers.early === !0 ? 'pointerdown' : 'click') &&
+            vu(r, e, o, r.qKeyEvent === !0);
+        },
+        keystart: ap((r) => {
+          o.enabled === !0 &&
+            r.qSkipRipple !== !0 &&
+            Rn(r, o.modifiers.keyCodes) === !0 &&
+            r.type === `key${o.modifiers.early === !0 ? 'down' : 'up'}` &&
+            vu(r, e, o, !0);
+        }, 300),
+      };
+      gu(o, t),
+        (e.__qripple = o),
+        Dn(o, 'main', [
+          [e, 'pointerdown', 'start', 'passive'],
+          [e, 'click', 'start', 'passive'],
+          [e, 'keydown', 'keystart', 'passive'],
+          [e, 'keyup', 'keystart', 'passive'],
+        ]);
+    },
+    updated(e, t) {
+      if (t.oldValue !== t.value) {
+        const n = e.__qripple;
+        n !== void 0 &&
+          ((n.enabled = t.value !== !1),
+          n.enabled === !0 && Object(t.value) === t.value && gu(n, t));
+      }
+    },
+    beforeUnmount(e) {
+      const t = e.__qripple;
+      t !== void 0 &&
+        (t.abort.forEach((n) => {
+          n();
+        }),
+        er(t, 'main'),
+        delete e._qripple);
+    },
+  }),
+  ud = {
+    left: 'start',
+    center: 'center',
+    right: 'end',
+    between: 'between',
+    around: 'around',
+    evenly: 'evenly',
+    stretch: 'stretch',
+  },
+  up = Object.keys(ud),
+  cd = { align: { type: String, validator: (e) => up.includes(e) } };
+function fd(e) {
+  return v(() => {
+    const t = e.align === void 0 ? (e.vertical === !0 ? 'stretch' : 'left') : e.align;
+    return `${e.vertical === !0 ? 'items' : 'justify'}-${ud[t]}`;
+  });
+}
+function Jr(e) {
+  if (Object(e.$parent) === e.$parent) return e.$parent;
+  let { parent: t } = e.$;
+  for (; Object(t) === t; ) {
+    if (Object(t.proxy) === t.proxy) return t.proxy;
+    t = t.parent;
+  }
+}
+function Ks(e) {
+  return e.appContext.config.globalProperties.$router !== void 0;
+}
+function dd(e) {
+  return e.isUnmounted === !0 || e.isDeactivated === !0;
+}
+function pu(e) {
+  return e ? (e.aliasOf ? e.aliasOf.path : e.path) : '';
+}
+function bu(e, t) {
+  return (e.aliasOf || e) === (t.aliasOf || t);
+}
+function cp(e, t) {
+  for (const n in t) {
+    const o = t[n],
+      r = e[n];
+    if (typeof o == 'string') {
+      if (o !== r) return !1;
+    } else if (Array.isArray(r) === !1 || r.length !== o.length || o.some((i, l) => i !== r[l]))
+      return !1;
+  }
+  return !0;
+}
+function yu(e, t) {
+  return Array.isArray(t) === !0
+    ? e.length === t.length && e.every((n, o) => n === t[o])
+    : e.length === 1 && e[0] === t;
+}
+function fp(e, t) {
+  return Array.isArray(e) === !0 ? yu(e, t) : Array.isArray(t) === !0 ? yu(t, e) : e === t;
+}
+function dp(e, t) {
+  if (Object.keys(e).length !== Object.keys(t).length) return !1;
+  for (const n in e) if (fp(e[n], t[n]) === !1) return !1;
+  return !0;
+}
+const hd = {
+  to: [String, Object],
+  replace: Boolean,
+  exact: Boolean,
+  activeClass: { type: String, default: 'q-router-link--active' },
+  exactActiveClass: { type: String, default: 'q-router-link--exact-active' },
+  href: String,
+  target: String,
+  disable: Boolean,
+};
+function md({ fallbackTag: e, useDisableForRouterLinkProps: t = !0 } = {}) {
+  const n = qe(),
+    { props: o, proxy: r, emit: i } = n,
+    l = Ks(n),
+    s = v(() => o.disable !== !0 && o.href !== void 0),
+    a = v(
+      t === !0
+        ? () =>
+            l === !0 &&
+            o.disable !== !0 &&
+            s.value !== !0 &&
+            o.to !== void 0 &&
+            o.to !== null &&
+            o.to !== ''
+        : () => l === !0 && s.value !== !0 && o.to !== void 0 && o.to !== null && o.to !== '',
+    ),
+    c = v(() => (a.value === !0 ? k(o.to) : null)),
+    u = v(() => c.value !== null),
+    f = v(() => s.value === !0 || u.value === !0),
+    d = v(() => (o.type === 'a' || f.value === !0 ? 'a' : o.tag || e || 'div')),
+    h = v(() =>
+      s.value === !0
+        ? { href: o.href, target: o.target }
+        : u.value === !0
+        ? { href: c.value.href, target: o.target }
+        : {},
+    ),
+    m = v(() => {
+      if (u.value === !1) return -1;
+      const { matched: P } = c.value,
+        { length: C } = P,
+        S = P[C - 1];
+      if (S === void 0) return -1;
+      const p = r.$route.matched;
+      if (p.length === 0) return -1;
+      const $ = p.findIndex(bu.bind(null, S));
+      if ($ > -1) return $;
+      const R = pu(P[C - 2]);
+      return C > 1 && pu(S) === R && p[p.length - 1].path !== R
+        ? p.findIndex(bu.bind(null, P[C - 2]))
+        : $;
+    }),
+    g = v(() => u.value === !0 && m.value !== -1 && cp(r.$route.params, c.value.params)),
+    b = v(
+      () =>
+        g.value === !0 &&
+        m.value === r.$route.matched.length - 1 &&
+        dp(r.$route.params, c.value.params),
+    ),
+    T = v(() =>
+      u.value === !0
+        ? b.value === !0
+          ? ` ${o.exactActiveClass} ${o.activeClass}`
+          : o.exact === !0
+          ? ''
+          : g.value === !0
+          ? ` ${o.activeClass}`
+          : ''
+        : '',
+    );
+  function k(P) {
+    try {
+      return r.$router.resolve(P);
+    } catch {}
+    return null;
+  }
+  function E(P, { returnRouterError: C, to: S = o.to, replace: p = o.replace } = {}) {
+    if (o.disable === !0) return P.preventDefault(), Promise.resolve(!1);
+    if (
+      P.metaKey ||
+      P.altKey ||
+      P.ctrlKey ||
+      P.shiftKey ||
+      (P.button !== void 0 && P.button !== 0) ||
+      o.target === '_blank'
+    )
+      return Promise.resolve(!1);
+    P.preventDefault();
+    const $ = r.$router[p === !0 ? 'replace' : 'push'](S);
+    return C === !0 ? $ : $.then(() => {}).catch(() => {});
+  }
+  function x(P) {
+    if (u.value === !0) {
+      const C = (S) => E(P, S);
+      i('click', P, C), P.defaultPrevented !== !0 && C();
+    } else i('click', P);
+  }
+  return {
+    hasRouterLink: u,
+    hasHrefLink: s,
+    hasLink: f,
+    linkTag: d,
+    resolvedLink: c,
+    linkIsActive: g,
+    linkIsExactActive: b,
+    linkClass: T,
+    linkAttrs: h,
+    getLink: k,
+    navigateToRouterLink: E,
+    navigateOnClick: x,
+  };
+}
+const wu = { none: 0, xs: 4, sm: 8, md: 16, lg: 24, xl: 32 },
+  hp = { xs: 8, sm: 10, md: 14, lg: 20, xl: 24 },
+  mp = ['button', 'submit', 'reset'],
+  vp = /[^\s]\/[^\s]/,
+  gp = ['flat', 'outline', 'push', 'unelevated'],
+  pp = (e, t) =>
+    e.flat === !0
+      ? 'flat'
+      : e.outline === !0
+      ? 'outline'
+      : e.push === !0
+      ? 'push'
+      : e.unelevated === !0
+      ? 'unelevated'
+      : t,
+  bp = {
+    ...oo,
+    ...hd,
+    type: { type: String, default: 'button' },
+    label: [Number, String],
+    icon: String,
+    iconRight: String,
+    ...gp.reduce((e, t) => (e[t] = Boolean) && e, {}),
+    square: Boolean,
+    round: Boolean,
+    rounded: Boolean,
+    glossy: Boolean,
+    size: String,
+    fab: Boolean,
+    fabMini: Boolean,
+    padding: String,
+    color: String,
+    textColor: String,
+    noCaps: Boolean,
+    noWrap: Boolean,
+    dense: Boolean,
+    tabindex: [Number, String],
+    ripple: { type: [Boolean, Object], default: !0 },
+    align: { ...cd.align, default: 'center' },
+    stack: Boolean,
+    stretch: Boolean,
+    loading: { type: Boolean, default: null },
+    disable: Boolean,
+  };
+function yp(e) {
+  const t = ro(e, hp),
+    n = fd(e),
+    {
+      hasRouterLink: o,
+      hasLink: r,
+      linkTag: i,
+      linkAttrs: l,
+      navigateOnClick: s,
+    } = md({ fallbackTag: 'button' }),
+    a = v(() => {
+      const b = e.fab === !1 && e.fabMini === !1 ? t.value : {};
+      return e.padding !== void 0
+        ? Object.assign({}, b, {
+            padding: e.padding
+              .split(/\s+/)
+              .map((T) => (T in wu ? wu[T] + 'px' : T))
+              .join(' '),
+            minWidth: '0',
+            minHeight: '0',
+          })
+        : b;
+    }),
+    c = v(() => e.rounded === !0 || e.fab === !0 || e.fabMini === !0),
+    u = v(() => e.disable !== !0 && e.loading !== !0),
+    f = v(() => (u.value === !0 ? e.tabindex || 0 : -1)),
+    d = v(() => pp(e, 'standard')),
+    h = v(() => {
+      const b = { tabindex: f.value };
+      return (
+        r.value === !0
+          ? Object.assign(b, l.value)
+          : mp.includes(e.type) === !0 && (b.type = e.type),
+        i.value === 'a'
+          ? (e.disable === !0
+              ? (b['aria-disabled'] = 'true')
+              : b.href === void 0 && (b.role = 'button'),
+            o.value !== !0 && vp.test(e.type) === !0 && (b.type = e.type))
+          : e.disable === !0 && ((b.disabled = ''), (b['aria-disabled'] = 'true')),
+        e.loading === !0 &&
+          e.percentage !== void 0 &&
+          Object.assign(b, {
+            role: 'progressbar',
+            'aria-valuemin': 0,
+            'aria-valuemax': 100,
+            'aria-valuenow': e.percentage,
+          }),
+        b
+      );
+    }),
+    m = v(() => {
+      let b;
+      e.color !== void 0
+        ? e.flat === !0 || e.outline === !0
+          ? (b = `text-${e.textColor || e.color}`)
+          : (b = `bg-${e.color} text-${e.textColor || 'white'}`)
+        : e.textColor && (b = `text-${e.textColor}`);
+      const T =
+        e.round === !0
+          ? 'round'
+          : `rectangle${
+              c.value === !0 ? ' q-btn--rounded' : e.square === !0 ? ' q-btn--square' : ''
+            }`;
+      return (
+        `q-btn--${d.value} q-btn--${T}` +
+        (b !== void 0 ? ' ' + b : '') +
+        (u.value === !0
+          ? ' q-btn--actionable q-focusable q-hoverable'
+          : e.disable === !0
+          ? ' disabled'
+          : '') +
+        (e.fab === !0 ? ' q-btn--fab' : e.fabMini === !0 ? ' q-btn--fab-mini' : '') +
+        (e.noCaps === !0 ? ' q-btn--no-uppercase' : '') +
+        (e.dense === !0 ? ' q-btn--dense' : '') +
+        (e.stretch === !0 ? ' no-border-radius self-stretch' : '') +
+        (e.glossy === !0 ? ' glossy' : '') +
+        (e.square ? ' q-btn--square' : '')
+      );
+    }),
+    g = v(
+      () =>
+        n.value +
+        (e.stack === !0 ? ' column' : ' row') +
+        (e.noWrap === !0 ? ' no-wrap text-no-wrap' : '') +
+        (e.loading === !0 ? ' q-btn__content--hidden' : ''),
+    );
+  return {
+    classes: m,
+    style: a,
+    innerClasses: g,
+    attributes: h,
+    hasLink: r,
+    linkTag: i,
+    navigateOnClick: s,
+    isActionable: u,
+  };
+}
+const { passiveCapture: Rt } = Ye;
+let co = null,
+  fo = null,
+  ho = null;
+const ot = Pe({
+  name: 'QBtn',
+  props: { ...bp, percentage: Number, darkPercentage: Boolean, onTouchstart: [Function, Array] },
+  emits: ['click', 'keydown', 'mousedown', 'keyup'],
+  setup(e, { slots: t, emit: n }) {
+    const { proxy: o } = qe(),
+      {
+        classes: r,
+        style: i,
+        innerClasses: l,
+        attributes: s,
+        hasLink: a,
+        linkTag: c,
+        navigateOnClick: u,
+        isActionable: f,
+      } = yp(e),
+      d = W(null),
+      h = W(null);
+    let m = null,
+      g,
+      b;
+    const T = v(() => e.label !== void 0 && e.label !== null && e.label !== ''),
+      k = v(() =>
+        e.disable === !0 || e.ripple === !1
+          ? !1
+          : { keyCodes: a.value === !0 ? [13, 32] : [13], ...(e.ripple === !0 ? {} : e.ripple) },
+      ),
+      E = v(() => ({ center: e.round })),
+      x = v(() => {
+        const H = Math.max(0, Math.min(100, e.percentage));
+        return H > 0 ? { transition: 'transform 0.6s', transform: `translateX(${H - 100}%)` } : {};
+      }),
+      P = v(() => {
+        if (e.loading === !0)
+          return { onMousedown: Q, onTouchstart: Q, onClick: Q, onKeydown: Q, onKeyup: Q };
+        if (f.value === !0) {
+          const H = { onClick: S, onKeydown: p, onMousedown: R };
+          if (o.$q.platform.has.touch === !0) {
+            const le = e.onTouchstart !== void 0 ? '' : 'Passive';
+            H[`onTouchstart${le}`] = $;
+          }
+          return H;
+        }
+        return { onClick: Je };
+      }),
+      C = v(() => ({
+        ref: d,
+        class: 'q-btn q-btn-item non-selectable no-outline ' + r.value,
+        style: i.value,
+        ...s.value,
+        ...P.value,
+      }));
+    function S(H) {
+      if (d.value !== null) {
+        if (H !== void 0) {
+          if (H.defaultPrevented === !0) return;
+          const le = document.activeElement;
+          if (
+            e.type === 'submit' &&
+            le !== document.body &&
+            d.value.contains(le) === !1 &&
+            le.contains(d.value) === !1
+          ) {
+            d.value.focus();
+            const N = () => {
+              document.removeEventListener('keydown', Je, !0),
+                document.removeEventListener('keyup', N, Rt),
+                d.value !== null && d.value.removeEventListener('blur', N, Rt);
+            };
+            document.addEventListener('keydown', Je, !0),
+              document.addEventListener('keyup', N, Rt),
+              d.value.addEventListener('blur', N, Rt);
+          }
+        }
+        u(H);
+      }
+    }
+    function p(H) {
+      d.value !== null &&
+        (n('keydown', H),
+        Rn(H, [13, 32]) === !0 &&
+          fo !== d.value &&
+          (fo !== null && I(),
+          H.defaultPrevented !== !0 &&
+            (d.value.focus(),
+            (fo = d.value),
+            d.value.classList.add('q-btn--active'),
+            document.addEventListener('keyup', B, !0),
+            d.value.addEventListener('blur', B, Rt)),
+          Je(H)));
+    }
+    function $(H) {
+      d.value !== null &&
+        (n('touchstart', H),
+        H.defaultPrevented !== !0 &&
+          (co !== d.value &&
+            (co !== null && I(),
+            (co = d.value),
+            (m = H.target),
+            m.addEventListener('touchcancel', B, Rt),
+            m.addEventListener('touchend', B, Rt)),
+          (g = !0),
+          clearTimeout(b),
+          (b = setTimeout(() => {
+            g = !1;
+          }, 200))));
+    }
+    function R(H) {
+      d.value !== null &&
+        ((H.qSkipRipple = g === !0),
+        n('mousedown', H),
+        H.defaultPrevented !== !0 &&
+          ho !== d.value &&
+          (ho !== null && I(),
+          (ho = d.value),
+          d.value.classList.add('q-btn--active'),
+          document.addEventListener('mouseup', B, Rt)));
+    }
+    function B(H) {
+      if (
+        d.value !== null &&
+        !(H !== void 0 && H.type === 'blur' && document.activeElement === d.value)
+      ) {
+        if (H !== void 0 && H.type === 'keyup') {
+          if (fo === d.value && Rn(H, [13, 32]) === !0) {
+            const le = new MouseEvent('click', H);
+            (le.qKeyEvent = !0),
+              H.defaultPrevented === !0 && bt(le),
+              H.cancelBubble === !0 && Et(le),
+              d.value.dispatchEvent(le),
+              Je(H),
+              (H.qKeyEvent = !0);
+          }
+          n('keyup', H);
+        }
+        I();
+      }
+    }
+    function I(H) {
+      const le = h.value;
+      H !== !0 &&
+        (co === d.value || ho === d.value) &&
+        le !== null &&
+        le !== document.activeElement &&
+        (le.setAttribute('tabindex', -1), le.focus()),
+        co === d.value &&
+          (m !== null &&
+            (m.removeEventListener('touchcancel', B, Rt), m.removeEventListener('touchend', B, Rt)),
+          (co = m = null)),
+        ho === d.value && (document.removeEventListener('mouseup', B, Rt), (ho = null)),
+        fo === d.value &&
+          (document.removeEventListener('keyup', B, !0),
+          d.value !== null && d.value.removeEventListener('blur', B, Rt),
+          (fo = null)),
+        d.value !== null && d.value.classList.remove('q-btn--active');
+    }
+    function Q(H) {
+      Je(H), (H.qSkipRipple = !0);
+    }
+    return (
+      We(() => {
+        I(!0);
+      }),
+      Object.assign(o, { click: S }),
+      () => {
+        let H = [];
+        e.icon !== void 0 &&
+          H.push(
+            _(yt, {
+              name: e.icon,
+              left: e.stack === !1 && T.value === !0,
+              role: 'img',
+              'aria-hidden': 'true',
+            }),
+          ),
+          T.value === !0 && H.push(_('span', { class: 'block' }, [e.label])),
+          (H = Ot(t.default, H)),
+          e.iconRight !== void 0 &&
+            e.round === !1 &&
+            H.push(
+              _(yt, {
+                name: e.iconRight,
+                right: e.stack === !1 && T.value === !0,
+                role: 'img',
+                'aria-hidden': 'true',
+              }),
+            );
+        const le = [_('span', { class: 'q-focus-helper', ref: h })];
+        return (
+          e.loading === !0 &&
+            e.percentage !== void 0 &&
+            le.push(
+              _(
+                'span',
+                {
+                  class:
+                    'q-btn__progress absolute-full overflow-hidden' +
+                    (e.darkPercentage === !0 ? ' q-btn__progress--dark' : ''),
+                },
+                [_('span', { class: 'q-btn__progress-indicator fit block', style: x.value })],
+              ),
+            ),
+          le.push(
+            _(
+              'span',
+              { class: 'q-btn__content text-center col items-center q-anchor--skip ' + l.value },
+              H,
+            ),
+          ),
+          e.loading !== null &&
+            le.push(
+              _(Zn, { name: 'q-transition--fade' }, () =>
+                e.loading === !0
+                  ? [
+                      _(
+                        'span',
+                        { key: 'loading', class: 'absolute-full flex flex-center' },
+                        t.loading !== void 0 ? t.loading() : [_(Us)],
+                      ),
+                    ]
+                  : null,
+              ),
+            ),
+          Dt(_(c.value, C.value, le), [[yo, k.value, void 0, E.value]])
+        );
+      }
+    );
+  },
+});
+let wp = document.body;
+function vd(e) {
+  const t = document.createElement('div');
+  if ((e !== void 0 && (t.id = e), di.globalNodes !== void 0)) {
+    const n = di.globalNodes.class;
+    n !== void 0 && (t.className = n);
+  }
+  return wp.appendChild(t), t;
+}
+function _p(e) {
+  e.remove();
+}
+let Sp = 0;
+const Xr = {},
+  Yr = {},
+  zt = {},
+  gd = {},
+  xp = /^\s*$/,
+  pd = [],
+  Ws = [
+    'top-left',
+    'top-right',
+    'bottom-left',
+    'bottom-right',
+    'top',
+    'bottom',
+    'left',
+    'right',
+    'center',
+  ],
+  Cp = ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
+  go = {
+    positive: { icon: (e) => e.iconSet.type.positive, color: 'positive' },
+    negative: { icon: (e) => e.iconSet.type.negative, color: 'negative' },
+    warning: { icon: (e) => e.iconSet.type.warning, color: 'warning', textColor: 'dark' },
+    info: { icon: (e) => e.iconSet.type.info, color: 'info' },
+    ongoing: { group: !1, timeout: 0, spinner: !0, color: 'grey-8' },
+  };
+function bd(e, t, n) {
+  if (!e) return No('parameter required');
+  let o;
+  const r = { textColor: 'white' };
+  if (
+    (e.ignoreDefaults !== !0 && Object.assign(r, Xr),
+    To(e) === !1 && (r.type && Object.assign(r, go[r.type]), (e = { message: e })),
+    Object.assign(r, go[e.type || r.type], e),
+    typeof r.icon == 'function' && (r.icon = r.icon(t)),
+    r.spinner
+      ? (r.spinner === !0 && (r.spinner = Us), (r.spinner = dn(r.spinner)))
+      : (r.spinner = !1),
+    (r.meta = {
+      hasMedia: Boolean(r.spinner !== !1 || r.icon || r.avatar),
+      hasText: _u(r.message) || _u(r.caption),
+    }),
+    r.position)
+  ) {
+    if (Ws.includes(r.position) === !1) return No('wrong position', e);
+  } else r.position = 'bottom';
+  if (r.timeout === void 0) r.timeout = 5e3;
+  else {
+    const a = parseInt(r.timeout, 10);
+    if (isNaN(a) || a < 0) return No('wrong timeout', e);
+    r.timeout = a;
+  }
+  r.timeout === 0
+    ? (r.progress = !1)
+    : r.progress === !0 &&
+      ((r.meta.progressClass =
+        'q-notification__progress' + (r.progressClass ? ` ${r.progressClass}` : '')),
+      (r.meta.progressStyle = { animationDuration: `${r.timeout + 1e3}ms` }));
+  const i = (Array.isArray(e.actions) === !0 ? e.actions : [])
+      .concat(e.ignoreDefaults !== !0 && Array.isArray(Xr.actions) === !0 ? Xr.actions : [])
+      .concat(
+        go[e.type] !== void 0 && Array.isArray(go[e.type].actions) === !0 ? go[e.type].actions : [],
+      ),
+    { closeBtn: l } = r;
+  if (
+    (l && i.push({ label: typeof l == 'string' ? l : t.lang.label.close }),
+    (r.actions = i.map(({ handler: a, noDismiss: c, ...u }) => ({
+      flat: !0,
+      ...u,
+      onClick:
+        typeof a == 'function'
+          ? () => {
+              a(), c !== !0 && s();
+            }
+          : () => {
+              s();
+            },
+    }))),
+    r.multiLine === void 0 && (r.multiLine = r.actions.length > 1),
+    Object.assign(r.meta, {
+      class:
+        `q-notification row items-stretch q-notification--${
+          r.multiLine === !0 ? 'multi-line' : 'standard'
+        }` +
+        (r.color !== void 0 ? ` bg-${r.color}` : '') +
+        (r.textColor !== void 0 ? ` text-${r.textColor}` : '') +
+        (r.classes !== void 0 ? ` ${r.classes}` : ''),
+      wrapperClass:
+        'q-notification__wrapper col relative-position border-radius-inherit ' +
+        (r.multiLine === !0 ? 'column no-wrap justify-center' : 'row items-center'),
+      contentClass: 'q-notification__content row items-center' + (r.multiLine === !0 ? '' : ' col'),
+      leftClass: r.meta.hasText === !0 ? 'additional' : 'single',
+      attrs: { role: 'alert', ...r.attrs },
+    }),
+    r.group === !1
+      ? ((r.group = void 0), (r.meta.group = void 0))
+      : ((r.group === void 0 || r.group === !0) &&
+          (r.group = [r.message, r.caption, r.multiline]
+            .concat(r.actions.map((a) => `${a.label}*${a.icon}`))
+            .join('|')),
+        (r.meta.group = r.group + '|' + r.position)),
+    r.actions.length === 0
+      ? (r.actions = void 0)
+      : (r.meta.actionsClass =
+          'q-notification__actions row items-center ' +
+          (r.multiLine === !0 ? 'justify-end' : 'col-auto') +
+          (r.meta.hasMedia === !0 ? ' q-notification__actions--with-media' : '')),
+    n !== void 0)
+  ) {
+    clearTimeout(n.notif.meta.timer), (r.meta.uid = n.notif.meta.uid);
+    const a = zt[r.position].value.indexOf(n.notif);
+    zt[r.position].value[a] = r;
+  } else {
+    const a = Yr[r.meta.group];
+    if (a === void 0) {
+      if (
+        ((r.meta.uid = Sp++),
+        (r.meta.badge = 1),
+        ['left', 'right', 'center'].indexOf(r.position) !== -1)
+      )
+        zt[r.position].value.splice(Math.floor(zt[r.position].value.length / 2), 0, r);
+      else {
+        const c = r.position.indexOf('top') > -1 ? 'unshift' : 'push';
+        zt[r.position].value[c](r);
+      }
+      r.group !== void 0 && (Yr[r.meta.group] = r);
+    } else {
+      if ((clearTimeout(a.meta.timer), r.badgePosition !== void 0)) {
+        if (Cp.includes(r.badgePosition) === !1) return No('wrong badgePosition', e);
+      } else r.badgePosition = `top-${r.position.indexOf('left') > -1 ? 'right' : 'left'}`;
+      (r.meta.uid = a.meta.uid),
+        (r.meta.badge = a.meta.badge + 1),
+        (r.meta.badgeClass =
+          `q-notification__badge q-notification__badge--${r.badgePosition}` +
+          (r.badgeColor !== void 0 ? ` bg-${r.badgeColor}` : '') +
+          (r.badgeTextColor !== void 0 ? ` text-${r.badgeTextColor}` : '') +
+          (r.badgeClass ? ` ${r.badgeClass}` : ''));
+      const c = zt[r.position].value.indexOf(a);
+      zt[r.position].value[c] = Yr[r.meta.group] = r;
+    }
+  }
+  const s = () => {
+    kp(r), (o = void 0);
+  };
+  if (
+    (r.timeout > 0 &&
+      (r.meta.timer = setTimeout(() => {
+        s();
+      }, r.timeout + 1e3)),
+    r.group !== void 0)
+  )
+    return (a) => {
+      a !== void 0 ? No('trying to update a grouped one which is forbidden', e) : s();
+    };
+  if (((o = { dismiss: s, config: e, notif: r }), n !== void 0)) {
+    Object.assign(n, o);
+    return;
+  }
+  return (a) => {
+    if (o !== void 0)
+      if (a === void 0) o.dismiss();
+      else {
+        const c = Object.assign({}, o.config, a, { group: !1, position: r.position });
+        bd(c, t, o);
+      }
+  };
+}
+function kp(e) {
+  clearTimeout(e.meta.timer);
+  const t = zt[e.position].value.indexOf(e);
+  if (t !== -1) {
+    e.group !== void 0 && delete Yr[e.meta.group];
+    const n = pd['' + e.meta.uid];
+    if (n) {
+      const { width: o, height: r } = getComputedStyle(n);
+      (n.style.left = `${n.offsetLeft}px`), (n.style.width = o), (n.style.height = r);
+    }
+    zt[e.position].value.splice(t, 1), typeof e.onDismiss == 'function' && e.onDismiss();
+  }
+}
+function _u(e) {
+  return e != null && xp.test(e) !== !0;
+}
+function No(e, t) {
+  return console.error(`Notify: ${e}`, t), !1;
+}
+function Ep() {
+  return Pe({
+    name: 'QNotifications',
+    devtools: { hide: !0 },
+    setup() {
+      return () =>
+        _(
+          'div',
+          { class: 'q-notifications' },
+          Ws.map((e) =>
+            _(yg, { key: e, class: gd[e], tag: 'div', name: `q-notification--${e}` }, () =>
+              zt[e].value.map((t) => {
+                const n = t.meta,
+                  o = [];
+                if (
+                  (n.hasMedia === !0 &&
+                    (t.spinner !== !1
+                      ? o.push(
+                          _(t.spinner, {
+                            class:
+                              'q-notification__spinner q-notification__spinner--' + n.leftClass,
+                            color: t.spinnerColor,
+                            size: t.spinnerSize,
+                          }),
+                        )
+                      : t.icon
+                      ? o.push(
+                          _(yt, {
+                            class: 'q-notification__icon q-notification__icon--' + n.leftClass,
+                            name: t.icon,
+                            color: t.iconColor,
+                            size: t.iconSize,
+                            role: 'img',
+                          }),
+                        )
+                      : t.avatar &&
+                        o.push(
+                          _(
+                            sd,
+                            {
+                              class:
+                                'q-notification__avatar q-notification__avatar--' + n.leftClass,
+                            },
+                            () => _('img', { src: t.avatar, 'aria-hidden': 'true' }),
+                          ),
+                        )),
+                  n.hasText === !0)
+                ) {
+                  let i;
+                  const l = { class: 'q-notification__message col' };
+                  if (t.html === !0)
+                    l.innerHTML = t.caption
+                      ? `<div>${t.message}</div><div class="q-notification__caption">${t.caption}</div>`
+                      : t.message;
+                  else {
+                    const s = [t.message];
+                    i = t.caption
+                      ? [_('div', s), _('div', { class: 'q-notification__caption' }, [t.caption])]
+                      : s;
+                  }
+                  o.push(_('div', l, i));
+                }
+                const r = [_('div', { class: n.contentClass }, o)];
+                return (
+                  t.progress === !0 &&
+                    r.push(
+                      _('div', {
+                        key: `${n.uid}|p|${n.badge}`,
+                        class: n.progressClass,
+                        style: n.progressStyle,
+                      }),
+                    ),
+                  t.actions !== void 0 &&
+                    r.push(
+                      _(
+                        'div',
+                        { class: n.actionsClass },
+                        t.actions.map((i) => _(ot, i)),
+                      ),
+                    ),
+                  n.badge > 1 &&
+                    r.push(
+                      _(
+                        'div',
+                        {
+                          key: `${n.uid}|${n.badge}`,
+                          class: t.meta.badgeClass,
+                          style: t.badgeStyle,
+                        },
+                        [n.badge],
+                      ),
+                    ),
+                  _(
+                    'div',
+                    {
+                      ref: (i) => {
+                        pd['' + n.uid] = i;
+                      },
+                      key: n.uid,
+                      class: n.class,
+                      ...n.attrs,
+                    },
+                    [_('div', { class: n.wrapperClass }, r)],
+                  )
+                );
+              }),
+            ),
+          ),
+        );
+    },
+  });
+}
+const qp = {
+  setDefaults(e) {
+    To(e) === !0 && Object.assign(Xr, e);
+  },
+  registerType(e, t) {
+    To(t) === !0 && (go[e] = t);
+  },
+  install({ $q: e, parentApp: t }) {
+    if (
+      ((e.notify = this.create = (n) => bd(n, e)),
+      (e.notify.setDefaults = this.setDefaults),
+      (e.notify.registerType = this.registerType),
+      e.config.notify !== void 0 && this.setDefaults(e.config.notify),
+      this.__installed !== !0)
+    ) {
+      Ws.forEach((o) => {
+        zt[o] = W([]);
+        const r =
+            ['left', 'center', 'right'].includes(o) === !0
+              ? 'center'
+              : o.indexOf('top') > -1
+              ? 'top'
+              : 'bottom',
+          i = o.indexOf('left') > -1 ? 'start' : o.indexOf('right') > -1 ? 'end' : 'center',
+          l = ['left', 'right'].includes(o)
+            ? `items-${o === 'left' ? 'start' : 'end'} justify-center`
+            : o === 'center'
+            ? 'flex-center'
+            : `items-${i}`;
+        gd[o] = `q-notifications__list q-notifications__list--${r} fixed column no-wrap ${l}`;
+      });
+      const n = vd('q-notify');
+      Qg(Ep(), t).mount(n);
+    }
+  },
+};
+var Tp = !1;
+/*!
+ * pinia v2.0.28
+ * (c) 2022 Eduardo San Martin Morote
+ * @license MIT
+ */ let yd;
+const Ni = (e) => (yd = e),
+  wd = Symbol();
+function es(e) {
+  return (
+    e &&
+    typeof e == 'object' &&
+    Object.prototype.toString.call(e) === '[object Object]' &&
+    typeof e.toJSON != 'function'
+  );
+}
+var tr;
+(function (e) {
+  (e.direct = 'direct'), (e.patchObject = 'patch object'), (e.patchFunction = 'patch function');
+})(tr || (tr = {}));
+function Pp() {
+  const e = Zc(!0),
+    t = e.run(() => W({}));
+  let n = [],
+    o = [];
+  const r = dn({
+    install(i) {
+      Ni(r),
+        (r._a = i),
+        i.provide(wd, r),
+        (i.config.globalProperties.$pinia = r),
+        o.forEach((l) => n.push(l)),
+        (o = []);
+    },
+    use(i) {
+      return !this._a && !Tp ? o.push(i) : n.push(i), this;
+    },
+    _p: n,
+    _a: null,
+    _e: e,
+    _s: new Map(),
+    state: t,
+  });
+  return r;
+}
+const _d = () => {};
+function Su(e, t, n, o = _d) {
+  e.push(t);
+  const r = () => {
+    const i = e.indexOf(t);
+    i > -1 && (e.splice(i, 1), o());
+  };
+  return !n && fm() && dm(r), r;
+}
+function mo(e, ...t) {
+  e.slice().forEach((n) => {
+    n(...t);
+  });
+}
+function ts(e, t) {
+  e instanceof Map && t instanceof Map && t.forEach((n, o) => e.set(o, n)),
+    e instanceof Set && t instanceof Set && t.forEach(e.add, e);
+  for (const n in t) {
+    if (!t.hasOwnProperty(n)) continue;
+    const o = t[n],
+      r = e[n];
+    es(r) && es(o) && e.hasOwnProperty(n) && !Ve(o) && !En(o) ? (e[n] = ts(r, o)) : (e[n] = o);
+  }
+  return e;
+}
+const Rp = Symbol();
+function Ap(e) {
+  return !es(e) || !e.hasOwnProperty(Rp);
+}
+const { assign: Sn } = Object;
+function Op(e) {
+  return !!(Ve(e) && e.effect);
+}
+function $p(e, t, n, o) {
+  const { state: r, actions: i, getters: l } = t,
+    s = n.state.value[e];
+  let a;
+  function c() {
+    s || (n.state.value[e] = r ? r() : {});
+    const u = Nm(n.state.value[e]);
+    return Sn(
+      u,
+      i,
+      Object.keys(l || {}).reduce(
+        (f, d) => (
+          (f[d] = dn(
+            v(() => {
+              Ni(n);
+              const h = n._s.get(e);
+              return l[d].call(h, h);
+            }),
+          )),
+          f
+        ),
+        {},
+      ),
+    );
+  }
+  return (
+    (a = Sd(e, c, t, n, o, !0)),
+    (a.$reset = function () {
+      const f = r ? r() : {};
+      this.$patch((d) => {
+        Sn(d, f);
+      });
+    }),
+    a
+  );
+}
+function Sd(e, t, n = {}, o, r, i) {
+  let l;
+  const s = Sn({ actions: {} }, n),
+    a = { deep: !0 };
+  let c,
+    u,
+    f = dn([]),
+    d = dn([]),
+    h;
+  const m = o.state.value[e];
+  !i && !m && (o.state.value[e] = {}), W({});
+  let g;
+  function b(S) {
+    let p;
+    (c = u = !1),
+      typeof S == 'function'
+        ? (S(o.state.value[e]), (p = { type: tr.patchFunction, storeId: e, events: h }))
+        : (ts(o.state.value[e], S),
+          (p = { type: tr.patchObject, payload: S, storeId: e, events: h }));
+    const $ = (g = Symbol());
+    ze().then(() => {
+      g === $ && (c = !0);
+    }),
+      (u = !0),
+      mo(f, p, o.state.value[e]);
+  }
+  const T = _d;
+  function k() {
+    l.stop(), (f = []), (d = []), o._s.delete(e);
+  }
+  function E(S, p) {
+    return function () {
+      Ni(o);
+      const $ = Array.from(arguments),
+        R = [],
+        B = [];
+      function I(le) {
+        R.push(le);
+      }
+      function Q(le) {
+        B.push(le);
+      }
+      mo(d, { args: $, name: S, store: P, after: I, onError: Q });
+      let H;
+      try {
+        H = p.apply(this && this.$id === e ? this : P, $);
+      } catch (le) {
+        throw (mo(B, le), le);
+      }
+      return H instanceof Promise
+        ? H.then((le) => (mo(R, le), le)).catch((le) => (mo(B, le), Promise.reject(le)))
+        : (mo(R, H), H);
+    };
+  }
+  const x = {
+      _p: o,
+      $id: e,
+      $onAction: Su.bind(null, d),
+      $patch: b,
+      $reset: T,
+      $subscribe(S, p = {}) {
+        const $ = Su(f, S, p.detached, () => R()),
+          R = l.run(() =>
+            fe(
+              () => o.state.value[e],
+              (B) => {
+                (p.flush === 'sync' ? u : c) && S({ storeId: e, type: tr.direct, events: h }, B);
+              },
+              Sn({}, a, p),
+            ),
+          );
+        return $;
+      },
+      $dispose: k,
+    },
+    P = jt(x);
+  o._s.set(e, P);
+  const C = o._e.run(() => ((l = Zc()), l.run(() => t())));
+  for (const S in C) {
+    const p = C[S];
+    if ((Ve(p) && !Op(p)) || En(p))
+      i || (m && Ap(p) && (Ve(p) ? (p.value = m[S]) : ts(p, m[S])), (o.state.value[e][S] = p));
+    else if (typeof p == 'function') {
+      const $ = E(S, p);
+      (C[S] = $), (s.actions[S] = p);
+    }
+  }
+  return (
+    Sn(P, C),
+    Sn(Te(P), C),
+    Object.defineProperty(P, '$state', {
+      get: () => o.state.value[e],
+      set: (S) => {
+        b((p) => {
+          Sn(p, S);
+        });
+      },
+    }),
+    o._p.forEach((S) => {
+      Sn(
+        P,
+        l.run(() => S({ store: P, app: o._a, pinia: o, options: s })),
+      );
+    }),
+    m && i && n.hydrate && n.hydrate(P.$state, m),
+    (c = !0),
+    (u = !0),
+    P
+  );
+}
+function Lp(e, t, n) {
+  let o, r;
+  const i = typeof t == 'function';
+  typeof e == 'string' ? ((o = e), (r = i ? n : t)) : ((r = e), (o = e.id));
+  function l(s, a) {
+    const c = qe();
+    return (
+      (s = s || (c && ut(wd, null))),
+      s && Ni(s),
+      (s = yd),
+      s._s.has(o) || (i ? Sd(o, t, r, s) : $p(o, r, s)),
+      s._s.get(o)
+    );
+  }
+  return (l.$id = o), l;
+}
+const nr = /^[a-z0-9]+(-[a-z0-9]+)*$/,
+  ji = (e, t, n, o = '') => {
+    const r = e.split(':');
+    if (e.slice(0, 1) === '@') {
+      if (r.length < 2 || r.length > 3) return null;
+      o = r.shift().slice(1);
+    }
+    if (r.length > 3 || !r.length) return null;
+    if (r.length > 1) {
+      const s = r.pop(),
+        a = r.pop(),
+        c = { provider: r.length > 0 ? r[0] : o, prefix: a, name: s };
+      return t && !Gr(c) ? null : c;
+    }
+    const i = r[0],
+      l = i.split('-');
+    if (l.length > 1) {
+      const s = { provider: o, prefix: l.shift(), name: l.join('-') };
+      return t && !Gr(s) ? null : s;
+    }
+    if (n && o === '') {
+      const s = { provider: o, prefix: '', name: i };
+      return t && !Gr(s, n) ? null : s;
+    }
+    return null;
+  },
+  Gr = (e, t) =>
+    e
+      ? !!(
+          (e.provider === '' || e.provider.match(nr)) &&
+          ((t && e.prefix === '') || e.prefix.match(nr)) &&
+          e.name.match(nr)
+        )
+      : !1,
+  xd = Object.freeze({ left: 0, top: 0, width: 16, height: 16 }),
+  hi = Object.freeze({ rotate: 0, vFlip: !1, hFlip: !1 }),
+  Di = Object.freeze({ ...xd, ...hi }),
+  ns = Object.freeze({ ...Di, body: '', hidden: !1 });
+function Mp(e, t) {
+  const n = {};
+  !e.hFlip != !t.hFlip && (n.hFlip = !0), !e.vFlip != !t.vFlip && (n.vFlip = !0);
+  const o = ((e.rotate || 0) + (t.rotate || 0)) % 4;
+  return o && (n.rotate = o), n;
+}
+function xu(e, t) {
+  const n = Mp(e, t);
+  for (const o in ns)
+    o in hi
+      ? o in e && !(o in n) && (n[o] = hi[o])
+      : o in t
+      ? (n[o] = t[o])
+      : o in e && (n[o] = e[o]);
+  return n;
+}
+function Fp(e, t) {
+  const n = e.icons,
+    o = e.aliases || Object.create(null),
+    r = Object.create(null);
+  function i(l) {
+    if (n[l]) return (r[l] = []);
+    if (!(l in r)) {
+      r[l] = null;
+      const s = o[l] && o[l].parent,
+        a = s && i(s);
+      a && (r[l] = [s].concat(a));
+    }
+    return r[l];
+  }
+  return (t || Object.keys(n).concat(Object.keys(o))).forEach(i), r;
+}
+function Bp(e, t, n) {
+  const o = e.icons,
+    r = e.aliases || Object.create(null);
+  let i = {};
+  function l(s) {
+    i = xu(o[s] || r[s], i);
+  }
+  return l(t), n.forEach(l), xu(e, i);
+}
+function Cd(e, t) {
+  const n = [];
+  if (typeof e != 'object' || typeof e.icons != 'object') return n;
+  e.not_found instanceof Array &&
+    e.not_found.forEach((r) => {
+      t(r, null), n.push(r);
+    });
+  const o = Fp(e);
+  for (const r in o) {
+    const i = o[r];
+    i && (t(r, Bp(e, r, i)), n.push(r));
+  }
+  return n;
+}
+const Ip = { provider: '', aliases: {}, not_found: {}, ...xd };
+function bl(e, t) {
+  for (const n in t) if (n in e && typeof e[n] != typeof t[n]) return !1;
+  return !0;
+}
+function kd(e) {
+  if (typeof e != 'object' || e === null) return null;
+  const t = e;
+  if (typeof t.prefix != 'string' || !e.icons || typeof e.icons != 'object' || !bl(e, Ip))
+    return null;
+  const n = t.icons;
+  for (const r in n) {
+    const i = n[r];
+    if (!r.match(nr) || typeof i.body != 'string' || !bl(i, ns)) return null;
+  }
+  const o = t.aliases || Object.create(null);
+  for (const r in o) {
+    const i = o[r],
+      l = i.parent;
+    if (!r.match(nr) || typeof l != 'string' || (!n[l] && !o[l]) || !bl(i, ns)) return null;
+  }
+  return t;
+}
+const Cu = Object.create(null);
+function zp(e, t) {
+  return { provider: e, prefix: t, icons: Object.create(null), missing: new Set() };
+}
+function eo(e, t) {
+  const n = Cu[e] || (Cu[e] = Object.create(null));
+  return n[t] || (n[t] = zp(e, t));
+}
+function Qs(e, t) {
+  return kd(t)
+    ? Cd(t, (n, o) => {
+        o ? (e.icons[n] = o) : e.missing.add(n);
+      })
+    : [];
+}
+function Vp(e, t, n) {
+  try {
+    if (typeof n.body == 'string') return (e.icons[t] = { ...n }), !0;
+  } catch {}
+  return !1;
+}
+let gr = !1;
+function Ed(e) {
+  return typeof e == 'boolean' && (gr = e), gr;
+}
+function Np(e) {
+  const t = typeof e == 'string' ? ji(e, !0, gr) : e;
+  if (t) {
+    const n = eo(t.provider, t.prefix),
+      o = t.name;
+    return n.icons[o] || (n.missing.has(o) ? null : void 0);
+  }
+}
+function jp(e, t) {
+  const n = ji(e, !0, gr);
+  if (!n) return !1;
+  const o = eo(n.provider, n.prefix);
+  return Vp(o, n.name, t);
+}
+function Dp(e, t) {
+  if (typeof e != 'object') return !1;
+  if ((typeof t != 'string' && (t = e.provider || ''), gr && !t && !e.prefix)) {
+    let r = !1;
+    return (
+      kd(e) &&
+        ((e.prefix = ''),
+        Cd(e, (i, l) => {
+          l && jp(i, l) && (r = !0);
+        })),
+      r
+    );
+  }
+  const n = e.prefix;
+  if (!Gr({ provider: t, prefix: n, name: 'a' })) return !1;
+  const o = eo(t, n);
+  return !!Qs(o, e);
+}
+const qd = Object.freeze({ width: null, height: null }),
+  Td = Object.freeze({ ...qd, ...hi }),
+  Hp = /(-?[0-9.]*[0-9]+[0-9.]*)/g,
+  Up = /^-?[0-9.]*[0-9]+[0-9.]*$/g;
+function ku(e, t, n) {
+  if (t === 1) return e;
+  if (((n = n || 100), typeof e == 'number')) return Math.ceil(e * t * n) / n;
+  if (typeof e != 'string') return e;
+  const o = e.split(Hp);
+  if (o === null || !o.length) return e;
+  const r = [];
+  let i = o.shift(),
+    l = Up.test(i);
+  for (;;) {
+    if (l) {
+      const s = parseFloat(i);
+      isNaN(s) ? r.push(i) : r.push(Math.ceil(s * t * n) / n);
+    } else r.push(i);
+    if (((i = o.shift()), i === void 0)) return r.join('');
+    l = !l;
+  }
+}
+const Kp = (e) => e === 'unset' || e === 'undefined' || e === 'none';
+function Wp(e, t) {
+  const n = { ...Di, ...e },
+    o = { ...Td, ...t },
+    r = { left: n.left, top: n.top, width: n.width, height: n.height };
+  let i = n.body;
+  [n, o].forEach((m) => {
+    const g = [],
+      b = m.hFlip,
+      T = m.vFlip;
+    let k = m.rotate;
+    b
+      ? T
+        ? (k += 2)
+        : (g.push(
+            'translate(' + (r.width + r.left).toString() + ' ' + (0 - r.top).toString() + ')',
+          ),
+          g.push('scale(-1 1)'),
+          (r.top = r.left = 0))
+      : T &&
+        (g.push('translate(' + (0 - r.left).toString() + ' ' + (r.height + r.top).toString() + ')'),
+        g.push('scale(1 -1)'),
+        (r.top = r.left = 0));
+    let E;
+    switch ((k < 0 && (k -= Math.floor(k / 4) * 4), (k = k % 4), k)) {
+      case 1:
+        (E = r.height / 2 + r.top),
+          g.unshift('rotate(90 ' + E.toString() + ' ' + E.toString() + ')');
+        break;
+      case 2:
+        g.unshift(
+          'rotate(180 ' +
+            (r.width / 2 + r.left).toString() +
+            ' ' +
+            (r.height / 2 + r.top).toString() +
+            ')',
+        );
+        break;
+      case 3:
+        (E = r.width / 2 + r.left),
+          g.unshift('rotate(-90 ' + E.toString() + ' ' + E.toString() + ')');
+        break;
+    }
+    k % 2 === 1 &&
+      (r.left !== r.top && ((E = r.left), (r.left = r.top), (r.top = E)),
+      r.width !== r.height && ((E = r.width), (r.width = r.height), (r.height = E))),
+      g.length && (i = '<g transform="' + g.join(' ') + '">' + i + '</g>');
+  });
+  const l = o.width,
+    s = o.height,
+    a = r.width,
+    c = r.height;
+  let u, f;
+  l === null
+    ? ((f = s === null ? '1em' : s === 'auto' ? c : s), (u = ku(f, a / c)))
+    : ((u = l === 'auto' ? a : l), (f = s === null ? ku(u, c / a) : s === 'auto' ? c : s));
+  const d = {},
+    h = (m, g) => {
+      Kp(g) || (d[m] = g.toString());
+    };
+  return (
+    h('width', u),
+    h('height', f),
+    (d.viewBox =
+      r.left.toString() + ' ' + r.top.toString() + ' ' + a.toString() + ' ' + c.toString()),
+    { attributes: d, body: i }
+  );
+}
+const Qp = /\sid="(\S+)"/g,
+  Jp = 'IconifyId' + Date.now().toString(16) + ((Math.random() * 16777216) | 0).toString(16);
+let Xp = 0;
+function Yp(e, t = Jp) {
+  const n = [];
+  let o;
+  for (; (o = Qp.exec(e)); ) n.push(o[1]);
+  if (!n.length) return e;
+  const r = 'suffix' + ((Math.random() * 16777216) | Date.now()).toString(16);
+  return (
+    n.forEach((i) => {
+      const l = typeof t == 'function' ? t(i) : t + (Xp++).toString(),
+        s = i.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      e = e.replace(new RegExp('([#;"])(' + s + ')([")]|\\.[a-z])', 'g'), '$1' + l + r + '$3');
+    }),
+    (e = e.replace(new RegExp(r, 'g'), '')),
+    e
+  );
+}
+const os = Object.create(null);
+function Gp(e, t) {
+  os[e] = t;
+}
+function rs(e) {
+  return os[e] || os[''];
+}
+function Js(e) {
+  let t;
+  if (typeof e.resources == 'string') t = [e.resources];
+  else if (((t = e.resources), !(t instanceof Array) || !t.length)) return null;
+  return {
+    resources: t,
+    path: e.path || '/',
+    maxURL: e.maxURL || 500,
+    rotate: e.rotate || 750,
+    timeout: e.timeout || 5e3,
+    random: e.random === !0,
+    index: e.index || 0,
+    dataAfterTimeout: e.dataAfterTimeout !== !1,
+  };
+}
+const Xs = Object.create(null),
+  jo = ['https://api.simplesvg.com', 'https://api.unisvg.com'],
+  Zr = [];
+for (; jo.length > 0; )
+  jo.length === 1 || Math.random() > 0.5 ? Zr.push(jo.shift()) : Zr.push(jo.pop());
+Xs[''] = Js({ resources: ['https://api.iconify.design'].concat(Zr) });
+function Zp(e, t) {
+  const n = Js(t);
+  return n === null ? !1 : ((Xs[e] = n), !0);
+}
+function Ys(e) {
+  return Xs[e];
+}
+const eb = () => {
+  let e;
+  try {
+    if (((e = fetch), typeof e == 'function')) return e;
+  } catch {}
+};
+let Eu = eb();
+function tb(e, t) {
+  const n = Ys(e);
+  if (!n) return 0;
+  let o;
+  if (!n.maxURL) o = 0;
+  else {
+    let r = 0;
+    n.resources.forEach((l) => {
+      r = Math.max(r, l.length);
+    });
+    const i = t + '.json?icons=';
+    o = n.maxURL - r - n.path.length - i.length;
+  }
+  return o;
+}
+function nb(e) {
+  return e === 404;
+}
+const ob = (e, t, n) => {
+  const o = [],
+    r = tb(e, t),
+    i = 'icons';
+  let l = { type: i, provider: e, prefix: t, icons: [] },
+    s = 0;
+  return (
+    n.forEach((a, c) => {
+      (s += a.length + 1),
+        s >= r &&
+          c > 0 &&
+          (o.push(l), (l = { type: i, provider: e, prefix: t, icons: [] }), (s = a.length)),
+        l.icons.push(a);
+    }),
+    o.push(l),
+    o
+  );
+};
+function rb(e) {
+  if (typeof e == 'string') {
+    const t = Ys(e);
+    if (t) return t.path;
+  }
+  return '/';
+}
+const ib = (e, t, n) => {
+    if (!Eu) {
+      n('abort', 424);
+      return;
+    }
+    let o = rb(t.provider);
+    switch (t.type) {
+      case 'icons': {
+        const i = t.prefix,
+          s = t.icons.join(','),
+          a = new URLSearchParams({ icons: s });
+        o += i + '.json?' + a.toString();
+        break;
+      }
+      case 'custom': {
+        const i = t.uri;
+        o += i.slice(0, 1) === '/' ? i.slice(1) : i;
+        break;
+      }
+      default:
+        n('abort', 400);
+        return;
+    }
+    let r = 503;
+    Eu(e + o)
+      .then((i) => {
+        const l = i.status;
+        if (l !== 200) {
+          setTimeout(() => {
+            n(nb(l) ? 'abort' : 'next', l);
+          });
+          return;
+        }
+        return (r = 501), i.json();
+      })
+      .then((i) => {
+        if (typeof i != 'object' || i === null) {
+          setTimeout(() => {
+            i === 404 ? n('abort', i) : n('next', r);
+          });
+          return;
+        }
+        setTimeout(() => {
+          n('success', i);
+        });
+      })
+      .catch(() => {
+        n('next', r);
+      });
+  },
+  lb = { prepare: ob, send: ib };
+function sb(e) {
+  const t = { loaded: [], missing: [], pending: [] },
+    n = Object.create(null);
+  e.sort((r, i) =>
+    r.provider !== i.provider
+      ? r.provider.localeCompare(i.provider)
+      : r.prefix !== i.prefix
+      ? r.prefix.localeCompare(i.prefix)
+      : r.name.localeCompare(i.name),
+  );
+  let o = { provider: '', prefix: '', name: '' };
+  return (
+    e.forEach((r) => {
+      if (o.name === r.name && o.prefix === r.prefix && o.provider === r.provider) return;
+      o = r;
+      const i = r.provider,
+        l = r.prefix,
+        s = r.name,
+        a = n[i] || (n[i] = Object.create(null)),
+        c = a[l] || (a[l] = eo(i, l));
+      let u;
+      s in c.icons
+        ? (u = t.loaded)
+        : l === '' || c.missing.has(s)
+        ? (u = t.missing)
+        : (u = t.pending);
+      const f = { provider: i, prefix: l, name: s };
+      u.push(f);
+    }),
+    t
+  );
+}
+function Pd(e, t) {
+  e.forEach((n) => {
+    const o = n.loaderCallbacks;
+    o && (n.loaderCallbacks = o.filter((r) => r.id !== t));
+  });
+}
+function ab(e) {
+  e.pendingCallbacksFlag ||
+    ((e.pendingCallbacksFlag = !0),
+    setTimeout(() => {
+      e.pendingCallbacksFlag = !1;
+      const t = e.loaderCallbacks ? e.loaderCallbacks.slice(0) : [];
+      if (!t.length) return;
+      let n = !1;
+      const o = e.provider,
+        r = e.prefix;
+      t.forEach((i) => {
+        const l = i.icons,
+          s = l.pending.length;
+        (l.pending = l.pending.filter((a) => {
+          if (a.prefix !== r) return !0;
+          const c = a.name;
+          if (e.icons[c]) l.loaded.push({ provider: o, prefix: r, name: c });
+          else if (e.missing.has(c)) l.missing.push({ provider: o, prefix: r, name: c });
+          else return (n = !0), !0;
+          return !1;
+        })),
+          l.pending.length !== s &&
+            (n || Pd([e], i.id),
+            i.callback(l.loaded.slice(0), l.missing.slice(0), l.pending.slice(0), i.abort));
+      });
+    }));
+}
+let ub = 0;
+function cb(e, t, n) {
+  const o = ub++,
+    r = Pd.bind(null, n, o);
+  if (!t.pending.length) return r;
+  const i = { id: o, icons: t, callback: e, abort: r };
+  return (
+    n.forEach((l) => {
+      (l.loaderCallbacks || (l.loaderCallbacks = [])).push(i);
+    }),
+    r
+  );
+}
+function fb(e, t = !0, n = !1) {
+  const o = [];
+  return (
+    e.forEach((r) => {
+      const i = typeof r == 'string' ? ji(r, t, n) : r;
+      i && o.push(i);
+    }),
+    o
+  );
+}
+var db = { resources: [], index: 0, timeout: 2e3, rotate: 750, random: !1, dataAfterTimeout: !1 };
+function hb(e, t, n, o) {
+  const r = e.resources.length,
+    i = e.random ? Math.floor(Math.random() * r) : e.index;
+  let l;
+  if (e.random) {
+    let C = e.resources.slice(0);
+    for (l = []; C.length > 1; ) {
+      const S = Math.floor(Math.random() * C.length);
+      l.push(C[S]), (C = C.slice(0, S).concat(C.slice(S + 1)));
+    }
+    l = l.concat(C);
+  } else l = e.resources.slice(i).concat(e.resources.slice(0, i));
+  const s = Date.now();
+  let a = 'pending',
+    c = 0,
+    u,
+    f = null,
+    d = [],
+    h = [];
+  typeof o == 'function' && h.push(o);
+  function m() {
+    f && (clearTimeout(f), (f = null));
+  }
+  function g() {
+    a === 'pending' && (a = 'aborted'),
+      m(),
+      d.forEach((C) => {
+        C.status === 'pending' && (C.status = 'aborted');
+      }),
+      (d = []);
+  }
+  function b(C, S) {
+    S && (h = []), typeof C == 'function' && h.push(C);
+  }
+  function T() {
+    return {
+      startTime: s,
+      payload: t,
+      status: a,
+      queriesSent: c,
+      queriesPending: d.length,
+      subscribe: b,
+      abort: g,
+    };
+  }
+  function k() {
+    (a = 'failed'),
+      h.forEach((C) => {
+        C(void 0, u);
+      });
+  }
+  function E() {
+    d.forEach((C) => {
+      C.status === 'pending' && (C.status = 'aborted');
+    }),
+      (d = []);
+  }
+  function x(C, S, p) {
+    const $ = S !== 'success';
+    switch (((d = d.filter((R) => R !== C)), a)) {
+      case 'pending':
+        break;
+      case 'failed':
+        if ($ || !e.dataAfterTimeout) return;
+        break;
+      default:
+        return;
+    }
+    if (S === 'abort') {
+      (u = p), k();
+      return;
+    }
+    if ($) {
+      (u = p), d.length || (l.length ? P() : k());
+      return;
+    }
+    if ((m(), E(), !e.random)) {
+      const R = e.resources.indexOf(C.resource);
+      R !== -1 && R !== e.index && (e.index = R);
+    }
+    (a = 'completed'),
+      h.forEach((R) => {
+        R(p);
+      });
+  }
+  function P() {
+    if (a !== 'pending') return;
+    m();
+    const C = l.shift();
+    if (C === void 0) {
+      if (d.length) {
+        f = setTimeout(() => {
+          m(), a === 'pending' && (E(), k());
+        }, e.timeout);
+        return;
+      }
+      k();
+      return;
+    }
+    const S = {
+      status: 'pending',
+      resource: C,
+      callback: (p, $) => {
+        x(S, p, $);
+      },
+    };
+    d.push(S), c++, (f = setTimeout(P, e.rotate)), n(C, t, S.callback);
+  }
+  return setTimeout(P), T;
+}
+function Rd(e) {
+  const t = { ...db, ...e };
+  let n = [];
+  function o() {
+    n = n.filter((s) => s().status === 'pending');
+  }
+  function r(s, a, c) {
+    const u = hb(t, s, a, (f, d) => {
+      o(), c && c(f, d);
+    });
+    return n.push(u), u;
+  }
+  function i(s) {
+    return n.find((a) => s(a)) || null;
+  }
+  return {
+    query: r,
+    find: i,
+    setIndex: (s) => {
+      t.index = s;
+    },
+    getIndex: () => t.index,
+    cleanup: o,
+  };
+}
+function qu() {}
+const yl = Object.create(null);
+function mb(e) {
+  if (!yl[e]) {
+    const t = Ys(e);
+    if (!t) return;
+    const n = Rd(t),
+      o = { config: t, redundancy: n };
+    yl[e] = o;
+  }
+  return yl[e];
+}
+function vb(e, t, n) {
+  let o, r;
+  if (typeof e == 'string') {
+    const i = rs(e);
+    if (!i) return n(void 0, 424), qu;
+    r = i.send;
+    const l = mb(e);
+    l && (o = l.redundancy);
+  } else {
+    const i = Js(e);
+    if (i) {
+      o = Rd(i);
+      const l = e.resources ? e.resources[0] : '',
+        s = rs(l);
+      s && (r = s.send);
+    }
+  }
+  return !o || !r ? (n(void 0, 424), qu) : o.query(t, r, n)().abort;
+}
+const Tu = 'iconify2',
+  pr = 'iconify',
+  Ad = pr + '-count',
+  Pu = pr + '-version',
+  Od = 36e5,
+  gb = 168;
+function is(e, t) {
+  try {
+    return e.getItem(t);
+  } catch {}
+}
+function Gs(e, t, n) {
+  try {
+    return e.setItem(t, n), !0;
+  } catch {}
+}
+function Ru(e, t) {
+  try {
+    e.removeItem(t);
+  } catch {}
+}
+function ls(e, t) {
+  return Gs(e, Ad, t.toString());
+}
+function ss(e) {
+  return parseInt(is(e, Ad)) || 0;
+}
+const Hi = { local: !0, session: !0 },
+  $d = { local: new Set(), session: new Set() };
+let Zs = !1;
+function pb(e) {
+  Zs = e;
+}
+let Ir = typeof window > 'u' ? {} : window;
+function Ld(e) {
+  const t = e + 'Storage';
+  try {
+    if (Ir && Ir[t] && typeof Ir[t].length == 'number') return Ir[t];
+  } catch {}
+  Hi[e] = !1;
+}
+function Md(e, t) {
+  const n = Ld(e);
+  if (!n) return;
+  const o = is(n, Pu);
+  if (o !== Tu) {
+    if (o) {
+      const s = ss(n);
+      for (let a = 0; a < s; a++) Ru(n, pr + a.toString());
+    }
+    Gs(n, Pu, Tu), ls(n, 0);
+    return;
+  }
+  const r = Math.floor(Date.now() / Od) - gb,
+    i = (s) => {
+      const a = pr + s.toString(),
+        c = is(n, a);
+      if (typeof c == 'string') {
+        try {
+          const u = JSON.parse(c);
+          if (
+            typeof u == 'object' &&
+            typeof u.cached == 'number' &&
+            u.cached > r &&
+            typeof u.provider == 'string' &&
+            typeof u.data == 'object' &&
+            typeof u.data.prefix == 'string' &&
+            t(u, s)
+          )
+            return !0;
+        } catch {}
+        Ru(n, a);
+      }
+    };
+  let l = ss(n);
+  for (let s = l - 1; s >= 0; s--) i(s) || (s === l - 1 ? (l--, ls(n, l)) : $d[e].add(s));
+}
+function Fd() {
+  if (!Zs) {
+    pb(!0);
+    for (const e in Hi)
+      Md(e, (t) => {
+        const n = t.data,
+          o = t.provider,
+          r = n.prefix,
+          i = eo(o, r);
+        if (!Qs(i, n).length) return !1;
+        const l = n.lastModified || -1;
+        return (
+          (i.lastModifiedCached = i.lastModifiedCached ? Math.min(i.lastModifiedCached, l) : l), !0
+        );
+      });
+  }
+}
+function bb(e, t) {
+  const n = e.lastModifiedCached;
+  if (n && n >= t) return n === t;
+  if (((e.lastModifiedCached = t), n))
+    for (const o in Hi)
+      Md(o, (r) => {
+        const i = r.data;
+        return r.provider !== e.provider || i.prefix !== e.prefix || i.lastModified === t;
+      });
+  return !0;
+}
+function yb(e, t) {
+  Zs || Fd();
+  function n(o) {
+    let r;
+    if (!Hi[o] || !(r = Ld(o))) return;
+    const i = $d[o];
+    let l;
+    if (i.size) i.delete((l = Array.from(i).shift()));
+    else if (((l = ss(r)), !ls(r, l + 1))) return;
+    const s = { cached: Math.floor(Date.now() / Od), provider: e.provider, data: t };
+    return Gs(r, pr + l.toString(), JSON.stringify(s));
+  }
+  (t.lastModified && !bb(e, t.lastModified)) ||
+    !Object.keys(t.icons).length ||
+    (t.not_found && ((t = Object.assign({}, t)), delete t.not_found), n('local') || n('session'));
+}
+function Au() {}
+function wb(e) {
+  e.iconsLoaderFlag ||
+    ((e.iconsLoaderFlag = !0),
+    setTimeout(() => {
+      (e.iconsLoaderFlag = !1), ab(e);
+    }));
+}
+function _b(e, t) {
+  e.iconsToLoad ? (e.iconsToLoad = e.iconsToLoad.concat(t).sort()) : (e.iconsToLoad = t),
+    e.iconsQueueFlag ||
+      ((e.iconsQueueFlag = !0),
+      setTimeout(() => {
+        e.iconsQueueFlag = !1;
+        const { provider: n, prefix: o } = e,
+          r = e.iconsToLoad;
+        delete e.iconsToLoad;
+        let i;
+        if (!r || !(i = rs(n))) return;
+        i.prepare(n, o, r).forEach((s) => {
+          vb(n, s, (a) => {
+            if (typeof a != 'object')
+              s.icons.forEach((c) => {
+                e.missing.add(c);
+              });
+            else
+              try {
+                const c = Qs(e, a);
+                if (!c.length) return;
+                const u = e.pendingIcons;
+                u &&
+                  c.forEach((f) => {
+                    u.delete(f);
+                  }),
+                  yb(e, a);
+              } catch (c) {
+                console.error(c);
+              }
+            wb(e);
+          });
+        });
+      }));
+}
+const Sb = (e, t) => {
+  const n = fb(e, !0, Ed()),
+    o = sb(n);
+  if (!o.pending.length) {
+    let a = !0;
+    return (
+      t &&
+        setTimeout(() => {
+          a && t(o.loaded, o.missing, o.pending, Au);
+        }),
+      () => {
+        a = !1;
+      }
+    );
+  }
+  const r = Object.create(null),
+    i = [];
+  let l, s;
+  return (
+    o.pending.forEach((a) => {
+      const { provider: c, prefix: u } = a;
+      if (u === s && c === l) return;
+      (l = c), (s = u), i.push(eo(c, u));
+      const f = r[c] || (r[c] = Object.create(null));
+      f[u] || (f[u] = []);
+    }),
+    o.pending.forEach((a) => {
+      const { provider: c, prefix: u, name: f } = a,
+        d = eo(c, u),
+        h = d.pendingIcons || (d.pendingIcons = new Set());
+      h.has(f) || (h.add(f), r[c][u].push(f));
+    }),
+    i.forEach((a) => {
+      const { provider: c, prefix: u } = a;
+      r[c][u].length && _b(a, r[c][u]);
+    }),
+    t ? cb(t, o, i) : Au
+  );
+};
+function xb(e, t) {
+  const n = { ...e };
+  for (const o in t) {
+    const r = t[o],
+      i = typeof r;
+    o in qd
+      ? (r === null || (r && (i === 'string' || i === 'number'))) && (n[o] = r)
+      : i === typeof n[o] && (n[o] = o === 'rotate' ? r % 4 : r);
+  }
+  return n;
+}
+const Cb = /[\s,]+/;
+function kb(e, t) {
+  t.split(Cb).forEach((n) => {
+    switch (n.trim()) {
+      case 'horizontal':
+        e.hFlip = !0;
+        break;
+      case 'vertical':
+        e.vFlip = !0;
+        break;
+    }
+  });
+}
+function Eb(e, t = 0) {
+  const n = e.replace(/^-?[0-9.]*/, '');
+  function o(r) {
+    for (; r < 0; ) r += 4;
+    return r % 4;
+  }
+  if (n === '') {
+    const r = parseInt(e);
+    return isNaN(r) ? 0 : o(r);
+  } else if (n !== e) {
+    let r = 0;
+    switch (n) {
+      case '%':
+        r = 25;
+        break;
+      case 'deg':
+        r = 90;
+    }
+    if (r) {
+      let i = parseFloat(e.slice(0, e.length - n.length));
+      return isNaN(i) ? 0 : ((i = i / r), i % 1 === 0 ? o(i) : 0);
+    }
+  }
+  return t;
+}
+function qb(e, t) {
+  let n = e.indexOf('xlink:') === -1 ? '' : ' xmlns:xlink="http://www.w3.org/1999/xlink"';
+  for (const o in t) n += ' ' + o + '="' + t[o] + '"';
+  return '<svg xmlns="http://www.w3.org/2000/svg"' + n + '>' + e + '</svg>';
+}
+function Tb(e) {
+  return e
+    .replace(/"/g, "'")
+    .replace(/%/g, '%25')
+    .replace(/#/g, '%23')
+    .replace(/</g, '%3C')
+    .replace(/>/g, '%3E')
+    .replace(/\s+/g, ' ');
+}
+function Pb(e) {
+  return 'data:image/svg+xml,' + Tb(e);
+}
+function Rb(e) {
+  return 'url("' + Pb(e) + '")';
+}
+const Ou = { ...Td, inline: !1 },
+  Ab = {
+    xmlns: 'http://www.w3.org/2000/svg',
+    'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+    'aria-hidden': !0,
+    role: 'img',
+  },
+  Ob = { display: 'inline-block' },
+  as = { backgroundColor: 'currentColor' },
+  Bd = { backgroundColor: 'transparent' },
+  $u = { Image: 'var(--svg)', Repeat: 'no-repeat', Size: '100% 100%' },
+  Lu = { webkitMask: as, mask: as, background: Bd };
+for (const e in Lu) {
+  const t = Lu[e];
+  for (const n in $u) t[e + n] = $u[n];
+}
+const ei = {};
+['horizontal', 'vertical'].forEach((e) => {
+  const t = e.slice(0, 1) + 'Flip';
+  (ei[e + '-flip'] = t), (ei[e.slice(0, 1) + '-flip'] = t), (ei[e + 'Flip'] = t);
+});
+function Mu(e) {
+  return e + (e.match(/^[-0-9.]+$/) ? 'px' : '');
+}
+const Fu = (e, t) => {
+  const n = xb(Ou, t),
+    o = { ...Ab },
+    r = t.mode || 'svg',
+    i = {},
+    l = t.style,
+    s = typeof l == 'object' && !(l instanceof Array) ? l : {};
+  for (let g in t) {
+    const b = t[g];
+    if (b !== void 0)
+      switch (g) {
+        case 'icon':
+        case 'style':
+        case 'onLoad':
+        case 'mode':
+          break;
+        case 'inline':
+        case 'hFlip':
+        case 'vFlip':
+          n[g] = b === !0 || b === 'true' || b === 1;
+          break;
+        case 'flip':
+          typeof b == 'string' && kb(n, b);
+          break;
+        case 'color':
+          i.color = b;
+          break;
+        case 'rotate':
+          typeof b == 'string' ? (n[g] = Eb(b)) : typeof b == 'number' && (n[g] = b);
+          break;
+        case 'ariaHidden':
+        case 'aria-hidden':
+          b !== !0 && b !== 'true' && delete o['aria-hidden'];
+          break;
+        default: {
+          const T = ei[g];
+          T ? (b === !0 || b === 'true' || b === 1) && (n[T] = !0) : Ou[g] === void 0 && (o[g] = b);
+        }
+      }
+  }
+  const a = Wp(e, n),
+    c = a.attributes;
+  if ((n.inline && (i.verticalAlign = '-0.125em'), r === 'svg')) {
+    (o.style = { ...i, ...s }), Object.assign(o, c);
+    let g = 0,
+      b = t.id;
+    return (
+      typeof b == 'string' && (b = b.replace(/-/g, '_')),
+      (o.innerHTML = Yp(a.body, b ? () => b + 'ID' + g++ : 'iconifyVue')),
+      _('svg', o)
+    );
+  }
+  const { body: u, width: f, height: d } = e,
+    h = r === 'mask' || (r === 'bg' ? !1 : u.indexOf('currentColor') !== -1),
+    m = qb(u, { ...c, width: f + '', height: d + '' });
+  return (
+    (o.style = {
+      ...i,
+      '--svg': Rb(m),
+      width: Mu(c.width),
+      height: Mu(c.height),
+      ...Ob,
+      ...(h ? as : Bd),
+      ...s,
+    }),
+    _('span', o)
+  );
+};
+Ed(!0);
+Gp('', lb);
+if (typeof document < 'u' && typeof window < 'u') {
+  Fd();
+  const e = window;
+  if (e.IconifyPreload !== void 0) {
+    const t = e.IconifyPreload,
+      n = 'Invalid IconifyPreload syntax.';
+    typeof t == 'object' &&
+      t !== null &&
+      (t instanceof Array ? t : [t]).forEach((o) => {
+        try {
+          (typeof o != 'object' ||
+            o === null ||
+            o instanceof Array ||
+            typeof o.icons != 'object' ||
+            typeof o.prefix != 'string' ||
+            !Dp(o)) &&
+            console.error(n);
+        } catch {
+          console.error(n);
+        }
+      });
+  }
+  if (e.IconifyProviders !== void 0) {
+    const t = e.IconifyProviders;
+    if (typeof t == 'object' && t !== null)
+      for (let n in t) {
+        const o = 'IconifyProviders[' + n + '] is invalid.';
+        try {
+          const r = t[n];
+          if (typeof r != 'object' || !r || r.resources === void 0) continue;
+          Zp(n, r) || console.error(o);
+        } catch {
+          console.error(o);
+        }
+      }
+  }
+}
+const $b = { ...Di, body: '' },
+  Lb = Ri({
+    inheritAttrs: !1,
+    data() {
+      return { iconMounted: !1, counter: 0 };
+    },
+    mounted() {
+      (this._name = ''), (this._loadingIcon = null), (this.iconMounted = !0);
+    },
+    unmounted() {
+      this.abortLoading();
+    },
+    methods: {
+      abortLoading() {
+        this._loadingIcon && (this._loadingIcon.abort(), (this._loadingIcon = null));
+      },
+      getIcon(e, t) {
+        if (typeof e == 'object' && e !== null && typeof e.body == 'string')
+          return (this._name = ''), this.abortLoading(), { data: e };
+        let n;
+        if (typeof e != 'string' || (n = ji(e, !1, !0)) === null) return this.abortLoading(), null;
+        const o = Np(n);
+        if (!o)
+          return (
+            (!this._loadingIcon || this._loadingIcon.name !== e) &&
+              (this.abortLoading(),
+              (this._name = ''),
+              o !== null &&
+                (this._loadingIcon = {
+                  name: e,
+                  abort: Sb([n], () => {
+                    this.counter++;
+                  }),
+                })),
+            null
+          );
+        this.abortLoading(), this._name !== e && ((this._name = e), t && t(e));
+        const r = ['iconify'];
+        return (
+          n.prefix !== '' && r.push('iconify--' + n.prefix),
+          n.provider !== '' && r.push('iconify--' + n.provider),
+          { data: o, classes: r }
+        );
+      },
+    },
+    render() {
+      this.counter;
+      const e = this.$attrs,
+        t = this.iconMounted ? this.getIcon(e.icon, e.onLoad) : null;
+      if (!t) return Fu($b, e);
+      let n = e;
+      return (
+        t.classes &&
+          (n = {
+            ...e,
+            class: (typeof e.class == 'string' ? e.class + ' ' : '') + t.classes.join(' '),
+          }),
+        Fu({ ...Di, ...t.data }, n)
+      );
+    },
+  });
+const St = { dark: { type: Boolean, default: null } };
+function xt(e, t) {
+  return v(() => (e.dark === null ? t.dark.isActive : e.dark));
+}
+const Mb = Pe({
+    name: 'QBanner',
+    props: { ...St, inlineActions: Boolean, dense: Boolean, rounded: Boolean },
+    setup(e, { slots: t }) {
+      const {
+          proxy: { $q: n },
+        } = qe(),
+        o = xt(e, n),
+        r = v(
+          () =>
+            'q-banner row items-center' +
+            (e.dense === !0 ? ' q-banner--dense' : '') +
+            (o.value === !0 ? ' q-banner--dark q-dark' : '') +
+            (e.rounded === !0 ? ' rounded-borders' : ''),
+        ),
+        i = v(
+          () =>
+            `q-banner__actions row items-center justify-end col-${
+              e.inlineActions === !0 ? 'auto' : 'all'
+            }`,
+        );
+      return () => {
+        const l = [
+            _(
+              'div',
+              { class: 'q-banner__avatar col-auto row items-center self-start' },
+              je(t.avatar),
+            ),
+            _('div', { class: 'q-banner__content col text-body2' }, je(t.default)),
+          ],
+          s = je(t.action);
+        return (
+          s !== void 0 && l.push(_('div', { class: i.value }, s)),
+          _(
+            'div',
+            {
+              class:
+                r.value + (e.inlineActions === !1 && s !== void 0 ? ' q-banner--top-padding' : ''),
+              role: 'alert',
+            },
+            l,
+          )
+        );
+      };
+    },
+  }),
+  Fb = Pe({
+    name: 'QToolbarTitle',
+    props: { shrink: Boolean },
+    setup(e, { slots: t }) {
+      const n = v(() => 'q-toolbar__title ellipsis' + (e.shrink === !0 ? ' col-shrink' : ''));
+      return () => _('div', { class: n.value }, je(t.default));
+    },
+  }),
+  Bb = Pe({
+    name: 'QToolbar',
+    props: { inset: Boolean },
+    setup(e, { slots: t }) {
+      const n = v(
+        () => 'q-toolbar row no-wrap items-center' + (e.inset === !0 ? ' q-toolbar--inset' : ''),
+      );
+      return () => _('div', { class: n.value, role: 'toolbar' }, je(t.default));
+    },
+  });
+function Ib() {
+  const e = W(!en.value);
+  return (
+    e.value === !1 &&
+      ct(() => {
+        e.value = !0;
+      }),
+    e
+  );
+}
+const Id = typeof ResizeObserver < 'u',
+  Bu =
+    Id === !0
+      ? {}
+      : {
+          style:
+            'display:block;position:absolute;top:0;left:0;right:0;bottom:0;height:100%;width:100%;overflow:hidden;pointer-events:none;z-index:-1;',
+          url: 'about:blank',
+        },
+  br = Pe({
+    name: 'QResizeObserver',
+    props: { debounce: { type: [String, Number], default: 100 } },
+    emits: ['resize'],
+    setup(e, { emit: t }) {
+      let n = null,
+        o,
+        r = { width: -1, height: -1 };
+      function i(a) {
+        a === !0 || e.debounce === 0 || e.debounce === '0'
+          ? l()
+          : n === null && (n = setTimeout(l, e.debounce));
+      }
+      function l() {
+        if ((clearTimeout(n), (n = null), o)) {
+          const { offsetWidth: a, offsetHeight: c } = o;
+          (a !== r.width || c !== r.height) && ((r = { width: a, height: c }), t('resize', r));
+        }
+      }
+      const { proxy: s } = qe();
+      if (Id === !0) {
+        let a;
+        const c = (u) => {
+          (o = s.$el.parentNode),
+            o
+              ? ((a = new ResizeObserver(i)), a.observe(o), l())
+              : u !== !0 &&
+                ze(() => {
+                  c(!0);
+                });
+        };
+        return (
+          ct(() => {
+            c();
+          }),
+          We(() => {
+            clearTimeout(n),
+              a !== void 0 && (a.disconnect !== void 0 ? a.disconnect() : o && a.unobserve(o));
+          }),
+          hn
+        );
+      } else {
+        let u = function () {
+            clearTimeout(n),
+              c !== void 0 &&
+                (c.removeEventListener !== void 0 && c.removeEventListener('resize', i, Ye.passive),
+                (c = void 0));
+          },
+          f = function () {
+            u(),
+              o &&
+                o.contentDocument &&
+                ((c = o.contentDocument.defaultView),
+                c.addEventListener('resize', i, Ye.passive),
+                l());
+          };
+        const a = Ib();
+        let c;
+        return (
+          ct(() => {
+            ze(() => {
+              (o = s.$el), o && f();
+            });
+          }),
+          We(u),
+          (s.trigger = i),
+          () => {
+            if (a.value === !0)
+              return _('object', {
+                style: Bu.style,
+                tabindex: -1,
+                type: 'text/html',
+                data: Bu.url,
+                'aria-hidden': 'true',
+                onLoad: f,
+              });
+          }
+        );
+      }
+    },
+  }),
+  zb = Pe({
+    name: 'QHeader',
+    props: {
+      modelValue: { type: Boolean, default: !0 },
+      reveal: Boolean,
+      revealOffset: { type: Number, default: 250 },
+      bordered: Boolean,
+      elevated: Boolean,
+      heightHint: { type: [String, Number], default: 50 },
+    },
+    emits: ['reveal', 'focusin'],
+    setup(e, { slots: t, emit: n }) {
+      const {
+          proxy: { $q: o },
+        } = qe(),
+        r = ut(Vi, un);
+      if (r === un) return console.error('QHeader needs to be child of QLayout'), un;
+      const i = W(parseInt(e.heightHint, 10)),
+        l = W(!0),
+        s = v(
+          () =>
+            e.reveal === !0 ||
+            r.view.value.indexOf('H') > -1 ||
+            (o.platform.is.ios && r.isContainer.value === !0),
+        ),
+        a = v(() => {
+          if (e.modelValue !== !0) return 0;
+          if (s.value === !0) return l.value === !0 ? i.value : 0;
+          const k = i.value - r.scroll.value.position;
+          return k > 0 ? k : 0;
+        }),
+        c = v(() => e.modelValue !== !0 || (s.value === !0 && l.value !== !0)),
+        u = v(() => e.modelValue === !0 && c.value === !0 && e.reveal === !0),
+        f = v(
+          () =>
+            'q-header q-layout__section--marginal ' +
+            (s.value === !0 ? 'fixed' : 'absolute') +
+            '-top' +
+            (e.bordered === !0 ? ' q-header--bordered' : '') +
+            (c.value === !0 ? ' q-header--hidden' : '') +
+            (e.modelValue !== !0 ? ' q-layout--prevent-focus' : ''),
+        ),
+        d = v(() => {
+          const k = r.rows.value.top,
+            E = {};
+          return (
+            k[0] === 'l' &&
+              r.left.space === !0 &&
+              (E[o.lang.rtl === !0 ? 'right' : 'left'] = `${r.left.size}px`),
+            k[2] === 'r' &&
+              r.right.space === !0 &&
+              (E[o.lang.rtl === !0 ? 'left' : 'right'] = `${r.right.size}px`),
+            E
+          );
+        });
+      function h(k, E) {
+        r.update('header', k, E);
+      }
+      function m(k, E) {
+        k.value !== E && (k.value = E);
+      }
+      function g({ height: k }) {
+        m(i, k), h('size', k);
+      }
+      function b(k) {
+        u.value === !0 && m(l, !0), n('focusin', k);
+      }
+      fe(
+        () => e.modelValue,
+        (k) => {
+          h('space', k), m(l, !0), r.animate();
+        },
+      ),
+        fe(a, (k) => {
+          h('offset', k);
+        }),
+        fe(
+          () => e.reveal,
+          (k) => {
+            k === !1 && m(l, e.modelValue);
+          },
+        ),
+        fe(l, (k) => {
+          r.animate(), n('reveal', k);
+        }),
+        fe(r.scroll, (k) => {
+          e.reveal === !0 &&
+            m(
+              l,
+              k.direction === 'up' ||
+                k.position <= e.revealOffset ||
+                k.position - k.inflectionPoint < 100,
+            );
+        });
+      const T = {};
+      return (
+        (r.instances.header = T),
+        e.modelValue === !0 && h('size', i.value),
+        h('space', e.modelValue),
+        h('offset', a.value),
+        We(() => {
+          r.instances.header === T &&
+            ((r.instances.header = void 0), h('size', 0), h('offset', 0), h('space', !1));
+        }),
+        () => {
+          const k = Hs(t.default, []);
+          return (
+            e.elevated === !0 &&
+              k.push(
+                _('div', {
+                  class: 'q-layout__shadow absolute-full overflow-hidden no-pointer-events',
+                }),
+              ),
+            k.push(_(br, { debounce: 0, onResize: g })),
+            _('header', { class: f.value, style: d.value, onFocusin: b }, k)
+          );
+        }
+      );
+    },
+  }),
+  ln = Pe({
+    name: 'QItemSection',
+    props: { avatar: Boolean, thumbnail: Boolean, side: Boolean, top: Boolean, noWrap: Boolean },
+    setup(e, { slots: t }) {
+      const n = v(
+        () =>
+          `q-item__section column q-item__section--${
+            e.avatar === !0 || e.side === !0 || e.thumbnail === !0 ? 'side' : 'main'
+          }` +
+          (e.top === !0 ? ' q-item__section--top justify-start' : ' justify-center') +
+          (e.avatar === !0 ? ' q-item__section--avatar' : '') +
+          (e.thumbnail === !0 ? ' q-item__section--thumbnail' : '') +
+          (e.noWrap === !0 ? ' q-item__section--nowrap' : ''),
+      );
+      return () => _('div', { class: n.value }, je(t.default));
+    },
+  }),
+  Jo = Pe({
+    name: 'QItem',
+    props: {
+      ...St,
+      ...hd,
+      tag: { type: String, default: 'div' },
+      active: { type: Boolean, default: null },
+      clickable: Boolean,
+      dense: Boolean,
+      insetLevel: Number,
+      tabindex: [String, Number],
+      focused: Boolean,
+      manualFocus: Boolean,
+    },
+    emits: ['click', 'keyup'],
+    setup(e, { slots: t, emit: n }) {
+      const {
+          proxy: { $q: o },
+        } = qe(),
+        r = xt(e, o),
+        { hasLink: i, linkAttrs: l, linkClass: s, linkTag: a, navigateOnClick: c } = md(),
+        u = W(null),
+        f = W(null),
+        d = v(() => e.clickable === !0 || i.value === !0 || e.tag === 'label'),
+        h = v(() => e.disable !== !0 && d.value === !0),
+        m = v(
+          () =>
+            'q-item q-item-type row no-wrap' +
+            (e.dense === !0 ? ' q-item--dense' : '') +
+            (r.value === !0 ? ' q-item--dark' : '') +
+            (i.value === !0 && e.active === null
+              ? s.value
+              : e.active === !0
+              ? ` q-item--active${e.activeClass !== void 0 ? ` ${e.activeClass}` : ''}`
+              : '') +
+            (e.disable === !0 ? ' disabled' : '') +
+            (h.value === !0
+              ? ' q-item--clickable q-link cursor-pointer ' +
+                (e.manualFocus === !0 ? 'q-manual-focusable' : 'q-focusable q-hoverable') +
+                (e.focused === !0 ? ' q-manual-focusable--focused' : '')
+              : ''),
+        ),
+        g = v(() =>
+          e.insetLevel === void 0
+            ? null
+            : {
+                ['padding' + (o.lang.rtl === !0 ? 'Right' : 'Left')]: 16 + e.insetLevel * 56 + 'px',
+              },
+        );
+      function b(E) {
+        h.value === !0 &&
+          (f.value !== null &&
+            (E.qKeyEvent !== !0 && document.activeElement === u.value
+              ? f.value.focus()
+              : document.activeElement === f.value && u.value.focus()),
+          c(E));
+      }
+      function T(E) {
+        if (h.value === !0 && Rn(E, 13) === !0) {
+          Je(E), (E.qKeyEvent = !0);
+          const x = new MouseEvent('click', E);
+          (x.qKeyEvent = !0), u.value.dispatchEvent(x);
+        }
+        n('keyup', E);
+      }
+      function k() {
+        const E = Hs(t.default, []);
+        return (
+          h.value === !0 && E.unshift(_('div', { class: 'q-focus-helper', tabindex: -1, ref: f })),
+          E
+        );
+      }
+      return () => {
+        const E = {
+          ref: u,
+          class: m.value,
+          style: g.value,
+          role: 'listitem',
+          onClick: b,
+          onKeyup: T,
+        };
+        return (
+          h.value === !0
+            ? ((E.tabindex = e.tabindex || '0'), Object.assign(E, l.value))
+            : d.value === !0 && (E['aria-disabled'] = 'true'),
+          _(a.value, E, k())
+        );
+      };
+    },
+  }),
+  Vb = [null, document, document.body, document.scrollingElement, document.documentElement];
+function ea(e, t) {
+  let n = sp(t);
+  if (n === void 0) {
+    if (e == null) return window;
+    n = e.closest('.scroll,.scroll-y,.overflow-auto');
+  }
+  return Vb.includes(n) ? window : n;
+}
+function ta(e) {
+  return e === window
+    ? window.pageYOffset || window.scrollY || document.body.scrollTop || 0
+    : e.scrollTop;
+}
+function na(e) {
+  return e === window
+    ? window.pageXOffset || window.scrollX || document.body.scrollLeft || 0
+    : e.scrollLeft;
+}
+function zd(e, t, n = 0) {
+  const o = arguments[3] === void 0 ? performance.now() : arguments[3],
+    r = ta(e);
+  if (n <= 0) {
+    r !== t && us(e, t);
+    return;
+  }
+  requestAnimationFrame((i) => {
+    const l = i - o,
+      s = r + ((t - r) / Math.max(l, n)) * l;
+    us(e, s), s !== t && zd(e, t, n - l, i);
+  });
+}
+function Vd(e, t, n = 0) {
+  const o = arguments[3] === void 0 ? performance.now() : arguments[3],
+    r = na(e);
+  if (n <= 0) {
+    r !== t && cs(e, t);
+    return;
+  }
+  requestAnimationFrame((i) => {
+    const l = i - o,
+      s = r + ((t - r) / Math.max(l, n)) * l;
+    cs(e, s), s !== t && Vd(e, t, n - l, i);
+  });
+}
+function us(e, t) {
+  if (e === window) {
+    window.scrollTo(window.pageXOffset || window.scrollX || document.body.scrollLeft || 0, t);
+    return;
+  }
+  e.scrollTop = t;
+}
+function cs(e, t) {
+  if (e === window) {
+    window.scrollTo(t, window.pageYOffset || window.scrollY || document.body.scrollTop || 0);
+    return;
+  }
+  e.scrollLeft = t;
+}
+function Iu(e, t, n) {
+  if (n) {
+    zd(e, t, n);
+    return;
+  }
+  us(e, t);
+}
+function wl(e, t, n) {
+  if (n) {
+    Vd(e, t, n);
+    return;
+  }
+  cs(e, t);
+}
+let zr;
+function ti() {
+  if (zr !== void 0) return zr;
+  const e = document.createElement('p'),
+    t = document.createElement('div');
+  Zl(e, { width: '100%', height: '200px' }),
+    Zl(t, {
+      position: 'absolute',
+      top: '0px',
+      left: '0px',
+      visibility: 'hidden',
+      width: '200px',
+      height: '150px',
+      overflow: 'hidden',
+    }),
+    t.appendChild(e),
+    document.body.appendChild(t);
+  const n = e.offsetWidth;
+  t.style.overflow = 'scroll';
+  let o = e.offsetWidth;
+  return n === o && (o = t.clientWidth), t.remove(), (zr = n - o), zr;
+}
+function Nb(e, t = !0) {
+  return !e || e.nodeType !== Node.ELEMENT_NODE
+    ? !1
+    : t
+    ? e.scrollHeight > e.clientHeight &&
+      (e.classList.contains('scroll') ||
+        e.classList.contains('overflow-auto') ||
+        ['auto', 'scroll'].includes(window.getComputedStyle(e)['overflow-y']))
+    : e.scrollWidth > e.clientWidth &&
+      (e.classList.contains('scroll') ||
+        e.classList.contains('overflow-auto') ||
+        ['auto', 'scroll'].includes(window.getComputedStyle(e)['overflow-x']));
+}
+const { passive: zu } = Ye,
+  jb = ['both', 'horizontal', 'vertical'],
+  Nd = Pe({
+    name: 'QScrollObserver',
+    props: {
+      axis: { type: String, validator: (e) => jb.includes(e), default: 'vertical' },
+      debounce: [String, Number],
+      scrollTarget: { default: void 0 },
+    },
+    emits: ['scroll'],
+    setup(e, { emit: t }) {
+      const n = {
+        position: { top: 0, left: 0 },
+        direction: 'down',
+        directionChanged: !1,
+        delta: { top: 0, left: 0 },
+        inflectionPoint: { top: 0, left: 0 },
+      };
+      let o = null,
+        r,
+        i;
+      fe(
+        () => e.scrollTarget,
+        () => {
+          a(), s();
+        },
+      );
+      function l() {
+        o !== null && o();
+        const f = Math.max(0, ta(r)),
+          d = na(r),
+          h = { top: f - n.position.top, left: d - n.position.left };
+        if ((e.axis === 'vertical' && h.top === 0) || (e.axis === 'horizontal' && h.left === 0))
+          return;
+        const m =
+          Math.abs(h.top) >= Math.abs(h.left)
+            ? h.top < 0
+              ? 'up'
+              : 'down'
+            : h.left < 0
+            ? 'left'
+            : 'right';
+        (n.position = { top: f, left: d }),
+          (n.directionChanged = n.direction !== m),
+          (n.delta = h),
+          n.directionChanged === !0 && ((n.direction = m), (n.inflectionPoint = n.position)),
+          t('scroll', { ...n });
+      }
+      function s() {
+        (r = ea(i, e.scrollTarget)), r.addEventListener('scroll', c, zu), c(!0);
+      }
+      function a() {
+        r !== void 0 && (r.removeEventListener('scroll', c, zu), (r = void 0));
+      }
+      function c(f) {
+        if (f === !0 || e.debounce === 0 || e.debounce === '0') l();
+        else if (o === null) {
+          const [d, h] = e.debounce
+            ? [setTimeout(l, e.debounce), clearTimeout]
+            : [requestAnimationFrame(l), cancelAnimationFrame];
+          o = () => {
+            h(d), (o = null);
+          };
+        }
+      }
+      const { proxy: u } = qe();
+      return (
+        fe(() => u.$q.lang.rtl, l),
+        ct(() => {
+          (i = u.$el.parentNode), s();
+        }),
+        We(() => {
+          o !== null && o(), a();
+        }),
+        Object.assign(u, { trigger: c, getPosition: () => n }),
+        hn
+      );
+    },
+  }),
+  oa = { left: !0, right: !0, up: !0, down: !0, horizontal: !0, vertical: !0 },
+  Db = Object.keys(oa);
+oa.all = !0;
+function Vu(e) {
+  const t = {};
+  for (const n of Db) e[n] === !0 && (t[n] = !0);
+  return Object.keys(t).length === 0
+    ? oa
+    : (t.horizontal === !0
+        ? (t.left = t.right = !0)
+        : t.left === !0 && t.right === !0 && (t.horizontal = !0),
+      t.vertical === !0 ? (t.up = t.down = !0) : t.up === !0 && t.down === !0 && (t.vertical = !0),
+      t.horizontal === !0 && t.vertical === !0 && (t.all = !0),
+      t);
+}
+function Nu(e, t) {
+  return (
+    t.event === void 0 &&
+    e.target !== void 0 &&
+    e.target.draggable !== !0 &&
+    typeof t.handler == 'function' &&
+    e.target.nodeName.toUpperCase() !== 'INPUT' &&
+    (e.qClonedBy === void 0 || e.qClonedBy.indexOf(t.uid) === -1)
+  );
+}
+function jd() {
+  if (window.getSelection !== void 0) {
+    const e = window.getSelection();
+    e.empty !== void 0
+      ? e.empty()
+      : e.removeAllRanges !== void 0 &&
+        (e.removeAllRanges(), ci.is.mobile !== !0 && e.addRange(document.createRange()));
+  } else document.selection !== void 0 && document.selection.empty();
+}
+function _l(e, t, n) {
+  const o = mr(e);
+  let r,
+    i = o.left - t.event.x,
+    l = o.top - t.event.y,
+    s = Math.abs(i),
+    a = Math.abs(l);
+  const c = t.direction;
+  c.horizontal === !0 && c.vertical !== !0
+    ? (r = i < 0 ? 'left' : 'right')
+    : c.horizontal !== !0 && c.vertical === !0
+    ? (r = l < 0 ? 'up' : 'down')
+    : c.up === !0 && l < 0
+    ? ((r = 'up'),
+      s > a && (c.left === !0 && i < 0 ? (r = 'left') : c.right === !0 && i > 0 && (r = 'right')))
+    : c.down === !0 && l > 0
+    ? ((r = 'down'),
+      s > a && (c.left === !0 && i < 0 ? (r = 'left') : c.right === !0 && i > 0 && (r = 'right')))
+    : c.left === !0 && i < 0
+    ? ((r = 'left'),
+      s < a && (c.up === !0 && l < 0 ? (r = 'up') : c.down === !0 && l > 0 && (r = 'down')))
+    : c.right === !0 &&
+      i > 0 &&
+      ((r = 'right'),
+      s < a && (c.up === !0 && l < 0 ? (r = 'up') : c.down === !0 && l > 0 && (r = 'down')));
+  let u = !1;
+  if (r === void 0 && n === !1) {
+    if (t.event.isFirst === !0 || t.event.lastDir === void 0) return {};
+    (r = t.event.lastDir),
+      (u = !0),
+      r === 'left' || r === 'right'
+        ? ((o.left -= i), (s = 0), (i = 0))
+        : ((o.top -= l), (a = 0), (l = 0));
+  }
+  return {
+    synthetic: u,
+    payload: {
+      evt: e,
+      touch: t.event.mouse !== !0,
+      mouse: t.event.mouse === !0,
+      position: o,
+      direction: r,
+      isFirst: t.event.isFirst,
+      isFinal: n === !0,
+      duration: Date.now() - t.event.time,
+      distance: { x: s, y: a },
+      offset: { x: i, y: l },
+      delta: { x: o.left - t.event.lastX, y: o.top - t.event.lastY },
+    },
+  };
+}
+let Hb = 0;
+const or = Ds({
+  name: 'touch-pan',
+  beforeMount(e, { value: t, modifiers: n }) {
+    if (n.mouse !== !0 && Ne.has.touch !== !0) return;
+    function o(i, l) {
+      n.mouse === !0 && l === !0 ? Je(i) : (n.stop === !0 && Et(i), n.prevent === !0 && bt(i));
+    }
+    const r = {
+      uid: 'qvtp_' + Hb++,
+      handler: t,
+      modifiers: n,
+      direction: Vu(n),
+      noop: hn,
+      mouseStart(i) {
+        Nu(i, r) &&
+          $g(i) &&
+          (Dn(r, 'temp', [
+            [document, 'mousemove', 'move', 'notPassiveCapture'],
+            [document, 'mouseup', 'end', 'passiveCapture'],
+          ]),
+          r.start(i, !0));
+      },
+      touchStart(i) {
+        if (Nu(i, r)) {
+          const l = i.target;
+          Dn(r, 'temp', [
+            [l, 'touchmove', 'move', 'notPassiveCapture'],
+            [l, 'touchcancel', 'end', 'passiveCapture'],
+            [l, 'touchend', 'end', 'passiveCapture'],
+          ]),
+            r.start(i);
+        }
+      },
+      start(i, l) {
+        if ((Ne.is.firefox === !0 && vl(e, !0), (r.lastEvt = i), l === !0 || n.stop === !0)) {
+          if (
+            r.direction.all !== !0 &&
+            (l !== !0 || (r.modifiers.mouseAllDir !== !0 && r.modifiers.mousealldir !== !0))
+          ) {
+            const c =
+              i.type.indexOf('mouse') > -1 ? new MouseEvent(i.type, i) : new TouchEvent(i.type, i);
+            i.defaultPrevented === !0 && bt(c),
+              i.cancelBubble === !0 && Et(c),
+              Object.assign(c, {
+                qKeyEvent: i.qKeyEvent,
+                qClickOutside: i.qClickOutside,
+                qAnchorHandled: i.qAnchorHandled,
+                qClonedBy: i.qClonedBy === void 0 ? [r.uid] : i.qClonedBy.concat(r.uid),
+              }),
+              (r.initialEvent = { target: i.target, event: c });
+          }
+          Et(i);
+        }
+        const { left: s, top: a } = mr(i);
+        r.event = {
+          x: s,
+          y: a,
+          time: Date.now(),
+          mouse: l === !0,
+          detected: !1,
+          isFirst: !0,
+          isFinal: !1,
+          lastX: s,
+          lastY: a,
+        };
+      },
+      move(i) {
+        if (r.event === void 0) return;
+        const l = mr(i),
+          s = l.left - r.event.x,
+          a = l.top - r.event.y;
+        if (s === 0 && a === 0) return;
+        r.lastEvt = i;
+        const c = r.event.mouse === !0,
+          u = () => {
+            o(i, c);
+            let h;
+            n.preserveCursor !== !0 &&
+              n.preservecursor !== !0 &&
+              ((h = document.documentElement.style.cursor || ''),
+              (document.documentElement.style.cursor = 'grabbing')),
+              c === !0 && document.body.classList.add('no-pointer-events--children'),
+              document.body.classList.add('non-selectable'),
+              jd(),
+              (r.styleCleanup = (m) => {
+                if (
+                  ((r.styleCleanup = void 0),
+                  h !== void 0 && (document.documentElement.style.cursor = h),
+                  document.body.classList.remove('non-selectable'),
+                  c === !0)
+                ) {
+                  const g = () => {
+                    document.body.classList.remove('no-pointer-events--children');
+                  };
+                  m !== void 0
+                    ? setTimeout(() => {
+                        g(), m();
+                      }, 50)
+                    : g();
+                } else m !== void 0 && m();
+              });
+          };
+        if (r.event.detected === !0) {
+          r.event.isFirst !== !0 && o(i, r.event.mouse);
+          const { payload: h, synthetic: m } = _l(i, r, !1);
+          h !== void 0 &&
+            (r.handler(h) === !1
+              ? r.end(i)
+              : (r.styleCleanup === void 0 && r.event.isFirst === !0 && u(),
+                (r.event.lastX = h.position.left),
+                (r.event.lastY = h.position.top),
+                (r.event.lastDir = m === !0 ? void 0 : h.direction),
+                (r.event.isFirst = !1)));
+          return;
+        }
+        if (
+          r.direction.all === !0 ||
+          (c === !0 && (r.modifiers.mouseAllDir === !0 || r.modifiers.mousealldir === !0))
+        ) {
+          u(), (r.event.detected = !0), r.move(i);
+          return;
+        }
+        const f = Math.abs(s),
+          d = Math.abs(a);
+        f !== d &&
+          ((r.direction.horizontal === !0 && f > d) ||
+          (r.direction.vertical === !0 && f < d) ||
+          (r.direction.up === !0 && f < d && a < 0) ||
+          (r.direction.down === !0 && f < d && a > 0) ||
+          (r.direction.left === !0 && f > d && s < 0) ||
+          (r.direction.right === !0 && f > d && s > 0)
+            ? ((r.event.detected = !0), r.move(i))
+            : r.end(i, !0));
+      },
+      end(i, l) {
+        if (r.event !== void 0) {
+          if ((er(r, 'temp'), Ne.is.firefox === !0 && vl(e, !1), l === !0))
+            r.styleCleanup !== void 0 && r.styleCleanup(),
+              r.event.detected !== !0 &&
+                r.initialEvent !== void 0 &&
+                r.initialEvent.target.dispatchEvent(r.initialEvent.event);
+          else if (r.event.detected === !0) {
+            r.event.isFirst === !0 && r.handler(_l(i === void 0 ? r.lastEvt : i, r).payload);
+            const { payload: s } = _l(i === void 0 ? r.lastEvt : i, r, !0),
+              a = () => {
+                r.handler(s);
+              };
+            r.styleCleanup !== void 0 ? r.styleCleanup(a) : a();
+          }
+          (r.event = void 0), (r.initialEvent = void 0), (r.lastEvt = void 0);
+        }
+      },
+    };
+    if (((e.__qtouchpan = r), n.mouse === !0)) {
+      const i = n.mouseCapture === !0 || n.mousecapture === !0 ? 'Capture' : '';
+      Dn(r, 'main', [[e, 'mousedown', 'mouseStart', `passive${i}`]]);
+    }
+    Ne.has.touch === !0 &&
+      Dn(r, 'main', [
+        [e, 'touchstart', 'touchStart', `passive${n.capture === !0 ? 'Capture' : ''}`],
+        [e, 'touchmove', 'noop', 'notPassiveCapture'],
+      ]);
+  },
+  updated(e, t) {
+    const n = e.__qtouchpan;
+    n !== void 0 &&
+      (t.oldValue !== t.value && (typeof value != 'function' && n.end(), (n.handler = t.value)),
+      (n.direction = Vu(t.modifiers)));
+  },
+  beforeUnmount(e) {
+    const t = e.__qtouchpan;
+    t !== void 0 &&
+      (t.event !== void 0 && t.end(),
+      er(t, 'main'),
+      er(t, 'temp'),
+      Ne.is.firefox === !0 && vl(e, !1),
+      t.styleCleanup !== void 0 && t.styleCleanup(),
+      delete e.__qtouchpan);
+  },
+});
+function an(e, t, n) {
+  return n <= t ? t : Math.min(n, Math.max(t, e));
+}
+function ju(e, t, n) {
+  if (n <= t) return t;
+  const o = n - t + 1;
+  let r = t + ((e - t) % o);
+  return r < t && (r = o + r), r === 0 ? 0 : r;
+}
+const Du = ['vertical', 'horizontal'],
+  Sl = {
+    vertical: { offset: 'offsetY', scroll: 'scrollTop', dir: 'down', dist: 'y' },
+    horizontal: { offset: 'offsetX', scroll: 'scrollLeft', dir: 'right', dist: 'x' },
+  },
+  Hu = { prevent: !0, mouse: !0, mouseAllDir: !0 },
+  Uu = (e) => (e >= 250 ? 50 : Math.ceil(e / 5)),
+  Ub = Pe({
+    name: 'QScrollArea',
+    props: {
+      ...St,
+      thumbStyle: Object,
+      verticalThumbStyle: Object,
+      horizontalThumbStyle: Object,
+      barStyle: [Array, String, Object],
+      verticalBarStyle: [Array, String, Object],
+      horizontalBarStyle: [Array, String, Object],
+      contentStyle: [Array, String, Object],
+      contentActiveStyle: [Array, String, Object],
+      delay: { type: [String, Number], default: 1e3 },
+      visible: { type: Boolean, default: null },
+      tabindex: [String, Number],
+      onScroll: Function,
+    },
+    setup(e, { slots: t, emit: n }) {
+      const o = W(!1),
+        r = W(!1),
+        i = W(!1),
+        l = { vertical: W(0), horizontal: W(0) },
+        s = {
+          vertical: { ref: W(null), position: W(0), size: W(0) },
+          horizontal: { ref: W(null), position: W(0), size: W(0) },
+        },
+        { proxy: a } = qe(),
+        c = xt(e, a.$q);
+      let u, f;
+      const d = W(null),
+        h = v(() => 'q-scrollarea' + (c.value === !0 ? ' q-scrollarea--dark' : ''));
+      (s.vertical.percentage = v(() => {
+        const N = s.vertical.size.value - l.vertical.value;
+        if (N <= 0) return 0;
+        const L = an(s.vertical.position.value / N, 0, 1);
+        return Math.round(L * 1e4) / 1e4;
+      })),
+        (s.vertical.thumbHidden = v(
+          () =>
+            ((e.visible === null ? i.value : e.visible) !== !0 &&
+              o.value === !1 &&
+              r.value === !1) ||
+            s.vertical.size.value <= l.vertical.value + 1,
+        )),
+        (s.vertical.thumbStart = v(
+          () => s.vertical.percentage.value * (l.vertical.value - s.vertical.thumbSize.value),
+        )),
+        (s.vertical.thumbSize = v(() =>
+          Math.round(
+            an(
+              (l.vertical.value * l.vertical.value) / s.vertical.size.value,
+              Uu(l.vertical.value),
+              l.vertical.value,
+            ),
+          ),
+        )),
+        (s.vertical.style = v(() => ({
+          ...e.thumbStyle,
+          ...e.verticalThumbStyle,
+          top: `${s.vertical.thumbStart.value}px`,
+          height: `${s.vertical.thumbSize.value}px`,
+        }))),
+        (s.vertical.thumbClass = v(
+          () =>
+            'q-scrollarea__thumb q-scrollarea__thumb--v absolute-right' +
+            (s.vertical.thumbHidden.value === !0 ? ' q-scrollarea__thumb--invisible' : ''),
+        )),
+        (s.vertical.barClass = v(
+          () =>
+            'q-scrollarea__bar q-scrollarea__bar--v absolute-right' +
+            (s.vertical.thumbHidden.value === !0 ? ' q-scrollarea__bar--invisible' : ''),
+        )),
+        (s.horizontal.percentage = v(() => {
+          const N = s.horizontal.size.value - l.horizontal.value;
+          if (N <= 0) return 0;
+          const L = an(Math.abs(s.horizontal.position.value) / N, 0, 1);
+          return Math.round(L * 1e4) / 1e4;
+        })),
+        (s.horizontal.thumbHidden = v(
+          () =>
+            ((e.visible === null ? i.value : e.visible) !== !0 &&
+              o.value === !1 &&
+              r.value === !1) ||
+            s.horizontal.size.value <= l.horizontal.value + 1,
+        )),
+        (s.horizontal.thumbStart = v(
+          () => s.horizontal.percentage.value * (l.horizontal.value - s.horizontal.thumbSize.value),
+        )),
+        (s.horizontal.thumbSize = v(() =>
+          Math.round(
+            an(
+              (l.horizontal.value * l.horizontal.value) / s.horizontal.size.value,
+              Uu(l.horizontal.value),
+              l.horizontal.value,
+            ),
+          ),
+        )),
+        (s.horizontal.style = v(() => ({
+          ...e.thumbStyle,
+          ...e.horizontalThumbStyle,
+          [a.$q.lang.rtl === !0 ? 'right' : 'left']: `${s.horizontal.thumbStart.value}px`,
+          width: `${s.horizontal.thumbSize.value}px`,
+        }))),
+        (s.horizontal.thumbClass = v(
+          () =>
+            'q-scrollarea__thumb q-scrollarea__thumb--h absolute-bottom' +
+            (s.horizontal.thumbHidden.value === !0 ? ' q-scrollarea__thumb--invisible' : ''),
+        )),
+        (s.horizontal.barClass = v(
+          () =>
+            'q-scrollarea__bar q-scrollarea__bar--h absolute-bottom' +
+            (s.horizontal.thumbHidden.value === !0 ? ' q-scrollarea__bar--invisible' : ''),
+        ));
+      const m = v(() =>
+          s.vertical.thumbHidden.value === !0 && s.horizontal.thumbHidden.value === !0
+            ? e.contentStyle
+            : e.contentActiveStyle,
+        ),
+        g = [
+          [
+            or,
+            (N) => {
+              S(N, 'vertical');
+            },
+            void 0,
+            { vertical: !0, ...Hu },
+          ],
+        ],
+        b = [
+          [
+            or,
+            (N) => {
+              S(N, 'horizontal');
+            },
+            void 0,
+            { horizontal: !0, ...Hu },
+          ],
+        ];
+      function T() {
+        const N = {};
+        return (
+          Du.forEach((L) => {
+            const U = s[L];
+            (N[L + 'Position'] = U.position.value),
+              (N[L + 'Percentage'] = U.percentage.value),
+              (N[L + 'Size'] = U.size.value),
+              (N[L + 'ContainerSize'] = l[L].value);
+          }),
+          N
+        );
+      }
+      const k = zi(() => {
+        const N = T();
+        (N.ref = a), n('scroll', N);
+      }, 0);
+      function E(N, L, U) {
+        if (Du.includes(N) === !1) {
+          console.error(
+            '[QScrollArea]: wrong first param of setScrollPosition (vertical/horizontal)',
+          );
+          return;
+        }
+        (N === 'vertical' ? Iu : wl)(d.value, L, U);
+      }
+      function x({ height: N, width: L }) {
+        let U = !1;
+        l.vertical.value !== N && ((l.vertical.value = N), (U = !0)),
+          l.horizontal.value !== L && ((l.horizontal.value = L), (U = !0)),
+          U === !0 && B();
+      }
+      function P({ position: N }) {
+        let L = !1;
+        s.vertical.position.value !== N.top && ((s.vertical.position.value = N.top), (L = !0)),
+          s.horizontal.position.value !== N.left &&
+            ((s.horizontal.position.value = N.left), (L = !0)),
+          L === !0 && B();
+      }
+      function C({ height: N, width: L }) {
+        s.horizontal.size.value !== L && ((s.horizontal.size.value = L), B()),
+          s.vertical.size.value !== N && ((s.vertical.size.value = N), B());
+      }
+      function S(N, L) {
+        const U = s[L];
+        if (N.isFirst === !0) {
+          if (U.thumbHidden.value === !0) return;
+          (f = U.position.value), (r.value = !0);
+        } else if (r.value !== !0) return;
+        N.isFinal === !0 && (r.value = !1);
+        const pe = Sl[L],
+          G = l[L].value,
+          M = (U.size.value - G) / (G - U.thumbSize.value),
+          te = N.distance[pe.dist],
+          ae = f + (N.direction === pe.dir ? 1 : -1) * te * M;
+        I(ae, L);
+      }
+      function p(N, L) {
+        const U = s[L];
+        if (U.thumbHidden.value !== !0) {
+          const pe = N[Sl[L].offset];
+          if (pe < U.thumbStart.value || pe > U.thumbStart.value + U.thumbSize.value) {
+            const G = pe - U.thumbSize.value / 2;
+            I((G / l[L].value) * U.size.value, L);
+          }
+          U.ref.value !== null && U.ref.value.dispatchEvent(new MouseEvent(N.type, N));
+        }
+      }
+      function $(N) {
+        p(N, 'vertical');
+      }
+      function R(N) {
+        p(N, 'horizontal');
+      }
+      function B() {
+        o.value === !0 ? clearTimeout(u) : (o.value = !0),
+          (u = setTimeout(() => {
+            o.value = !1;
+          }, e.delay)),
+          e.onScroll !== void 0 && k();
+      }
+      function I(N, L) {
+        d.value[Sl[L].scroll] = N;
+      }
+      function Q() {
+        i.value = !0;
+      }
+      function H() {
+        i.value = !1;
+      }
+      let le = null;
+      return (
+        fe(
+          () => a.$q.lang.rtl,
+          (N) => {
+            d.value !== null &&
+              wl(d.value, Math.abs(s.horizontal.position.value) * (N === !0 ? -1 : 1));
+          },
+        ),
+        An(() => {
+          le = { top: s.vertical.position.value, left: s.horizontal.position.value };
+        }),
+        Fo(() => {
+          if (le === null) return;
+          const N = d.value;
+          N !== null && (wl(N, le.left), Iu(N, le.top));
+        }),
+        We(k.cancel),
+        Object.assign(a, {
+          getScrollTarget: () => d.value,
+          getScroll: T,
+          getScrollPosition: () => ({
+            top: s.vertical.position.value,
+            left: s.horizontal.position.value,
+          }),
+          getScrollPercentage: () => ({
+            top: s.vertical.percentage.value,
+            left: s.horizontal.percentage.value,
+          }),
+          setScrollPosition: E,
+          setScrollPercentage(N, L, U) {
+            E(
+              N,
+              L *
+                (s[N].size.value - l[N].value) *
+                (N === 'horizontal' && a.$q.lang.rtl === !0 ? -1 : 1),
+              U,
+            );
+          },
+        }),
+        () =>
+          _('div', { class: h.value, onMouseenter: Q, onMouseleave: H }, [
+            _(
+              'div',
+              {
+                ref: d,
+                class: 'q-scrollarea__container scroll relative-position fit hide-scrollbar',
+                tabindex: e.tabindex !== void 0 ? e.tabindex : void 0,
+              },
+              [
+                _(
+                  'div',
+                  { class: 'q-scrollarea__content absolute', style: m.value },
+                  Ot(t.default, [_(br, { debounce: 0, onResize: C })]),
+                ),
+                _(Nd, { axis: 'both', onScroll: P }),
+              ],
+            ),
+            _(br, { debounce: 0, onResize: x }),
+            _('div', {
+              class: s.vertical.barClass.value,
+              style: [e.barStyle, e.verticalBarStyle],
+              'aria-hidden': 'true',
+              onMousedown: $,
+            }),
+            _('div', {
+              class: s.horizontal.barClass.value,
+              style: [e.barStyle, e.horizontalBarStyle],
+              'aria-hidden': 'true',
+              onMousedown: R,
+            }),
+            Dt(
+              _('div', {
+                ref: s.vertical.ref,
+                class: s.vertical.thumbClass.value,
+                style: s.vertical.style.value,
+                'aria-hidden': 'true',
+              }),
+              g,
+            ),
+            Dt(
+              _('div', {
+                ref: s.horizontal.ref,
+                class: s.horizontal.thumbClass.value,
+                style: s.horizontal.style.value,
+                'aria-hidden': 'true',
+              }),
+              b,
+            ),
+          ])
+      );
+    },
+  });
+function Dd(e, t, n) {
+  let o;
+  function r() {
+    o !== void 0 && (vr.remove(o), (o = void 0));
+  }
+  return (
+    We(() => {
+      e.value === !0 && r();
+    }),
+    {
+      removeFromHistory: r,
+      addToHistory() {
+        (o = { condition: () => n.value === !0, handler: t }), vr.add(o);
+      },
+    }
+  );
+}
+const ra = {
+    modelValue: { type: Boolean, default: null },
+    'onUpdate:modelValue': [Function, Array],
+  },
+  ia = ['beforeShow', 'show', 'beforeHide', 'hide'];
+function la({
+  showing: e,
+  canShow: t,
+  hideOnRouteChange: n,
+  handleShow: o,
+  handleHide: r,
+  processOnMount: i,
+}) {
+  const l = qe(),
+    { props: s, emit: a, proxy: c } = l;
+  let u;
+  function f(k) {
+    e.value === !0 ? m(k) : d(k);
+  }
+  function d(k) {
+    if (
+      s.disable === !0 ||
+      (k !== void 0 && k.qAnchorHandled === !0) ||
+      (t !== void 0 && t(k) !== !0)
+    )
+      return;
+    const E = s['onUpdate:modelValue'] !== void 0;
+    E === !0 &&
+      (a('update:modelValue', !0),
+      (u = k),
+      ze(() => {
+        u === k && (u = void 0);
+      })),
+      (s.modelValue === null || E === !1) && h(k);
+  }
+  function h(k) {
+    e.value !== !0 && ((e.value = !0), a('beforeShow', k), o !== void 0 ? o(k) : a('show', k));
+  }
+  function m(k) {
+    if (s.disable === !0) return;
+    const E = s['onUpdate:modelValue'] !== void 0;
+    E === !0 &&
+      (a('update:modelValue', !1),
+      (u = k),
+      ze(() => {
+        u === k && (u = void 0);
+      })),
+      (s.modelValue === null || E === !1) && g(k);
+  }
+  function g(k) {
+    e.value !== !1 && ((e.value = !1), a('beforeHide', k), r !== void 0 ? r(k) : a('hide', k));
+  }
+  function b(k) {
+    s.disable === !0 && k === !0
+      ? s['onUpdate:modelValue'] !== void 0 && a('update:modelValue', !1)
+      : (k === !0) !== e.value && (k === !0 ? h : g)(u);
+  }
+  fe(() => s.modelValue, b),
+    n !== void 0 &&
+      Ks(l) === !0 &&
+      fe(
+        () => c.$route.fullPath,
+        () => {
+          n.value === !0 && e.value === !0 && m();
+        },
+      ),
+    i === !0 &&
+      ct(() => {
+        b(s.modelValue);
+      });
+  const T = { show: d, hide: m, toggle: f };
+  return Object.assign(c, T), T;
+}
+let Do = 0,
+  xl,
+  Cl,
+  Xo,
+  kl = !1,
+  Ku,
+  Wu,
+  vo;
+function Kb(e) {
+  Wb(e) && Je(e);
+}
+function Wb(e) {
+  if (e.target === document.body || e.target.classList.contains('q-layout__backdrop')) return !0;
+  const t = Lg(e),
+    n = e.shiftKey && !e.deltaX,
+    o = !n && Math.abs(e.deltaX) <= Math.abs(e.deltaY),
+    r = n || o ? e.deltaY : e.deltaX;
+  for (let i = 0; i < t.length; i++) {
+    const l = t[i];
+    if (Nb(l, o))
+      return o
+        ? r < 0 && l.scrollTop === 0
+          ? !0
+          : r > 0 && l.scrollTop + l.clientHeight === l.scrollHeight
+        : r < 0 && l.scrollLeft === 0
+        ? !0
+        : r > 0 && l.scrollLeft + l.clientWidth === l.scrollWidth;
+  }
+  return !0;
+}
+function Qu(e) {
+  e.target === document &&
+    (document.scrollingElement.scrollTop = document.scrollingElement.scrollTop);
+}
+function Vr(e) {
+  kl !== !0 &&
+    ((kl = !0),
+    requestAnimationFrame(() => {
+      kl = !1;
+      const { height: t } = e.target,
+        { clientHeight: n, scrollTop: o } = document.scrollingElement;
+      (Xo === void 0 || t !== window.innerHeight) &&
+        ((Xo = n - t), (document.scrollingElement.scrollTop = o)),
+        o > Xo && (document.scrollingElement.scrollTop -= Math.ceil((o - Xo) / 8));
+    }));
+}
+function Ju(e) {
+  const t = document.body,
+    n = window.visualViewport !== void 0;
+  if (e === 'add') {
+    const { overflowY: o, overflowX: r } = window.getComputedStyle(t);
+    (xl = na(window)),
+      (Cl = ta(window)),
+      (Ku = t.style.left),
+      (Wu = t.style.top),
+      (t.style.left = `-${xl}px`),
+      (t.style.top = `-${Cl}px`),
+      r !== 'hidden' &&
+        (r === 'scroll' || t.scrollWidth > window.innerWidth) &&
+        t.classList.add('q-body--force-scrollbar-x'),
+      o !== 'hidden' &&
+        (o === 'scroll' || t.scrollHeight > window.innerHeight) &&
+        t.classList.add('q-body--force-scrollbar-y'),
+      t.classList.add('q-body--prevent-scroll'),
+      (document.qScrollPrevented = !0),
+      Ne.is.ios === !0 &&
+        (n === !0
+          ? (window.scrollTo(0, 0),
+            window.visualViewport.addEventListener('resize', Vr, Ye.passiveCapture),
+            window.visualViewport.addEventListener('scroll', Vr, Ye.passiveCapture),
+            window.scrollTo(0, 0))
+          : window.addEventListener('scroll', Qu, Ye.passiveCapture));
+  }
+  Ne.is.desktop === !0 &&
+    Ne.is.mac === !0 &&
+    window[`${e}EventListener`]('wheel', Kb, Ye.notPassive),
+    e === 'remove' &&
+      (Ne.is.ios === !0 &&
+        (n === !0
+          ? (window.visualViewport.removeEventListener('resize', Vr, Ye.passiveCapture),
+            window.visualViewport.removeEventListener('scroll', Vr, Ye.passiveCapture))
+          : window.removeEventListener('scroll', Qu, Ye.passiveCapture)),
+      t.classList.remove('q-body--prevent-scroll'),
+      t.classList.remove('q-body--force-scrollbar-x'),
+      t.classList.remove('q-body--force-scrollbar-y'),
+      (document.qScrollPrevented = !1),
+      (t.style.left = Ku),
+      (t.style.top = Wu),
+      window.scrollTo(xl, Cl),
+      (Xo = void 0));
+}
+function Qb(e) {
+  let t = 'add';
+  if (e === !0) {
+    if ((Do++, vo !== void 0)) {
+      clearTimeout(vo), (vo = void 0);
+      return;
+    }
+    if (Do > 1) return;
+  } else {
+    if (Do === 0 || (Do--, Do > 0)) return;
+    if (((t = 'remove'), Ne.is.ios === !0 && Ne.is.nativeMobile === !0)) {
+      clearTimeout(vo),
+        (vo = setTimeout(() => {
+          Ju(t), (vo = void 0);
+        }, 100));
+      return;
+    }
+  }
+  Ju(t);
+}
+function Hd() {
+  let e;
+  return {
+    preventBodyScroll(t) {
+      t !== e && (e !== void 0 || t === !0) && ((e = t), Qb(t));
+    },
+  };
+}
+function sa() {
+  let e;
+  const t = qe();
+  function n() {
+    clearTimeout(e);
+  }
+  return (
+    An(n),
+    We(n),
+    {
+      removeTimeout: n,
+      registerTimeout(o, r) {
+        clearTimeout(e), dd(t) === !1 && (e = setTimeout(o, r));
+      },
+    }
+  );
+}
+const Xu = 150,
+  Jb = Pe({
+    name: 'QDrawer',
+    inheritAttrs: !1,
+    props: {
+      ...ra,
+      ...St,
+      side: { type: String, default: 'left', validator: (e) => ['left', 'right'].includes(e) },
+      width: { type: Number, default: 300 },
+      mini: Boolean,
+      miniToOverlay: Boolean,
+      miniWidth: { type: Number, default: 57 },
+      breakpoint: { type: Number, default: 1023 },
+      showIfAbove: Boolean,
+      behavior: {
+        type: String,
+        validator: (e) => ['default', 'desktop', 'mobile'].includes(e),
+        default: 'default',
+      },
+      bordered: Boolean,
+      elevated: Boolean,
+      overlay: Boolean,
+      persistent: Boolean,
+      noSwipeOpen: Boolean,
+      noSwipeClose: Boolean,
+      noSwipeBackdrop: Boolean,
+    },
+    emits: [...ia, 'onLayout', 'miniState'],
+    setup(e, { slots: t, emit: n, attrs: o }) {
+      const r = qe(),
+        {
+          proxy: { $q: i },
+        } = r,
+        l = xt(e, i),
+        { preventBodyScroll: s } = Hd(),
+        { registerTimeout: a, removeTimeout: c } = sa(),
+        u = ut(Vi, un);
+      if (u === un) return console.error('QDrawer needs to be child of QLayout'), un;
+      let f, d, h;
+      const m = W(
+          e.behavior === 'mobile' ||
+            (e.behavior !== 'desktop' && u.totalWidth.value <= e.breakpoint),
+        ),
+        g = v(() => e.mini === !0 && m.value !== !0),
+        b = v(() => (g.value === !0 ? e.miniWidth : e.width)),
+        T = W(e.showIfAbove === !0 && m.value === !1 ? !0 : e.modelValue === !0),
+        k = v(() => e.persistent !== !0 && (m.value === !0 || G.value === !0));
+      function E(z, re) {
+        if ((S(), z !== !1 && u.animate(), w(0), m.value === !0)) {
+          const ve = u.instances[N.value];
+          ve !== void 0 && ve.belowBreakpoint === !0 && ve.hide(!1),
+            O(1),
+            u.isContainer.value !== !0 && s(!0);
+        } else O(0), z !== !1 && V(!1);
+        a(() => {
+          z !== !1 && V(!0), re !== !0 && n('show', z);
+        }, Xu);
+      }
+      function x(z, re) {
+        p(),
+          z !== !1 && u.animate(),
+          O(0),
+          w(B.value * b.value),
+          ne(),
+          re !== !0
+            ? a(() => {
+                n('hide', z);
+              }, Xu)
+            : c();
+      }
+      const { show: P, hide: C } = la({
+          showing: T,
+          hideOnRouteChange: k,
+          handleShow: E,
+          handleHide: x,
+        }),
+        { addToHistory: S, removeFromHistory: p } = Dd(T, C, k),
+        $ = { belowBreakpoint: m, hide: C },
+        R = v(() => e.side === 'right'),
+        B = v(() => (i.lang.rtl === !0 ? -1 : 1) * (R.value === !0 ? 1 : -1)),
+        I = W(0),
+        Q = W(!1),
+        H = W(!1),
+        le = W(b.value * B.value),
+        N = v(() => (R.value === !0 ? 'left' : 'right')),
+        L = v(() =>
+          T.value === !0 && m.value === !1 && e.overlay === !1
+            ? e.miniToOverlay === !0
+              ? e.miniWidth
+              : b.value
+            : 0,
+        ),
+        U = v(
+          () =>
+            e.overlay === !0 ||
+            e.miniToOverlay === !0 ||
+            u.view.value.indexOf(R.value ? 'R' : 'L') > -1 ||
+            (i.platform.is.ios === !0 && u.isContainer.value === !0),
+        ),
+        pe = v(() => e.overlay === !1 && T.value === !0 && m.value === !1),
+        G = v(() => e.overlay === !0 && T.value === !0 && m.value === !1),
+        M = v(
+          () =>
+            'fullscreen q-drawer__backdrop' + (T.value === !1 && Q.value === !1 ? ' hidden' : ''),
+        ),
+        te = v(() => ({ backgroundColor: `rgba(0,0,0,${I.value * 0.4})` })),
+        ae = v(() => (R.value === !0 ? u.rows.value.top[2] === 'r' : u.rows.value.top[0] === 'l')),
+        Se = v(() =>
+          R.value === !0 ? u.rows.value.bottom[2] === 'r' : u.rows.value.bottom[0] === 'l',
+        ),
+        Me = v(() => {
+          const z = {};
+          return (
+            u.header.space === !0 &&
+              ae.value === !1 &&
+              (U.value === !0
+                ? (z.top = `${u.header.offset}px`)
+                : u.header.space === !0 && (z.top = `${u.header.size}px`)),
+            u.footer.space === !0 &&
+              Se.value === !1 &&
+              (U.value === !0
+                ? (z.bottom = `${u.footer.offset}px`)
+                : u.footer.space === !0 && (z.bottom = `${u.footer.size}px`)),
+            z
+          );
+        }),
+        oe = v(() => {
+          const z = { width: `${b.value}px`, transform: `translateX(${le.value}px)` };
+          return m.value === !0 ? z : Object.assign(z, Me.value);
+        }),
+        A = v(
+          () =>
+            'q-drawer__content fit ' + (u.isContainer.value !== !0 ? 'scroll' : 'overflow-auto'),
+        ),
+        ee = v(
+          () =>
+            `q-drawer q-drawer--${e.side}` +
+            (H.value === !0 ? ' q-drawer--mini-animate' : '') +
+            (e.bordered === !0 ? ' q-drawer--bordered' : '') +
+            (l.value === !0 ? ' q-drawer--dark q-dark' : '') +
+            (Q.value === !0 ? ' no-transition' : T.value === !0 ? '' : ' q-layout--prevent-focus') +
+            (m.value === !0
+              ? ' fixed q-drawer--on-top q-drawer--mobile q-drawer--top-padding'
+              : ` q-drawer--${g.value === !0 ? 'mini' : 'standard'}` +
+                (U.value === !0 || pe.value !== !0 ? ' fixed' : '') +
+                (e.overlay === !0 || e.miniToOverlay === !0 ? ' q-drawer--on-top' : '') +
+                (ae.value === !0 ? ' q-drawer--top-padding' : '')),
+        ),
+        F = v(() => {
+          const z = i.lang.rtl === !0 ? e.side : N.value;
+          return [[or, X, void 0, { [z]: !0, mouse: !0 }]];
+        }),
+        ie = v(() => {
+          const z = i.lang.rtl === !0 ? N.value : e.side;
+          return [[or, se, void 0, { [z]: !0, mouse: !0 }]];
+        }),
+        xe = v(() => {
+          const z = i.lang.rtl === !0 ? N.value : e.side;
+          return [[or, se, void 0, { [z]: !0, mouse: !0, mouseAllDir: !0 }]];
+        });
+      function y() {
+        J(
+          m,
+          e.behavior === 'mobile' ||
+            (e.behavior !== 'desktop' && u.totalWidth.value <= e.breakpoint),
+        );
+      }
+      fe(m, (z) => {
+        z === !0
+          ? ((f = T.value), T.value === !0 && C(!1))
+          : e.overlay === !1 &&
+            e.behavior !== 'mobile' &&
+            f !== !1 &&
+            (T.value === !0 ? (w(0), O(0), ne()) : P(!1));
+      }),
+        fe(
+          () => e.side,
+          (z, re) => {
+            u.instances[re] === $ &&
+              ((u.instances[re] = void 0), (u[re].space = !1), (u[re].offset = 0)),
+              (u.instances[z] = $),
+              (u[z].size = b.value),
+              (u[z].space = pe.value),
+              (u[z].offset = L.value);
+          },
+        ),
+        fe(u.totalWidth, () => {
+          (u.isContainer.value === !0 || document.qScrollPrevented !== !0) && y();
+        }),
+        fe(() => e.behavior + e.breakpoint, y),
+        fe(u.isContainer, (z) => {
+          T.value === !0 && s(z !== !0), z === !0 && y();
+        }),
+        fe(u.scrollbarWidth, () => {
+          w(T.value === !0 ? 0 : void 0);
+        }),
+        fe(L, (z) => {
+          Y('offset', z);
+        }),
+        fe(pe, (z) => {
+          n('onLayout', z), Y('space', z);
+        }),
+        fe(R, () => {
+          w();
+        }),
+        fe(b, (z) => {
+          w(), me(e.miniToOverlay, z);
+        }),
+        fe(
+          () => e.miniToOverlay,
+          (z) => {
+            me(z, b.value);
+          },
+        ),
+        fe(
+          () => i.lang.rtl,
+          () => {
+            w();
+          },
+        ),
+        fe(
+          () => e.mini,
+          () => {
+            e.modelValue === !0 && (D(), u.animate());
+          },
+        ),
+        fe(g, (z) => {
+          n('miniState', z);
+        });
+      function w(z) {
+        z === void 0
+          ? ze(() => {
+              (z = T.value === !0 ? 0 : b.value), w(B.value * z);
+            })
+          : (u.isContainer.value === !0 &&
+              R.value === !0 &&
+              (m.value === !0 || Math.abs(z) === b.value) &&
+              (z += B.value * u.scrollbarWidth.value),
+            (le.value = z));
+      }
+      function O(z) {
+        I.value = z;
+      }
+      function V(z) {
+        const re = z === !0 ? 'remove' : u.isContainer.value !== !0 ? 'add' : '';
+        re !== '' && document.body.classList[re]('q-body--drawer-toggle');
+      }
+      function D() {
+        clearTimeout(d),
+          r.proxy && r.proxy.$el && r.proxy.$el.classList.add('q-drawer--mini-animate'),
+          (H.value = !0),
+          (d = setTimeout(() => {
+            (H.value = !1),
+              r && r.proxy && r.proxy.$el && r.proxy.$el.classList.remove('q-drawer--mini-animate');
+          }, 150));
+      }
+      function X(z) {
+        if (T.value !== !1) return;
+        const re = b.value,
+          ve = an(z.distance.x, 0, re);
+        if (z.isFinal === !0) {
+          ve >= Math.min(75, re) === !0 ? P() : (u.animate(), O(0), w(B.value * re)),
+            (Q.value = !1);
+          return;
+        }
+        w(
+          (i.lang.rtl === !0 ? R.value !== !0 : R.value)
+            ? Math.max(re - ve, 0)
+            : Math.min(0, ve - re),
+        ),
+          O(an(ve / re, 0, 1)),
+          z.isFirst === !0 && (Q.value = !0);
+      }
+      function se(z) {
+        if (T.value !== !0) return;
+        const re = b.value,
+          ve = z.direction === e.side,
+          we = (i.lang.rtl === !0 ? ve !== !0 : ve) ? an(z.distance.x, 0, re) : 0;
+        if (z.isFinal === !0) {
+          Math.abs(we) < Math.min(75, re) === !0 ? (u.animate(), O(1), w(0)) : C(), (Q.value = !1);
+          return;
+        }
+        w(B.value * we), O(an(1 - we / re, 0, 1)), z.isFirst === !0 && (Q.value = !0);
+      }
+      function ne() {
+        s(!1), V(!0);
+      }
+      function Y(z, re) {
+        u.update(e.side, z, re);
+      }
+      function J(z, re) {
+        z.value !== re && (z.value = re);
+      }
+      function me(z, re) {
+        Y('size', z === !0 ? e.miniWidth : re);
+      }
+      return (
+        (u.instances[e.side] = $),
+        me(e.miniToOverlay, b.value),
+        Y('space', pe.value),
+        Y('offset', L.value),
+        e.showIfAbove === !0 &&
+          e.modelValue !== !0 &&
+          T.value === !0 &&
+          e['onUpdate:modelValue'] !== void 0 &&
+          n('update:modelValue', !0),
+        ct(() => {
+          n('onLayout', pe.value), n('miniState', g.value), (f = e.showIfAbove === !0);
+          const z = () => {
+            (T.value === !0 ? E : x)(!1, !0);
+          };
+          if (u.totalWidth.value !== 0) {
+            ze(z);
+            return;
+          }
+          h = fe(u.totalWidth, () => {
+            h(),
+              (h = void 0),
+              T.value === !1 && e.showIfAbove === !0 && m.value === !1 ? P(!1) : z();
+          });
+        }),
+        We(() => {
+          h !== void 0 && h(),
+            clearTimeout(d),
+            T.value === !0 && ne(),
+            u.instances[e.side] === $ &&
+              ((u.instances[e.side] = void 0), Y('size', 0), Y('offset', 0), Y('space', !1));
+        }),
+        () => {
+          const z = [];
+          m.value === !0 &&
+            (e.noSwipeOpen === !1 &&
+              z.push(
+                Dt(
+                  _('div', {
+                    key: 'open',
+                    class: `q-drawer__opener fixed-${e.side}`,
+                    'aria-hidden': 'true',
+                  }),
+                  F.value,
+                ),
+              ),
+            z.push(
+              Gl(
+                'div',
+                {
+                  ref: 'backdrop',
+                  class: M.value,
+                  style: te.value,
+                  'aria-hidden': 'true',
+                  onClick: C,
+                },
+                void 0,
+                'backdrop',
+                e.noSwipeBackdrop !== !0 && T.value === !0,
+                () => xe.value,
+              ),
+            ));
+          const re = g.value === !0 && t.mini !== void 0,
+            ve = [
+              _(
+                'div',
+                { ...o, key: '' + re, class: [A.value, o.class] },
+                re === !0 ? t.mini() : je(t.default),
+              ),
+            ];
+          return (
+            e.elevated === !0 &&
+              T.value === !0 &&
+              ve.push(
+                _('div', {
+                  class: 'q-layout__shadow absolute-full overflow-hidden no-pointer-events',
+                }),
+              ),
+            z.push(
+              Gl(
+                'aside',
+                { ref: 'content', class: ee.value, style: oe.value },
+                ve,
+                'contentclose',
+                e.noSwipeClose !== !0 && m.value === !0,
+                () => ie.value,
+              ),
+            ),
+            _('div', { class: 'q-drawer-container' }, z)
+          );
+        }
+      );
+    },
+  }),
+  Xb = Pe({
+    name: 'QPageContainer',
+    setup(e, { slots: t }) {
+      const {
+          proxy: { $q: n },
+        } = qe(),
+        o = ut(Vi, un);
+      if (o === un) return console.error('QPageContainer needs to be child of QLayout'), un;
+      xo(Ug, !0);
+      const r = v(() => {
+        const i = {};
+        return (
+          o.header.space === !0 && (i.paddingTop = `${o.header.size}px`),
+          o.right.space === !0 &&
+            (i[`padding${n.lang.rtl === !0 ? 'Left' : 'Right'}`] = `${o.right.size}px`),
+          o.footer.space === !0 && (i.paddingBottom = `${o.footer.size}px`),
+          o.left.space === !0 &&
+            (i[`padding${n.lang.rtl === !0 ? 'Right' : 'Left'}`] = `${o.left.size}px`),
+          i
+        );
+      });
+      return () => _('div', { class: 'q-page-container', style: r.value }, je(t.default));
+    },
+  }),
+  Yb = Pe({
+    name: 'QLayout',
+    props: {
+      container: Boolean,
+      view: {
+        type: String,
+        default: 'hhh lpr fff',
+        validator: (e) => /^(h|l)h(h|r) lpr (f|l)f(f|r)$/.test(e.toLowerCase()),
+      },
+      onScroll: Function,
+      onScrollHeight: Function,
+      onResize: Function,
+    },
+    setup(e, { slots: t, emit: n }) {
+      const {
+          proxy: { $q: o },
+        } = qe(),
+        r = W(null),
+        i = W(o.screen.height),
+        l = W(e.container === !0 ? 0 : o.screen.width),
+        s = W({ position: 0, direction: 'down', inflectionPoint: 0 }),
+        a = W(0),
+        c = W(en.value === !0 ? 0 : ti()),
+        u = v(() => 'q-layout q-layout--' + (e.container === !0 ? 'containerized' : 'standard')),
+        f = v(() => (e.container === !1 ? { minHeight: o.screen.height + 'px' } : null)),
+        d = v(() =>
+          c.value !== 0 ? { [o.lang.rtl === !0 ? 'left' : 'right']: `${c.value}px` } : null,
+        ),
+        h = v(() =>
+          c.value !== 0
+            ? {
+                [o.lang.rtl === !0 ? 'right' : 'left']: 0,
+                [o.lang.rtl === !0 ? 'left' : 'right']: `-${c.value}px`,
+                width: `calc(100% + ${c.value}px)`,
+              }
+            : null,
+        );
+      function m(x) {
+        if (e.container === !0 || document.qScrollPrevented !== !0) {
+          const P = {
+            position: x.position.top,
+            direction: x.direction,
+            directionChanged: x.directionChanged,
+            inflectionPoint: x.inflectionPoint.top,
+            delta: x.delta.top,
+          };
+          (s.value = P), e.onScroll !== void 0 && n('scroll', P);
+        }
+      }
+      function g(x) {
+        const { height: P, width: C } = x;
+        let S = !1;
+        i.value !== P &&
+          ((S = !0), (i.value = P), e.onScrollHeight !== void 0 && n('scrollHeight', P), T()),
+          l.value !== C && ((S = !0), (l.value = C)),
+          S === !0 && e.onResize !== void 0 && n('resize', x);
+      }
+      function b({ height: x }) {
+        a.value !== x && ((a.value = x), T());
+      }
+      function T() {
+        if (e.container === !0) {
+          const x = i.value > a.value ? ti() : 0;
+          c.value !== x && (c.value = x);
+        }
+      }
+      let k;
+      const E = {
+        instances: {},
+        view: v(() => e.view),
+        isContainer: v(() => e.container),
+        rootRef: r,
+        height: i,
+        containerHeight: a,
+        scrollbarWidth: c,
+        totalWidth: v(() => l.value + c.value),
+        rows: v(() => {
+          const x = e.view.toLowerCase().split(' ');
+          return { top: x[0].split(''), middle: x[1].split(''), bottom: x[2].split('') };
+        }),
+        header: jt({ size: 0, offset: 0, space: !1 }),
+        right: jt({ size: 300, offset: 0, space: !1 }),
+        footer: jt({ size: 0, offset: 0, space: !1 }),
+        left: jt({ size: 300, offset: 0, space: !1 }),
+        scroll: s,
+        animate() {
+          k !== void 0 ? clearTimeout(k) : document.body.classList.add('q-body--layout-animate'),
+            (k = setTimeout(() => {
+              document.body.classList.remove('q-body--layout-animate'), (k = void 0);
+            }, 155));
+        },
+        update(x, P, C) {
+          E[x][P] = C;
+        },
+      };
+      if ((xo(Vi, E), ti() > 0)) {
+        let C = function () {
+            (x = null), P.classList.remove('hide-scrollbar');
+          },
+          S = function () {
+            if (x === null) {
+              if (P.scrollHeight > o.screen.height) return;
+              P.classList.add('hide-scrollbar');
+            } else clearTimeout(x);
+            x = setTimeout(C, 300);
+          },
+          p = function ($) {
+            x !== null && $ === 'remove' && (clearTimeout(x), C()),
+              window[`${$}EventListener`]('resize', S);
+          },
+          x = null;
+        const P = document.body;
+        fe(() => (e.container !== !0 ? 'add' : 'remove'), p),
+          e.container !== !0 && p('add'),
+          Bo(() => {
+            p('remove');
+          });
+      }
+      return () => {
+        const x = Ot(t.default, [_(Nd, { onScroll: m }), _(br, { onResize: g })]),
+          P = _(
+            'div',
+            { class: u.value, style: f.value, ref: e.container === !0 ? void 0 : r, tabindex: -1 },
+            x,
+          );
+        return e.container === !0
+          ? _('div', { class: 'q-layout-container overflow-hidden', ref: r }, [
+              _(br, { onResize: b }),
+              _('div', { class: 'absolute-full', style: d.value }, [
+                _('div', { class: 'scroll', style: h.value }, [P]),
+              ]),
+            ])
+          : P;
+      };
+    },
+  }),
+  Gb = '/assets/vudiary_Logo.80924077.svg';
+const Zb = { key: 0, class: 'update-banner row justify-center full-width z-top fixed q-mt-lg' },
+  ey = { class: 'update-banner-inner' },
+  ty = be('span', { class: 'update-title' }, 'A new Update is available!', -1),
+  ny = { class: 'q-mt-sm' },
+  oy = be('img', { src: Gb }, null, -1),
+  ry = {
+    __name: 'App',
+    setup(e) {
+      const t = W(!1),
+        n = W(!1),
+        o = () => (t.value = !t.value),
+        r = async () => {
+          const i = await navigator.serviceWorker.getRegistration();
+          i != null &&
+            i.waiting &&
+            (i.waiting.postMessage({ type: 'SKIP_WAITING' }), window.location.reload());
+        };
+      return (
+        ct(async () => {
+          const i = await navigator.serviceWorker.getRegistration();
+          !i ||
+            (i.addEventListener('updatefound', () => (n.value = !0)), i.waiting && (n.value = !0));
+        }),
+        (i, l) => {
+          const s = Wn('icon'),
+            a = Wn('router-link'),
+            c = Wn('router-view');
+          return (
+            Ze(),
+            _t(
+              kt,
+              null,
+              [
+                n.value
+                  ? (Ze(),
+                    _t('div', Zb, [
+                      Z(
+                        Mb,
+                        {
+                          class: 'update-banner-content text-white q-pa-md bg-warning text-center',
+                        },
+                        {
+                          default: ge(() => [
+                            be('div', ey, [
+                              ty,
+                              be('div', ny, [
+                                Z(ot, {
+                                  class: 'update-btn text-caption',
+                                  onClick: r,
+                                  label: 'Restart Now!',
+                                }),
+                              ]),
+                            ]),
+                          ]),
+                          _: 1,
+                        },
+                      ),
+                    ]))
+                  : Qn('', !0),
+                Z(
+                  Yb,
+                  { view: 'hHh lpR fFf' },
+                  {
+                    default: ge(() => [
+                      Z(
+                        zb,
+                        { elevated: '', class: 'header text-white q-pa-sm', 'height-hint': '98' },
+                        {
+                          default: ge(() => [
+                            Z(Bb, null, {
+                              default: ge(() => [
+                                Z(
+                                  ot,
+                                  { dense: '', flat: '', round: '', onClick: o },
+                                  {
+                                    default: ge(() => [
+                                      Z(s, {
+                                        class: 'text-white icon_drawer',
+                                        icon: 'ic:baseline-menu',
+                                      }),
+                                    ]),
+                                    _: 1,
+                                  },
+                                ),
+                                Z(Fb, null, {
+                                  default: ge(() => [
+                                    Z(
+                                      a,
+                                      {
+                                        to: '/',
+                                        class: 'q-toolbar-title',
+                                        style: { 'text-decoration': 'none', color: 'inherit' },
+                                      },
+                                      {
+                                        default: ge(() => [
+                                          Z(sd, null, { default: ge(() => [oy]), _: 1 }),
+                                          Yt(' Vudiary '),
+                                        ]),
+                                        _: 1,
+                                      },
+                                    ),
+                                  ]),
+                                  _: 1,
+                                }),
+                              ]),
+                              _: 1,
+                            }),
+                          ]),
+                          _: 1,
+                        },
+                      ),
+                      Z(
+                        Jb,
+                        {
+                          modelValue: t.value,
+                          'onUpdate:modelValue': l[0] || (l[0] = (u) => (t.value = u)),
+                          width: 200,
+                          breakpoint: 500,
+                          bordered: '',
+                          class: 'bg-grey-3',
+                        },
+                        {
+                          default: ge(() => [
+                            Z(
+                              Ub,
+                              { class: 'fit' },
+                              {
+                                default: ge(() => [
+                                  Z(
+                                    a,
+                                    { to: '/', class: 'q-toolbar-title rl-item' },
+                                    {
+                                      default: ge(() => [
+                                        Dt(
+                                          (Ze(),
+                                          bo(
+                                            Jo,
+                                            { clickable: '' },
+                                            {
+                                              default: ge(() => [
+                                                Z(
+                                                  ln,
+                                                  { avatar: '' },
+                                                  {
+                                                    default: ge(() => [
+                                                      Z(s, {
+                                                        class: 'icon_drawer',
+                                                        icon: 'ic:baseline-home',
+                                                      }),
+                                                    ]),
+                                                    _: 1,
+                                                  },
+                                                ),
+                                                Z(ln, null, {
+                                                  default: ge(() => [Yt('Home')]),
+                                                  _: 1,
+                                                }),
+                                              ]),
+                                              _: 1,
+                                            },
+                                          )),
+                                          [[yo]],
+                                        ),
+                                      ]),
+                                      _: 1,
+                                    },
+                                  ),
+                                  Z(
+                                    a,
+                                    { to: '/input', class: 'q-toolbar-title rl-item' },
+                                    {
+                                      default: ge(() => [
+                                        Dt(
+                                          (Ze(),
+                                          bo(
+                                            Jo,
+                                            { clickable: '' },
+                                            {
+                                              default: ge(() => [
+                                                Z(
+                                                  ln,
+                                                  { avatar: '' },
+                                                  {
+                                                    default: ge(() => [
+                                                      Z(s, {
+                                                        class: 'icon_drawer',
+                                                        icon: 'ic:baseline-add',
+                                                      }),
+                                                    ]),
+                                                    _: 1,
+                                                  },
+                                                ),
+                                                Z(ln, null, {
+                                                  default: ge(() => [Yt('Input')]),
+                                                  _: 1,
+                                                }),
+                                              ]),
+                                              _: 1,
+                                            },
+                                          )),
+                                          [[yo]],
+                                        ),
+                                      ]),
+                                      _: 1,
+                                    },
+                                  ),
+                                  Z(
+                                    a,
+                                    { to: '/edit', class: 'q-toolbar-title rl-item' },
+                                    {
+                                      default: ge(() => [
+                                        Dt(
+                                          (Ze(),
+                                          bo(
+                                            Jo,
+                                            { clickable: '' },
+                                            {
+                                              default: ge(() => [
+                                                Z(
+                                                  ln,
+                                                  { avatar: '' },
+                                                  {
+                                                    default: ge(() => [
+                                                      Z(s, {
+                                                        class: 'icon_drawer',
+                                                        icon: 'material-symbols:edit-rounded',
+                                                      }),
+                                                    ]),
+                                                    _: 1,
+                                                  },
+                                                ),
+                                                Z(ln, null, {
+                                                  default: ge(() => [Yt('Edit')]),
+                                                  _: 1,
+                                                }),
+                                              ]),
+                                              _: 1,
+                                            },
+                                          )),
+                                          [[yo]],
+                                        ),
+                                      ]),
+                                      _: 1,
+                                    },
+                                  ),
+                                  Z(
+                                    a,
+                                    { to: '/about', class: 'q-toolbar-title rl-item' },
+                                    {
+                                      default: ge(() => [
+                                        Dt(
+                                          (Ze(),
+                                          bo(
+                                            Jo,
+                                            { clickable: '' },
+                                            {
+                                              default: ge(() => [
+                                                Z(
+                                                  ln,
+                                                  { avatar: '' },
+                                                  {
+                                                    default: ge(() => [
+                                                      Z(s, {
+                                                        class: 'icon_drawer',
+                                                        icon: 'material-symbols:info',
+                                                      }),
+                                                    ]),
+                                                    _: 1,
+                                                  },
+                                                ),
+                                                Z(ln, null, {
+                                                  default: ge(() => [Yt('About')]),
+                                                  _: 1,
+                                                }),
+                                              ]),
+                                              _: 1,
+                                            },
+                                          )),
+                                          [[yo]],
+                                        ),
+                                      ]),
+                                      _: 1,
+                                    },
+                                  ),
+                                ]),
+                                _: 1,
+                              },
+                            ),
+                          ]),
+                          _: 1,
+                        },
+                        8,
+                        ['modelValue'],
+                      ),
+                      Z(Xb, null, { default: ge(() => [Z(c)]), _: 1 }),
+                    ]),
+                    _: 1,
+                  },
+                ),
+              ],
+              64,
+            )
+          );
+        }
+      );
+    },
+  },
+  iy = 'modulepreload',
+  ly = function (e) {
+    return '/' + e;
+  },
+  Yu = {},
+  Gu = function (t, n, o) {
+    if (!n || n.length === 0) return t();
+    const r = document.getElementsByTagName('link');
+    return Promise.all(
+      n.map((i) => {
+        if (((i = ly(i)), i in Yu)) return;
+        Yu[i] = !0;
+        const l = i.endsWith('.css'),
+          s = l ? '[rel="stylesheet"]' : '';
+        if (!!o)
+          for (let u = r.length - 1; u >= 0; u--) {
+            const f = r[u];
+            if (f.href === i && (!l || f.rel === 'stylesheet')) return;
+          }
+        else if (document.querySelector(`link[href="${i}"]${s}`)) return;
+        const c = document.createElement('link');
+        if (
+          ((c.rel = l ? 'stylesheet' : iy),
+          l || ((c.as = 'script'), (c.crossOrigin = '')),
+          (c.href = i),
+          document.head.appendChild(c),
+          l)
+        )
+          return new Promise((u, f) => {
+            c.addEventListener('load', u),
+              c.addEventListener('error', () => f(new Error(`Unable to preload CSS for ${i}`)));
+          });
+      }),
+    ).then(() => t());
+  };
+/*!
+ * vue-router v4.2.5
+ * (c) 2023 Eduardo San Martin Morote
+ * @license MIT
+ */ const po = typeof window < 'u';
+function sy(e) {
+  return e.__esModule || e[Symbol.toStringTag] === 'Module';
+}
+const Ie = Object.assign;
+function El(e, t) {
+  const n = {};
+  for (const o in t) {
+    const r = t[o];
+    n[o] = Wt(r) ? r.map(e) : e(r);
+  }
+  return n;
+}
+const rr = () => {},
+  Wt = Array.isArray,
+  ay = /\/$/,
+  uy = (e) => e.replace(ay, '');
+function ql(e, t, n = '/') {
+  let o,
+    r = {},
+    i = '',
+    l = '';
+  const s = t.indexOf('#');
+  let a = t.indexOf('?');
+  return (
+    s < a && s >= 0 && (a = -1),
+    a > -1 && ((o = t.slice(0, a)), (i = t.slice(a + 1, s > -1 ? s : t.length)), (r = e(i))),
+    s > -1 && ((o = o || t.slice(0, s)), (l = t.slice(s, t.length))),
+    (o = hy(o != null ? o : t, n)),
+    { fullPath: o + (i && '?') + i + l, path: o, query: r, hash: l }
+  );
+}
+function cy(e, t) {
+  const n = t.query ? e(t.query) : '';
+  return t.path + (n && '?') + n + (t.hash || '');
+}
+function Zu(e, t) {
+  return !t || !e.toLowerCase().startsWith(t.toLowerCase()) ? e : e.slice(t.length) || '/';
+}
+function fy(e, t, n) {
+  const o = t.matched.length - 1,
+    r = n.matched.length - 1;
+  return (
+    o > -1 &&
+    o === r &&
+    Po(t.matched[o], n.matched[r]) &&
+    Ud(t.params, n.params) &&
+    e(t.query) === e(n.query) &&
+    t.hash === n.hash
+  );
+}
+function Po(e, t) {
+  return (e.aliasOf || e) === (t.aliasOf || t);
+}
+function Ud(e, t) {
+  if (Object.keys(e).length !== Object.keys(t).length) return !1;
+  for (const n in e) if (!dy(e[n], t[n])) return !1;
+  return !0;
+}
+function dy(e, t) {
+  return Wt(e) ? ec(e, t) : Wt(t) ? ec(t, e) : e === t;
+}
+function ec(e, t) {
+  return Wt(t)
+    ? e.length === t.length && e.every((n, o) => n === t[o])
+    : e.length === 1 && e[0] === t;
+}
+function hy(e, t) {
+  if (e.startsWith('/')) return e;
+  if (!e) return t;
+  const n = t.split('/'),
+    o = e.split('/'),
+    r = o[o.length - 1];
+  (r === '..' || r === '.') && o.push('');
+  let i = n.length - 1,
+    l,
+    s;
+  for (l = 0; l < o.length; l++)
+    if (((s = o[l]), s !== '.'))
+      if (s === '..') i > 1 && i--;
+      else break;
+  return n.slice(0, i).join('/') + '/' + o.slice(l - (l === o.length ? 1 : 0)).join('/');
+}
+var yr;
+(function (e) {
+  (e.pop = 'pop'), (e.push = 'push');
+})(yr || (yr = {}));
+var ir;
+(function (e) {
+  (e.back = 'back'), (e.forward = 'forward'), (e.unknown = '');
+})(ir || (ir = {}));
+function my(e) {
+  if (!e)
+    if (po) {
+      const t = document.querySelector('base');
+      (e = (t && t.getAttribute('href')) || '/'), (e = e.replace(/^\w+:\/\/[^\/]+/, ''));
+    } else e = '/';
+  return e[0] !== '/' && e[0] !== '#' && (e = '/' + e), uy(e);
+}
+const vy = /^[^#]+#/;
+function gy(e, t) {
+  return e.replace(vy, '#') + t;
+}
+function py(e, t) {
+  const n = document.documentElement.getBoundingClientRect(),
+    o = e.getBoundingClientRect();
+  return {
+    behavior: t.behavior,
+    left: o.left - n.left - (t.left || 0),
+    top: o.top - n.top - (t.top || 0),
+  };
+}
+const Ui = () => ({ left: window.pageXOffset, top: window.pageYOffset });
+function by(e) {
+  let t;
+  if ('el' in e) {
+    const n = e.el,
+      o = typeof n == 'string' && n.startsWith('#'),
+      r =
+        typeof n == 'string'
+          ? o
+            ? document.getElementById(n.slice(1))
+            : document.querySelector(n)
+          : n;
+    if (!r) return;
+    t = py(r, e);
+  } else t = e;
+  'scrollBehavior' in document.documentElement.style
+    ? window.scrollTo(t)
+    : window.scrollTo(
+        t.left != null ? t.left : window.pageXOffset,
+        t.top != null ? t.top : window.pageYOffset,
+      );
+}
+function tc(e, t) {
+  return (history.state ? history.state.position - t : -1) + e;
+}
+const fs = new Map();
+function yy(e, t) {
+  fs.set(e, t);
+}
+function wy(e) {
+  const t = fs.get(e);
+  return fs.delete(e), t;
+}
+let _y = () => location.protocol + '//' + location.host;
+function Kd(e, t) {
+  const { pathname: n, search: o, hash: r } = t,
+    i = e.indexOf('#');
+  if (i > -1) {
+    let s = r.includes(e.slice(i)) ? e.slice(i).length : 1,
+      a = r.slice(s);
+    return a[0] !== '/' && (a = '/' + a), Zu(a, '');
+  }
+  return Zu(n, e) + o + r;
+}
+function Sy(e, t, n, o) {
+  let r = [],
+    i = [],
+    l = null;
+  const s = ({ state: d }) => {
+    const h = Kd(e, location),
+      m = n.value,
+      g = t.value;
+    let b = 0;
+    if (d) {
+      if (((n.value = h), (t.value = d), l && l === m)) {
+        l = null;
+        return;
+      }
+      b = g ? d.position - g.position : 0;
+    } else o(h);
+    r.forEach((T) => {
+      T(n.value, m, {
+        delta: b,
+        type: yr.pop,
+        direction: b ? (b > 0 ? ir.forward : ir.back) : ir.unknown,
+      });
+    });
+  };
+  function a() {
+    l = n.value;
+  }
+  function c(d) {
+    r.push(d);
+    const h = () => {
+      const m = r.indexOf(d);
+      m > -1 && r.splice(m, 1);
+    };
+    return i.push(h), h;
+  }
+  function u() {
+    const { history: d } = window;
+    !d.state || d.replaceState(Ie({}, d.state, { scroll: Ui() }), '');
+  }
+  function f() {
+    for (const d of i) d();
+    (i = []),
+      window.removeEventListener('popstate', s),
+      window.removeEventListener('beforeunload', u);
+  }
+  return (
+    window.addEventListener('popstate', s),
+    window.addEventListener('beforeunload', u, { passive: !0 }),
+    { pauseListeners: a, listen: c, destroy: f }
+  );
+}
+function nc(e, t, n, o = !1, r = !1) {
+  return {
+    back: e,
+    current: t,
+    forward: n,
+    replaced: o,
+    position: window.history.length,
+    scroll: r ? Ui() : null,
+  };
+}
+function xy(e) {
+  const { history: t, location: n } = window,
+    o = { value: Kd(e, n) },
+    r = { value: t.state };
+  r.value ||
+    i(
+      o.value,
+      {
+        back: null,
+        current: o.value,
+        forward: null,
+        position: t.length - 1,
+        replaced: !0,
+        scroll: null,
+      },
+      !0,
+    );
+  function i(a, c, u) {
+    const f = e.indexOf('#'),
+      d = f > -1 ? (n.host && document.querySelector('base') ? e : e.slice(f)) + a : _y() + e + a;
+    try {
+      t[u ? 'replaceState' : 'pushState'](c, '', d), (r.value = c);
+    } catch (h) {
+      console.error(h), n[u ? 'replace' : 'assign'](d);
+    }
+  }
+  function l(a, c) {
+    const u = Ie({}, t.state, nc(r.value.back, a, r.value.forward, !0), c, {
+      position: r.value.position,
+    });
+    i(a, u, !0), (o.value = a);
+  }
+  function s(a, c) {
+    const u = Ie({}, r.value, t.state, { forward: a, scroll: Ui() });
+    i(u.current, u, !0);
+    const f = Ie({}, nc(o.value, a, null), { position: u.position + 1 }, c);
+    i(a, f, !1), (o.value = a);
+  }
+  return { location: o, state: r, push: s, replace: l };
+}
+function Cy(e) {
+  e = my(e);
+  const t = xy(e),
+    n = Sy(e, t.state, t.location, t.replace);
+  function o(i, l = !0) {
+    l || n.pauseListeners(), history.go(i);
+  }
+  const r = Ie({ location: '', base: e, go: o, createHref: gy.bind(null, e) }, t, n);
+  return (
+    Object.defineProperty(r, 'location', { enumerable: !0, get: () => t.location.value }),
+    Object.defineProperty(r, 'state', { enumerable: !0, get: () => t.state.value }),
+    r
+  );
+}
+function ky(e) {
+  return typeof e == 'string' || (e && typeof e == 'object');
+}
+function Wd(e) {
+  return typeof e == 'string' || typeof e == 'symbol';
+}
+const bn = {
+    path: '/',
+    name: void 0,
+    params: {},
+    query: {},
+    hash: '',
+    fullPath: '/',
+    matched: [],
+    meta: {},
+    redirectedFrom: void 0,
+  },
+  Qd = Symbol('');
+var oc;
+(function (e) {
+  (e[(e.aborted = 4)] = 'aborted'),
+    (e[(e.cancelled = 8)] = 'cancelled'),
+    (e[(e.duplicated = 16)] = 'duplicated');
+})(oc || (oc = {}));
+function Ro(e, t) {
+  return Ie(new Error(), { type: e, [Qd]: !0 }, t);
+}
+function on(e, t) {
+  return e instanceof Error && Qd in e && (t == null || !!(e.type & t));
+}
+const rc = '[^/]+?',
+  Ey = { sensitive: !1, strict: !1, start: !0, end: !0 },
+  qy = /[.+*?^${}()[\]/\\]/g;
+function Ty(e, t) {
+  const n = Ie({}, Ey, t),
+    o = [];
+  let r = n.start ? '^' : '';
+  const i = [];
+  for (const c of e) {
+    const u = c.length ? [] : [90];
+    n.strict && !c.length && (r += '/');
+    for (let f = 0; f < c.length; f++) {
+      const d = c[f];
+      let h = 40 + (n.sensitive ? 0.25 : 0);
+      if (d.type === 0) f || (r += '/'), (r += d.value.replace(qy, '\\$&')), (h += 40);
+      else if (d.type === 1) {
+        const { value: m, repeatable: g, optional: b, regexp: T } = d;
+        i.push({ name: m, repeatable: g, optional: b });
+        const k = T || rc;
+        if (k !== rc) {
+          h += 10;
+          try {
+            new RegExp(`(${k})`);
+          } catch (x) {
+            throw new Error(`Invalid custom RegExp for param "${m}" (${k}): ` + x.message);
+          }
+        }
+        let E = g ? `((?:${k})(?:/(?:${k}))*)` : `(${k})`;
+        f || (E = b && c.length < 2 ? `(?:/${E})` : '/' + E),
+          b && (E += '?'),
+          (r += E),
+          (h += 20),
+          b && (h += -8),
+          g && (h += -20),
+          k === '.*' && (h += -50);
+      }
+      u.push(h);
+    }
+    o.push(u);
+  }
+  if (n.strict && n.end) {
+    const c = o.length - 1;
+    o[c][o[c].length - 1] += 0.7000000000000001;
+  }
+  n.strict || (r += '/?'), n.end ? (r += '$') : n.strict && (r += '(?:/|$)');
+  const l = new RegExp(r, n.sensitive ? '' : 'i');
+  function s(c) {
+    const u = c.match(l),
+      f = {};
+    if (!u) return null;
+    for (let d = 1; d < u.length; d++) {
+      const h = u[d] || '',
+        m = i[d - 1];
+      f[m.name] = h && m.repeatable ? h.split('/') : h;
+    }
+    return f;
+  }
+  function a(c) {
+    let u = '',
+      f = !1;
+    for (const d of e) {
+      (!f || !u.endsWith('/')) && (u += '/'), (f = !1);
+      for (const h of d)
+        if (h.type === 0) u += h.value;
+        else if (h.type === 1) {
+          const { value: m, repeatable: g, optional: b } = h,
+            T = m in c ? c[m] : '';
+          if (Wt(T) && !g)
+            throw new Error(
+              `Provided param "${m}" is an array but it is not repeatable (* or + modifiers)`,
+            );
+          const k = Wt(T) ? T.join('/') : T;
+          if (!k)
+            if (b) d.length < 2 && (u.endsWith('/') ? (u = u.slice(0, -1)) : (f = !0));
+            else throw new Error(`Missing required param "${m}"`);
+          u += k;
+        }
+    }
+    return u || '/';
+  }
+  return { re: l, score: o, keys: i, parse: s, stringify: a };
+}
+function Py(e, t) {
+  let n = 0;
+  for (; n < e.length && n < t.length; ) {
+    const o = t[n] - e[n];
+    if (o) return o;
+    n++;
+  }
+  return e.length < t.length
+    ? e.length === 1 && e[0] === 40 + 40
+      ? -1
+      : 1
+    : e.length > t.length
+    ? t.length === 1 && t[0] === 40 + 40
+      ? 1
+      : -1
+    : 0;
+}
+function Ry(e, t) {
+  let n = 0;
+  const o = e.score,
+    r = t.score;
+  for (; n < o.length && n < r.length; ) {
+    const i = Py(o[n], r[n]);
+    if (i) return i;
+    n++;
+  }
+  if (Math.abs(r.length - o.length) === 1) {
+    if (ic(o)) return 1;
+    if (ic(r)) return -1;
+  }
+  return r.length - o.length;
+}
+function ic(e) {
+  const t = e[e.length - 1];
+  return e.length > 0 && t[t.length - 1] < 0;
+}
+const Ay = { type: 0, value: '' },
+  Oy = /[a-zA-Z0-9_]/;
+function $y(e) {
+  if (!e) return [[]];
+  if (e === '/') return [[Ay]];
+  if (!e.startsWith('/')) throw new Error(`Invalid path "${e}"`);
+  function t(h) {
+    throw new Error(`ERR (${n})/"${c}": ${h}`);
+  }
+  let n = 0,
+    o = n;
+  const r = [];
+  let i;
+  function l() {
+    i && r.push(i), (i = []);
+  }
+  let s = 0,
+    a,
+    c = '',
+    u = '';
+  function f() {
+    !c ||
+      (n === 0
+        ? i.push({ type: 0, value: c })
+        : n === 1 || n === 2 || n === 3
+        ? (i.length > 1 &&
+            (a === '*' || a === '+') &&
+            t(`A repeatable param (${c}) must be alone in its segment. eg: '/:ids+.`),
+          i.push({
+            type: 1,
+            value: c,
+            regexp: u,
+            repeatable: a === '*' || a === '+',
+            optional: a === '*' || a === '?',
+          }))
+        : t('Invalid state to consume buffer'),
+      (c = ''));
+  }
+  function d() {
+    c += a;
+  }
+  for (; s < e.length; ) {
+    if (((a = e[s++]), a === '\\' && n !== 2)) {
+      (o = n), (n = 4);
+      continue;
+    }
+    switch (n) {
+      case 0:
+        a === '/' ? (c && f(), l()) : a === ':' ? (f(), (n = 1)) : d();
+        break;
+      case 4:
+        d(), (n = o);
+        break;
+      case 1:
+        a === '('
+          ? (n = 2)
+          : Oy.test(a)
+          ? d()
+          : (f(), (n = 0), a !== '*' && a !== '?' && a !== '+' && s--);
+        break;
+      case 2:
+        a === ')' ? (u[u.length - 1] == '\\' ? (u = u.slice(0, -1) + a) : (n = 3)) : (u += a);
+        break;
+      case 3:
+        f(), (n = 0), a !== '*' && a !== '?' && a !== '+' && s--, (u = '');
+        break;
+      default:
+        t('Unknown state');
+        break;
+    }
+  }
+  return n === 2 && t(`Unfinished custom RegExp for param "${c}"`), f(), l(), r;
+}
+function Ly(e, t, n) {
+  const o = Ty($y(e.path), n),
+    r = Ie(o, { record: e, parent: t, children: [], alias: [] });
+  return t && !r.record.aliasOf == !t.record.aliasOf && t.children.push(r), r;
+}
+function My(e, t) {
+  const n = [],
+    o = new Map();
+  t = ac({ strict: !1, end: !0, sensitive: !1 }, t);
+  function r(u) {
+    return o.get(u);
+  }
+  function i(u, f, d) {
+    const h = !d,
+      m = Fy(u);
+    m.aliasOf = d && d.record;
+    const g = ac(t, u),
+      b = [m];
+    if ('alias' in u) {
+      const E = typeof u.alias == 'string' ? [u.alias] : u.alias;
+      for (const x of E)
+        b.push(
+          Ie({}, m, {
+            components: d ? d.record.components : m.components,
+            path: x,
+            aliasOf: d ? d.record : m,
+          }),
+        );
+    }
+    let T, k;
+    for (const E of b) {
+      const { path: x } = E;
+      if (f && x[0] !== '/') {
+        const P = f.record.path,
+          C = P[P.length - 1] === '/' ? '' : '/';
+        E.path = f.record.path + (x && C + x);
+      }
+      if (
+        ((T = Ly(E, f, g)),
+        d
+          ? d.alias.push(T)
+          : ((k = k || T), k !== T && k.alias.push(T), h && u.name && !sc(T) && l(u.name)),
+        m.children)
+      ) {
+        const P = m.children;
+        for (let C = 0; C < P.length; C++) i(P[C], T, d && d.children[C]);
+      }
+      (d = d || T),
+        ((T.record.components && Object.keys(T.record.components).length) ||
+          T.record.name ||
+          T.record.redirect) &&
+          a(T);
+    }
+    return k
+      ? () => {
+          l(k);
+        }
+      : rr;
+  }
+  function l(u) {
+    if (Wd(u)) {
+      const f = o.get(u);
+      f && (o.delete(u), n.splice(n.indexOf(f), 1), f.children.forEach(l), f.alias.forEach(l));
+    } else {
+      const f = n.indexOf(u);
+      f > -1 &&
+        (n.splice(f, 1),
+        u.record.name && o.delete(u.record.name),
+        u.children.forEach(l),
+        u.alias.forEach(l));
+    }
+  }
+  function s() {
+    return n;
+  }
+  function a(u) {
+    let f = 0;
+    for (
+      ;
+      f < n.length && Ry(u, n[f]) >= 0 && (u.record.path !== n[f].record.path || !Jd(u, n[f]));
+
+    )
+      f++;
+    n.splice(f, 0, u), u.record.name && !sc(u) && o.set(u.record.name, u);
+  }
+  function c(u, f) {
+    let d,
+      h = {},
+      m,
+      g;
+    if ('name' in u && u.name) {
+      if (((d = o.get(u.name)), !d)) throw Ro(1, { location: u });
+      (g = d.record.name),
+        (h = Ie(
+          lc(
+            f.params,
+            d.keys.filter((k) => !k.optional).map((k) => k.name),
+          ),
+          u.params &&
+            lc(
+              u.params,
+              d.keys.map((k) => k.name),
+            ),
+        )),
+        (m = d.stringify(h));
+    } else if ('path' in u)
+      (m = u.path), (d = n.find((k) => k.re.test(m))), d && ((h = d.parse(m)), (g = d.record.name));
+    else {
+      if (((d = f.name ? o.get(f.name) : n.find((k) => k.re.test(f.path))), !d))
+        throw Ro(1, { location: u, currentLocation: f });
+      (g = d.record.name), (h = Ie({}, f.params, u.params)), (m = d.stringify(h));
+    }
+    const b = [];
+    let T = d;
+    for (; T; ) b.unshift(T.record), (T = T.parent);
+    return { name: g, path: m, params: h, matched: b, meta: Iy(b) };
+  }
+  return (
+    e.forEach((u) => i(u)),
+    { addRoute: i, resolve: c, removeRoute: l, getRoutes: s, getRecordMatcher: r }
+  );
+}
+function lc(e, t) {
+  const n = {};
+  for (const o of t) o in e && (n[o] = e[o]);
+  return n;
+}
+function Fy(e) {
+  return {
+    path: e.path,
+    redirect: e.redirect,
+    name: e.name,
+    meta: e.meta || {},
+    aliasOf: void 0,
+    beforeEnter: e.beforeEnter,
+    props: By(e),
+    children: e.children || [],
+    instances: {},
+    leaveGuards: new Set(),
+    updateGuards: new Set(),
+    enterCallbacks: {},
+    components: 'components' in e ? e.components || null : e.component && { default: e.component },
+  };
+}
+function By(e) {
+  const t = {},
+    n = e.props || !1;
+  if ('component' in e) t.default = n;
+  else for (const o in e.components) t[o] = typeof n == 'object' ? n[o] : n;
+  return t;
+}
+function sc(e) {
+  for (; e; ) {
+    if (e.record.aliasOf) return !0;
+    e = e.parent;
+  }
+  return !1;
+}
+function Iy(e) {
+  return e.reduce((t, n) => Ie(t, n.meta), {});
+}
+function ac(e, t) {
+  const n = {};
+  for (const o in e) n[o] = o in t ? t[o] : e[o];
+  return n;
+}
+function Jd(e, t) {
+  return t.children.some((n) => n === e || Jd(e, n));
+}
+const Xd = /#/g,
+  zy = /&/g,
+  Vy = /\//g,
+  Ny = /=/g,
+  jy = /\?/g,
+  Yd = /\+/g,
+  Dy = /%5B/g,
+  Hy = /%5D/g,
+  Gd = /%5E/g,
+  Uy = /%60/g,
+  Zd = /%7B/g,
+  Ky = /%7C/g,
+  eh = /%7D/g,
+  Wy = /%20/g;
+function aa(e) {
+  return encodeURI('' + e)
+    .replace(Ky, '|')
+    .replace(Dy, '[')
+    .replace(Hy, ']');
+}
+function Qy(e) {
+  return aa(e).replace(Zd, '{').replace(eh, '}').replace(Gd, '^');
+}
+function ds(e) {
+  return aa(e)
+    .replace(Yd, '%2B')
+    .replace(Wy, '+')
+    .replace(Xd, '%23')
+    .replace(zy, '%26')
+    .replace(Uy, '`')
+    .replace(Zd, '{')
+    .replace(eh, '}')
+    .replace(Gd, '^');
+}
+function Jy(e) {
+  return ds(e).replace(Ny, '%3D');
+}
+function Xy(e) {
+  return aa(e).replace(Xd, '%23').replace(jy, '%3F');
+}
+function Yy(e) {
+  return e == null ? '' : Xy(e).replace(Vy, '%2F');
+}
+function mi(e) {
+  try {
+    return decodeURIComponent('' + e);
+  } catch {}
+  return '' + e;
+}
+function Gy(e) {
+  const t = {};
+  if (e === '' || e === '?') return t;
+  const o = (e[0] === '?' ? e.slice(1) : e).split('&');
+  for (let r = 0; r < o.length; ++r) {
+    const i = o[r].replace(Yd, ' '),
+      l = i.indexOf('='),
+      s = mi(l < 0 ? i : i.slice(0, l)),
+      a = l < 0 ? null : mi(i.slice(l + 1));
+    if (s in t) {
+      let c = t[s];
+      Wt(c) || (c = t[s] = [c]), c.push(a);
+    } else t[s] = a;
+  }
+  return t;
+}
+function uc(e) {
+  let t = '';
+  for (let n in e) {
+    const o = e[n];
+    if (((n = Jy(n)), o == null)) {
+      o !== void 0 && (t += (t.length ? '&' : '') + n);
+      continue;
+    }
+    (Wt(o) ? o.map((i) => i && ds(i)) : [o && ds(o)]).forEach((i) => {
+      i !== void 0 && ((t += (t.length ? '&' : '') + n), i != null && (t += '=' + i));
+    });
+  }
+  return t;
+}
+function Zy(e) {
+  const t = {};
+  for (const n in e) {
+    const o = e[n];
+    o !== void 0 &&
+      (t[n] = Wt(o) ? o.map((r) => (r == null ? null : '' + r)) : o == null ? o : '' + o);
+  }
+  return t;
+}
+const th = Symbol(''),
+  cc = Symbol(''),
+  Ki = Symbol(''),
+  nh = Symbol(''),
+  hs = Symbol('');
+function Ho() {
+  let e = [];
+  function t(o) {
+    return (
+      e.push(o),
+      () => {
+        const r = e.indexOf(o);
+        r > -1 && e.splice(r, 1);
+      }
+    );
+  }
+  function n() {
+    e = [];
+  }
+  return { add: t, list: () => e.slice(), reset: n };
+}
+function e0(e, t, n) {
+  const o = () => {
+    e[t].delete(n);
+  };
+  Bo(o),
+    An(o),
+    Fo(() => {
+      e[t].add(n);
+    }),
+    e[t].add(n);
+}
+function t0(e) {
+  const t = ut(th, {}).value;
+  !t || e0(t, 'leaveGuards', e);
+}
+function xn(e, t, n, o, r) {
+  const i = o && (o.enterCallbacks[r] = o.enterCallbacks[r] || []);
+  return () =>
+    new Promise((l, s) => {
+      const a = (f) => {
+          f === !1
+            ? s(Ro(4, { from: n, to: t }))
+            : f instanceof Error
+            ? s(f)
+            : ky(f)
+            ? s(Ro(2, { from: t, to: f }))
+            : (i && o.enterCallbacks[r] === i && typeof f == 'function' && i.push(f), l());
+        },
+        c = e.call(o && o.instances[r], t, n, a);
+      let u = Promise.resolve(c);
+      e.length < 3 && (u = u.then(a)), u.catch((f) => s(f));
+    });
+}
+function Tl(e, t, n, o) {
+  const r = [];
+  for (const i of e)
+    for (const l in i.components) {
+      let s = i.components[l];
+      if (!(t !== 'beforeRouteEnter' && !i.instances[l]))
+        if (n0(s)) {
+          const c = (s.__vccOpts || s)[t];
+          c && r.push(xn(c, n, o, i, l));
+        } else {
+          let a = s();
+          r.push(() =>
+            a.then((c) => {
+              if (!c)
+                return Promise.reject(
+                  new Error(`Couldn't resolve component "${l}" at "${i.path}"`),
+                );
+              const u = sy(c) ? c.default : c;
+              i.components[l] = u;
+              const d = (u.__vccOpts || u)[t];
+              return d && xn(d, n, o, i, l)();
+            }),
+          );
+        }
+    }
+  return r;
+}
+function n0(e) {
+  return typeof e == 'object' || 'displayName' in e || 'props' in e || '__vccOpts' in e;
+}
+function fc(e) {
+  const t = ut(Ki),
+    n = ut(nh),
+    o = v(() => t.resolve(ue(e.to))),
+    r = v(() => {
+      const { matched: a } = o.value,
+        { length: c } = a,
+        u = a[c - 1],
+        f = n.matched;
+      if (!u || !f.length) return -1;
+      const d = f.findIndex(Po.bind(null, u));
+      if (d > -1) return d;
+      const h = dc(a[c - 2]);
+      return c > 1 && dc(u) === h && f[f.length - 1].path !== h
+        ? f.findIndex(Po.bind(null, a[c - 2]))
+        : d;
+    }),
+    i = v(() => r.value > -1 && l0(n.params, o.value.params)),
+    l = v(() => r.value > -1 && r.value === n.matched.length - 1 && Ud(n.params, o.value.params));
+  function s(a = {}) {
+    return i0(a) ? t[ue(e.replace) ? 'replace' : 'push'](ue(e.to)).catch(rr) : Promise.resolve();
+  }
+  return { route: o, href: v(() => o.value.href), isActive: i, isExactActive: l, navigate: s };
+}
+const o0 = Ri({
+    name: 'RouterLink',
+    compatConfig: { MODE: 3 },
+    props: {
+      to: { type: [String, Object], required: !0 },
+      replace: Boolean,
+      activeClass: String,
+      exactActiveClass: String,
+      custom: Boolean,
+      ariaCurrentValue: { type: String, default: 'page' },
+    },
+    useLink: fc,
+    setup(e, { slots: t }) {
+      const n = jt(fc(e)),
+        { options: o } = ut(Ki),
+        r = v(() => ({
+          [hc(e.activeClass, o.linkActiveClass, 'router-link-active')]: n.isActive,
+          [hc(e.exactActiveClass, o.linkExactActiveClass, 'router-link-exact-active')]:
+            n.isExactActive,
+        }));
+      return () => {
+        const i = t.default && t.default(n);
+        return e.custom
+          ? i
+          : _(
+              'a',
+              {
+                'aria-current': n.isExactActive ? e.ariaCurrentValue : null,
+                href: n.href,
+                onClick: n.navigate,
+                class: r.value,
+              },
+              i,
+            );
+      };
+    },
+  }),
+  r0 = o0;
+function i0(e) {
+  if (
+    !(e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) &&
+    !e.defaultPrevented &&
+    !(e.button !== void 0 && e.button !== 0)
+  ) {
+    if (e.currentTarget && e.currentTarget.getAttribute) {
+      const t = e.currentTarget.getAttribute('target');
+      if (/\b_blank\b/i.test(t)) return;
+    }
+    return e.preventDefault && e.preventDefault(), !0;
+  }
+}
+function l0(e, t) {
+  for (const n in t) {
+    const o = t[n],
+      r = e[n];
+    if (typeof o == 'string') {
+      if (o !== r) return !1;
+    } else if (!Wt(r) || r.length !== o.length || o.some((i, l) => i !== r[l])) return !1;
+  }
+  return !0;
+}
+function dc(e) {
+  return e ? (e.aliasOf ? e.aliasOf.path : e.path) : '';
+}
+const hc = (e, t, n) => (e != null ? e : t != null ? t : n),
+  s0 = Ri({
+    name: 'RouterView',
+    inheritAttrs: !1,
+    props: { name: { type: String, default: 'default' }, route: Object },
+    compatConfig: { MODE: 3 },
+    setup(e, { attrs: t, slots: n }) {
+      const o = ut(hs),
+        r = v(() => e.route || o.value),
+        i = ut(cc, 0),
+        l = v(() => {
+          let c = ue(i);
+          const { matched: u } = r.value;
+          let f;
+          for (; (f = u[c]) && !f.components; ) c++;
+          return c;
+        }),
+        s = v(() => r.value.matched[l.value]);
+      xo(
+        cc,
+        v(() => l.value + 1),
+      ),
+        xo(th, s),
+        xo(hs, r);
+      const a = W();
+      return (
+        fe(
+          () => [a.value, s.value, e.name],
+          ([c, u, f], [d, h, m]) => {
+            u &&
+              ((u.instances[f] = c),
+              h &&
+                h !== u &&
+                c &&
+                c === d &&
+                (u.leaveGuards.size || (u.leaveGuards = h.leaveGuards),
+                u.updateGuards.size || (u.updateGuards = h.updateGuards))),
+              c && u && (!h || !Po(u, h) || !d) && (u.enterCallbacks[f] || []).forEach((g) => g(c));
+          },
+          { flush: 'post' },
+        ),
+        () => {
+          const c = r.value,
+            u = e.name,
+            f = s.value,
+            d = f && f.components[u];
+          if (!d) return mc(n.default, { Component: d, route: c });
+          const h = f.props[u],
+            m = h ? (h === !0 ? c.params : typeof h == 'function' ? h(c) : h) : null,
+            b = _(
+              d,
+              Ie({}, m, t, {
+                onVnodeUnmounted: (T) => {
+                  T.component.isUnmounted && (f.instances[u] = null);
+                },
+                ref: a,
+              }),
+            );
+          return mc(n.default, { Component: b, route: c }) || b;
+        }
+      );
+    },
+  });
+function mc(e, t) {
+  if (!e) return null;
+  const n = e(t);
+  return n.length === 1 ? n[0] : n;
+}
+const a0 = s0;
+function u0(e) {
+  const t = My(e.routes, e),
+    n = e.parseQuery || Gy,
+    o = e.stringifyQuery || uc,
+    r = e.history,
+    i = Ho(),
+    l = Ho(),
+    s = Ho(),
+    a = Im(bn);
+  let c = bn;
+  po &&
+    e.scrollBehavior &&
+    'scrollRestoration' in history &&
+    (history.scrollRestoration = 'manual');
+  const u = El.bind(null, (A) => '' + A),
+    f = El.bind(null, Yy),
+    d = El.bind(null, mi);
+  function h(A, ee) {
+    let F, ie;
+    return Wd(A) ? ((F = t.getRecordMatcher(A)), (ie = ee)) : (ie = A), t.addRoute(ie, F);
+  }
+  function m(A) {
+    const ee = t.getRecordMatcher(A);
+    ee && t.removeRoute(ee);
+  }
+  function g() {
+    return t.getRoutes().map((A) => A.record);
+  }
+  function b(A) {
+    return !!t.getRecordMatcher(A);
+  }
+  function T(A, ee) {
+    if (((ee = Ie({}, ee || a.value)), typeof A == 'string')) {
+      const O = ql(n, A, ee.path),
+        V = t.resolve({ path: O.path }, ee),
+        D = r.createHref(O.fullPath);
+      return Ie(O, V, { params: d(V.params), hash: mi(O.hash), redirectedFrom: void 0, href: D });
+    }
+    let F;
+    if ('path' in A) F = Ie({}, A, { path: ql(n, A.path, ee.path).path });
+    else {
+      const O = Ie({}, A.params);
+      for (const V in O) O[V] == null && delete O[V];
+      (F = Ie({}, A, { params: f(O) })), (ee.params = f(ee.params));
+    }
+    const ie = t.resolve(F, ee),
+      xe = A.hash || '';
+    ie.params = u(d(ie.params));
+    const y = cy(o, Ie({}, A, { hash: Qy(xe), path: ie.path })),
+      w = r.createHref(y);
+    return Ie({ fullPath: y, hash: xe, query: o === uc ? Zy(A.query) : A.query || {} }, ie, {
+      redirectedFrom: void 0,
+      href: w,
+    });
+  }
+  function k(A) {
+    return typeof A == 'string' ? ql(n, A, a.value.path) : Ie({}, A);
+  }
+  function E(A, ee) {
+    if (c !== A) return Ro(8, { from: ee, to: A });
+  }
+  function x(A) {
+    return S(A);
+  }
+  function P(A) {
+    return x(Ie(k(A), { replace: !0 }));
+  }
+  function C(A) {
+    const ee = A.matched[A.matched.length - 1];
+    if (ee && ee.redirect) {
+      const { redirect: F } = ee;
+      let ie = typeof F == 'function' ? F(A) : F;
+      return (
+        typeof ie == 'string' &&
+          ((ie = ie.includes('?') || ie.includes('#') ? (ie = k(ie)) : { path: ie }),
+          (ie.params = {})),
+        Ie({ query: A.query, hash: A.hash, params: 'path' in ie ? {} : A.params }, ie)
+      );
+    }
+  }
+  function S(A, ee) {
+    const F = (c = T(A)),
+      ie = a.value,
+      xe = A.state,
+      y = A.force,
+      w = A.replace === !0,
+      O = C(F);
+    if (O)
+      return S(
+        Ie(k(O), { state: typeof O == 'object' ? Ie({}, xe, O.state) : xe, force: y, replace: w }),
+        ee || F,
+      );
+    const V = F;
+    V.redirectedFrom = ee;
+    let D;
+    return (
+      !y && fy(o, ie, F) && ((D = Ro(16, { to: V, from: ie })), M(ie, ie, !0, !1)),
+      (D ? Promise.resolve(D) : R(V, ie))
+        .catch((X) => (on(X) ? (on(X, 2) ? X : G(X)) : U(X, V, ie)))
+        .then((X) => {
+          if (X) {
+            if (on(X, 2))
+              return S(
+                Ie({ replace: w }, k(X.to), {
+                  state: typeof X.to == 'object' ? Ie({}, xe, X.to.state) : xe,
+                  force: y,
+                }),
+                ee || V,
+              );
+          } else X = I(V, ie, !0, w, xe);
+          return B(V, ie, X), X;
+        })
+    );
+  }
+  function p(A, ee) {
+    const F = E(A, ee);
+    return F ? Promise.reject(F) : Promise.resolve();
+  }
+  function $(A) {
+    const ee = Se.values().next().value;
+    return ee && typeof ee.runWithContext == 'function' ? ee.runWithContext(A) : A();
+  }
+  function R(A, ee) {
+    let F;
+    const [ie, xe, y] = c0(A, ee);
+    F = Tl(ie.reverse(), 'beforeRouteLeave', A, ee);
+    for (const O of ie)
+      O.leaveGuards.forEach((V) => {
+        F.push(xn(V, A, ee));
+      });
+    const w = p.bind(null, A, ee);
+    return (
+      F.push(w),
+      oe(F)
+        .then(() => {
+          F = [];
+          for (const O of i.list()) F.push(xn(O, A, ee));
+          return F.push(w), oe(F);
+        })
+        .then(() => {
+          F = Tl(xe, 'beforeRouteUpdate', A, ee);
+          for (const O of xe)
+            O.updateGuards.forEach((V) => {
+              F.push(xn(V, A, ee));
+            });
+          return F.push(w), oe(F);
+        })
+        .then(() => {
+          F = [];
+          for (const O of y)
+            if (O.beforeEnter)
+              if (Wt(O.beforeEnter)) for (const V of O.beforeEnter) F.push(xn(V, A, ee));
+              else F.push(xn(O.beforeEnter, A, ee));
+          return F.push(w), oe(F);
+        })
+        .then(
+          () => (
+            A.matched.forEach((O) => (O.enterCallbacks = {})),
+            (F = Tl(y, 'beforeRouteEnter', A, ee)),
+            F.push(w),
+            oe(F)
+          ),
+        )
+        .then(() => {
+          F = [];
+          for (const O of l.list()) F.push(xn(O, A, ee));
+          return F.push(w), oe(F);
+        })
+        .catch((O) => (on(O, 8) ? O : Promise.reject(O)))
+    );
+  }
+  function B(A, ee, F) {
+    s.list().forEach((ie) => $(() => ie(A, ee, F)));
+  }
+  function I(A, ee, F, ie, xe) {
+    const y = E(A, ee);
+    if (y) return y;
+    const w = ee === bn,
+      O = po ? history.state : {};
+    F &&
+      (ie || w
+        ? r.replace(A.fullPath, Ie({ scroll: w && O && O.scroll }, xe))
+        : r.push(A.fullPath, xe)),
+      (a.value = A),
+      M(A, ee, F, w),
+      G();
+  }
+  let Q;
+  function H() {
+    Q ||
+      (Q = r.listen((A, ee, F) => {
+        if (!Me.listening) return;
+        const ie = T(A),
+          xe = C(ie);
+        if (xe) {
+          S(Ie(xe, { replace: !0 }), ie).catch(rr);
+          return;
+        }
+        c = ie;
+        const y = a.value;
+        po && yy(tc(y.fullPath, F.delta), Ui()),
+          R(ie, y)
+            .catch((w) =>
+              on(w, 12)
+                ? w
+                : on(w, 2)
+                ? (S(w.to, ie)
+                    .then((O) => {
+                      on(O, 20) && !F.delta && F.type === yr.pop && r.go(-1, !1);
+                    })
+                    .catch(rr),
+                  Promise.reject())
+                : (F.delta && r.go(-F.delta, !1), U(w, ie, y)),
+            )
+            .then((w) => {
+              (w = w || I(ie, y, !1)),
+                w &&
+                  (F.delta && !on(w, 8)
+                    ? r.go(-F.delta, !1)
+                    : F.type === yr.pop && on(w, 20) && r.go(-1, !1)),
+                B(ie, y, w);
+            })
+            .catch(rr);
+      }));
+  }
+  let le = Ho(),
+    N = Ho(),
+    L;
+  function U(A, ee, F) {
+    G(A);
+    const ie = N.list();
+    return ie.length ? ie.forEach((xe) => xe(A, ee, F)) : console.error(A), Promise.reject(A);
+  }
+  function pe() {
+    return L && a.value !== bn
+      ? Promise.resolve()
+      : new Promise((A, ee) => {
+          le.add([A, ee]);
+        });
+  }
+  function G(A) {
+    return L || ((L = !A), H(), le.list().forEach(([ee, F]) => (A ? F(A) : ee())), le.reset()), A;
+  }
+  function M(A, ee, F, ie) {
+    const { scrollBehavior: xe } = e;
+    if (!po || !xe) return Promise.resolve();
+    const y =
+      (!F && wy(tc(A.fullPath, 0))) ||
+      ((ie || !F) && history.state && history.state.scroll) ||
+      null;
+    return ze()
+      .then(() => xe(A, ee, y))
+      .then((w) => w && by(w))
+      .catch((w) => U(w, A, ee));
+  }
+  const te = (A) => r.go(A);
+  let ae;
+  const Se = new Set(),
+    Me = {
+      currentRoute: a,
+      listening: !0,
+      addRoute: h,
+      removeRoute: m,
+      hasRoute: b,
+      getRoutes: g,
+      resolve: T,
+      options: e,
+      push: x,
+      replace: P,
+      go: te,
+      back: () => te(-1),
+      forward: () => te(1),
+      beforeEach: i.add,
+      beforeResolve: l.add,
+      afterEach: s.add,
+      onError: N.add,
+      isReady: pe,
+      install(A) {
+        const ee = this;
+        A.component('RouterLink', r0),
+          A.component('RouterView', a0),
+          (A.config.globalProperties.$router = ee),
+          Object.defineProperty(A.config.globalProperties, '$route', {
+            enumerable: !0,
+            get: () => ue(a),
+          }),
+          po && !ae && a.value === bn && ((ae = !0), x(r.location).catch((xe) => {}));
+        const F = {};
+        for (const xe in bn)
+          Object.defineProperty(F, xe, { get: () => a.value[xe], enumerable: !0 });
+        A.provide(Ki, ee), A.provide(nh, ff(F)), A.provide(hs, a);
+        const ie = A.unmount;
+        Se.add(A),
+          (A.unmount = function () {
+            Se.delete(A),
+              Se.size < 1 && ((c = bn), Q && Q(), (Q = null), (a.value = bn), (ae = !1), (L = !1)),
+              ie();
+          });
+      },
+    };
+  function oe(A) {
+    return A.reduce((ee, F) => ee.then(() => $(F)), Promise.resolve());
+  }
+  return Me;
+}
+function c0(e, t) {
+  const n = [],
+    o = [],
+    r = [],
+    i = Math.max(t.matched.length, e.matched.length);
+  for (let l = 0; l < i; l++) {
+    const s = t.matched[l];
+    s && (e.matched.find((c) => Po(c, s)) ? o.push(s) : n.push(s));
+    const a = e.matched[l];
+    a && (t.matched.find((c) => Po(c, a)) || r.push(a));
+  }
+  return [n, o, r];
+}
+function oh() {
+  return ut(Ki);
+}
+function f0({ validate: e, resetValidation: t, requiresQForm: n }) {
+  const o = ut(Kg, !1);
+  if (o !== !1) {
+    const { props: r, proxy: i } = qe();
+    Object.assign(i, { validate: e, resetValidation: t }),
+      fe(
+        () => r.disable,
+        (l) => {
+          l === !0 ? (typeof t == 'function' && t(), o.unbindComponent(i)) : o.bindComponent(i);
+        },
+      ),
+      ct(() => {
+        r.disable !== !0 && o.bindComponent(i);
+      }),
+      We(() => {
+        r.disable !== !0 && o.unbindComponent(i);
+      });
+  } else n === !0 && console.error('Parent QForm not found on useFormChild()!');
+}
+const vc = /^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/,
+  gc = /^#[0-9a-fA-F]{4}([0-9a-fA-F]{4})?$/,
+  pc = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/,
+  Nr =
+    /^rgb\(((0|[1-9][\d]?|1[\d]{0,2}|2[\d]?|2[0-4][\d]|25[0-5]),){2}(0|[1-9][\d]?|1[\d]{0,2}|2[\d]?|2[0-4][\d]|25[0-5])\)$/,
+  jr =
+    /^rgba\(((0|[1-9][\d]?|1[\d]{0,2}|2[\d]?|2[0-4][\d]|25[0-5]),){2}(0|[1-9][\d]?|1[\d]{0,2}|2[\d]?|2[0-4][\d]|25[0-5]),(0|0\.[0-9]+[1-9]|0\.[1-9]+|1)\)$/,
+  Pl = {
+    date: (e) => /^-?[\d]+\/[0-1]\d\/[0-3]\d$/.test(e),
+    time: (e) => /^([0-1]?\d|2[0-3]):[0-5]\d$/.test(e),
+    fulltime: (e) => /^([0-1]?\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(e),
+    timeOrFulltime: (e) => /^([0-1]?\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/.test(e),
+    email: (e) =>
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        e,
+      ),
+    hexColor: (e) => vc.test(e),
+    hexaColor: (e) => gc.test(e),
+    hexOrHexaColor: (e) => pc.test(e),
+    rgbColor: (e) => Nr.test(e),
+    rgbaColor: (e) => jr.test(e),
+    rgbOrRgbaColor: (e) => Nr.test(e) || jr.test(e),
+    hexOrRgbColor: (e) => vc.test(e) || Nr.test(e),
+    hexaOrRgbaColor: (e) => gc.test(e) || jr.test(e),
+    anyColor: (e) => pc.test(e) || Nr.test(e) || jr.test(e),
+  },
+  d0 = [!0, !1, 'ondemand'],
+  h0 = {
+    modelValue: {},
+    error: { type: Boolean, default: null },
+    errorMessage: String,
+    noErrorIcon: Boolean,
+    rules: Array,
+    reactiveRules: Boolean,
+    lazyRules: { type: [Boolean, String], validator: (e) => d0.includes(e) },
+  };
+function m0(e, t) {
+  const { props: n, proxy: o } = qe(),
+    r = W(!1),
+    i = W(null),
+    l = W(null);
+  f0({ validate: m, resetValidation: h });
+  let s = 0,
+    a;
+  const c = v(() => n.rules !== void 0 && n.rules !== null && n.rules.length > 0),
+    u = v(() => n.disable !== !0 && c.value === !0),
+    f = v(() => n.error === !0 || r.value === !0),
+    d = v(() =>
+      typeof n.errorMessage == 'string' && n.errorMessage.length > 0 ? n.errorMessage : i.value,
+    );
+  fe(
+    () => n.modelValue,
+    () => {
+      g();
+    },
+  ),
+    fe(
+      () => n.reactiveRules,
+      (T) => {
+        T === !0
+          ? a === void 0 &&
+            (a = fe(
+              () => n.rules,
+              () => {
+                g(!0);
+              },
+            ))
+          : a !== void 0 && (a(), (a = void 0));
+      },
+      { immediate: !0 },
+    ),
+    fe(e, (T) => {
+      T === !0
+        ? l.value === null && (l.value = !1)
+        : l.value === !1 &&
+          ((l.value = !0), u.value === !0 && n.lazyRules !== 'ondemand' && t.value === !1 && b());
+    });
+  function h() {
+    s++, (t.value = !1), (l.value = null), (r.value = !1), (i.value = null), b.cancel();
+  }
+  function m(T = n.modelValue) {
+    if (u.value !== !0) return !0;
+    const k = ++s,
+      E =
+        t.value !== !0
+          ? () => {
+              l.value = !0;
+            }
+          : () => {},
+      x = (C, S) => {
+        C === !0 && E(), (r.value = C), (i.value = S || null), (t.value = !1);
+      },
+      P = [];
+    for (let C = 0; C < n.rules.length; C++) {
+      const S = n.rules[C];
+      let p;
+      if (
+        (typeof S == 'function'
+          ? (p = S(T, Pl))
+          : typeof S == 'string' && Pl[S] !== void 0 && (p = Pl[S](T)),
+        p === !1 || typeof p == 'string')
+      )
+        return x(!0, p), !1;
+      p !== !0 && p !== void 0 && P.push(p);
+    }
+    return P.length === 0
+      ? (x(!1), !0)
+      : ((t.value = !0),
+        Promise.all(P).then(
+          (C) => {
+            if (C === void 0 || Array.isArray(C) === !1 || C.length === 0)
+              return k === s && x(!1), !0;
+            const S = C.find((p) => p === !1 || typeof p == 'string');
+            return k === s && x(S !== void 0, S), S === void 0;
+          },
+          (C) => (k === s && (console.error(C), x(!0)), !1),
+        ));
+  }
+  function g(T) {
+    u.value === !0 &&
+      n.lazyRules !== 'ondemand' &&
+      (l.value === !0 || (n.lazyRules !== !0 && T !== !0)) &&
+      b();
+  }
+  const b = zi(m, 0);
+  return (
+    We(() => {
+      a !== void 0 && a(), b.cancel();
+    }),
+    Object.assign(o, { resetValidation: h, validate: m }),
+    At(o, 'hasError', () => f.value),
+    { isDirtyModel: l, hasRules: c, hasError: f, errorMessage: d, validate: m, resetValidation: h }
+  );
+}
+const bc = /^on[A-Z]/;
+function v0(e, t) {
+  const n = { listeners: W({}), attributes: W({}) };
+  function o() {
+    const r = {},
+      i = {};
+    for (const l in e) l !== 'class' && l !== 'style' && bc.test(l) === !1 && (r[l] = e[l]);
+    for (const l in t.props) bc.test(l) === !0 && (i[l] = t.props[l]);
+    (n.attributes.value = r), (n.listeners.value = i);
+  }
+  return $i(o), o(), n;
+}
+let Rl,
+  Dr = 0;
+const at = new Array(256);
+for (let e = 0; e < 256; e++) at[e] = (e + 256).toString(16).substring(1);
+const g0 = (() => {
+    const e =
+      typeof crypto < 'u'
+        ? crypto
+        : typeof window < 'u'
+        ? window.crypto || window.msCrypto
+        : void 0;
+    if (e !== void 0) {
+      if (e.randomBytes !== void 0) return e.randomBytes;
+      if (e.getRandomValues !== void 0)
+        return (t) => {
+          const n = new Uint8Array(t);
+          return e.getRandomValues(n), n;
+        };
+    }
+    return (t) => {
+      const n = [];
+      for (let o = t; o > 0; o--) n.push(Math.floor(Math.random() * 256));
+      return n;
+    };
+  })(),
+  yc = 4096;
+function p0() {
+  (Rl === void 0 || Dr + 16 > yc) && ((Dr = 0), (Rl = g0(yc)));
+  const e = Array.prototype.slice.call(Rl, Dr, (Dr += 16));
+  return (
+    (e[6] = (e[6] & 15) | 64),
+    (e[8] = (e[8] & 63) | 128),
+    at[e[0]] +
+      at[e[1]] +
+      at[e[2]] +
+      at[e[3]] +
+      '-' +
+      at[e[4]] +
+      at[e[5]] +
+      '-' +
+      at[e[6]] +
+      at[e[7]] +
+      '-' +
+      at[e[8]] +
+      at[e[9]] +
+      '-' +
+      at[e[10]] +
+      at[e[11]] +
+      at[e[12]] +
+      at[e[13]] +
+      at[e[14]] +
+      at[e[15]]
+  );
+}
+let Hn = [],
+  wr = [];
+function rh(e) {
+  wr = wr.filter((t) => t !== e);
+}
+function b0(e) {
+  rh(e), wr.push(e);
+}
+function wc(e) {
+  rh(e), wr.length === 0 && Hn.length > 0 && (Hn[Hn.length - 1](), (Hn = []));
+}
+function Wi(e) {
+  wr.length === 0 ? e() : Hn.push(e);
+}
+function y0(e) {
+  Hn = Hn.filter((t) => t !== e);
+}
+function ms(e) {
+  return e === void 0 ? `f_${p0()}` : e;
+}
+function _r(e) {
+  return e != null && ('' + e).length > 0;
+}
+const Qi = {
+    ...St,
+    ...h0,
+    label: String,
+    stackLabel: Boolean,
+    hint: String,
+    hideHint: Boolean,
+    prefix: String,
+    suffix: String,
+    labelColor: String,
+    color: String,
+    bgColor: String,
+    filled: Boolean,
+    outlined: Boolean,
+    borderless: Boolean,
+    standout: [Boolean, String],
+    square: Boolean,
+    loading: Boolean,
+    labelSlot: Boolean,
+    bottomSlots: Boolean,
+    hideBottomSpace: Boolean,
+    rounded: Boolean,
+    dense: Boolean,
+    itemAligned: Boolean,
+    counter: Boolean,
+    clearable: Boolean,
+    clearIcon: String,
+    disable: Boolean,
+    readonly: Boolean,
+    autofocus: Boolean,
+    for: String,
+    maxlength: [Number, String],
+  },
+  ua = ['update:modelValue', 'clear', 'focus', 'blur', 'popupShow', 'popupHide'];
+function ca() {
+  const { props: e, attrs: t, proxy: n, vnode: o } = qe();
+  return {
+    isDark: xt(e, n.$q),
+    editable: v(() => e.disable !== !0 && e.readonly !== !0),
+    innerLoading: W(!1),
+    focused: W(!1),
+    hasPopupOpen: !1,
+    splitAttrs: v0(t, o),
+    targetUid: W(ms(e.for)),
+    rootRef: W(null),
+    targetRef: W(null),
+    controlRef: W(null),
+  };
+}
+function fa(e) {
+  const { props: t, emit: n, slots: o, attrs: r, proxy: i } = qe(),
+    { $q: l } = i;
+  let s;
+  e.hasValue === void 0 && (e.hasValue = v(() => _r(t.modelValue))),
+    e.emitValue === void 0 &&
+      (e.emitValue = (L) => {
+        n('update:modelValue', L);
+      }),
+    e.controlEvents === void 0 && (e.controlEvents = { onFocusin: $, onFocusout: R }),
+    Object.assign(e, { clearValue: B, onControlFocusin: $, onControlFocusout: R, focus: S }),
+    e.computedCounter === void 0 &&
+      (e.computedCounter = v(() => {
+        if (t.counter !== !1) {
+          const L =
+              typeof t.modelValue == 'string' || typeof t.modelValue == 'number'
+                ? ('' + t.modelValue).length
+                : Array.isArray(t.modelValue) === !0
+                ? t.modelValue.length
+                : 0,
+            U = t.maxlength !== void 0 ? t.maxlength : t.maxValues;
+          return L + (U !== void 0 ? ' / ' + U : '');
+        }
+      }));
+  const {
+      isDirtyModel: a,
+      hasRules: c,
+      hasError: u,
+      errorMessage: f,
+      resetValidation: d,
+    } = m0(e.focused, e.innerLoading),
+    h =
+      e.floatingLabel !== void 0
+        ? v(() => t.stackLabel === !0 || e.focused.value === !0 || e.floatingLabel.value === !0)
+        : v(() => t.stackLabel === !0 || e.focused.value === !0 || e.hasValue.value === !0),
+    m = v(
+      () =>
+        t.bottomSlots === !0 ||
+        t.hint !== void 0 ||
+        c.value === !0 ||
+        t.counter === !0 ||
+        t.error !== null,
+    ),
+    g = v(() =>
+      t.filled === !0
+        ? 'filled'
+        : t.outlined === !0
+        ? 'outlined'
+        : t.borderless === !0
+        ? 'borderless'
+        : t.standout
+        ? 'standout'
+        : 'standard',
+    ),
+    b = v(
+      () =>
+        `q-field row no-wrap items-start q-field--${g.value}` +
+        (e.fieldClass !== void 0 ? ` ${e.fieldClass.value}` : '') +
+        (t.rounded === !0 ? ' q-field--rounded' : '') +
+        (t.square === !0 ? ' q-field--square' : '') +
+        (h.value === !0 ? ' q-field--float' : '') +
+        (k.value === !0 ? ' q-field--labeled' : '') +
+        (t.dense === !0 ? ' q-field--dense' : '') +
+        (t.itemAligned === !0 ? ' q-field--item-aligned q-item-type' : '') +
+        (e.isDark.value === !0 ? ' q-field--dark' : '') +
+        (e.getControl === void 0 ? ' q-field--auto-height' : '') +
+        (e.focused.value === !0 ? ' q-field--focused' : '') +
+        (u.value === !0 ? ' q-field--error' : '') +
+        (u.value === !0 || e.focused.value === !0 ? ' q-field--highlighted' : '') +
+        (t.hideBottomSpace !== !0 && m.value === !0 ? ' q-field--with-bottom' : '') +
+        (t.disable === !0 ? ' q-field--disabled' : t.readonly === !0 ? ' q-field--readonly' : ''),
+    ),
+    T = v(
+      () =>
+        'q-field__control relative-position row no-wrap' +
+        (t.bgColor !== void 0 ? ` bg-${t.bgColor}` : '') +
+        (u.value === !0
+          ? ' text-negative'
+          : typeof t.standout == 'string' && t.standout.length > 0 && e.focused.value === !0
+          ? ` ${t.standout}`
+          : t.color !== void 0
+          ? ` text-${t.color}`
+          : ''),
+    ),
+    k = v(() => t.labelSlot === !0 || t.label !== void 0),
+    E = v(
+      () =>
+        'q-field__label no-pointer-events absolute ellipsis' +
+        (t.labelColor !== void 0 && u.value !== !0 ? ` text-${t.labelColor}` : ''),
+    ),
+    x = v(() => ({
+      id: e.targetUid.value,
+      editable: e.editable.value,
+      focused: e.focused.value,
+      floatingLabel: h.value,
+      modelValue: t.modelValue,
+      emitValue: e.emitValue,
+    })),
+    P = v(() => {
+      const L = { for: e.targetUid.value };
+      return (
+        t.disable === !0
+          ? (L['aria-disabled'] = 'true')
+          : t.readonly === !0 && (L['aria-readonly'] = 'true'),
+        L
+      );
+    });
+  fe(
+    () => t.for,
+    (L) => {
+      e.targetUid.value = ms(L);
+    },
+  );
+  function C() {
+    const L = document.activeElement;
+    let U = e.targetRef !== void 0 && e.targetRef.value;
+    U &&
+      (L === null || L.id !== e.targetUid.value) &&
+      (U.hasAttribute('tabindex') === !0 || (U = U.querySelector('[tabindex]')),
+      U && U !== L && U.focus({ preventScroll: !0 }));
+  }
+  function S() {
+    Wi(C);
+  }
+  function p() {
+    y0(C);
+    const L = document.activeElement;
+    L !== null && e.rootRef.value.contains(L) && L.blur();
+  }
+  function $(L) {
+    clearTimeout(s),
+      e.editable.value === !0 && e.focused.value === !1 && ((e.focused.value = !0), n('focus', L));
+  }
+  function R(L, U) {
+    clearTimeout(s),
+      (s = setTimeout(() => {
+        (document.hasFocus() === !0 &&
+          (e.hasPopupOpen === !0 ||
+            e.controlRef === void 0 ||
+            e.controlRef.value === null ||
+            e.controlRef.value.contains(document.activeElement) !== !1)) ||
+          (e.focused.value === !0 && ((e.focused.value = !1), n('blur', L)), U !== void 0 && U());
+      }));
+  }
+  function B(L) {
+    Je(L),
+      l.platform.is.mobile !== !0
+        ? ((e.targetRef !== void 0 && e.targetRef.value) || e.rootRef.value).focus()
+        : e.rootRef.value.contains(document.activeElement) === !0 && document.activeElement.blur(),
+      t.type === 'file' && (e.inputRef.value.value = null),
+      n('update:modelValue', null),
+      n('clear', t.modelValue),
+      ze(() => {
+        d(), l.platform.is.mobile !== !0 && (a.value = !1);
+      });
+  }
+  function I() {
+    const L = [];
+    return (
+      o.prepend !== void 0 &&
+        L.push(
+          _(
+            'div',
+            {
+              class: 'q-field__prepend q-field__marginal row no-wrap items-center',
+              key: 'prepend',
+              onClick: bt,
+            },
+            o.prepend(),
+          ),
+        ),
+      L.push(
+        _(
+          'div',
+          { class: 'q-field__control-container col relative-position row no-wrap q-anchor--skip' },
+          Q(),
+        ),
+      ),
+      u.value === !0 &&
+        t.noErrorIcon === !1 &&
+        L.push(le('error', [_(yt, { name: l.iconSet.field.error, color: 'negative' })])),
+      t.loading === !0 || e.innerLoading.value === !0
+        ? L.push(
+            le(
+              'inner-loading-append',
+              o.loading !== void 0 ? o.loading() : [_(Us, { color: t.color })],
+            ),
+          )
+        : t.clearable === !0 &&
+          e.hasValue.value === !0 &&
+          e.editable.value === !0 &&
+          L.push(
+            le('inner-clearable-append', [
+              _(yt, {
+                class: 'q-field__focusable-action',
+                tag: 'button',
+                name: t.clearIcon || l.iconSet.field.clear,
+                tabindex: 0,
+                type: 'button',
+                'aria-hidden': null,
+                role: null,
+                onClick: B,
+              }),
+            ]),
+          ),
+      o.append !== void 0 &&
+        L.push(
+          _(
+            'div',
+            {
+              class: 'q-field__append q-field__marginal row no-wrap items-center',
+              key: 'append',
+              onClick: bt,
+            },
+            o.append(),
+          ),
+        ),
+      e.getInnerAppend !== void 0 && L.push(le('inner-append', e.getInnerAppend())),
+      e.getControlChild !== void 0 && L.push(e.getControlChild()),
+      L
+    );
+  }
+  function Q() {
+    const L = [];
+    return (
+      t.prefix !== void 0 &&
+        t.prefix !== null &&
+        L.push(_('div', { class: 'q-field__prefix no-pointer-events row items-center' }, t.prefix)),
+      e.getShadowControl !== void 0 && e.hasShadow.value === !0 && L.push(e.getShadowControl()),
+      e.getControl !== void 0
+        ? L.push(e.getControl())
+        : o.rawControl !== void 0
+        ? L.push(o.rawControl())
+        : o.control !== void 0 &&
+          L.push(
+            _(
+              'div',
+              {
+                ref: e.targetRef,
+                class: 'q-field__native row',
+                tabindex: -1,
+                ...e.splitAttrs.attributes.value,
+                'data-autofocus': t.autofocus === !0 || void 0,
+              },
+              o.control(x.value),
+            ),
+          ),
+      k.value === !0 && L.push(_('div', { class: E.value }, je(o.label, t.label))),
+      t.suffix !== void 0 &&
+        t.suffix !== null &&
+        L.push(_('div', { class: 'q-field__suffix no-pointer-events row items-center' }, t.suffix)),
+      L.concat(je(o.default))
+    );
+  }
+  function H() {
+    let L, U;
+    u.value === !0
+      ? f.value !== null
+        ? ((L = [_('div', { role: 'alert' }, f.value)]), (U = `q--slot-error-${f.value}`))
+        : ((L = je(o.error)), (U = 'q--slot-error'))
+      : (t.hideHint !== !0 || e.focused.value === !0) &&
+        (t.hint !== void 0
+          ? ((L = [_('div', t.hint)]), (U = `q--slot-hint-${t.hint}`))
+          : ((L = je(o.hint)), (U = 'q--slot-hint')));
+    const pe = t.counter === !0 || o.counter !== void 0;
+    if (t.hideBottomSpace === !0 && pe === !1 && L === void 0) return;
+    const G = _('div', { key: U, class: 'q-field__messages col' }, L);
+    return _(
+      'div',
+      {
+        class:
+          'q-field__bottom row items-start q-field__bottom--' +
+          (t.hideBottomSpace !== !0 ? 'animated' : 'stale'),
+        onClick: bt,
+      },
+      [
+        t.hideBottomSpace === !0 ? G : _(Zn, { name: 'q-transition--field-message' }, () => G),
+        pe === !0
+          ? _(
+              'div',
+              { class: 'q-field__counter' },
+              o.counter !== void 0 ? o.counter() : e.computedCounter.value,
+            )
+          : null,
+      ],
+    );
+  }
+  function le(L, U) {
+    return U === null
+      ? null
+      : _(
+          'div',
+          {
+            key: L,
+            class: 'q-field__append q-field__marginal row no-wrap items-center q-anchor--skip',
+          },
+          U,
+        );
+  }
+  let N = !1;
+  return (
+    An(() => {
+      N = !0;
+    }),
+    Fo(() => {
+      N === !0 && t.autofocus === !0 && i.focus();
+    }),
+    ct(() => {
+      en.value === !0 && t.for === void 0 && (e.targetUid.value = ms()),
+        t.autofocus === !0 && i.focus();
+    }),
+    We(() => {
+      clearTimeout(s);
+    }),
+    Object.assign(i, { focus: S, blur: p }),
+    function () {
+      const U =
+        e.getControl === void 0 && o.control === void 0
+          ? {
+              ...e.splitAttrs.attributes.value,
+              'data-autofocus': t.autofocus === !0 || void 0,
+              ...P.value,
+            }
+          : P.value;
+      return _('label', { ref: e.rootRef, class: [b.value, r.class], style: r.style, ...U }, [
+        o.before !== void 0
+          ? _(
+              'div',
+              { class: 'q-field__before q-field__marginal row no-wrap items-center', onClick: bt },
+              o.before(),
+            )
+          : null,
+        _('div', { class: 'q-field__inner relative-position col self-stretch' }, [
+          _('div', { ref: e.controlRef, class: T.value, tabindex: -1, ...e.controlEvents }, I()),
+          m.value === !0 ? H() : null,
+        ]),
+        o.after !== void 0
+          ? _(
+              'div',
+              { class: 'q-field__after q-field__marginal row no-wrap items-center', onClick: bt },
+              o.after(),
+            )
+          : null,
+      ]);
+    }
+  );
+}
+const _c = {
+    date: '####/##/##',
+    datetime: '####/##/## ##:##',
+    time: '##:##',
+    fulltime: '##:##:##',
+    phone: '(###) ### - ####',
+    card: '#### #### #### ####',
+  },
+  vi = {
+    '#': { pattern: '[\\d]', negate: '[^\\d]' },
+    S: { pattern: '[a-zA-Z]', negate: '[^a-zA-Z]' },
+    N: { pattern: '[0-9a-zA-Z]', negate: '[^0-9a-zA-Z]' },
+    A: { pattern: '[a-zA-Z]', negate: '[^a-zA-Z]', transform: (e) => e.toLocaleUpperCase() },
+    a: { pattern: '[a-zA-Z]', negate: '[^a-zA-Z]', transform: (e) => e.toLocaleLowerCase() },
+    X: { pattern: '[0-9a-zA-Z]', negate: '[^0-9a-zA-Z]', transform: (e) => e.toLocaleUpperCase() },
+    x: { pattern: '[0-9a-zA-Z]', negate: '[^0-9a-zA-Z]', transform: (e) => e.toLocaleLowerCase() },
+  },
+  ih = Object.keys(vi);
+ih.forEach((e) => {
+  vi[e].regex = new RegExp(vi[e].pattern);
+});
+const w0 = new RegExp(
+    '\\\\([^.*+?^${}()|([\\]])|([.*+?^${}()|[\\]])|([' + ih.join('') + '])|(.)',
+    'g',
+  ),
+  Sc = /[.*+?^${}()|[\]\\]/g,
+  nt = String.fromCharCode(1),
+  _0 = {
+    mask: String,
+    reverseFillMask: Boolean,
+    fillMask: [Boolean, String],
+    unmaskedValue: Boolean,
+  };
+function S0(e, t, n, o) {
+  let r, i, l, s;
+  const a = W(null),
+    c = W(f());
+  function u() {
+    return (
+      e.autogrow === !0 || ['textarea', 'text', 'search', 'url', 'tel', 'password'].includes(e.type)
+    );
+  }
+  fe(() => e.type + e.autogrow, h),
+    fe(
+      () => e.mask,
+      (C) => {
+        if (C !== void 0) m(c.value, !0);
+        else {
+          const S = x(c.value);
+          h(), e.modelValue !== S && t('update:modelValue', S);
+        }
+      },
+    ),
+    fe(
+      () => e.fillMask + e.reverseFillMask,
+      () => {
+        a.value === !0 && m(c.value, !0);
+      },
+    ),
+    fe(
+      () => e.unmaskedValue,
+      () => {
+        a.value === !0 && m(c.value);
+      },
+    );
+  function f() {
+    if ((h(), a.value === !0)) {
+      const C = k(x(e.modelValue));
+      return e.fillMask !== !1 ? P(C) : C;
+    }
+    return e.modelValue;
+  }
+  function d(C) {
+    if (C < r.length) return r.slice(-C);
+    let S = '',
+      p = r;
+    const $ = p.indexOf(nt);
+    if ($ > -1) {
+      for (let R = C - p.length; R > 0; R--) S += nt;
+      p = p.slice(0, $) + S + p.slice($);
+    }
+    return p;
+  }
+  function h() {
+    if (((a.value = e.mask !== void 0 && e.mask.length > 0 && u()), a.value === !1)) {
+      (s = void 0), (r = ''), (i = '');
+      return;
+    }
+    const C = _c[e.mask] === void 0 ? e.mask : _c[e.mask],
+      S = typeof e.fillMask == 'string' && e.fillMask.length > 0 ? e.fillMask.slice(0, 1) : '_',
+      p = S.replace(Sc, '\\$&'),
+      $ = [],
+      R = [],
+      B = [];
+    let I = e.reverseFillMask === !0,
+      Q = '',
+      H = '';
+    C.replace(w0, (U, pe, G, M, te) => {
+      if (M !== void 0) {
+        const ae = vi[M];
+        B.push(ae),
+          (H = ae.negate),
+          I === !0 &&
+            (R.push('(?:' + H + '+)?(' + ae.pattern + '+)?(?:' + H + '+)?(' + ae.pattern + '+)?'),
+            (I = !1)),
+          R.push('(?:' + H + '+)?(' + ae.pattern + ')?');
+      } else if (G !== void 0)
+        (Q = '\\' + (G === '\\' ? '' : G)), B.push(G), $.push('([^' + Q + ']+)?' + Q + '?');
+      else {
+        const ae = pe !== void 0 ? pe : te;
+        (Q = ae === '\\' ? '\\\\\\\\' : ae.replace(Sc, '\\\\$&')),
+          B.push(ae),
+          $.push('([^' + Q + ']+)?' + Q + '?');
+      }
+    });
+    const le = new RegExp(
+        '^' +
+          $.join('') +
+          '(' +
+          (Q === '' ? '.' : '[^' + Q + ']') +
+          '+)?' +
+          (Q === '' ? '' : '[' + Q + ']*') +
+          '$',
+      ),
+      N = R.length - 1,
+      L = R.map((U, pe) =>
+        pe === 0 && e.reverseFillMask === !0
+          ? new RegExp('^' + p + '*' + U)
+          : pe === N
+          ? new RegExp(
+              '^' +
+                U +
+                '(' +
+                (H === '' ? '.' : H) +
+                '+)?' +
+                (e.reverseFillMask === !0 ? '$' : p + '*'),
+            )
+          : new RegExp('^' + U),
+      );
+    (l = B),
+      (s = (U) => {
+        const pe = le.exec(e.reverseFillMask === !0 ? U : U.slice(0, B.length));
+        pe !== null && (U = pe.slice(1).join(''));
+        const G = [],
+          M = L.length;
+        for (let te = 0, ae = U; te < M; te++) {
+          const Se = L[te].exec(ae);
+          if (Se === null) break;
+          (ae = ae.slice(Se.shift().length)), G.push(...Se);
+        }
+        return G.length > 0 ? G.join('') : U;
+      }),
+      (r = B.map((U) => (typeof U == 'string' ? U : nt)).join('')),
+      (i = r.split(nt).join(S));
+  }
+  function m(C, S, p) {
+    const $ = o.value,
+      R = $.selectionEnd,
+      B = $.value.length - R,
+      I = x(C);
+    S === !0 && h();
+    const Q = k(I),
+      H = e.fillMask !== !1 ? P(Q) : Q,
+      le = c.value !== H;
+    $.value !== H && ($.value = H),
+      le === !0 && (c.value = H),
+      document.activeElement === $ &&
+        ze(() => {
+          if (H === i) {
+            const L = e.reverseFillMask === !0 ? i.length : 0;
+            $.setSelectionRange(L, L, 'forward');
+            return;
+          }
+          if (p === 'insertFromPaste' && e.reverseFillMask !== !0) {
+            const L = R - 1;
+            b.right($, L, L);
+            return;
+          }
+          if (['deleteContentBackward', 'deleteContentForward'].indexOf(p) > -1) {
+            const L =
+              e.reverseFillMask === !0
+                ? R === 0
+                  ? H.length > Q.length
+                    ? 1
+                    : 0
+                  : Math.max(0, H.length - (H === i ? 0 : Math.min(Q.length, B) + 1)) + 1
+                : R;
+            $.setSelectionRange(L, L, 'forward');
+            return;
+          }
+          if (e.reverseFillMask === !0)
+            if (le === !0) {
+              const L = Math.max(0, H.length - (H === i ? 0 : Math.min(Q.length, B + 1)));
+              L === 1 && R === 1 ? $.setSelectionRange(L, L, 'forward') : b.rightReverse($, L, L);
+            } else {
+              const L = H.length - B;
+              $.setSelectionRange(L, L, 'backward');
+            }
+          else if (le === !0) {
+            const L = Math.max(0, r.indexOf(nt), Math.min(Q.length, R) - 1);
+            b.right($, L, L);
+          } else {
+            const L = R - 1;
+            b.right($, L, L);
+          }
+        });
+    const N = e.unmaskedValue === !0 ? x(H) : H;
+    String(e.modelValue) !== N && n(N, !0);
+  }
+  function g(C, S, p) {
+    const $ = k(x(C.value));
+    (S = Math.max(0, r.indexOf(nt), Math.min($.length, S))), C.setSelectionRange(S, p, 'forward');
+  }
+  const b = {
+    left(C, S, p, $) {
+      const R = r.slice(S - 1).indexOf(nt) === -1;
+      let B = Math.max(0, S - 1);
+      for (; B >= 0; B--)
+        if (r[B] === nt) {
+          (S = B), R === !0 && S++;
+          break;
+        }
+      if (B < 0 && r[S] !== void 0 && r[S] !== nt) return b.right(C, 0, 0);
+      S >= 0 && C.setSelectionRange(S, $ === !0 ? p : S, 'backward');
+    },
+    right(C, S, p, $) {
+      const R = C.value.length;
+      let B = Math.min(R, p + 1);
+      for (; B <= R; B++)
+        if (r[B] === nt) {
+          p = B;
+          break;
+        } else r[B - 1] === nt && (p = B);
+      if (B > R && r[p - 1] !== void 0 && r[p - 1] !== nt) return b.left(C, R, R);
+      C.setSelectionRange($ ? S : p, p, 'forward');
+    },
+    leftReverse(C, S, p, $) {
+      const R = d(C.value.length);
+      let B = Math.max(0, S - 1);
+      for (; B >= 0; B--)
+        if (R[B - 1] === nt) {
+          S = B;
+          break;
+        } else if (R[B] === nt && ((S = B), B === 0)) break;
+      if (B < 0 && R[S] !== void 0 && R[S] !== nt) return b.rightReverse(C, 0, 0);
+      S >= 0 && C.setSelectionRange(S, $ === !0 ? p : S, 'backward');
+    },
+    rightReverse(C, S, p, $) {
+      const R = C.value.length,
+        B = d(R),
+        I = B.slice(0, p + 1).indexOf(nt) === -1;
+      let Q = Math.min(R, p + 1);
+      for (; Q <= R; Q++)
+        if (B[Q - 1] === nt) {
+          (p = Q), p > 0 && I === !0 && p--;
+          break;
+        }
+      if (Q > R && B[p - 1] !== void 0 && B[p - 1] !== nt) return b.leftReverse(C, R, R);
+      C.setSelectionRange($ === !0 ? S : p, p, 'forward');
+    },
+  };
+  function T(C) {
+    if ((t('keydown', C), js(C) === !0)) return;
+    const S = o.value,
+      p = S.selectionStart,
+      $ = S.selectionEnd;
+    if (C.keyCode === 37 || C.keyCode === 39) {
+      const R =
+        b[(C.keyCode === 39 ? 'right' : 'left') + (e.reverseFillMask === !0 ? 'Reverse' : '')];
+      C.preventDefault(), R(S, p, $, C.shiftKey);
+    } else
+      C.keyCode === 8 && e.reverseFillMask !== !0 && p === $
+        ? b.left(S, p, $, !0)
+        : C.keyCode === 46 && e.reverseFillMask === !0 && p === $ && b.rightReverse(S, p, $, !0);
+  }
+  function k(C) {
+    if (C == null || C === '') return '';
+    if (e.reverseFillMask === !0) return E(C);
+    const S = l;
+    let p = 0,
+      $ = '';
+    for (let R = 0; R < S.length; R++) {
+      const B = C[p],
+        I = S[R];
+      if (typeof I == 'string') ($ += I), B === I && p++;
+      else if (B !== void 0 && I.regex.test(B))
+        ($ += I.transform !== void 0 ? I.transform(B) : B), p++;
+      else return $;
+    }
+    return $;
+  }
+  function E(C) {
+    const S = l,
+      p = r.indexOf(nt);
+    let $ = C.length - 1,
+      R = '';
+    for (let B = S.length - 1; B >= 0 && $ > -1; B--) {
+      const I = S[B];
+      let Q = C[$];
+      if (typeof I == 'string') (R = I + R), Q === I && $--;
+      else if (Q !== void 0 && I.regex.test(Q))
+        do (R = (I.transform !== void 0 ? I.transform(Q) : Q) + R), $--, (Q = C[$]);
+        while (p === B && Q !== void 0 && I.regex.test(Q));
+      else return R;
+    }
+    return R;
+  }
+  function x(C) {
+    return typeof C != 'string' || s === void 0 ? (typeof C == 'number' ? s('' + C) : C) : s(C);
+  }
+  function P(C) {
+    return i.length - C.length <= 0
+      ? C
+      : e.reverseFillMask === !0 && C.length > 0
+      ? i.slice(0, -C.length) + C
+      : C + i.slice(C.length);
+  }
+  return {
+    innerValue: c,
+    hasMask: a,
+    moveCursorForPaste: g,
+    updateMaskValue: m,
+    onMaskedKeydown: T,
+  };
+}
+const Ji = { name: String };
+function x0(e) {
+  return v(() => ({ type: 'hidden', name: e.name, value: e.modelValue }));
+}
+function lh(e = {}) {
+  return (t, n, o) => {
+    t[n](_('input', { class: 'hidden' + (o || ''), ...e.value }));
+  };
+}
+function sh(e) {
+  return v(() => e.name || e.for);
+}
+function C0(e, t) {
+  function n() {
+    const o = e.modelValue;
+    try {
+      const r =
+        'DataTransfer' in window
+          ? new DataTransfer()
+          : 'ClipboardEvent' in window
+          ? new ClipboardEvent('').clipboardData
+          : void 0;
+      return (
+        Object(o) === o &&
+          ('length' in o ? Array.from(o) : [o]).forEach((i) => {
+            r.items.add(i);
+          }),
+        { files: r.files }
+      );
+    } catch {
+      return { files: void 0 };
+    }
+  }
+  return v(
+    t === !0
+      ? () => {
+          if (e.type === 'file') return n();
+        }
+      : n,
+  );
+}
+const k0 = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/,
+  E0 =
+    /[\u4e00-\u9fff\u3400-\u4dbf\u{20000}-\u{2a6df}\u{2a700}-\u{2b73f}\u{2b740}-\u{2b81f}\u{2b820}-\u{2ceaf}\uf900-\ufaff\u3300-\u33ff\ufe30-\ufe4f\uf900-\ufaff\u{2f800}-\u{2fa1f}]/u,
+  q0 = /[\u3131-\u314e\u314f-\u3163\uac00-\ud7a3]/,
+  T0 = /[a-z0-9_ -]$/i;
+function ah(e) {
+  return function (n) {
+    if (n.type === 'compositionend' || n.type === 'change') {
+      if (n.target.qComposing !== !0) return;
+      (n.target.qComposing = !1), e(n);
+    } else
+      n.type === 'compositionupdate' &&
+        n.target.qComposing !== !0 &&
+        typeof n.data == 'string' &&
+        (Ne.is.firefox === !0
+          ? T0.test(n.data) === !1
+          : k0.test(n.data) === !0 || E0.test(n.data) === !0 || q0.test(n.data) === !0) === !0 &&
+        (n.target.qComposing = !0);
+  };
+}
+const to = Pe({
+    name: 'QInput',
+    inheritAttrs: !1,
+    props: {
+      ...Qi,
+      ..._0,
+      ...Ji,
+      modelValue: { required: !1 },
+      shadowText: String,
+      type: { type: String, default: 'text' },
+      debounce: [String, Number],
+      autogrow: Boolean,
+      inputClass: [Array, String, Object],
+      inputStyle: [Array, String, Object],
+    },
+    emits: [...ua, 'paste', 'change', 'keydown', 'animationend'],
+    setup(e, { emit: t, attrs: n }) {
+      const { proxy: o } = qe(),
+        { $q: r } = o,
+        i = {};
+      let l = NaN,
+        s,
+        a,
+        c,
+        u;
+      const f = W(null),
+        d = sh(e),
+        {
+          innerValue: h,
+          hasMask: m,
+          moveCursorForPaste: g,
+          updateMaskValue: b,
+          onMaskedKeydown: T,
+        } = S0(e, t, le, f),
+        k = C0(e, !0),
+        E = v(() => _r(h.value)),
+        x = ah(Q),
+        P = ca(),
+        C = v(() => e.type === 'textarea' || e.autogrow === !0),
+        S = v(
+          () => C.value === !0 || ['text', 'search', 'url', 'tel', 'password'].includes(e.type),
+        ),
+        p = v(() => {
+          const M = {
+            ...P.splitAttrs.listeners.value,
+            onInput: Q,
+            onPaste: I,
+            onChange: L,
+            onBlur: U,
+            onFocus: Et,
+          };
+          return (
+            (M.onCompositionstart = M.onCompositionupdate = M.onCompositionend = x),
+            m.value === !0 && (M.onKeydown = T),
+            e.autogrow === !0 && (M.onAnimationend = H),
+            M
+          );
+        }),
+        $ = v(() => {
+          const M = {
+            tabindex: 0,
+            'data-autofocus': e.autofocus === !0 || void 0,
+            rows: e.type === 'textarea' ? 6 : void 0,
+            'aria-label': e.label,
+            name: d.value,
+            ...P.splitAttrs.attributes.value,
+            id: P.targetUid.value,
+            maxlength: e.maxlength,
+            disabled: e.disable === !0,
+            readonly: e.readonly === !0,
+          };
+          return C.value === !1 && (M.type = e.type), e.autogrow === !0 && (M.rows = 1), M;
+        });
+      fe(
+        () => e.type,
+        () => {
+          f.value && (f.value.value = e.modelValue);
+        },
+      ),
+        fe(
+          () => e.modelValue,
+          (M) => {
+            if (m.value === !0) {
+              if (a === !0 && ((a = !1), String(M) === l)) return;
+              b(M);
+            } else
+              h.value !== M &&
+                ((h.value = M),
+                e.type === 'number' &&
+                  i.hasOwnProperty('value') === !0 &&
+                  (s === !0 ? (s = !1) : delete i.value));
+            e.autogrow === !0 && ze(N);
+          },
+        ),
+        fe(
+          () => e.autogrow,
+          (M) => {
+            M === !0 ? ze(N) : f.value !== null && n.rows > 0 && (f.value.style.height = 'auto');
+          },
+        ),
+        fe(
+          () => e.dense,
+          () => {
+            e.autogrow === !0 && ze(N);
+          },
+        );
+      function R() {
+        Wi(() => {
+          const M = document.activeElement;
+          f.value !== null &&
+            f.value !== M &&
+            (M === null || M.id !== P.targetUid.value) &&
+            f.value.focus({ preventScroll: !0 });
+        });
+      }
+      function B() {
+        f.value !== null && f.value.select();
+      }
+      function I(M) {
+        if (m.value === !0 && e.reverseFillMask !== !0) {
+          const te = M.target;
+          g(te, te.selectionStart, te.selectionEnd);
+        }
+        t('paste', M);
+      }
+      function Q(M) {
+        if (!M || !M.target) return;
+        if (e.type === 'file') {
+          t('update:modelValue', M.target.files);
+          return;
+        }
+        const te = M.target.value;
+        if (M.target.qComposing === !0) {
+          i.value = te;
+          return;
+        }
+        if (m.value === !0) b(te, !1, M.inputType);
+        else if ((le(te), S.value === !0 && M.target === document.activeElement)) {
+          const { selectionStart: ae, selectionEnd: Se } = M.target;
+          ae !== void 0 &&
+            Se !== void 0 &&
+            ze(() => {
+              M.target === document.activeElement &&
+                te.indexOf(M.target.value) === 0 &&
+                M.target.setSelectionRange(ae, Se);
+            });
+        }
+        e.autogrow === !0 && N();
+      }
+      function H(M) {
+        t('animationend', M), N();
+      }
+      function le(M, te) {
+        (u = () => {
+          e.type !== 'number' && i.hasOwnProperty('value') === !0 && delete i.value,
+            e.modelValue !== M &&
+              l !== M &&
+              ((l = M),
+              te === !0 && (a = !0),
+              t('update:modelValue', M),
+              ze(() => {
+                l === M && (l = NaN);
+              })),
+            (u = void 0);
+        }),
+          e.type === 'number' && ((s = !0), (i.value = M)),
+          e.debounce !== void 0
+            ? (clearTimeout(c), (i.value = M), (c = setTimeout(u, e.debounce)))
+            : u();
+      }
+      function N() {
+        requestAnimationFrame(() => {
+          const M = f.value;
+          if (M !== null) {
+            const te = M.parentNode.style,
+              { overflow: ae } = M.style;
+            r.platform.is.firefox !== !0 && (M.style.overflow = 'hidden'),
+              (te.marginBottom = M.scrollHeight - 1 + 'px'),
+              (M.style.height = '1px'),
+              (M.style.height = M.scrollHeight + 'px'),
+              (M.style.overflow = ae),
+              (te.marginBottom = '');
+          }
+        });
+      }
+      function L(M) {
+        x(M), clearTimeout(c), u !== void 0 && u(), t('change', M.target.value);
+      }
+      function U(M) {
+        M !== void 0 && Et(M),
+          clearTimeout(c),
+          u !== void 0 && u(),
+          (s = !1),
+          (a = !1),
+          delete i.value,
+          e.type !== 'file' &&
+            setTimeout(() => {
+              f.value !== null && (f.value.value = h.value !== void 0 ? h.value : '');
+            });
+      }
+      function pe() {
+        return i.hasOwnProperty('value') === !0 ? i.value : h.value !== void 0 ? h.value : '';
+      }
+      We(() => {
+        U();
+      }),
+        ct(() => {
+          e.autogrow === !0 && N();
+        }),
+        Object.assign(P, {
+          innerValue: h,
+          fieldClass: v(
+            () =>
+              `q-${C.value === !0 ? 'textarea' : 'input'}` +
+              (e.autogrow === !0 ? ' q-textarea--autogrow' : ''),
+          ),
+          hasShadow: v(
+            () => e.type !== 'file' && typeof e.shadowText == 'string' && e.shadowText.length > 0,
+          ),
+          inputRef: f,
+          emitValue: le,
+          hasValue: E,
+          floatingLabel: v(() => E.value === !0 || _r(e.displayValue)),
+          getControl: () =>
+            _(C.value === !0 ? 'textarea' : 'input', {
+              ref: f,
+              class: ['q-field__native q-placeholder', e.inputClass],
+              style: e.inputStyle,
+              ...$.value,
+              ...p.value,
+              ...(e.type !== 'file' ? { value: pe() } : k.value),
+            }),
+          getShadowControl: () =>
+            _(
+              'div',
+              {
+                class:
+                  'q-field__native q-field__shadow absolute-bottom no-pointer-events' +
+                  (C.value === !0 ? '' : ' text-no-wrap'),
+              },
+              [_('span', { class: 'invisible' }, pe()), _('span', e.shadowText)],
+            ),
+        });
+      const G = fa(P);
+      return (
+        Object.assign(o, { focus: R, select: B, getNativeElement: () => f.value }),
+        At(o, 'nativeEl', () => f.value),
+        G
+      );
+    },
+  }),
+  Un = Pe({
+    name: 'QCardSection',
+    props: { tag: { type: String, default: 'div' }, horizontal: Boolean },
+    setup(e, { slots: t }) {
+      const n = v(
+        () =>
+          `q-card__section q-card__section--${e.horizontal === !0 ? 'horiz row no-wrap' : 'vert'}`,
+      );
+      return () => _(e.tag, { class: n.value }, je(t.default));
+    },
+  }),
+  da = Pe({
+    name: 'QCard',
+    props: {
+      ...St,
+      tag: { type: String, default: 'div' },
+      square: Boolean,
+      flat: Boolean,
+      bordered: Boolean,
+    },
+    setup(e, { slots: t }) {
+      const {
+          proxy: { $q: n },
+        } = qe(),
+        o = xt(e, n),
+        r = v(
+          () =>
+            'q-card' +
+            (o.value === !0 ? ' q-card--dark q-dark' : '') +
+            (e.bordered === !0 ? ' q-card--bordered' : '') +
+            (e.square === !0 ? ' q-card--square no-border-radius' : '') +
+            (e.flat === !0 ? ' q-card--flat no-shadow' : ''),
+        );
+      return () => _(e.tag, { class: r.value }, je(t.default));
+    },
+  }),
+  uh = Pe({
+    name: 'QTh',
+    props: { props: Object, autoWidth: Boolean },
+    emits: ['click'],
+    setup(e, { slots: t, emit: n }) {
+      const o = qe(),
+        {
+          proxy: { $q: r },
+        } = o,
+        i = (l) => {
+          n('click', l);
+        };
+      return () => {
+        if (e.props === void 0)
+          return _(
+            'th',
+            { class: e.autoWidth === !0 ? 'q-table--col-auto-width' : '', onClick: i },
+            je(t.default),
+          );
+        let l, s;
+        const a = o.vnode.key;
+        if (a) {
+          if (((l = e.props.colsMap[a]), l === void 0)) return;
+        } else l = e.props.col;
+        if (l.sortable === !0) {
+          const u = l.align === 'right' ? 'unshift' : 'push';
+          (s = Hs(t.default, [])),
+            s[u](_(yt, { class: l.__iconClass, name: r.iconSet.table.arrowUp }));
+        } else s = je(t.default);
+        const c = {
+          class: l.__thClass + (e.autoWidth === !0 ? ' q-table--col-auto-width' : ''),
+          style: l.headerStyle,
+          onClick: (u) => {
+            l.sortable === !0 && e.props.sort(l), i(u);
+          },
+        };
+        return _('th', c, s);
+      };
+    },
+  }),
+  P0 = { true: 'inset', item: 'item-inset', 'item-thumbnail': 'item-thumbnail-inset' },
+  Al = { xs: 2, sm: 4, md: 8, lg: 16, xl: 24 },
+  ch = Pe({
+    name: 'QSeparator',
+    props: {
+      ...St,
+      spaced: [Boolean, String],
+      inset: [Boolean, String],
+      vertical: Boolean,
+      color: String,
+      size: String,
+    },
+    setup(e) {
+      const t = qe(),
+        n = xt(e, t.proxy.$q),
+        o = v(() => (e.vertical === !0 ? 'vertical' : 'horizontal')),
+        r = v(() => ` q-separator--${o.value}`),
+        i = v(() => (e.inset !== !1 ? `${r.value}-${P0[e.inset]}` : '')),
+        l = v(
+          () =>
+            `q-separator${r.value}${i.value}` +
+            (e.color !== void 0 ? ` bg-${e.color}` : '') +
+            (n.value === !0 ? ' q-separator--dark' : ''),
+        ),
+        s = v(() => {
+          const a = {};
+          if (
+            (e.size !== void 0 && (a[e.vertical === !0 ? 'width' : 'height'] = e.size),
+            e.spaced !== !1)
+          ) {
+            const c =
+                e.spaced === !0 ? `${Al.md}px` : e.spaced in Al ? `${Al[e.spaced]}px` : e.spaced,
+              u = e.vertical === !0 ? ['Left', 'Right'] : ['Top', 'Bottom'];
+            a[`margin${u[0]}`] = a[`margin${u[1]}`] = c;
+          }
+          return a;
+        });
+      return () => _('hr', { class: l.value, style: s.value, 'aria-orientation': o.value });
+    },
+  }),
+  R0 = Pe({
+    name: 'QList',
+    props: {
+      ...St,
+      bordered: Boolean,
+      dense: Boolean,
+      separator: Boolean,
+      padding: Boolean,
+      tag: { type: String, default: 'div' },
+    },
+    setup(e, { slots: t }) {
+      const n = qe(),
+        o = xt(e, n.proxy.$q),
+        r = v(
+          () =>
+            'q-list' +
+            (e.bordered === !0 ? ' q-list--bordered' : '') +
+            (e.dense === !0 ? ' q-list--dense' : '') +
+            (e.separator === !0 ? ' q-list--separator' : '') +
+            (o.value === !0 ? ' q-list--dark' : '') +
+            (e.padding === !0 ? ' q-list--padding' : ''),
+        );
+      return () => _(e.tag, { class: r.value }, je(t.default));
+    },
+  }),
+  A0 = ['horizontal', 'vertical', 'cell', 'none'],
+  O0 = Pe({
+    name: 'QMarkupTable',
+    props: {
+      ...St,
+      dense: Boolean,
+      flat: Boolean,
+      bordered: Boolean,
+      square: Boolean,
+      wrapCells: Boolean,
+      separator: { type: String, default: 'horizontal', validator: (e) => A0.includes(e) },
+    },
+    setup(e, { slots: t }) {
+      const n = qe(),
+        o = xt(e, n.proxy.$q),
+        r = v(
+          () =>
+            `q-markup-table q-table__container q-table__card q-table--${e.separator}-separator` +
+            (o.value === !0 ? ' q-table--dark q-table__card--dark q-dark' : '') +
+            (e.dense === !0 ? ' q-table--dense' : '') +
+            (e.flat === !0 ? ' q-table--flat' : '') +
+            (e.bordered === !0 ? ' q-table--bordered' : '') +
+            (e.square === !0 ? ' q-table--square' : '') +
+            (e.wrapCells === !1 ? ' q-table--no-wrap' : ''),
+        );
+      return () => _('div', { class: r.value }, [_('table', { class: 'q-table' }, je(t.default))]);
+    },
+  });
+function fh(e, t) {
+  return _('div', e, [_('table', { class: 'q-table' }, t)]);
+}
+let gi = !1;
+{
+  const e = document.createElement('div');
+  e.setAttribute('dir', 'rtl'),
+    Object.assign(e.style, { width: '1px', height: '1px', overflow: 'auto' });
+  const t = document.createElement('div');
+  Object.assign(t.style, { width: '1000px', height: '1px' }),
+    document.body.appendChild(e),
+    e.appendChild(t),
+    (e.scrollLeft = -1e3),
+    (gi = e.scrollLeft >= 0),
+    e.remove();
+}
+const Vt = 1e3,
+  $0 = ['start', 'center', 'end', 'start-force', 'center-force', 'end-force'],
+  dh = Array.prototype.filter,
+  L0 =
+    window.getComputedStyle(document.body).overflowAnchor === void 0
+      ? hn
+      : function (e, t) {
+          e !== null &&
+            (cancelAnimationFrame(e._qOverflowAnimationFrame),
+            (e._qOverflowAnimationFrame = requestAnimationFrame(() => {
+              if (e === null) return;
+              const n = e.children || [];
+              dh.call(n, (r) => r.dataset && r.dataset.qVsAnchor !== void 0).forEach((r) => {
+                delete r.dataset.qVsAnchor;
+              });
+              const o = n[t];
+              o && o.dataset && (o.dataset.qVsAnchor = '');
+            })));
+        };
+function Co(e, t) {
+  return e + t;
+}
+function Ol(e, t, n, o, r, i, l, s) {
+  const a = e === window ? document.scrollingElement || document.documentElement : e,
+    c = r === !0 ? 'offsetWidth' : 'offsetHeight',
+    u = {
+      scrollStart: 0,
+      scrollViewSize: -l - s,
+      scrollMaxSize: 0,
+      offsetStart: -l,
+      offsetEnd: -s,
+    };
+  if (
+    (r === !0
+      ? (e === window
+          ? ((u.scrollStart =
+              window.pageXOffset || window.scrollX || document.body.scrollLeft || 0),
+            (u.scrollViewSize += document.documentElement.clientWidth))
+          : ((u.scrollStart = a.scrollLeft), (u.scrollViewSize += a.clientWidth)),
+        (u.scrollMaxSize = a.scrollWidth),
+        i === !0 &&
+          (u.scrollStart = (gi === !0 ? u.scrollMaxSize - u.scrollViewSize : 0) - u.scrollStart))
+      : (e === window
+          ? ((u.scrollStart = window.pageYOffset || window.scrollY || document.body.scrollTop || 0),
+            (u.scrollViewSize += document.documentElement.clientHeight))
+          : ((u.scrollStart = a.scrollTop), (u.scrollViewSize += a.clientHeight)),
+        (u.scrollMaxSize = a.scrollHeight)),
+    n !== null)
+  )
+    for (let f = n.previousElementSibling; f !== null; f = f.previousElementSibling)
+      f.classList.contains('q-virtual-scroll--skip') === !1 && (u.offsetStart += f[c]);
+  if (o !== null)
+    for (let f = o.nextElementSibling; f !== null; f = f.nextElementSibling)
+      f.classList.contains('q-virtual-scroll--skip') === !1 && (u.offsetEnd += f[c]);
+  if (t !== e) {
+    const f = a.getBoundingClientRect(),
+      d = t.getBoundingClientRect();
+    r === !0
+      ? ((u.offsetStart += d.left - f.left), (u.offsetEnd -= d.width))
+      : ((u.offsetStart += d.top - f.top), (u.offsetEnd -= d.height)),
+      e !== window && (u.offsetStart += u.scrollStart),
+      (u.offsetEnd += u.scrollMaxSize - u.offsetStart);
+  }
+  return u;
+}
+function xc(e, t, n, o) {
+  t === 'end' &&
+    (t = (e === window ? document.body : e)[n === !0 ? 'scrollWidth' : 'scrollHeight']),
+    e === window
+      ? n === !0
+        ? (o === !0 &&
+            (t =
+              (gi === !0 ? document.body.scrollWidth - document.documentElement.clientWidth : 0) -
+              t),
+          window.scrollTo(t, window.pageYOffset || window.scrollY || document.body.scrollTop || 0))
+        : window.scrollTo(window.pageXOffset || window.scrollX || document.body.scrollLeft || 0, t)
+      : n === !0
+      ? (o === !0 && (t = (gi === !0 ? e.scrollWidth - e.offsetWidth : 0) - t), (e.scrollLeft = t))
+      : (e.scrollTop = t);
+}
+function Uo(e, t, n, o) {
+  if (n >= o) return 0;
+  const r = t.length,
+    i = Math.floor(n / Vt),
+    l = Math.floor((o - 1) / Vt) + 1;
+  let s = e.slice(i, l).reduce(Co, 0);
+  return (
+    n % Vt !== 0 && (s -= t.slice(i * Vt, n).reduce(Co, 0)),
+    o % Vt !== 0 && o !== r && (s -= t.slice(o, l * Vt).reduce(Co, 0)),
+    s
+  );
+}
+const hh = {
+    virtualScrollSliceSize: { type: [Number, String], default: null },
+    virtualScrollSliceRatioBefore: { type: [Number, String], default: 1 },
+    virtualScrollSliceRatioAfter: { type: [Number, String], default: 1 },
+    virtualScrollItemSize: { type: [Number, String], default: 24 },
+    virtualScrollStickySizeStart: { type: [Number, String], default: 0 },
+    virtualScrollStickySizeEnd: { type: [Number, String], default: 0 },
+    tableColspan: [Number, String],
+  },
+  mh = Object.keys(hh),
+  vh = { virtualScrollHorizontal: Boolean, onVirtualScroll: Function, ...hh };
+function gh({
+  virtualScrollLength: e,
+  getVirtualScrollTarget: t,
+  getVirtualScrollEl: n,
+  virtualScrollItemSizeComputed: o,
+}) {
+  const r = qe(),
+    { props: i, emit: l, proxy: s } = r,
+    { $q: a } = s;
+  let c,
+    u,
+    f,
+    d = [],
+    h;
+  const m = W(0),
+    g = W(0),
+    b = W({}),
+    T = W(null),
+    k = W(null),
+    E = W(null),
+    x = W({ from: 0, to: 0 }),
+    P = v(() => (i.tableColspan !== void 0 ? i.tableColspan : 100));
+  o === void 0 && (o = v(() => i.virtualScrollItemSize));
+  const C = v(() => o.value + ';' + i.virtualScrollHorizontal),
+    S = v(
+      () => C.value + ';' + i.virtualScrollSliceRatioBefore + ';' + i.virtualScrollSliceRatioAfter,
+    );
+  fe(S, () => {
+    N();
+  }),
+    fe(C, p);
+  function p() {
+    le(u, !0);
+  }
+  function $(M) {
+    le(M === void 0 ? u : M);
+  }
+  function R(M, te) {
+    const ae = t();
+    if (ae == null || ae.nodeType === 8) return;
+    const Se = Ol(
+      ae,
+      n(),
+      T.value,
+      k.value,
+      i.virtualScrollHorizontal,
+      a.lang.rtl,
+      i.virtualScrollStickySizeStart,
+      i.virtualScrollStickySizeEnd,
+    );
+    f !== Se.scrollViewSize && N(Se.scrollViewSize),
+      I(
+        ae,
+        Se,
+        Math.min(e.value - 1, Math.max(0, parseInt(M, 10) || 0)),
+        0,
+        $0.indexOf(te) > -1 ? te : u > -1 && M > u ? 'end' : 'start',
+      );
+  }
+  function B() {
+    const M = t();
+    if (M == null || M.nodeType === 8) return;
+    const te = Ol(
+        M,
+        n(),
+        T.value,
+        k.value,
+        i.virtualScrollHorizontal,
+        a.lang.rtl,
+        i.virtualScrollStickySizeStart,
+        i.virtualScrollStickySizeEnd,
+      ),
+      ae = e.value - 1,
+      Se = te.scrollMaxSize - te.offsetStart - te.offsetEnd - g.value;
+    if (c === te.scrollStart) return;
+    if (te.scrollMaxSize <= 0) {
+      I(M, te, 0, 0);
+      return;
+    }
+    f !== te.scrollViewSize && N(te.scrollViewSize), Q(x.value.from);
+    const Me = Math.floor(
+      te.scrollMaxSize -
+        Math.max(te.scrollViewSize, te.offsetEnd) -
+        Math.min(h[ae], te.scrollViewSize / 2),
+    );
+    if (Me > 0 && Math.ceil(te.scrollStart) >= Me) {
+      I(M, te, ae, te.scrollMaxSize - te.offsetEnd - d.reduce(Co, 0));
+      return;
+    }
+    let oe = 0,
+      A = te.scrollStart - te.offsetStart,
+      ee = A;
+    if (A <= Se && A + te.scrollViewSize >= m.value) (A -= m.value), (oe = x.value.from), (ee = A);
+    else for (let F = 0; A >= d[F] && oe < ae; F++) (A -= d[F]), (oe += Vt);
+    for (; A > 0 && oe < ae; )
+      (A -= h[oe]), A > -te.scrollViewSize ? (oe++, (ee = A)) : (ee = h[oe] + A);
+    I(M, te, oe, ee);
+  }
+  function I(M, te, ae, Se, Me) {
+    const oe = typeof Me == 'string' && Me.indexOf('-force') > -1,
+      A = oe === !0 ? Me.replace('-force', '') : Me,
+      ee = A !== void 0 ? A : 'start';
+    let F = Math.max(0, ae - b.value[ee]),
+      ie = F + b.value.total;
+    ie > e.value && ((ie = e.value), (F = Math.max(0, ie - b.value.total))), (c = te.scrollStart);
+    const xe = F !== x.value.from || ie !== x.value.to;
+    if (xe === !1 && A === void 0) {
+      U(ae);
+      return;
+    }
+    const { activeElement: y } = document,
+      w = E.value;
+    xe === !0 &&
+      w !== null &&
+      w !== y &&
+      w.contains(y) === !0 &&
+      (w.addEventListener('focusout', H),
+      setTimeout(() => {
+        w !== null && w.removeEventListener('focusout', H);
+      })),
+      L0(w, ae - F);
+    const O = A !== void 0 ? h.slice(F, ae).reduce(Co, 0) : 0;
+    if (xe === !0) {
+      const V = ie >= x.value.from && F <= x.value.to ? x.value.to : ie;
+      (x.value = { from: F, to: V }),
+        (m.value = Uo(d, h, 0, F)),
+        (g.value = Uo(d, h, ie, e.value)),
+        requestAnimationFrame(() => {
+          x.value.to !== ie &&
+            c === te.scrollStart &&
+            ((x.value = { from: x.value.from, to: ie }), (g.value = Uo(d, h, ie, e.value)));
+        });
+    }
+    requestAnimationFrame(() => {
+      if (c !== te.scrollStart) return;
+      xe === !0 && Q(F);
+      const V = h.slice(F, ae).reduce(Co, 0),
+        D = V + te.offsetStart + m.value,
+        X = D + h[ae];
+      let se = D + Se;
+      if (A !== void 0) {
+        const ne = V - O,
+          Y = te.scrollStart + ne;
+        se =
+          oe !== !0 && Y < D && X < Y + te.scrollViewSize
+            ? Y
+            : A === 'end'
+            ? X - te.scrollViewSize
+            : D - (A === 'start' ? 0 : Math.round((te.scrollViewSize - h[ae]) / 2));
+      }
+      (c = se), xc(M, se, i.virtualScrollHorizontal, a.lang.rtl), U(ae);
+    });
+  }
+  function Q(M) {
+    const te = E.value;
+    if (te) {
+      const ae = dh.call(
+          te.children,
+          (F) => F.classList && F.classList.contains('q-virtual-scroll--skip') === !1,
+        ),
+        Se = ae.length,
+        Me =
+          i.virtualScrollHorizontal === !0
+            ? (F) => F.getBoundingClientRect().width
+            : (F) => F.offsetHeight;
+      let oe = M,
+        A,
+        ee;
+      for (let F = 0; F < Se; ) {
+        for (
+          A = Me(ae[F]), F++;
+          F < Se && ae[F].classList.contains('q-virtual-scroll--with-prev') === !0;
+
+        )
+          (A += Me(ae[F])), F++;
+        (ee = A - h[oe]), ee !== 0 && ((h[oe] += ee), (d[Math.floor(oe / Vt)] += ee)), oe++;
+      }
+    }
+  }
+  function H() {
+    E.value !== null && E.value !== void 0 && E.value.focus();
+  }
+  function le(M, te) {
+    const ae = 1 * o.value;
+    (te === !0 || Array.isArray(h) === !1) && (h = []);
+    const Se = h.length;
+    h.length = e.value;
+    for (let oe = e.value - 1; oe >= Se; oe--) h[oe] = ae;
+    const Me = Math.floor((e.value - 1) / Vt);
+    d = [];
+    for (let oe = 0; oe <= Me; oe++) {
+      let A = 0;
+      const ee = Math.min((oe + 1) * Vt, e.value);
+      for (let F = oe * Vt; F < ee; F++) A += h[F];
+      d.push(A);
+    }
+    (u = -1),
+      (c = void 0),
+      (m.value = Uo(d, h, 0, x.value.from)),
+      (g.value = Uo(d, h, x.value.to, e.value)),
+      M >= 0
+        ? (Q(x.value.from),
+          ze(() => {
+            R(M);
+          }))
+        : pe();
+  }
+  function N(M) {
+    if (M === void 0 && typeof window < 'u') {
+      const A = t();
+      A != null &&
+        A.nodeType !== 8 &&
+        (M = Ol(
+          A,
+          n(),
+          T.value,
+          k.value,
+          i.virtualScrollHorizontal,
+          a.lang.rtl,
+          i.virtualScrollStickySizeStart,
+          i.virtualScrollStickySizeEnd,
+        ).scrollViewSize);
+    }
+    f = M;
+    const te = parseFloat(i.virtualScrollSliceRatioBefore) || 0,
+      ae = parseFloat(i.virtualScrollSliceRatioAfter) || 0,
+      Se = 1 + te + ae,
+      Me = M === void 0 || M <= 0 ? 1 : Math.ceil(M / o.value),
+      oe = Math.max(
+        1,
+        Me,
+        Math.ceil((i.virtualScrollSliceSize > 0 ? i.virtualScrollSliceSize : 10) / Se),
+      );
+    b.value = {
+      total: Math.ceil(oe * Se),
+      start: Math.ceil(oe * te),
+      center: Math.ceil(oe * (0.5 + te)),
+      end: Math.ceil(oe * (1 + te)),
+      view: Me,
+    };
+  }
+  function L(M, te) {
+    const ae = i.virtualScrollHorizontal === !0 ? 'width' : 'height',
+      Se = { ['--q-virtual-scroll-item-' + ae]: o.value + 'px' };
+    return [
+      M === 'tbody'
+        ? _(M, { class: 'q-virtual-scroll__padding', key: 'before', ref: T }, [
+            _('tr', [_('td', { style: { [ae]: `${m.value}px`, ...Se }, colspan: P.value })]),
+          ])
+        : _(M, {
+            class: 'q-virtual-scroll__padding',
+            key: 'before',
+            ref: T,
+            style: { [ae]: `${m.value}px`, ...Se },
+          }),
+      _(M, { class: 'q-virtual-scroll__content', key: 'content', ref: E, tabindex: -1 }, te.flat()),
+      M === 'tbody'
+        ? _(M, { class: 'q-virtual-scroll__padding', key: 'after', ref: k }, [
+            _('tr', [_('td', { style: { [ae]: `${g.value}px`, ...Se }, colspan: P.value })]),
+          ])
+        : _(M, {
+            class: 'q-virtual-scroll__padding',
+            key: 'after',
+            ref: k,
+            style: { [ae]: `${g.value}px`, ...Se },
+          }),
+    ];
+  }
+  function U(M) {
+    u !== M &&
+      (i.onVirtualScroll !== void 0 &&
+        l('virtualScroll', {
+          index: M,
+          from: x.value.from,
+          to: x.value.to - 1,
+          direction: M < u ? 'decrease' : 'increase',
+          ref: s,
+        }),
+      (u = M));
+  }
+  N();
+  const pe = zi(B, a.platform.is.ios === !0 ? 120 : 35);
+  Cr(() => {
+    N();
+  });
+  let G = !1;
+  return (
+    An(() => {
+      G = !0;
+    }),
+    Fo(() => {
+      if (G !== !0) return;
+      const M = t();
+      c !== void 0 && M !== void 0 && M !== null && M.nodeType !== 8
+        ? xc(M, c, i.virtualScrollHorizontal, a.lang.rtl)
+        : R(u);
+    }),
+    We(() => {
+      pe.cancel();
+    }),
+    Object.assign(s, { scrollTo: R, reset: p, refresh: $ }),
+    {
+      virtualScrollSliceRange: x,
+      virtualScrollSliceSizeComputed: b,
+      setVirtualScrollSize: N,
+      onVirtualScrollEvt: pe,
+      localResetVirtualScroll: le,
+      padVirtualScroll: L,
+      scrollTo: R,
+      reset: p,
+      refresh: $,
+    }
+  );
+}
+const M0 = { list: R0, table: O0 },
+  F0 = ['list', 'table', '__qtable'],
+  B0 = Pe({
+    name: 'QVirtualScroll',
+    props: {
+      ...vh,
+      type: { type: String, default: 'list', validator: (e) => F0.includes(e) },
+      items: { type: Array, default: () => [] },
+      itemsFn: Function,
+      itemsSize: Number,
+      scrollTarget: { default: void 0 },
+    },
+    setup(e, { slots: t, attrs: n }) {
+      let o;
+      const r = W(null),
+        i = v(() =>
+          e.itemsSize >= 0 && e.itemsFn !== void 0
+            ? parseInt(e.itemsSize, 10)
+            : Array.isArray(e.items)
+            ? e.items.length
+            : 0,
+        ),
+        {
+          virtualScrollSliceRange: l,
+          localResetVirtualScroll: s,
+          padVirtualScroll: a,
+          onVirtualScrollEvt: c,
+        } = gh({ virtualScrollLength: i, getVirtualScrollTarget: m, getVirtualScrollEl: h }),
+        u = v(() => {
+          if (i.value === 0) return [];
+          const k = (E, x) => ({ index: l.value.from + x, item: E });
+          return e.itemsFn === void 0
+            ? e.items.slice(l.value.from, l.value.to).map(k)
+            : e.itemsFn(l.value.from, l.value.to - l.value.from).map(k);
+        }),
+        f = v(
+          () =>
+            'q-virtual-scroll q-virtual-scroll' +
+            (e.virtualScrollHorizontal === !0 ? '--horizontal' : '--vertical') +
+            (e.scrollTarget !== void 0 ? '' : ' scroll'),
+        ),
+        d = v(() => (e.scrollTarget !== void 0 ? {} : { tabindex: 0 }));
+      fe(i, () => {
+        s();
+      }),
+        fe(
+          () => e.scrollTarget,
+          () => {
+            b(), g();
+          },
+        );
+      function h() {
+        return r.value.$el || r.value;
+      }
+      function m() {
+        return o;
+      }
+      function g() {
+        (o = ea(h(), e.scrollTarget)), o.addEventListener('scroll', c, Ye.passive);
+      }
+      function b() {
+        o !== void 0 && (o.removeEventListener('scroll', c, Ye.passive), (o = void 0));
+      }
+      function T() {
+        let k = a(e.type === 'list' ? 'div' : 'tbody', u.value.map(t.default));
+        return t.before !== void 0 && (k = t.before().concat(k)), Ot(t.after, k);
+      }
+      return (
+        Cr(() => {
+          s();
+        }),
+        ct(() => {
+          g();
+        }),
+        Fo(() => {
+          g();
+        }),
+        An(() => {
+          b();
+        }),
+        We(() => {
+          b();
+        }),
+        () => {
+          if (t.default === void 0) {
+            console.error('QVirtualScroll: default scoped slot is required for rendering');
+            return;
+          }
+          return e.type === '__qtable'
+            ? fh({ ref: r, class: 'q-table__middle ' + f.value }, T())
+            : _(M0[e.type], { ...n, ref: r, class: [n.class, f.value], ...d.value }, T);
+        }
+      );
+    },
+  }),
+  I0 = Pe({
+    name: 'QField',
+    inheritAttrs: !1,
+    props: Qi,
+    emits: ua,
+    setup() {
+      return fa(ca());
+    },
+  }),
+  z0 = { xs: 8, sm: 10, md: 14, lg: 20, xl: 24 },
+  V0 = Pe({
+    name: 'QChip',
+    props: {
+      ...St,
+      ...oo,
+      dense: Boolean,
+      icon: String,
+      iconRight: String,
+      iconRemove: String,
+      iconSelected: String,
+      label: [String, Number],
+      color: String,
+      textColor: String,
+      modelValue: { type: Boolean, default: !0 },
+      selected: { type: Boolean, default: null },
+      square: Boolean,
+      outline: Boolean,
+      clickable: Boolean,
+      removable: Boolean,
+      removeAriaLabel: String,
+      tabindex: [String, Number],
+      disable: Boolean,
+      ripple: { type: [Boolean, Object], default: !0 },
+    },
+    emits: ['update:modelValue', 'update:selected', 'remove', 'click'],
+    setup(e, { slots: t, emit: n }) {
+      const {
+          proxy: { $q: o },
+        } = qe(),
+        r = xt(e, o),
+        i = ro(e, z0),
+        l = v(() => e.selected === !0 || e.icon !== void 0),
+        s = v(() => (e.selected === !0 ? e.iconSelected || o.iconSet.chip.selected : e.icon)),
+        a = v(() => e.iconRemove || o.iconSet.chip.remove),
+        c = v(() => e.disable === !1 && (e.clickable === !0 || e.selected !== null)),
+        u = v(() => {
+          const b = (e.outline === !0 && e.color) || e.textColor;
+          return (
+            'q-chip row inline no-wrap items-center' +
+            (e.outline === !1 && e.color !== void 0 ? ` bg-${e.color}` : '') +
+            (b ? ` text-${b} q-chip--colored` : '') +
+            (e.disable === !0 ? ' disabled' : '') +
+            (e.dense === !0 ? ' q-chip--dense' : '') +
+            (e.outline === !0 ? ' q-chip--outline' : '') +
+            (e.selected === !0 ? ' q-chip--selected' : '') +
+            (c.value === !0 ? ' q-chip--clickable cursor-pointer non-selectable q-hoverable' : '') +
+            (e.square === !0 ? ' q-chip--square' : '') +
+            (r.value === !0 ? ' q-chip--dark q-dark' : '')
+          );
+        }),
+        f = v(() => {
+          const b =
+              e.disable === !0
+                ? { tabindex: -1, 'aria-disabled': 'true' }
+                : { tabindex: e.tabindex || 0 },
+            T = {
+              ...b,
+              role: 'button',
+              'aria-hidden': 'false',
+              'aria-label': e.removeAriaLabel || o.lang.label.remove,
+            };
+          return { chip: b, remove: T };
+        });
+      function d(b) {
+        b.keyCode === 13 && h(b);
+      }
+      function h(b) {
+        e.disable || (n('update:selected', !e.selected), n('click', b));
+      }
+      function m(b) {
+        (b.keyCode === void 0 || b.keyCode === 13) &&
+          (Je(b), e.disable === !1 && (n('update:modelValue', !1), n('remove')));
+      }
+      function g() {
+        const b = [];
+        c.value === !0 && b.push(_('div', { class: 'q-focus-helper' })),
+          l.value === !0 &&
+            b.push(_(yt, { class: 'q-chip__icon q-chip__icon--left', name: s.value }));
+        const T = e.label !== void 0 ? [_('div', { class: 'ellipsis' }, [e.label])] : void 0;
+        return (
+          b.push(
+            _(
+              'div',
+              { class: 'q-chip__content col row no-wrap items-center q-anchor--skip' },
+              od(t.default, T),
+            ),
+          ),
+          e.iconRight &&
+            b.push(_(yt, { class: 'q-chip__icon q-chip__icon--right', name: e.iconRight })),
+          e.removable === !0 &&
+            b.push(
+              _(yt, {
+                class: 'q-chip__icon q-chip__icon--remove cursor-pointer',
+                name: a.value,
+                ...f.value.remove,
+                onClick: m,
+                onKeyup: m,
+              }),
+            ),
+          b
+        );
+      }
+      return () => {
+        if (e.modelValue === !1) return;
+        const b = { class: u.value, style: i.value };
+        return (
+          c.value === !0 && Object.assign(b, f.value.chip, { onClick: h, onKeyup: d }),
+          Gl('div', b, g(), 'ripple', e.ripple !== !1 && e.disable !== !0, () => [[yo, e.ripple]])
+        );
+      };
+    },
+  }),
+  N0 = Pe({
+    name: 'QItemLabel',
+    props: { overline: Boolean, caption: Boolean, header: Boolean, lines: [Number, String] },
+    setup(e, { slots: t }) {
+      const n = v(() => parseInt(e.lines, 10)),
+        o = v(
+          () =>
+            'q-item__label' +
+            (e.overline === !0 ? ' q-item__label--overline text-overline' : '') +
+            (e.caption === !0 ? ' q-item__label--caption text-caption' : '') +
+            (e.header === !0 ? ' q-item__label--header' : '') +
+            (n.value === 1 ? ' ellipsis' : ''),
+        ),
+        r = v(() =>
+          e.lines !== void 0 && n.value > 1
+            ? {
+                overflow: 'hidden',
+                display: '-webkit-box',
+                '-webkit-box-orient': 'vertical',
+                '-webkit-line-clamp': n.value,
+              }
+            : null,
+        );
+      return () => _('div', { style: r.value, class: o.value }, je(t.default));
+    },
+  }),
+  j0 = { target: { default: !0 }, noParentEvent: Boolean, contextMenu: Boolean };
+function D0({ showing: e, avoidEmit: t, configureAnchorEl: n }) {
+  const { props: o, proxy: r, emit: i } = qe(),
+    l = W(null);
+  let s;
+  function a(h) {
+    return l.value === null ? !1 : h === void 0 || h.touches === void 0 || h.touches.length <= 1;
+  }
+  const c = {};
+  n === void 0 &&
+    (Object.assign(c, {
+      hide(h) {
+        r.hide(h);
+      },
+      toggle(h) {
+        r.toggle(h), (h.qAnchorHandled = !0);
+      },
+      toggleKey(h) {
+        Rn(h, 13) === !0 && c.toggle(h);
+      },
+      contextClick(h) {
+        r.hide(h),
+          bt(h),
+          ze(() => {
+            r.show(h), (h.qAnchorHandled = !0);
+          });
+      },
+      prevent: bt,
+      mobileTouch(h) {
+        if ((c.mobileCleanup(h), a(h) !== !0)) return;
+        r.hide(h), l.value.classList.add('non-selectable');
+        const m = h.target;
+        Dn(c, 'anchor', [
+          [m, 'touchmove', 'mobileCleanup', 'passive'],
+          [m, 'touchend', 'mobileCleanup', 'passive'],
+          [m, 'touchcancel', 'mobileCleanup', 'passive'],
+          [l.value, 'contextmenu', 'prevent', 'notPassive'],
+        ]),
+          (s = setTimeout(() => {
+            r.show(h), (h.qAnchorHandled = !0);
+          }, 300));
+      },
+      mobileCleanup(h) {
+        l.value.classList.remove('non-selectable'),
+          clearTimeout(s),
+          e.value === !0 && h !== void 0 && jd();
+      },
+    }),
+    (n = function (h = o.contextMenu) {
+      if (o.noParentEvent === !0 || l.value === null) return;
+      let m;
+      h === !0
+        ? r.$q.platform.is.mobile === !0
+          ? (m = [[l.value, 'touchstart', 'mobileTouch', 'passive']])
+          : (m = [
+              [l.value, 'mousedown', 'hide', 'passive'],
+              [l.value, 'contextmenu', 'contextClick', 'notPassive'],
+            ])
+        : (m = [
+            [l.value, 'click', 'toggle', 'passive'],
+            [l.value, 'keyup', 'toggleKey', 'passive'],
+          ]),
+        Dn(c, 'anchor', m);
+    }));
+  function u() {
+    er(c, 'anchor');
+  }
+  function f(h) {
+    for (l.value = h; l.value.classList.contains('q-anchor--skip'); ) l.value = l.value.parentNode;
+    n();
+  }
+  function d() {
+    if (o.target === !1 || o.target === '' || r.$el.parentNode === null) l.value = null;
+    else if (o.target === !0) f(r.$el.parentNode);
+    else {
+      let h = o.target;
+      if (typeof o.target == 'string')
+        try {
+          h = document.querySelector(o.target);
+        } catch {
+          h = void 0;
+        }
+      h != null
+        ? ((l.value = h.$el || h), n())
+        : ((l.value = null), console.error(`Anchor: target "${o.target}" not found`));
+    }
+  }
+  return (
+    fe(
+      () => o.contextMenu,
+      (h) => {
+        l.value !== null && (u(), n(h));
+      },
+    ),
+    fe(
+      () => o.target,
+      () => {
+        l.value !== null && u(), d();
+      },
+    ),
+    fe(
+      () => o.noParentEvent,
+      (h) => {
+        l.value !== null && (h === !0 ? u() : n());
+      },
+    ),
+    ct(() => {
+      d(), t !== !0 && o.modelValue === !0 && l.value === null && i('update:modelValue', !1);
+    }),
+    We(() => {
+      clearTimeout(s), u();
+    }),
+    { anchorEl: l, canShow: a, anchorEvents: c }
+  );
+}
+function H0(e, t) {
+  const n = W(null);
+  let o;
+  function r(s, a) {
+    const c = `${a !== void 0 ? 'add' : 'remove'}EventListener`,
+      u = a !== void 0 ? a : o;
+    s !== window && s[c]('scroll', u, Ye.passive), window[c]('scroll', u, Ye.passive), (o = a);
+  }
+  function i() {
+    n.value !== null && (r(n.value), (n.value = null));
+  }
+  const l = fe(
+    () => e.noParentEvent,
+    () => {
+      n.value !== null && (i(), t());
+    },
+  );
+  return We(l), { localScrollTarget: n, unconfigureScrollTarget: i, changeScrollEvent: r };
+}
+const ko = [];
+function U0(e) {
+  return ko.find((t) => t.contentEl !== null && t.contentEl.contains(e));
+}
+function ph(e, t) {
+  do {
+    if (e.$options.name === 'QMenu') {
+      if ((e.hide(t), e.$props.separateClosePopup === !0)) return Jr(e);
+    } else if (e.__qPortal === !0) {
+      const n = Jr(e);
+      return n !== void 0 && n.$options.name === 'QPopupProxy' ? (e.hide(t), n) : e;
+    }
+    e = Jr(e);
+  } while (e != null);
+}
+function K0(e, t, n) {
+  for (; n !== 0 && e !== void 0 && e !== null; ) {
+    if (e.__qPortal === !0) {
+      if ((n--, e.$options.name === 'QMenu')) {
+        e = ph(e, t);
+        continue;
+      }
+      e.hide(t);
+    }
+    e = Jr(e);
+  }
+}
+function W0(e) {
+  for (e = e.parent; e != null; ) {
+    if (e.type.name === 'QGlobalDialog') return !0;
+    if (e.type.name === 'QDialog' || e.type.name === 'QMenu') return !1;
+    e = e.parent;
+  }
+  return !1;
+}
+function bh(e, t, n, o) {
+  const r = W(!1),
+    i = W(!1);
+  let l = null;
+  const s = {},
+    a = o === !0 && W0(e);
+  function c(f) {
+    if (f === !0) {
+      wc(s), (i.value = !0);
+      return;
+    }
+    (i.value = !1),
+      r.value === !1 &&
+        (a === !1 && l === null && (l = vd()), (r.value = !0), ko.push(e.proxy), b0(s));
+  }
+  function u(f) {
+    if (((i.value = !1), f !== !0)) return;
+    wc(s), (r.value = !1);
+    const d = ko.indexOf(e.proxy);
+    d !== -1 && ko.splice(d, 1), l !== null && (_p(l), (l = null));
+  }
+  return (
+    Bo(() => {
+      u(!0);
+    }),
+    (e.proxy.__qPortal = !0),
+    At(e.proxy, 'contentEl', () => t.value),
+    {
+      showPortal: c,
+      hidePortal: u,
+      portalIsActive: r,
+      portalIsAccessible: i,
+      renderPortal: () => (a === !0 ? n() : r.value === !0 ? [_(Mv, { to: l }, n())] : void 0),
+    }
+  );
+}
+const yh = {
+  transitionShow: { type: String, default: 'fade' },
+  transitionHide: { type: String, default: 'fade' },
+  transitionDuration: { type: [String, Number], default: 300 },
+};
+function wh(e, t = () => {}, n = () => {}) {
+  return {
+    transitionProps: v(() => {
+      const o = `q-transition--${e.transitionShow || t()}`,
+        r = `q-transition--${e.transitionHide || n()}`;
+      return {
+        appear: !0,
+        enterFromClass: `${o}-enter-from`,
+        enterActiveClass: `${o}-enter-active`,
+        enterToClass: `${o}-enter-to`,
+        leaveFromClass: `${r}-leave-from`,
+        leaveActiveClass: `${r}-leave-active`,
+        leaveToClass: `${r}-leave-to`,
+      };
+    }),
+    transitionStyle: v(() => `--q-transition-duration: ${e.transitionDuration}ms`),
+  };
+}
+function _h() {
+  let e;
+  const t = qe();
+  function n() {
+    e = void 0;
+  }
+  return (
+    An(n),
+    We(n),
+    {
+      removeTick: n,
+      registerTick(o) {
+        (e = o),
+          ze(() => {
+            e === o && (dd(t) === !1 && e(), (e = void 0));
+          });
+      },
+    }
+  );
+}
+const Xn = [];
+let Ao;
+function Q0(e) {
+  Ao = e.keyCode === 27;
+}
+function J0() {
+  Ao === !0 && (Ao = !1);
+}
+function X0(e) {
+  Ao === !0 && ((Ao = !1), Rn(e, 27) === !0 && Xn[Xn.length - 1](e));
+}
+function Sh(e) {
+  window[e]('keydown', Q0), window[e]('blur', J0), window[e]('keyup', X0), (Ao = !1);
+}
+function xh(e) {
+  Ne.is.desktop === !0 && (Xn.push(e), Xn.length === 1 && Sh('addEventListener'));
+}
+function pi(e) {
+  const t = Xn.indexOf(e);
+  t > -1 && (Xn.splice(t, 1), Xn.length === 0 && Sh('removeEventListener'));
+}
+const Yn = [];
+function Ch(e) {
+  Yn[Yn.length - 1](e);
+}
+function kh(e) {
+  Ne.is.desktop === !0 &&
+    (Yn.push(e), Yn.length === 1 && document.body.addEventListener('focusin', Ch));
+}
+function vs(e) {
+  const t = Yn.indexOf(e);
+  t > -1 && (Yn.splice(t, 1), Yn.length === 0 && document.body.removeEventListener('focusin', Ch));
+}
+let Eh;
+const { notPassiveCapture: bi } = Ye,
+  Gn = [];
+function yi(e) {
+  clearTimeout(Eh);
+  const t = e.target;
+  if (t === void 0 || t.nodeType === 8 || t.classList.contains('no-pointer-events') === !0) return;
+  let n = ko.length - 1;
+  for (; n >= 0; ) {
+    const o = ko[n].$;
+    if (o.type.name !== 'QDialog') break;
+    if (o.props.seamless !== !0) return;
+    n--;
+  }
+  for (let o = Gn.length - 1; o >= 0; o--) {
+    const r = Gn[o];
+    if (
+      (r.anchorEl.value === null || r.anchorEl.value.contains(t) === !1) &&
+      (t === document.body || (r.innerRef.value !== null && r.innerRef.value.contains(t) === !1))
+    )
+      (e.qClickOutside = !0), r.onClickOutside(e);
+    else return;
+  }
+}
+function Y0(e) {
+  Gn.push(e),
+    Gn.length === 1 &&
+      (document.addEventListener('mousedown', yi, bi),
+      document.addEventListener('touchstart', yi, bi));
+}
+function Cc(e) {
+  const t = Gn.findIndex((n) => n === e);
+  t > -1 &&
+    (Gn.splice(t, 1),
+    Gn.length === 0 &&
+      (clearTimeout(Eh),
+      document.removeEventListener('mousedown', yi, bi),
+      document.removeEventListener('touchstart', yi, bi)));
+}
+let kc, Ec;
+function qc(e) {
+  const t = e.split(' ');
+  return t.length !== 2
+    ? !1
+    : ['top', 'center', 'bottom'].includes(t[0]) !== !0
+    ? (console.error('Anchor/Self position must start with one of top/center/bottom'), !1)
+    : ['left', 'middle', 'right', 'start', 'end'].includes(t[1]) !== !0
+    ? (console.error('Anchor/Self position must end with one of left/middle/right/start/end'), !1)
+    : !0;
+}
+function G0(e) {
+  return e ? !(e.length !== 2 || typeof e[0] != 'number' || typeof e[1] != 'number') : !0;
+}
+const gs = { 'start#ltr': 'left', 'start#rtl': 'right', 'end#ltr': 'right', 'end#rtl': 'left' };
+['left', 'middle', 'right'].forEach((e) => {
+  (gs[`${e}#ltr`] = e), (gs[`${e}#rtl`] = e);
+});
+function Tc(e, t) {
+  const n = e.split(' ');
+  return { vertical: n[0], horizontal: gs[`${n[1]}#${t === !0 ? 'rtl' : 'ltr'}`] };
+}
+function Z0(e, t) {
+  let { top: n, left: o, right: r, bottom: i, width: l, height: s } = e.getBoundingClientRect();
+  return (
+    t !== void 0 && ((n -= t[1]), (o -= t[0]), (i += t[1]), (r += t[0]), (l += t[0]), (s += t[1])),
+    {
+      top: n,
+      left: o,
+      right: r,
+      bottom: i,
+      width: l,
+      height: s,
+      middle: o + (r - o) / 2,
+      center: n + (i - n) / 2,
+    }
+  );
+}
+function ew(e) {
+  return {
+    top: 0,
+    center: e.offsetHeight / 2,
+    bottom: e.offsetHeight,
+    left: 0,
+    middle: e.offsetWidth / 2,
+    right: e.offsetWidth,
+  };
+}
+function tw(e) {
+  if (Ne.is.ios === !0 && window.visualViewport !== void 0) {
+    const s = document.body.style,
+      { offsetLeft: a, offsetTop: c } = window.visualViewport;
+    a !== kc && (s.setProperty('--q-pe-left', a + 'px'), (kc = a)),
+      c !== Ec && (s.setProperty('--q-pe-top', c + 'px'), (Ec = c));
+  }
+  let t;
+  const { scrollLeft: n, scrollTop: o } = e.el;
+  if (e.absoluteOffset === void 0) t = Z0(e.anchorEl, e.cover === !0 ? [0, 0] : e.offset);
+  else {
+    const { top: s, left: a } = e.anchorEl.getBoundingClientRect(),
+      c = s + e.absoluteOffset.top,
+      u = a + e.absoluteOffset.left;
+    t = { top: c, left: u, width: 1, height: 1, right: u + 1, center: c, middle: u, bottom: c + 1 };
+  }
+  let r = { maxHeight: e.maxHeight, maxWidth: e.maxWidth, visibility: 'visible' };
+  (e.fit === !0 || e.cover === !0) &&
+    ((r.minWidth = t.width + 'px'), e.cover === !0 && (r.minHeight = t.height + 'px')),
+    Object.assign(e.el.style, r);
+  const i = ew(e.el),
+    l = {
+      top: t[e.anchorOrigin.vertical] - i[e.selfOrigin.vertical],
+      left: t[e.anchorOrigin.horizontal] - i[e.selfOrigin.horizontal],
+    };
+  nw(l, t, i, e.anchorOrigin, e.selfOrigin),
+    (r = { top: l.top + 'px', left: l.left + 'px' }),
+    l.maxHeight !== void 0 &&
+      ((r.maxHeight = l.maxHeight + 'px'), t.height > l.maxHeight && (r.minHeight = r.maxHeight)),
+    l.maxWidth !== void 0 &&
+      ((r.maxWidth = l.maxWidth + 'px'), t.width > l.maxWidth && (r.minWidth = r.maxWidth)),
+    Object.assign(e.el.style, r),
+    e.el.scrollTop !== o && (e.el.scrollTop = o),
+    e.el.scrollLeft !== n && (e.el.scrollLeft = n);
+}
+function nw(e, t, n, o, r) {
+  const i = n.bottom,
+    l = n.right,
+    s = ti(),
+    a = window.innerHeight - s,
+    c = document.body.clientWidth;
+  if (e.top < 0 || e.top + i > a)
+    if (r.vertical === 'center')
+      (e.top = t[o.vertical] > a / 2 ? Math.max(0, a - i) : 0), (e.maxHeight = Math.min(i, a));
+    else if (t[o.vertical] > a / 2) {
+      const u = Math.min(
+        a,
+        o.vertical === 'center' ? t.center : o.vertical === r.vertical ? t.bottom : t.top,
+      );
+      (e.maxHeight = Math.min(i, u)), (e.top = Math.max(0, u - i));
+    } else
+      (e.top = Math.max(
+        0,
+        o.vertical === 'center' ? t.center : o.vertical === r.vertical ? t.top : t.bottom,
+      )),
+        (e.maxHeight = Math.min(i, a - e.top));
+  if (e.left < 0 || e.left + l > c)
+    if (((e.maxWidth = Math.min(l, c)), r.horizontal === 'middle'))
+      e.left = t[o.horizontal] > c / 2 ? Math.max(0, c - l) : 0;
+    else if (t[o.horizontal] > c / 2) {
+      const u = Math.min(
+        c,
+        o.horizontal === 'middle' ? t.middle : o.horizontal === r.horizontal ? t.right : t.left,
+      );
+      (e.maxWidth = Math.min(l, u)), (e.left = Math.max(0, u - e.maxWidth));
+    } else
+      (e.left = Math.max(
+        0,
+        o.horizontal === 'middle' ? t.middle : o.horizontal === r.horizontal ? t.left : t.right,
+      )),
+        (e.maxWidth = Math.min(l, c - e.left));
+}
+const ow = Pe({
+  name: 'QMenu',
+  inheritAttrs: !1,
+  props: {
+    ...j0,
+    ...ra,
+    ...St,
+    ...yh,
+    persistent: Boolean,
+    autoClose: Boolean,
+    separateClosePopup: Boolean,
+    noRouteDismiss: Boolean,
+    noRefocus: Boolean,
+    noFocus: Boolean,
+    fit: Boolean,
+    cover: Boolean,
+    square: Boolean,
+    anchor: { type: String, validator: qc },
+    self: { type: String, validator: qc },
+    offset: { type: Array, validator: G0 },
+    scrollTarget: { default: void 0 },
+    touchPosition: Boolean,
+    maxHeight: { type: String, default: null },
+    maxWidth: { type: String, default: null },
+  },
+  emits: [...ia, 'click', 'escapeKey'],
+  setup(e, { slots: t, emit: n, attrs: o }) {
+    let r = null,
+      i,
+      l,
+      s;
+    const a = qe(),
+      { proxy: c } = a,
+      { $q: u } = c,
+      f = W(null),
+      d = W(!1),
+      h = v(() => e.persistent !== !0 && e.noRouteDismiss !== !0),
+      m = xt(e, u),
+      { registerTick: g, removeTick: b } = _h(),
+      { registerTimeout: T } = sa(),
+      { transitionProps: k, transitionStyle: E } = wh(e),
+      { localScrollTarget: x, changeScrollEvent: P, unconfigureScrollTarget: C } = H0(e, ae),
+      { anchorEl: S, canShow: p } = D0({ showing: d }),
+      { hide: $ } = la({
+        showing: d,
+        canShow: p,
+        handleShow: G,
+        handleHide: M,
+        hideOnRouteChange: h,
+        processOnMount: !0,
+      }),
+      { showPortal: R, hidePortal: B, renderPortal: I } = bh(a, f, ee),
+      Q = {
+        anchorEl: S,
+        innerRef: f,
+        onClickOutside(F) {
+          if (e.persistent !== !0 && d.value === !0)
+            return (
+              $(F),
+              (F.type === 'touchstart' || F.target.classList.contains('q-dialog__backdrop')) &&
+                Je(F),
+              !0
+            );
+        },
+      },
+      H = v(() => Tc(e.anchor || (e.cover === !0 ? 'center middle' : 'bottom start'), u.lang.rtl)),
+      le = v(() => (e.cover === !0 ? H.value : Tc(e.self || 'top start', u.lang.rtl))),
+      N = v(
+        () =>
+          (e.square === !0 ? ' q-menu--square' : '') +
+          (m.value === !0 ? ' q-menu--dark q-dark' : ''),
+      ),
+      L = v(() => (e.autoClose === !0 ? { onClick: Se } : {})),
+      U = v(() => d.value === !0 && e.persistent !== !0);
+    fe(U, (F) => {
+      F === !0 ? (xh(oe), Y0(Q)) : (pi(oe), Cc(Q));
+    });
+    function pe() {
+      Wi(() => {
+        let F = f.value;
+        F &&
+          F.contains(document.activeElement) !== !0 &&
+          ((F =
+            F.querySelector('[autofocus][tabindex], [data-autofocus][tabindex]') ||
+            F.querySelector('[autofocus] [tabindex], [data-autofocus] [tabindex]') ||
+            F.querySelector('[autofocus], [data-autofocus]') ||
+            F),
+          F.focus({ preventScroll: !0 }));
+      });
+    }
+    function G(F) {
+      if (
+        ((r = e.noRefocus === !1 ? document.activeElement : null),
+        kh(Me),
+        R(),
+        ae(),
+        (i = void 0),
+        F !== void 0 && (e.touchPosition || e.contextMenu))
+      ) {
+        const ie = mr(F);
+        if (ie.left !== void 0) {
+          const { top: xe, left: y } = S.value.getBoundingClientRect();
+          i = { left: ie.left - y, top: ie.top - xe };
+        }
+      }
+      l === void 0 &&
+        (l = fe(
+          () =>
+            u.screen.width +
+            '|' +
+            u.screen.height +
+            '|' +
+            e.self +
+            '|' +
+            e.anchor +
+            '|' +
+            u.lang.rtl,
+          A,
+        )),
+        e.noFocus !== !0 && document.activeElement.blur(),
+        g(() => {
+          A(), e.noFocus !== !0 && pe();
+        }),
+        T(() => {
+          u.platform.is.ios === !0 && ((s = e.autoClose), f.value.click()),
+            A(),
+            R(!0),
+            n('show', F);
+        }, e.transitionDuration);
+    }
+    function M(F) {
+      b(),
+        B(),
+        te(!0),
+        r !== null &&
+          (F === void 0 || F.qClickOutside !== !0) &&
+          ((
+            (F && F.type.indexOf('key') === 0
+              ? r.closest('[tabindex]:not([tabindex^="-"])')
+              : void 0) || r
+          ).focus(),
+          (r = null)),
+        T(() => {
+          B(!0), n('hide', F);
+        }, e.transitionDuration);
+    }
+    function te(F) {
+      (i = void 0),
+        l !== void 0 && (l(), (l = void 0)),
+        (F === !0 || d.value === !0) && (vs(Me), C(), Cc(Q), pi(oe)),
+        F !== !0 && (r = null);
+    }
+    function ae() {
+      (S.value !== null || e.scrollTarget !== void 0) &&
+        ((x.value = ea(S.value, e.scrollTarget)), P(x.value, A));
+    }
+    function Se(F) {
+      s !== !0 ? (ph(c, F), n('click', F)) : (s = !1);
+    }
+    function Me(F) {
+      U.value === !0 && e.noFocus !== !0 && ad(f.value, F.target) !== !0 && pe();
+    }
+    function oe(F) {
+      n('escapeKey'), $(F);
+    }
+    function A() {
+      const F = f.value;
+      F === null ||
+        S.value === null ||
+        tw({
+          el: F,
+          offset: e.offset,
+          anchorEl: S.value,
+          anchorOrigin: H.value,
+          selfOrigin: le.value,
+          absoluteOffset: i,
+          fit: e.fit,
+          cover: e.cover,
+          maxHeight: e.maxHeight,
+          maxWidth: e.maxWidth,
+        });
+    }
+    function ee() {
+      return _(Zn, k.value, () =>
+        d.value === !0
+          ? _(
+              'div',
+              {
+                role: 'menu',
+                ...o,
+                ref: f,
+                tabindex: -1,
+                class: ['q-menu q-position-engine scroll' + N.value, o.class],
+                style: [o.style, E.value],
+                ...L.value,
+              },
+              je(t.default),
+            )
+          : null,
+      );
+    }
+    return We(te), Object.assign(c, { focus: pe, updatePosition: A }), I;
+  },
+});
+let Hr = 0;
+const rw = {
+    standard: 'fixed-full flex-center',
+    top: 'fixed-top justify-center',
+    bottom: 'fixed-bottom justify-center',
+    right: 'fixed-right items-center',
+    left: 'fixed-left items-center',
+  },
+  Pc = {
+    standard: ['scale', 'scale'],
+    top: ['slide-down', 'slide-up'],
+    bottom: ['slide-up', 'slide-down'],
+    right: ['slide-left', 'slide-right'],
+    left: ['slide-right', 'slide-left'],
+  },
+  qh = Pe({
+    name: 'QDialog',
+    inheritAttrs: !1,
+    props: {
+      ...ra,
+      ...yh,
+      transitionShow: String,
+      transitionHide: String,
+      persistent: Boolean,
+      autoClose: Boolean,
+      allowFocusOutside: Boolean,
+      noEscDismiss: Boolean,
+      noBackdropDismiss: Boolean,
+      noRouteDismiss: Boolean,
+      noRefocus: Boolean,
+      noFocus: Boolean,
+      noShake: Boolean,
+      seamless: Boolean,
+      maximized: Boolean,
+      fullWidth: Boolean,
+      fullHeight: Boolean,
+      square: Boolean,
+      position: {
+        type: String,
+        default: 'standard',
+        validator: (e) => e === 'standard' || ['top', 'bottom', 'left', 'right'].includes(e),
+      },
+    },
+    emits: [...ia, 'shake', 'click', 'escapeKey'],
+    setup(e, { slots: t, emit: n, attrs: o }) {
+      const r = qe(),
+        i = W(null),
+        l = W(!1),
+        s = W(!1);
+      let a,
+        c = null,
+        u,
+        f;
+      const d = v(() => e.persistent !== !0 && e.noRouteDismiss !== !0 && e.seamless !== !0),
+        { preventBodyScroll: h } = Hd(),
+        { registerTimeout: m } = sa(),
+        { registerTick: g, removeTick: b } = _h(),
+        { transitionProps: T, transitionStyle: k } = wh(
+          e,
+          () => Pc[e.position][0],
+          () => Pc[e.position][1],
+        ),
+        { showPortal: E, hidePortal: x, portalIsAccessible: P, renderPortal: C } = bh(r, i, Me, !0),
+        { hide: S } = la({
+          showing: l,
+          hideOnRouteChange: d,
+          handleShow: H,
+          handleHide: le,
+          processOnMount: !0,
+        }),
+        { addToHistory: p, removeFromHistory: $ } = Dd(l, S, d),
+        R = v(
+          () =>
+            `q-dialog__inner flex no-pointer-events q-dialog__inner--${
+              e.maximized === !0 ? 'maximized' : 'minimized'
+            } q-dialog__inner--${e.position} ${rw[e.position]}` +
+            (s.value === !0 ? ' q-dialog__inner--animating' : '') +
+            (e.fullWidth === !0 ? ' q-dialog__inner--fullwidth' : '') +
+            (e.fullHeight === !0 ? ' q-dialog__inner--fullheight' : '') +
+            (e.square === !0 ? ' q-dialog__inner--square' : ''),
+        ),
+        B = v(() => l.value === !0 && e.seamless !== !0),
+        I = v(() => (e.autoClose === !0 ? { onClick: M } : {})),
+        Q = v(() => [
+          `q-dialog fullscreen no-pointer-events q-dialog--${
+            B.value === !0 ? 'modal' : 'seamless'
+          }`,
+          o.class,
+        ]);
+      fe(
+        () => e.maximized,
+        (oe) => {
+          l.value === !0 && G(oe);
+        },
+      ),
+        fe(B, (oe) => {
+          h(oe), oe === !0 ? (kh(ae), xh(U)) : (vs(ae), pi(U));
+        });
+      function H(oe) {
+        p(),
+          (c =
+            e.noRefocus === !1 && document.activeElement !== null ? document.activeElement : null),
+          G(e.maximized),
+          E(),
+          (s.value = !0),
+          e.noFocus !== !0
+            ? (document.activeElement !== null && document.activeElement.blur(), g(N))
+            : b(),
+          m(() => {
+            if (r.proxy.$q.platform.is.ios === !0) {
+              if (e.seamless !== !0 && document.activeElement) {
+                const { top: A, bottom: ee } = document.activeElement.getBoundingClientRect(),
+                  { innerHeight: F } = window,
+                  ie = window.visualViewport !== void 0 ? window.visualViewport.height : F;
+                A > 0 &&
+                  ee > ie / 2 &&
+                  (document.scrollingElement.scrollTop = Math.min(
+                    document.scrollingElement.scrollHeight - ie,
+                    ee >= F ? 1 / 0 : Math.ceil(document.scrollingElement.scrollTop + ee - ie / 2),
+                  )),
+                  document.activeElement.scrollIntoView();
+              }
+              (f = !0), i.value.click(), (f = !1);
+            }
+            E(!0), (s.value = !1), n('show', oe);
+          }, e.transitionDuration);
+      }
+      function le(oe) {
+        b(),
+          $(),
+          pe(!0),
+          (s.value = !0),
+          x(),
+          c !== null &&
+            ((
+              (oe && oe.type.indexOf('key') === 0
+                ? c.closest('[tabindex]:not([tabindex^="-"])')
+                : void 0) || c
+            ).focus(),
+            (c = null)),
+          m(() => {
+            x(!0), (s.value = !1), n('hide', oe);
+          }, e.transitionDuration);
+      }
+      function N(oe) {
+        Wi(() => {
+          let A = i.value;
+          A === null ||
+            A.contains(document.activeElement) === !0 ||
+            ((A =
+              (oe !== '' ? A.querySelector(oe) : null) ||
+              A.querySelector('[autofocus][tabindex], [data-autofocus][tabindex]') ||
+              A.querySelector('[autofocus] [tabindex], [data-autofocus] [tabindex]') ||
+              A.querySelector('[autofocus], [data-autofocus]') ||
+              A),
+            A.focus({ preventScroll: !0 }));
+        });
+      }
+      function L(oe) {
+        oe && typeof oe.focus == 'function' ? oe.focus({ preventScroll: !0 }) : N(), n('shake');
+        const A = i.value;
+        A !== null &&
+          (A.classList.remove('q-animate--scale'),
+          A.classList.add('q-animate--scale'),
+          clearTimeout(a),
+          (a = setTimeout(() => {
+            i.value !== null && (A.classList.remove('q-animate--scale'), N());
+          }, 170)));
+      }
+      function U() {
+        e.seamless !== !0 &&
+          (e.persistent === !0 || e.noEscDismiss === !0
+            ? e.maximized !== !0 && e.noShake !== !0 && L()
+            : (n('escapeKey'), S()));
+      }
+      function pe(oe) {
+        clearTimeout(a),
+          (oe === !0 || l.value === !0) && (G(!1), e.seamless !== !0 && (h(!1), vs(ae), pi(U))),
+          oe !== !0 && (c = null);
+      }
+      function G(oe) {
+        oe === !0
+          ? u !== !0 && (Hr < 1 && document.body.classList.add('q-body--dialog'), Hr++, (u = !0))
+          : u === !0 &&
+            (Hr < 2 && document.body.classList.remove('q-body--dialog'), Hr--, (u = !1));
+      }
+      function M(oe) {
+        f !== !0 && (S(oe), n('click', oe));
+      }
+      function te(oe) {
+        e.persistent !== !0 && e.noBackdropDismiss !== !0
+          ? S(oe)
+          : e.noShake !== !0 && L(oe.relatedTarget);
+      }
+      function ae(oe) {
+        e.allowFocusOutside !== !0 &&
+          P.value === !0 &&
+          ad(i.value, oe.target) !== !0 &&
+          N('[tabindex]:not([tabindex="-1"])');
+      }
+      Object.assign(r.proxy, {
+        focus: N,
+        shake: L,
+        __updateRefocusTarget(oe) {
+          c = oe || null;
+        },
+      }),
+        We(pe);
+      const Se = r.proxy.$q.platform.is.ios === !0 ? 'onClick' : 'onFocusin';
+      function Me() {
+        return _(
+          'div',
+          { role: 'dialog', 'aria-modal': B.value === !0 ? 'true' : 'false', ...o, class: Q.value },
+          [
+            _(Zn, { name: 'q-transition--fade', appear: !0 }, () =>
+              B.value === !0
+                ? _('div', {
+                    class: 'q-dialog__backdrop fixed-full',
+                    style: k.value,
+                    'aria-hidden': 'true',
+                    tabindex: -1,
+                    [Se]: te,
+                  })
+                : null,
+            ),
+            _(Zn, T.value, () =>
+              l.value === !0
+                ? _(
+                    'div',
+                    { ref: i, class: R.value, style: k.value, tabindex: -1, ...I.value },
+                    je(t.default),
+                  )
+                : null,
+            ),
+          ],
+        );
+      }
+      return C;
+    },
+  }),
+  Rc = (e) => ['add', 'add-unique', 'toggle'].includes(e),
+  iw = '.*+?^${}()|[]\\',
+  lw = Object.keys(Qi),
+  sw = Pe({
+    name: 'QSelect',
+    inheritAttrs: !1,
+    props: {
+      ...vh,
+      ...Ji,
+      ...Qi,
+      modelValue: { required: !0 },
+      multiple: Boolean,
+      displayValue: [String, Number],
+      displayValueHtml: Boolean,
+      dropdownIcon: String,
+      options: { type: Array, default: () => [] },
+      optionValue: [Function, String],
+      optionLabel: [Function, String],
+      optionDisable: [Function, String],
+      hideSelected: Boolean,
+      hideDropdownIcon: Boolean,
+      fillInput: Boolean,
+      maxValues: [Number, String],
+      optionsDense: Boolean,
+      optionsDark: { type: Boolean, default: null },
+      optionsSelectedClass: String,
+      optionsHtml: Boolean,
+      optionsCover: Boolean,
+      menuShrink: Boolean,
+      menuAnchor: String,
+      menuSelf: String,
+      menuOffset: Array,
+      popupContentClass: String,
+      popupContentStyle: [String, Array, Object],
+      useInput: Boolean,
+      useChips: Boolean,
+      newValueMode: { type: String, validator: Rc },
+      mapOptions: Boolean,
+      emitValue: Boolean,
+      inputDebounce: { type: [Number, String], default: 500 },
+      inputClass: [Array, String, Object],
+      inputStyle: [Array, String, Object],
+      tabindex: { type: [String, Number], default: 0 },
+      autocomplete: String,
+      transitionShow: String,
+      transitionHide: String,
+      transitionDuration: [String, Number],
+      behavior: {
+        type: String,
+        validator: (e) => ['default', 'menu', 'dialog'].includes(e),
+        default: 'default',
+      },
+      virtualScrollItemSize: { type: [Number, String], default: void 0 },
+      onNewValue: Function,
+      onFilter: Function,
+    },
+    emits: [
+      ...ua,
+      'add',
+      'remove',
+      'inputValue',
+      'newValue',
+      'keyup',
+      'keypress',
+      'keydown',
+      'filterAbort',
+    ],
+    setup(e, { slots: t, emit: n }) {
+      const { proxy: o } = qe(),
+        { $q: r } = o,
+        i = W(!1),
+        l = W(!1),
+        s = W(-1),
+        a = W(''),
+        c = W(!1),
+        u = W(!1);
+      let f, d, h, m, g, b, T, k, E;
+      const x = W(null),
+        P = W(null),
+        C = W(null),
+        S = W(null),
+        p = W(null),
+        $ = sh(e),
+        R = ah(j),
+        B = v(() => (Array.isArray(e.options) ? e.options.length : 0)),
+        I = v(() =>
+          e.virtualScrollItemSize === void 0
+            ? e.optionsDense === !0
+              ? 24
+              : 48
+            : e.virtualScrollItemSize,
+        ),
+        {
+          virtualScrollSliceRange: Q,
+          virtualScrollSliceSizeComputed: H,
+          localResetVirtualScroll: le,
+          padVirtualScroll: N,
+          onVirtualScrollEvt: L,
+          scrollTo: U,
+          setVirtualScrollSize: pe,
+        } = gh({
+          virtualScrollLength: B,
+          getVirtualScrollTarget: el,
+          getVirtualScrollEl: Pr,
+          virtualScrollItemSizeComputed: I,
+        }),
+        G = ca(),
+        M = v(() => {
+          const q = e.mapOptions === !0 && e.multiple !== !0,
+            he =
+              e.modelValue !== void 0 && (e.modelValue !== null || q === !0)
+                ? e.multiple === !0 && Array.isArray(e.modelValue)
+                  ? e.modelValue
+                  : [e.modelValue]
+                : [];
+          if (e.mapOptions === !0 && Array.isArray(e.options) === !0) {
+            const ce = e.mapOptions === !0 && d !== void 0 ? d : [],
+              ke = he.map((De) => Lt(De, ce));
+            return e.modelValue === null && q === !0 ? ke.filter((De) => De !== null) : ke;
+          }
+          return he;
+        }),
+        te = v(() => {
+          const q = {};
+          return (
+            lw.forEach((he) => {
+              const ce = e[he];
+              ce !== void 0 && (q[he] = ce);
+            }),
+            q
+          );
+        }),
+        ae = v(() => (e.optionsDark === null ? G.isDark.value : e.optionsDark)),
+        Se = v(() => _r(M.value)),
+        Me = v(() => {
+          let q = 'q-field__input q-placeholder col';
+          return e.hideSelected === !0 || M.value.length === 0
+            ? [q, e.inputClass]
+            : ((q += ' q-field__input--padding'), e.inputClass === void 0 ? q : [q, e.inputClass]);
+        }),
+        oe = v(
+          () =>
+            (e.virtualScrollHorizontal === !0 ? 'q-virtual-scroll--horizontal' : '') +
+            (e.popupContentClass ? ' ' + e.popupContentClass : ''),
+        ),
+        A = v(() => B.value === 0),
+        ee = v(() => M.value.map((q) => J.value(q)).join(', ')),
+        F = v(() => (e.displayValue !== void 0 ? e.displayValue : ee.value)),
+        ie = v(() => (e.optionsHtml === !0 ? () => !0 : (q) => q != null && q.html === !0)),
+        xe = v(
+          () =>
+            e.displayValueHtml === !0 ||
+            (e.displayValue === void 0 && (e.optionsHtml === !0 || M.value.some(ie.value))),
+        ),
+        y = v(() => (G.focused.value === !0 ? e.tabindex : -1)),
+        w = v(() => {
+          const q = {
+            tabindex: e.tabindex,
+            role: 'combobox',
+            'aria-label': e.label,
+            'aria-readonly': e.readonly === !0 ? 'true' : 'false',
+            'aria-autocomplete': e.useInput === !0 ? 'list' : 'none',
+            'aria-expanded': i.value === !0 ? 'true' : 'false',
+            'aria-controls': `${G.targetUid.value}_lb`,
+          };
+          return (
+            s.value >= 0 && (q['aria-activedescendant'] = `${G.targetUid.value}_${s.value}`), q
+          );
+        }),
+        O = v(() => ({
+          id: `${G.targetUid.value}_lb`,
+          role: 'listbox',
+          'aria-multiselectable': e.multiple === !0 ? 'true' : 'false',
+        })),
+        V = v(() =>
+          M.value.map((q, he) => ({
+            index: he,
+            opt: q,
+            html: ie.value(q),
+            selected: !0,
+            removeAtIndex: Le,
+            toggleOption: Fe,
+            tabindex: y.value,
+          })),
+        ),
+        D = v(() => {
+          if (B.value === 0) return [];
+          const { from: q, to: he } = Q.value;
+          return e.options.slice(q, he).map((ce, ke) => {
+            const De = me.value(ce) === !0,
+              Be = q + ke,
+              Ge = {
+                clickable: !0,
+                active: !1,
+                activeClass: ne.value,
+                manualFocus: !0,
+                focused: !1,
+                disable: De,
+                tabindex: -1,
+                dense: e.optionsDense,
+                dark: ae.value,
+                role: 'option',
+                id: `${G.targetUid.value}_${Be}`,
+                onClick: () => {
+                  Fe(ce);
+                },
+              };
+            return (
+              De !== !0 &&
+                (tn(ce) === !0 && (Ge.active = !0),
+                s.value === Be && (Ge.focused = !0),
+                (Ge['aria-selected'] = Ge.active === !0 ? 'true' : 'false'),
+                r.platform.is.desktop === !0 &&
+                  (Ge.onMousemove = () => {
+                    i.value === !0 && Xe(Be);
+                  })),
+              {
+                index: Be,
+                opt: ce,
+                html: ie.value(ce),
+                label: J.value(ce),
+                selected: Ge.active,
+                focused: Ge.focused,
+                toggleOption: Fe,
+                setOptionIndex: Xe,
+                itemProps: Ge,
+              }
+            );
+          });
+        }),
+        X = v(() => (e.dropdownIcon !== void 0 ? e.dropdownIcon : r.iconSet.arrow.dropdown)),
+        se = v(
+          () =>
+            e.optionsCover === !1 &&
+            e.outlined !== !0 &&
+            e.standout !== !0 &&
+            e.borderless !== !0 &&
+            e.rounded !== !0,
+        ),
+        ne = v(() =>
+          e.optionsSelectedClass !== void 0
+            ? e.optionsSelectedClass
+            : e.color !== void 0
+            ? `text-${e.color}`
+            : '',
+        ),
+        Y = v(() => Mt(e.optionValue, 'value')),
+        J = v(() => Mt(e.optionLabel, 'label')),
+        me = v(() => Mt(e.optionDisable, 'disable')),
+        z = v(() => M.value.map((q) => Y.value(q))),
+        re = v(() => {
+          const q = {
+            onInput: j,
+            onChange: R,
+            onKeydown: On,
+            onKeyup: nn,
+            onKeypress: zo,
+            onFocus: tt,
+            onClick(he) {
+              h === !0 && Et(he);
+            },
+          };
+          return (q.onCompositionstart = q.onCompositionupdate = q.onCompositionend = R), q;
+        });
+      fe(
+        M,
+        (q) => {
+          (d = q),
+            e.useInput === !0 &&
+              e.fillInput === !0 &&
+              e.multiple !== !0 &&
+              G.innerLoading.value !== !0 &&
+              ((l.value !== !0 && i.value !== !0) || Se.value !== !0) &&
+              (m !== !0 && uo(), (l.value === !0 || i.value === !0) && _e(''));
+        },
+        { immediate: !0 },
+      ),
+        fe(() => e.fillInput, uo),
+        fe(i, rl),
+        fe(B, Xh);
+      function ve(q) {
+        return e.emitValue === !0 ? Y.value(q) : q;
+      }
+      function we(q) {
+        if (q > -1 && q < M.value.length)
+          if (e.multiple === !0) {
+            const he = e.modelValue.slice();
+            n('remove', { index: q, value: he.splice(q, 1)[0] }), n('update:modelValue', he);
+          } else n('update:modelValue', null);
+      }
+      function Le(q) {
+        we(q), G.focus();
+      }
+      function Ae(q, he) {
+        const ce = ve(q);
+        if (e.multiple !== !0) {
+          e.fillInput === !0 && ye(J.value(q), !0, !0), n('update:modelValue', ce);
+          return;
+        }
+        if (M.value.length === 0) {
+          n('add', { index: 0, value: ce }), n('update:modelValue', e.multiple === !0 ? [ce] : ce);
+          return;
+        }
+        if (
+          (he === !0 && tn(q) === !0) ||
+          (e.maxValues !== void 0 && e.modelValue.length >= e.maxValues)
+        )
+          return;
+        const ke = e.modelValue.slice();
+        n('add', { index: ke.length, value: ce }), ke.push(ce), n('update:modelValue', ke);
+      }
+      function Fe(q, he) {
+        if (G.editable.value !== !0 || q === void 0 || me.value(q) === !0) return;
+        const ce = Y.value(q);
+        if (e.multiple !== !0) {
+          he !== !0 && (ye(e.fillInput === !0 ? J.value(q) : '', !0, !0), $n()),
+            P.value !== null && P.value.focus(),
+            (M.value.length === 0 || Cn(Y.value(M.value[0]), ce) !== !0) &&
+              n('update:modelValue', e.emitValue === !0 ? ce : q);
+          return;
+        }
+        if (((h !== !0 || c.value === !0) && G.focus(), tt(), M.value.length === 0)) {
+          const Be = e.emitValue === !0 ? ce : q;
+          n('add', { index: 0, value: Be }), n('update:modelValue', e.multiple === !0 ? [Be] : Be);
+          return;
+        }
+        const ke = e.modelValue.slice(),
+          De = z.value.findIndex((Be) => Cn(Be, ce));
+        if (De > -1) n('remove', { index: De, value: ke.splice(De, 1)[0] });
+        else {
+          if (e.maxValues !== void 0 && ke.length >= e.maxValues) return;
+          const Be = e.emitValue === !0 ? ce : q;
+          n('add', { index: ke.length, value: Be }), ke.push(Be);
+        }
+        n('update:modelValue', ke);
+      }
+      function Xe(q) {
+        if (r.platform.is.desktop !== !0) return;
+        const he = q > -1 && q < B.value ? q : -1;
+        s.value !== he && (s.value = he);
+      }
+      function it(q = 1, he) {
+        if (i.value === !0) {
+          let ce = s.value;
+          do ce = ju(ce + q, -1, B.value - 1);
+          while (ce !== -1 && ce !== s.value && me.value(e.options[ce]) === !0);
+          s.value !== ce &&
+            (Xe(ce),
+            U(ce),
+            he !== !0 &&
+              e.useInput === !0 &&
+              e.fillInput === !0 &&
+              de(ce >= 0 ? J.value(e.options[ce]) : b));
+        }
+      }
+      function Lt(q, he) {
+        const ce = (ke) => Cn(Y.value(ke), q);
+        return e.options.find(ce) || he.find(ce) || q;
+      }
+      function Mt(q, he) {
+        const ce = q !== void 0 ? q : he;
+        return typeof ce == 'function'
+          ? ce
+          : (ke) => (ke !== null && typeof ke == 'object' && ce in ke ? ke[ce] : ke);
+      }
+      function tn(q) {
+        const he = Y.value(q);
+        return z.value.find((ce) => Cn(ce, he)) !== void 0;
+      }
+      function tt(q) {
+        e.useInput === !0 &&
+          P.value !== null &&
+          (q === void 0 || (P.value === q.target && q.target.value === ee.value)) &&
+          P.value.select();
+      }
+      function vt(q) {
+        Rn(q, 27) === !0 && i.value === !0 && (Et(q), $n(), uo()), n('keyup', q);
+      }
+      function nn(q) {
+        const { value: he } = q.target;
+        if (q.keyCode !== void 0) {
+          vt(q);
+          return;
+        }
+        if (
+          ((q.target.value = ''), clearTimeout(f), uo(), typeof he == 'string' && he.length > 0)
+        ) {
+          const ce = he.toLocaleLowerCase(),
+            ke = (Be) => {
+              const Ge = e.options.find((gt) => Be.value(gt).toLocaleLowerCase() === ce);
+              return Ge === void 0 ? !1 : (M.value.indexOf(Ge) === -1 ? Fe(Ge) : $n(), !0);
+            },
+            De = (Be) => {
+              ke(Y) !== !0 && (ke(J) === !0 || Be === !0 || _e(he, !0, () => De(!0)));
+            };
+          De();
+        } else G.clearValue(q);
+      }
+      function zo(q) {
+        n('keypress', q);
+      }
+      function On(q) {
+        if ((n('keydown', q), js(q) === !0)) return;
+        const he = a.value.length > 0 && (e.newValueMode !== void 0 || e.onNewValue !== void 0),
+          ce = q.shiftKey !== !0 && e.multiple !== !0 && (s.value > -1 || he === !0);
+        if (q.keyCode === 27) {
+          bt(q);
+          return;
+        }
+        if (q.keyCode === 9 && ce === !1) {
+          so();
+          return;
+        }
+        if (q.target === void 0 || q.target.id !== G.targetUid.value) return;
+        if (q.keyCode === 40 && G.innerLoading.value !== !0 && i.value === !1) {
+          Je(q), ao();
+          return;
+        }
+        if (q.keyCode === 8 && e.hideSelected !== !0 && a.value.length === 0) {
+          e.multiple === !0 && Array.isArray(e.modelValue) === !0
+            ? we(e.modelValue.length - 1)
+            : e.multiple !== !0 && e.modelValue !== null && n('update:modelValue', null);
+          return;
+        }
+        (q.keyCode === 35 || q.keyCode === 36) &&
+          (typeof a.value != 'string' || a.value.length === 0) &&
+          (Je(q), (s.value = -1), it(q.keyCode === 36 ? 1 : -1, e.multiple)),
+          (q.keyCode === 33 || q.keyCode === 34) &&
+            H.value !== void 0 &&
+            (Je(q),
+            (s.value = Math.max(
+              -1,
+              Math.min(B.value, s.value + (q.keyCode === 33 ? -1 : 1) * H.value.view),
+            )),
+            it(q.keyCode === 33 ? 1 : -1, e.multiple)),
+          (q.keyCode === 38 || q.keyCode === 40) &&
+            (Je(q), it(q.keyCode === 38 ? -1 : 1, e.multiple));
+        const ke = B.value;
+        if (
+          ((k === void 0 || E < Date.now()) && (k = ''),
+          ke > 0 &&
+            e.useInput !== !0 &&
+            q.key !== void 0 &&
+            q.key.length === 1 &&
+            q.altKey === !1 &&
+            q.ctrlKey === !1 &&
+            q.metaKey === !1 &&
+            (q.keyCode !== 32 || k.length > 0))
+        ) {
+          i.value !== !0 && ao(q);
+          const De = q.key.toLocaleLowerCase(),
+            Be = k.length === 1 && k[0] === De;
+          (E = Date.now() + 1500), Be === !1 && (Je(q), (k += De));
+          const Ge = new RegExp(
+            '^' +
+              k
+                .split('')
+                .map((il) => (iw.indexOf(il) > -1 ? '\\' + il : il))
+                .join('.*'),
+            'i',
+          );
+          let gt = s.value;
+          if (Be === !0 || gt < 0 || Ge.test(J.value(e.options[gt])) !== !0)
+            do gt = ju(gt + 1, -1, ke - 1);
+            while (
+              gt !== s.value &&
+              (me.value(e.options[gt]) === !0 || Ge.test(J.value(e.options[gt])) !== !0)
+            );
+          s.value !== gt &&
+            ze(() => {
+              Xe(gt),
+                U(gt),
+                gt >= 0 && e.useInput === !0 && e.fillInput === !0 && de(J.value(e.options[gt]));
+            });
+          return;
+        }
+        if (
+          !(
+            q.keyCode !== 13 &&
+            (q.keyCode !== 32 || e.useInput === !0 || k !== '') &&
+            (q.keyCode !== 9 || ce === !1)
+          )
+        ) {
+          if ((q.keyCode !== 9 && Je(q), s.value > -1 && s.value < ke)) {
+            Fe(e.options[s.value]);
+            return;
+          }
+          if (he === !0) {
+            const De = (Be, Ge) => {
+              if (Ge) {
+                if (Rc(Ge) !== !0) return;
+              } else Ge = e.newValueMode;
+              if (Be == null) return;
+              ye('', e.multiple !== !0, !0),
+                (Ge === 'toggle' ? Fe : Ae)(Be, Ge === 'add-unique'),
+                e.multiple !== !0 && (P.value !== null && P.value.focus(), $n());
+            };
+            if (
+              (e.onNewValue !== void 0 ? n('newValue', a.value, De) : De(a.value),
+              e.multiple !== !0)
+            )
+              return;
+          }
+          i.value === !0 ? so() : G.innerLoading.value !== !0 && ao();
+        }
+      }
+      function Pr() {
+        return h === !0
+          ? p.value
+          : C.value !== null && C.value.contentEl !== null
+          ? C.value.contentEl
+          : void 0;
+      }
+      function el() {
+        return Pr();
+      }
+      function tl() {
+        return e.hideSelected === !0
+          ? []
+          : t['selected-item'] !== void 0
+          ? V.value.map((q) => t['selected-item'](q)).slice()
+          : t.selected !== void 0
+          ? [].concat(t.selected())
+          : e.useChips === !0
+          ? V.value.map((q, he) =>
+              _(
+                V0,
+                {
+                  key: 'option-' + he,
+                  removable: G.editable.value === !0 && me.value(q.opt) !== !0,
+                  dense: !0,
+                  textColor: e.color,
+                  tabindex: y.value,
+                  onRemove() {
+                    q.removeAtIndex(he);
+                  },
+                },
+                () =>
+                  _('span', {
+                    class: 'ellipsis',
+                    [q.html === !0 ? 'innerHTML' : 'textContent']: J.value(q.opt),
+                  }),
+              ),
+            )
+          : [_('span', { [xe.value === !0 ? 'innerHTML' : 'textContent']: F.value })];
+      }
+      function Rr() {
+        if (A.value === !0)
+          return t['no-option'] !== void 0 ? t['no-option']({ inputValue: a.value }) : void 0;
+        const q =
+          t.option !== void 0
+            ? t.option
+            : (ce) =>
+                _(Jo, { key: ce.index, ...ce.itemProps }, () =>
+                  _(ln, () =>
+                    _(N0, () =>
+                      _('span', { [ce.html === !0 ? 'innerHTML' : 'textContent']: ce.label }),
+                    ),
+                  ),
+                );
+        let he = N('div', D.value.map(q));
+        return (
+          t['before-options'] !== void 0 && (he = t['before-options']().concat(he)),
+          Ot(t['after-options'], he)
+        );
+      }
+      function nl(q, he) {
+        const ce = he === !0 ? { ...w.value, ...G.splitAttrs.attributes.value } : void 0,
+          ke = {
+            ref: he === !0 ? P : void 0,
+            key: 'i_t',
+            class: Me.value,
+            style: e.inputStyle,
+            value: a.value !== void 0 ? a.value : '',
+            type: 'search',
+            ...ce,
+            id: he === !0 ? G.targetUid.value : void 0,
+            maxlength: e.maxlength,
+            autocomplete: e.autocomplete,
+            'data-autofocus': q === !0 || e.autofocus === !0 || void 0,
+            disabled: e.disable === !0,
+            readonly: e.readonly === !0,
+            ...re.value,
+          };
+        return (
+          q !== !0 &&
+            h === !0 &&
+            (Array.isArray(ke.class) === !0
+              ? (ke.class = [...ke.class, 'no-pointer-events'])
+              : (ke.class += ' no-pointer-events')),
+          _('input', ke)
+        );
+      }
+      function j(q) {
+        clearTimeout(f),
+          !(q && q.target && q.target.qComposing === !0) &&
+            (de(q.target.value || ''),
+            (m = !0),
+            (b = a.value),
+            G.focused.value !== !0 && (h !== !0 || c.value === !0) && G.focus(),
+            e.onFilter !== void 0 &&
+              (f = setTimeout(() => {
+                _e(a.value);
+              }, e.inputDebounce)));
+      }
+      function de(q) {
+        a.value !== q && ((a.value = q), n('inputValue', q));
+      }
+      function ye(q, he, ce) {
+        (m = ce !== !0),
+          e.useInput === !0 && (de(q), (he === !0 || ce !== !0) && (b = q), he !== !0 && _e(q));
+      }
+      function _e(q, he, ce) {
+        if (e.onFilter === void 0 || (he !== !0 && G.focused.value !== !0)) return;
+        G.innerLoading.value === !0
+          ? n('filterAbort')
+          : ((G.innerLoading.value = !0), (u.value = !0)),
+          q !== '' &&
+            e.multiple !== !0 &&
+            M.value.length > 0 &&
+            m !== !0 &&
+            q === J.value(M.value[0]) &&
+            (q = '');
+        const ke = setTimeout(() => {
+          i.value === !0 && (i.value = !1);
+        }, 10);
+        clearTimeout(g),
+          (g = ke),
+          n(
+            'filter',
+            q,
+            (De, Be) => {
+              (he === !0 || G.focused.value === !0) &&
+                g === ke &&
+                (clearTimeout(g),
+                typeof De == 'function' && De(),
+                (u.value = !1),
+                ze(() => {
+                  (G.innerLoading.value = !1),
+                    G.editable.value === !0 &&
+                      (he === !0
+                        ? i.value === !0 && $n()
+                        : i.value === !0
+                        ? rl(!0)
+                        : (i.value = !0)),
+                    typeof Be == 'function' &&
+                      ze(() => {
+                        Be(o);
+                      }),
+                    typeof ce == 'function' &&
+                      ze(() => {
+                        ce(o);
+                      });
+                }));
+            },
+            () => {
+              G.focused.value === !0 &&
+                g === ke &&
+                (clearTimeout(g), (G.innerLoading.value = !1), (u.value = !1)),
+                i.value === !0 && (i.value = !1);
+            },
+          );
+      }
+      function Re() {
+        return _(
+          ow,
+          {
+            ref: C,
+            class: oe.value,
+            style: e.popupContentStyle,
+            modelValue: i.value,
+            fit: e.menuShrink !== !0,
+            cover: e.optionsCover === !0 && A.value !== !0 && e.useInput !== !0,
+            anchor: e.menuAnchor,
+            self: e.menuSelf,
+            offset: e.menuOffset,
+            dark: ae.value,
+            noParentEvent: !0,
+            noRefocus: !0,
+            noFocus: !0,
+            square: se.value,
+            transitionShow: e.transitionShow,
+            transitionHide: e.transitionHide,
+            transitionDuration: e.transitionDuration,
+            separateClosePopup: !0,
+            ...O.value,
+            onScrollPassive: L,
+            onBeforeShow: Sa,
+            onBeforeHide: Qe,
+            onShow: Ke,
+          },
+          Rr,
+        );
+      }
+      function Qe(q) {
+        xa(q), so();
+      }
+      function Ke() {
+        pe();
+      }
+      function Ft(q) {
+        Et(q),
+          P.value !== null && P.value.focus(),
+          (c.value = !0),
+          window.scrollTo(window.pageXOffset || window.scrollX || document.body.scrollLeft || 0, 0);
+      }
+      function ft(q) {
+        Et(q),
+          ze(() => {
+            c.value = !1;
+          });
+      }
+      function io() {
+        const q = [
+          _(
+            I0,
+            {
+              class: `col-auto ${G.fieldClass.value}`,
+              ...te.value,
+              for: G.targetUid.value,
+              dark: ae.value,
+              square: !0,
+              loading: u.value,
+              itemAligned: !1,
+              filled: !0,
+              stackLabel: a.value.length > 0,
+              ...G.splitAttrs.listeners.value,
+              onFocus: Ft,
+              onBlur: ft,
+            },
+            { ...t, rawControl: () => G.getControl(!0), before: void 0, after: void 0 },
+          ),
+        ];
+        return (
+          i.value === !0 &&
+            q.push(
+              _(
+                'div',
+                {
+                  ref: p,
+                  class: oe.value + ' scroll',
+                  style: e.popupContentStyle,
+                  ...O.value,
+                  onClick: bt,
+                  onScrollPassive: L,
+                },
+                Rr(),
+              ),
+            ),
+          _(
+            qh,
+            {
+              ref: S,
+              modelValue: l.value,
+              position: e.useInput === !0 ? 'top' : void 0,
+              transitionShow: T,
+              transitionHide: e.transitionHide,
+              transitionDuration: e.transitionDuration,
+              onBeforeShow: Sa,
+              onBeforeHide: lo,
+              onHide: ol,
+              onShow: Jh,
+            },
+            () =>
+              _(
+                'div',
+                {
+                  class:
+                    'q-select__dialog' +
+                    (ae.value === !0 ? ' q-select__dialog--dark q-dark' : '') +
+                    (c.value === !0 ? ' q-select__dialog--focused' : ''),
+                },
+                q,
+              ),
+          )
+        );
+      }
+      function lo(q) {
+        xa(q),
+          S.value !== null &&
+            S.value.__updateRefocusTarget(
+              G.rootRef.value.querySelector('.q-field__native > [tabindex]:last-child'),
+            ),
+          (G.focused.value = !1);
+      }
+      function ol(q) {
+        $n(), G.focused.value === !1 && n('blur', q), uo();
+      }
+      function Jh() {
+        const q = document.activeElement;
+        (q === null || q.id !== G.targetUid.value) &&
+          P.value !== null &&
+          P.value !== q &&
+          P.value.focus(),
+          pe();
+      }
+      function so() {
+        l.value !== !0 &&
+          ((s.value = -1),
+          i.value === !0 && (i.value = !1),
+          G.focused.value === !1 &&
+            (clearTimeout(g),
+            (g = void 0),
+            G.innerLoading.value === !0 &&
+              (n('filterAbort'), (G.innerLoading.value = !1), (u.value = !1))));
+      }
+      function ao(q) {
+        G.editable.value === !0 &&
+          (h === !0
+            ? (G.onControlFocusin(q),
+              (l.value = !0),
+              ze(() => {
+                G.focus();
+              }))
+            : G.focus(),
+          e.onFilter !== void 0
+            ? _e(a.value)
+            : (A.value !== !0 || t['no-option'] !== void 0) && (i.value = !0));
+      }
+      function $n() {
+        (l.value = !1), so();
+      }
+      function uo() {
+        e.useInput === !0 &&
+          ye(
+            (e.multiple !== !0 &&
+              e.fillInput === !0 &&
+              M.value.length > 0 &&
+              J.value(M.value[0])) ||
+              '',
+            !0,
+            !0,
+          );
+      }
+      function rl(q) {
+        let he = -1;
+        if (q === !0) {
+          if (M.value.length > 0) {
+            const ce = Y.value(M.value[0]);
+            he = e.options.findIndex((ke) => Cn(Y.value(ke), ce));
+          }
+          le(he);
+        }
+        Xe(he);
+      }
+      function Xh(q, he) {
+        i.value === !0 &&
+          G.innerLoading.value === !1 &&
+          (le(-1, !0),
+          ze(() => {
+            i.value === !0 && G.innerLoading.value === !1 && (q > he ? le() : rl(!0));
+          }));
+      }
+      function _a() {
+        l.value === !1 && C.value !== null && C.value.updatePosition();
+      }
+      function Sa(q) {
+        q !== void 0 && Et(q), n('popupShow', q), (G.hasPopupOpen = !0), G.onControlFocusin(q);
+      }
+      function xa(q) {
+        q !== void 0 && Et(q), n('popupHide', q), (G.hasPopupOpen = !1), G.onControlFocusout(q);
+      }
+      function Ca() {
+        (h =
+          r.platform.is.mobile !== !0 && e.behavior !== 'dialog'
+            ? !1
+            : e.behavior !== 'menu' &&
+              (e.useInput === !0
+                ? t['no-option'] !== void 0 || e.onFilter !== void 0 || A.value === !1
+                : !0)),
+          (T =
+            r.platform.is.ios === !0 && h === !0 && e.useInput === !0 ? 'fade' : e.transitionShow);
+      }
+      return (
+        $i(Ca),
+        Bs(_a),
+        Ca(),
+        We(() => {
+          clearTimeout(f);
+        }),
+        Object.assign(o, {
+          showPopup: ao,
+          hidePopup: $n,
+          removeAtIndex: we,
+          add: Ae,
+          toggleOption: Fe,
+          getOptionIndex: () => s.value,
+          setOptionIndex: Xe,
+          moveOptionSelection: it,
+          filter: _e,
+          updateMenuPosition: _a,
+          updateInputValue: ye,
+          isOptionSelected: tn,
+          getEmittingOptionValue: ve,
+          isOptionDisabled: (...q) => me.value.apply(null, q) === !0,
+          getOptionValue: (...q) => Y.value.apply(null, q),
+          getOptionLabel: (...q) => J.value.apply(null, q),
+        }),
+        Object.assign(G, {
+          innerValue: M,
+          fieldClass: v(
+            () =>
+              `q-select q-field--auto-height q-select--with${
+                e.useInput !== !0 ? 'out' : ''
+              }-input q-select--with${e.useChips !== !0 ? 'out' : ''}-chips q-select--${
+                e.multiple === !0 ? 'multiple' : 'single'
+              }`,
+          ),
+          inputRef: x,
+          targetRef: P,
+          hasValue: Se,
+          showPopup: ao,
+          floatingLabel: v(
+            () =>
+              (e.hideSelected !== !0 && Se.value === !0) ||
+              typeof a.value == 'number' ||
+              a.value.length > 0 ||
+              _r(e.displayValue),
+          ),
+          getControlChild: () => {
+            if (
+              G.editable.value !== !1 &&
+              (l.value === !0 || A.value !== !0 || t['no-option'] !== void 0)
+            )
+              return h === !0 ? io() : Re();
+            G.hasPopupOpen === !0 && (G.hasPopupOpen = !1);
+          },
+          controlEvents: {
+            onFocusin(q) {
+              G.onControlFocusin(q);
+            },
+            onFocusout(q) {
+              G.onControlFocusout(q, () => {
+                uo(), so();
+              });
+            },
+            onClick(q) {
+              if ((bt(q), h !== !0 && i.value === !0)) {
+                so(), P.value !== null && P.value.focus();
+                return;
+              }
+              ao(q);
+            },
+          },
+          getControl: (q) => {
+            const he = tl(),
+              ce = q === !0 || l.value !== !0 || h !== !0;
+            if (e.useInput === !0) he.push(nl(q, ce));
+            else if (G.editable.value === !0) {
+              const De = ce === !0 ? w.value : void 0;
+              he.push(
+                _('input', {
+                  ref: ce === !0 ? P : void 0,
+                  key: 'd_t',
+                  class: 'q-select__focus-target',
+                  id: ce === !0 ? G.targetUid.value : void 0,
+                  value: F.value,
+                  readonly: !0,
+                  'data-autofocus': q === !0 || e.autofocus === !0 || void 0,
+                  ...De,
+                  onKeydown: On,
+                  onKeyup: vt,
+                  onKeypress: zo,
+                }),
+              ),
+                ce === !0 &&
+                  typeof e.autocomplete == 'string' &&
+                  e.autocomplete.length > 0 &&
+                  he.push(
+                    _('input', {
+                      class: 'q-select__autocomplete-input',
+                      autocomplete: e.autocomplete,
+                      tabindex: -1,
+                      onKeyup: nn,
+                    }),
+                  );
+            }
+            if ($.value !== void 0 && e.disable !== !0 && z.value.length > 0) {
+              const De = z.value.map((Be) => _('option', { value: Be, selected: !0 }));
+              he.push(_('select', { class: 'hidden', name: $.value, multiple: e.multiple }, De));
+            }
+            const ke = e.useInput === !0 || ce !== !0 ? void 0 : G.splitAttrs.attributes.value;
+            return _('div', { class: 'q-field__native row items-center', ...ke }, he);
+          },
+          getInnerAppend: () =>
+            e.loading !== !0 && u.value !== !0 && e.hideDropdownIcon !== !0
+              ? [
+                  _(yt, {
+                    class: 'q-select__dropdown-icon' + (i.value === !0 ? ' rotate-180' : ''),
+                    name: X.value,
+                  }),
+                ]
+              : null,
+        }),
+        fa(G)
+      );
+    },
+  }),
+  aw = { xs: 2, sm: 4, md: 6, lg: 10, xl: 14 };
+function Ac(e, t, n) {
+  return {
+    transform:
+      t === !0
+        ? `translateX(${n.lang.rtl === !0 ? '-' : ''}100%) scale3d(${-e},1,1)`
+        : `scale3d(${e},1,1)`,
+  };
+}
+const uw = Pe({
+  name: 'QLinearProgress',
+  props: {
+    ...St,
+    ...oo,
+    value: { type: Number, default: 0 },
+    buffer: Number,
+    color: String,
+    trackColor: String,
+    reverse: Boolean,
+    stripe: Boolean,
+    indeterminate: Boolean,
+    query: Boolean,
+    rounded: Boolean,
+    animationSpeed: { type: [String, Number], default: 2100 },
+    instantFeedback: Boolean,
+  },
+  setup(e, { slots: t }) {
+    const { proxy: n } = qe(),
+      o = xt(e, n.$q),
+      r = ro(e, aw),
+      i = v(() => e.indeterminate === !0 || e.query === !0),
+      l = v(() => e.reverse !== e.query),
+      s = v(() => ({
+        ...(r.value !== null ? r.value : {}),
+        '--q-linear-progress-speed': `${e.animationSpeed}ms`,
+      })),
+      a = v(
+        () =>
+          'q-linear-progress' +
+          (e.color !== void 0 ? ` text-${e.color}` : '') +
+          (e.reverse === !0 || e.query === !0 ? ' q-linear-progress--reverse' : '') +
+          (e.rounded === !0 ? ' rounded-borders' : ''),
+      ),
+      c = v(() => Ac(e.buffer !== void 0 ? e.buffer : 1, l.value, n.$q)),
+      u = v(() => `with${e.instantFeedback === !0 ? 'out' : ''}-transition`),
+      f = v(
+        () =>
+          `q-linear-progress__track absolute-full q-linear-progress__track--${
+            u.value
+          } q-linear-progress__track--${o.value === !0 ? 'dark' : 'light'}` +
+          (e.trackColor !== void 0 ? ` bg-${e.trackColor}` : ''),
+      ),
+      d = v(() => Ac(i.value === !0 ? 1 : e.value, l.value, n.$q)),
+      h = v(
+        () =>
+          `q-linear-progress__model absolute-full q-linear-progress__model--${
+            u.value
+          } q-linear-progress__model--${i.value === !0 ? 'in' : ''}determinate`,
+      ),
+      m = v(() => ({ width: `${e.value * 100}%` })),
+      g = v(
+        () =>
+          `q-linear-progress__stripe absolute-${
+            e.reverse === !0 ? 'right' : 'left'
+          } q-linear-progress__stripe--${u.value}`,
+      );
+    return () => {
+      const b = [
+        _('div', { class: f.value, style: c.value }),
+        _('div', { class: h.value, style: d.value }),
+      ];
+      return (
+        e.stripe === !0 && i.value === !1 && b.push(_('div', { class: g.value, style: m.value })),
+        _(
+          'div',
+          {
+            class: a.value,
+            style: s.value,
+            role: 'progressbar',
+            'aria-valuemin': 0,
+            'aria-valuemax': 1,
+            'aria-valuenow': e.indeterminate === !0 ? void 0 : e.value,
+          },
+          Ot(t.default, b),
+        )
+      );
+    };
+  },
+});
+function cw(e, t) {
+  const n = W(null),
+    o = v(() =>
+      e.disable === !0 ? null : _('span', { ref: n, class: 'no-outline', tabindex: -1 }),
+    );
+  function r(i) {
+    const l = t.value;
+    i !== void 0 && i.type.indexOf('key') === 0
+      ? l !== null &&
+        document.activeElement !== l &&
+        l.contains(document.activeElement) === !0 &&
+        l.focus()
+      : n.value !== null &&
+        (i === void 0 || (l !== null && l.contains(i.target) === !0)) &&
+        n.value.focus();
+  }
+  return { refocusTargetEl: o, refocusTarget: r };
+}
+const fw = { xs: 30, sm: 35, md: 40, lg: 50, xl: 60 },
+  dw = {
+    ...St,
+    ...oo,
+    ...Ji,
+    modelValue: { required: !0, default: null },
+    val: {},
+    trueValue: { default: !0 },
+    falseValue: { default: !1 },
+    indeterminateValue: { default: null },
+    checkedIcon: String,
+    uncheckedIcon: String,
+    indeterminateIcon: String,
+    toggleOrder: { type: String, validator: (e) => e === 'tf' || e === 'ft' },
+    toggleIndeterminate: Boolean,
+    label: String,
+    leftLabel: Boolean,
+    color: String,
+    keepColor: Boolean,
+    dense: Boolean,
+    disable: Boolean,
+    tabindex: [String, Number],
+  },
+  hw = ['update:modelValue'];
+function mw(e, t) {
+  const { props: n, slots: o, emit: r, proxy: i } = qe(),
+    { $q: l } = i,
+    s = xt(n, l),
+    a = W(null),
+    { refocusTargetEl: c, refocusTarget: u } = cw(n, a),
+    f = ro(n, fw),
+    d = v(() => n.val !== void 0 && Array.isArray(n.modelValue)),
+    h = v(() => {
+      const I = Te(n.val);
+      return d.value === !0 ? n.modelValue.findIndex((Q) => Te(Q) === I) : -1;
+    }),
+    m = v(() => (d.value === !0 ? h.value > -1 : Te(n.modelValue) === Te(n.trueValue))),
+    g = v(() => (d.value === !0 ? h.value === -1 : Te(n.modelValue) === Te(n.falseValue))),
+    b = v(() => m.value === !1 && g.value === !1),
+    T = v(() => (n.disable === !0 ? -1 : n.tabindex || 0)),
+    k = v(
+      () =>
+        `q-${e} cursor-pointer no-outline row inline no-wrap items-center` +
+        (n.disable === !0 ? ' disabled' : '') +
+        (s.value === !0 ? ` q-${e}--dark` : '') +
+        (n.dense === !0 ? ` q-${e}--dense` : '') +
+        (n.leftLabel === !0 ? ' reverse' : ''),
+    ),
+    E = v(() => {
+      const I = m.value === !0 ? 'truthy' : g.value === !0 ? 'falsy' : 'indet',
+        Q =
+          n.color !== void 0 &&
+          (n.keepColor === !0 || (e === 'toggle' ? m.value === !0 : g.value !== !0))
+            ? ` text-${n.color}`
+            : '';
+      return `q-${e}__inner relative-position non-selectable q-${e}__inner--${I}${Q}`;
+    }),
+    x = v(() => {
+      const I = { type: 'checkbox' };
+      return (
+        n.name !== void 0 &&
+          Object.assign(I, {
+            '.checked': m.value,
+            '^checked': m.value === !0 ? 'checked' : void 0,
+            name: n.name,
+            value: d.value === !0 ? n.val : n.trueValue,
+          }),
+        I
+      );
+    }),
+    P = lh(x),
+    C = v(() => {
+      const I = {
+        tabindex: T.value,
+        role: e === 'toggle' ? 'switch' : 'checkbox',
+        'aria-label': n.label,
+        'aria-checked': b.value === !0 ? 'mixed' : m.value === !0 ? 'true' : 'false',
+      };
+      return n.disable === !0 && (I['aria-disabled'] = 'true'), I;
+    });
+  function S(I) {
+    I !== void 0 && (Je(I), u(I)), n.disable !== !0 && r('update:modelValue', p(), I);
+  }
+  function p() {
+    if (d.value === !0) {
+      if (m.value === !0) {
+        const I = n.modelValue.slice();
+        return I.splice(h.value, 1), I;
+      }
+      return n.modelValue.concat([n.val]);
+    }
+    if (m.value === !0) {
+      if (n.toggleOrder !== 'ft' || n.toggleIndeterminate === !1) return n.falseValue;
+    } else if (g.value === !0) {
+      if (n.toggleOrder === 'ft' || n.toggleIndeterminate === !1) return n.trueValue;
+    } else return n.toggleOrder !== 'ft' ? n.trueValue : n.falseValue;
+    return n.indeterminateValue;
+  }
+  function $(I) {
+    (I.keyCode === 13 || I.keyCode === 32) && Je(I);
+  }
+  function R(I) {
+    (I.keyCode === 13 || I.keyCode === 32) && S(I);
+  }
+  const B = t(m, b);
+  return (
+    Object.assign(i, { toggle: S }),
+    () => {
+      const I = B();
+      n.disable !== !0 && P(I, 'unshift', ` q-${e}__native absolute q-ma-none q-pa-none`);
+      const Q = [_('div', { class: E.value, style: f.value, 'aria-hidden': 'true' }, I)];
+      c.value !== null && Q.push(c.value);
+      const H = n.label !== void 0 ? Ot(o.default, [n.label]) : je(o.default);
+      return (
+        H !== void 0 && Q.push(_('div', { class: `q-${e}__label q-anchor--skip` }, H)),
+        _('div', { ref: a, class: k.value, ...C.value, onClick: S, onKeydown: $, onKeyup: R }, Q)
+      );
+    }
+  );
+}
+const vw = _('div', { key: 'svg', class: 'q-checkbox__bg absolute' }, [
+    _('svg', { class: 'q-checkbox__svg fit absolute-full', viewBox: '0 0 24 24' }, [
+      _('path', {
+        class: 'q-checkbox__truthy',
+        fill: 'none',
+        d: 'M1.73,12.91 8.1,19.28 22.79,4.59',
+      }),
+      _('path', { class: 'q-checkbox__indet', d: 'M4,14H20V10H4' }),
+    ]),
+  ]),
+  $l = Pe({
+    name: 'QCheckbox',
+    props: dw,
+    emits: hw,
+    setup(e) {
+      function t(n, o) {
+        const r = v(
+          () =>
+            (n.value === !0
+              ? e.checkedIcon
+              : o.value === !0
+              ? e.indeterminateIcon
+              : e.uncheckedIcon) || null,
+        );
+        return () =>
+          r.value !== null
+            ? [
+                _(
+                  'div',
+                  {
+                    key: 'icon',
+                    class: 'q-checkbox__icon-container absolute-full flex flex-center no-wrap',
+                  },
+                  [_(yt, { class: 'q-checkbox__icon', name: r.value })],
+                ),
+              ]
+            : [vw];
+      }
+      return mw('checkbox', t);
+    },
+  });
+let Ko = 0;
+const gw = { fullscreen: Boolean, noRouteFullscreenExit: Boolean },
+  pw = ['update:fullscreen', 'fullscreen'];
+function bw() {
+  const e = qe(),
+    { props: t, emit: n, proxy: o } = e;
+  let r, i, l;
+  const s = W(!1);
+  Ks(e) === !0 &&
+    fe(
+      () => o.$route.fullPath,
+      () => {
+        t.noRouteFullscreenExit !== !0 && u();
+      },
+    ),
+    fe(
+      () => t.fullscreen,
+      (f) => {
+        s.value !== f && a();
+      },
+    ),
+    fe(s, (f) => {
+      n('update:fullscreen', f), n('fullscreen', f);
+    });
+  function a() {
+    s.value === !0 ? u() : c();
+  }
+  function c() {
+    s.value !== !0 &&
+      ((s.value = !0),
+      (l = o.$el.parentNode),
+      l.replaceChild(i, o.$el),
+      document.body.appendChild(o.$el),
+      Ko++,
+      Ko === 1 && document.body.classList.add('q-body--fullscreen-mixin'),
+      (r = { handler: u }),
+      vr.add(r));
+  }
+  function u() {
+    s.value === !0 &&
+      (r !== void 0 && (vr.remove(r), (r = void 0)),
+      l.replaceChild(o.$el, i),
+      (s.value = !1),
+      (Ko = Math.max(0, Ko - 1)),
+      Ko === 0 &&
+        (document.body.classList.remove('q-body--fullscreen-mixin'),
+        o.$el.scrollIntoView !== void 0 &&
+          setTimeout(() => {
+            o.$el.scrollIntoView();
+          })));
+  }
+  return (
+    Cr(() => {
+      i = document.createElement('span');
+    }),
+    ct(() => {
+      t.fullscreen === !0 && c();
+    }),
+    We(u),
+    Object.assign(o, { toggleFullscreen: a, setFullscreen: c, exitFullscreen: u }),
+    { inFullscreen: s, toggleFullscreen: a }
+  );
+}
+function yw(e, t) {
+  return new Date(e) - new Date(t);
+}
+const ww = {
+  sortMethod: Function,
+  binaryStateSort: Boolean,
+  columnSortOrder: { type: String, validator: (e) => e === 'ad' || e === 'da', default: 'ad' },
+};
+function _w(e, t, n, o) {
+  const r = v(() => {
+      const { sortBy: s } = t.value;
+      return (s && n.value.find((a) => a.name === s)) || null;
+    }),
+    i = v(() =>
+      e.sortMethod !== void 0
+        ? e.sortMethod
+        : (s, a, c) => {
+            const u = n.value.find((h) => h.name === a);
+            if (u === void 0 || u.field === void 0) return s;
+            const f = c === !0 ? -1 : 1,
+              d = typeof u.field == 'function' ? (h) => u.field(h) : (h) => h[u.field];
+            return s.sort((h, m) => {
+              let g = d(h),
+                b = d(m);
+              return g == null
+                ? -1 * f
+                : b == null
+                ? 1 * f
+                : u.sort !== void 0
+                ? u.sort(g, b, h, m) * f
+                : Xl(g) === !0 && Xl(b) === !0
+                ? (g - b) * f
+                : uu(g) === !0 && uu(b) === !0
+                ? yw(g, b) * f
+                : typeof g == 'boolean' && typeof b == 'boolean'
+                ? (g - b) * f
+                : (([g, b] = [g, b].map((T) => (T + '').toLocaleString().toLowerCase())),
+                  g < b ? -1 * f : g === b ? 0 : f);
+            });
+          },
+    );
+  function l(s) {
+    let a = e.columnSortOrder;
+    if (To(s) === !0) s.sortOrder && (a = s.sortOrder), (s = s.name);
+    else {
+      const f = n.value.find((d) => d.name === s);
+      f !== void 0 && f.sortOrder && (a = f.sortOrder);
+    }
+    let { sortBy: c, descending: u } = t.value;
+    c !== s
+      ? ((c = s), (u = a === 'da'))
+      : e.binaryStateSort === !0
+      ? (u = !u)
+      : u === !0
+      ? a === 'ad'
+        ? (c = null)
+        : (u = !1)
+      : a === 'ad'
+      ? (u = !0)
+      : (c = null),
+      o({ sortBy: c, descending: u, page: 1 });
+  }
+  return { columnToSort: r, computedSortMethod: i, sort: l };
+}
+const Sw = { filter: [String, Object], filterMethod: Function };
+function xw(e, t) {
+  const n = v(() =>
+    e.filterMethod !== void 0
+      ? e.filterMethod
+      : (o, r, i, l) => {
+          const s = r ? r.toLowerCase() : '';
+          return o.filter((a) =>
+            i.some((c) => {
+              const u = l(c, a) + '';
+              return (u === 'undefined' || u === 'null' ? '' : u.toLowerCase()).indexOf(s) !== -1;
+            }),
+          );
+        },
+  );
+  return (
+    fe(
+      () => e.filter,
+      () => {
+        ze(() => {
+          t({ page: 1 }, !0);
+        });
+      },
+      { deep: !0 },
+    ),
+    { computedFilterMethod: n }
+  );
+}
+function Cw(e, t) {
+  for (const n in t) if (t[n] !== e[n]) return !1;
+  return !0;
+}
+function Oc(e) {
+  return (
+    e.page < 1 && (e.page = 1),
+    e.rowsPerPage !== void 0 && e.rowsPerPage < 1 && (e.rowsPerPage = 0),
+    e
+  );
+}
+const kw = {
+  pagination: Object,
+  rowsPerPageOptions: { type: Array, default: () => [5, 7, 10, 15, 20, 25, 50, 0] },
+  'onUpdate:pagination': [Function, Array],
+};
+function Ew(e, t) {
+  const { props: n, emit: o } = e,
+    r = W(
+      Object.assign(
+        {
+          sortBy: null,
+          descending: !1,
+          page: 1,
+          rowsPerPage: n.rowsPerPageOptions.length > 0 ? n.rowsPerPageOptions[0] : 5,
+        },
+        n.pagination,
+      ),
+    ),
+    i = v(() => {
+      const u = n['onUpdate:pagination'] !== void 0 ? { ...r.value, ...n.pagination } : r.value;
+      return Oc(u);
+    }),
+    l = v(() => i.value.rowsNumber !== void 0);
+  function s(u) {
+    a({ pagination: u, filter: n.filter });
+  }
+  function a(u = {}) {
+    ze(() => {
+      o('request', {
+        pagination: u.pagination || i.value,
+        filter: u.filter || n.filter,
+        getCellValue: t,
+      });
+    });
+  }
+  function c(u, f) {
+    const d = Oc({ ...i.value, ...u });
+    if (Cw(i.value, d) === !0) {
+      l.value === !0 && f === !0 && s(d);
+      return;
+    }
+    if (l.value === !0) {
+      s(d);
+      return;
+    }
+    n.pagination !== void 0 && n['onUpdate:pagination'] !== void 0
+      ? o('update:pagination', d)
+      : (r.value = d);
+  }
+  return {
+    innerPagination: r,
+    computedPagination: i,
+    isServerSide: l,
+    requestServerInteraction: a,
+    setPagination: c,
+  };
+}
+function qw(e, t, n, o, r, i) {
+  const {
+      props: l,
+      emit: s,
+      proxy: { $q: a },
+    } = e,
+    c = v(() => (o.value === !0 ? n.value.rowsNumber || 0 : i.value)),
+    u = v(() => {
+      const { page: x, rowsPerPage: P } = n.value;
+      return (x - 1) * P;
+    }),
+    f = v(() => {
+      const { page: x, rowsPerPage: P } = n.value;
+      return x * P;
+    }),
+    d = v(() => n.value.page === 1),
+    h = v(() =>
+      n.value.rowsPerPage === 0 ? 1 : Math.max(1, Math.ceil(c.value / n.value.rowsPerPage)),
+    ),
+    m = v(() => (f.value === 0 ? !0 : n.value.page >= h.value)),
+    g = v(() =>
+      (l.rowsPerPageOptions.includes(t.value.rowsPerPage)
+        ? l.rowsPerPageOptions
+        : [t.value.rowsPerPage].concat(l.rowsPerPageOptions)
+      ).map((P) => ({ label: P === 0 ? a.lang.table.allRows : '' + P, value: P })),
+    );
+  fe(h, (x, P) => {
+    if (x === P) return;
+    const C = n.value.page;
+    x && !C ? r({ page: 1 }) : x < C && r({ page: x });
+  });
+  function b() {
+    r({ page: 1 });
+  }
+  function T() {
+    const { page: x } = n.value;
+    x > 1 && r({ page: x - 1 });
+  }
+  function k() {
+    const { page: x, rowsPerPage: P } = n.value;
+    f.value > 0 && x * P < c.value && r({ page: x + 1 });
+  }
+  function E() {
+    r({ page: h.value });
+  }
+  return (
+    l['onUpdate:pagination'] !== void 0 && s('update:pagination', { ...n.value }),
+    {
+      firstRowIndex: u,
+      lastRowIndex: f,
+      isFirstPage: d,
+      isLastPage: m,
+      pagesNumber: h,
+      computedRowsPerPageOptions: g,
+      computedRowsNumber: c,
+      firstPage: b,
+      prevPage: T,
+      nextPage: k,
+      lastPage: E,
+    }
+  );
+}
+const Tw = {
+    selection: {
+      type: String,
+      default: 'none',
+      validator: (e) => ['single', 'multiple', 'none'].includes(e),
+    },
+    selected: { type: Array, default: () => [] },
+  },
+  Pw = ['update:selected', 'selection'];
+function Rw(e, t, n, o) {
+  const r = v(() => {
+      const m = {};
+      return (
+        e.selected.map(o.value).forEach((g) => {
+          m[g] = !0;
+        }),
+        m
+      );
+    }),
+    i = v(() => e.selection !== 'none'),
+    l = v(() => e.selection === 'single'),
+    s = v(() => e.selection === 'multiple'),
+    a = v(() => n.value.length > 0 && n.value.every((m) => r.value[o.value(m)] === !0)),
+    c = v(() => a.value !== !0 && n.value.some((m) => r.value[o.value(m)] === !0)),
+    u = v(() => e.selected.length);
+  function f(m) {
+    return r.value[m] === !0;
+  }
+  function d() {
+    t('update:selected', []);
+  }
+  function h(m, g, b, T) {
+    t('selection', { rows: g, added: b, keys: m, evt: T });
+    const k =
+      l.value === !0
+        ? b === !0
+          ? g
+          : []
+        : b === !0
+        ? e.selected.concat(g)
+        : e.selected.filter((E) => m.includes(o.value(E)) === !1);
+    t('update:selected', k);
+  }
+  return {
+    hasSelectionMode: i,
+    singleSelection: l,
+    multipleSelection: s,
+    allRowsSelected: a,
+    someRowsSelected: c,
+    rowsSelectedNumber: u,
+    isRowSelected: f,
+    clearSelection: d,
+    updateSelection: h,
+  };
+}
+function $c(e) {
+  return Array.isArray(e) ? e.slice() : [];
+}
+const Aw = { expanded: Array },
+  Ow = ['update:expanded'];
+function $w(e, t) {
+  const n = W($c(e.expanded));
+  fe(
+    () => e.expanded,
+    (l) => {
+      n.value = $c(l);
+    },
+  );
+  function o(l) {
+    return n.value.includes(l);
+  }
+  function r(l) {
+    e.expanded !== void 0 ? t('update:expanded', l) : (n.value = l);
+  }
+  function i(l, s) {
+    const a = n.value.slice(),
+      c = a.indexOf(l);
+    s === !0 ? c === -1 && (a.push(l), r(a)) : c !== -1 && (a.splice(c, 1), r(a));
+  }
+  return { isRowExpanded: o, setExpanded: r, updateExpanded: i };
+}
+const Lw = { visibleColumns: Array };
+function Mw(e, t, n) {
+  const o = v(() => {
+      if (e.columns !== void 0) return e.columns;
+      const s = e.rows[0];
+      return s !== void 0
+        ? Object.keys(s).map((a) => ({
+            name: a,
+            label: a.toUpperCase(),
+            field: a,
+            align: Xl(s[a]) ? 'right' : 'left',
+            sortable: !0,
+          }))
+        : [];
+    }),
+    r = v(() => {
+      const { sortBy: s, descending: a } = t.value;
+      return (
+        e.visibleColumns !== void 0
+          ? o.value.filter((u) => u.required === !0 || e.visibleColumns.includes(u.name) === !0)
+          : o.value
+      ).map((u) => {
+        const f = u.align || 'right',
+          d = `text-${f}`;
+        return {
+          ...u,
+          align: f,
+          __iconClass: `q-table__sort-icon q-table__sort-icon--${f}`,
+          __thClass:
+            d +
+            (u.headerClasses !== void 0 ? ' ' + u.headerClasses : '') +
+            (u.sortable === !0 ? ' sortable' : '') +
+            (u.name === s ? ` sorted ${a === !0 ? 'sort-desc' : ''}` : ''),
+          __tdStyle:
+            u.style !== void 0
+              ? typeof u.style != 'function'
+                ? () => u.style
+                : u.style
+              : () => null,
+          __tdClass:
+            u.classes !== void 0
+              ? typeof u.classes != 'function'
+                ? () => d + ' ' + u.classes
+                : (h) => d + ' ' + u.classes(h)
+              : () => d,
+        };
+      });
+    }),
+    i = v(() => {
+      const s = {};
+      return (
+        r.value.forEach((a) => {
+          s[a.name] = a;
+        }),
+        s
+      );
+    }),
+    l = v(() =>
+      e.tableColspan !== void 0 ? e.tableColspan : r.value.length + (n.value === !0 ? 1 : 0),
+    );
+  return { colList: o, computedCols: r, computedColsMap: i, computedColspan: l };
+}
+const Ur = 'q-table__bottom row items-center',
+  Th = {};
+mh.forEach((e) => {
+  Th[e] = {};
+});
+const Ph = Pe({
+  name: 'QTable',
+  props: {
+    rows: { type: Array, default: () => [] },
+    rowKey: { type: [String, Function], default: 'id' },
+    columns: Array,
+    loading: Boolean,
+    iconFirstPage: String,
+    iconPrevPage: String,
+    iconNextPage: String,
+    iconLastPage: String,
+    title: String,
+    hideHeader: Boolean,
+    grid: Boolean,
+    gridHeader: Boolean,
+    dense: Boolean,
+    flat: Boolean,
+    bordered: Boolean,
+    square: Boolean,
+    separator: {
+      type: String,
+      default: 'horizontal',
+      validator: (e) => ['horizontal', 'vertical', 'cell', 'none'].includes(e),
+    },
+    wrapCells: Boolean,
+    virtualScroll: Boolean,
+    virtualScrollTarget: { default: void 0 },
+    ...Th,
+    noDataLabel: String,
+    noResultsLabel: String,
+    loadingLabel: String,
+    selectedRowsLabel: Function,
+    rowsPerPageLabel: String,
+    paginationLabel: Function,
+    color: { type: String, default: 'grey-8' },
+    titleClass: [String, Array, Object],
+    tableStyle: [String, Array, Object],
+    tableClass: [String, Array, Object],
+    tableHeaderStyle: [String, Array, Object],
+    tableHeaderClass: [String, Array, Object],
+    cardContainerClass: [String, Array, Object],
+    cardContainerStyle: [String, Array, Object],
+    cardStyle: [String, Array, Object],
+    cardClass: [String, Array, Object],
+    hideBottom: Boolean,
+    hideSelectedBanner: Boolean,
+    hideNoData: Boolean,
+    hidePagination: Boolean,
+    onRowClick: Function,
+    onRowDblclick: Function,
+    onRowContextmenu: Function,
+    ...St,
+    ...gw,
+    ...Lw,
+    ...Sw,
+    ...kw,
+    ...Aw,
+    ...Tw,
+    ...ww,
+  },
+  emits: ['request', 'virtualScroll', ...pw, ...Ow, ...Pw],
+  setup(e, { slots: t, emit: n }) {
+    const o = qe(),
+      {
+        proxy: { $q: r },
+      } = o,
+      i = xt(e, r),
+      { inFullscreen: l, toggleFullscreen: s } = bw(),
+      a = v(() => (typeof e.rowKey == 'function' ? e.rowKey : (j) => j[e.rowKey])),
+      c = W(null),
+      u = W(null),
+      f = v(() => e.grid !== !0 && e.virtualScroll === !0),
+      d = v(
+        () =>
+          ' q-table__card' +
+          (i.value === !0 ? ' q-table__card--dark q-dark' : '') +
+          (e.square === !0 ? ' q-table--square' : '') +
+          (e.flat === !0 ? ' q-table--flat' : '') +
+          (e.bordered === !0 ? ' q-table--bordered' : ''),
+      ),
+      h = v(
+        () =>
+          `q-table__container q-table--${e.separator}-separator column no-wrap` +
+          (e.grid === !0 ? ' q-table--grid' : d.value) +
+          (i.value === !0 ? ' q-table--dark' : '') +
+          (e.dense === !0 ? ' q-table--dense' : '') +
+          (e.wrapCells === !1 ? ' q-table--no-wrap' : '') +
+          (l.value === !0 ? ' fullscreen scroll' : ''),
+      ),
+      m = v(() => h.value + (e.loading === !0 ? ' q-table--loading' : ''));
+    fe(
+      () => e.tableStyle + e.tableClass + e.tableHeaderStyle + e.tableHeaderClass + h.value,
+      () => {
+        f.value === !0 && u.value !== null && u.value.reset();
+      },
+    );
+    const {
+        innerPagination: g,
+        computedPagination: b,
+        isServerSide: T,
+        requestServerInteraction: k,
+        setPagination: E,
+      } = Ew(o, it),
+      { computedFilterMethod: x } = xw(e, E),
+      { isRowExpanded: P, setExpanded: C, updateExpanded: S } = $w(e, n),
+      p = v(() => {
+        let j = e.rows;
+        if (T.value === !0 || j.length === 0) return j;
+        const { sortBy: de, descending: ye } = b.value;
+        return (
+          e.filter && (j = x.value(j, e.filter, M.value, it)),
+          Se.value !== null && (j = Me.value(e.rows === j ? j.slice() : j, de, ye)),
+          j
+        );
+      }),
+      $ = v(() => p.value.length),
+      R = v(() => {
+        let j = p.value;
+        if (T.value === !0) return j;
+        const { rowsPerPage: de } = b.value;
+        return (
+          de !== 0 &&
+            (A.value === 0 && e.rows !== j
+              ? j.length > ee.value && (j = j.slice(0, ee.value))
+              : (j = j.slice(A.value, ee.value))),
+          j
+        );
+      }),
+      {
+        hasSelectionMode: B,
+        singleSelection: I,
+        multipleSelection: Q,
+        allRowsSelected: H,
+        someRowsSelected: le,
+        rowsSelectedNumber: N,
+        isRowSelected: L,
+        clearSelection: U,
+        updateSelection: pe,
+      } = Rw(e, n, R, a),
+      { colList: G, computedCols: M, computedColsMap: te, computedColspan: ae } = Mw(e, b, B),
+      { columnToSort: Se, computedSortMethod: Me, sort: oe } = _w(e, b, G, E),
+      {
+        firstRowIndex: A,
+        lastRowIndex: ee,
+        isFirstPage: F,
+        isLastPage: ie,
+        pagesNumber: xe,
+        computedRowsPerPageOptions: y,
+        computedRowsNumber: w,
+        firstPage: O,
+        prevPage: V,
+        nextPage: D,
+        lastPage: X,
+      } = qw(o, g, b, T, E, $),
+      se = v(() => R.value.length === 0),
+      ne = v(() => {
+        const j = {};
+        return (
+          mh.forEach((de) => {
+            j[de] = e[de];
+          }),
+          j.virtualScrollItemSize === void 0 &&
+            (j.virtualScrollItemSize = e.dense === !0 ? 28 : 48),
+          j
+        );
+      });
+    function Y() {
+      f.value === !0 && u.value.reset();
+    }
+    function J() {
+      if (e.grid === !0) return nl();
+      const j = e.hideHeader !== !0 ? tt : null;
+      if (f.value === !0) {
+        const ye = t['top-row'],
+          _e = t['bottom-row'],
+          Re = { default: (Qe) => ve(Qe.item, t.body, Qe.index) };
+        if (ye !== void 0) {
+          const Qe = _('tbody', ye({ cols: M.value }));
+          Re.before = j === null ? () => Qe : () => [j()].concat(Qe);
+        } else j !== null && (Re.before = j);
+        return (
+          _e !== void 0 && (Re.after = () => _('tbody', _e({ cols: M.value }))),
+          _(
+            B0,
+            {
+              ref: u,
+              class: e.tableClass,
+              style: e.tableStyle,
+              ...ne.value,
+              scrollTarget: e.virtualScrollTarget,
+              items: R.value,
+              type: '__qtable',
+              tableColspan: ae.value,
+              onVirtualScroll: z,
+            },
+            Re,
+          )
+        );
+      }
+      const de = [we()];
+      return (
+        j !== null && de.unshift(j()),
+        fh({ class: ['q-table__middle scroll', e.tableClass], style: e.tableStyle }, de)
+      );
+    }
+    function me(j, de) {
+      if (u.value !== null) {
+        u.value.scrollTo(j, de);
+        return;
+      }
+      j = parseInt(j, 10);
+      const ye = c.value.querySelector(`tbody tr:nth-of-type(${j + 1})`);
+      if (ye !== null) {
+        const _e = c.value.querySelector('.q-table__middle.scroll'),
+          Re = ye.offsetTop - e.virtualScrollStickySizeStart,
+          Qe = Re < _e.scrollTop ? 'decrease' : 'increase';
+        (_e.scrollTop = Re),
+          n('virtualScroll', { index: j, from: 0, to: g.value.rowsPerPage - 1, direction: Qe });
+      }
+    }
+    function z(j) {
+      n('virtualScroll', j);
+    }
+    function re() {
+      return [
+        _(uw, {
+          class: 'q-table__linear-progress',
+          color: e.color,
+          dark: i.value,
+          indeterminate: !0,
+          trackColor: 'transparent',
+        }),
+      ];
+    }
+    function ve(j, de, ye) {
+      const _e = a.value(j),
+        Re = L(_e);
+      if (de !== void 0)
+        return de(Le({ key: _e, row: j, pageIndex: ye, __trClass: Re ? 'selected' : '' }));
+      const Qe = t['body-cell'],
+        Ke = M.value.map((ft) => {
+          const io = t[`body-cell-${ft.name}`],
+            lo = io !== void 0 ? io : Qe;
+          return lo !== void 0
+            ? lo(Ae({ key: _e, row: j, pageIndex: ye, col: ft }))
+            : _('td', { class: ft.__tdClass(j), style: ft.__tdStyle(j) }, it(ft, j));
+        });
+      if (B.value === !0) {
+        const ft = t['body-selection'],
+          io =
+            ft !== void 0
+              ? ft(Fe({ key: _e, row: j, pageIndex: ye }))
+              : [
+                  _($l, {
+                    modelValue: Re,
+                    color: e.color,
+                    dark: i.value,
+                    dense: e.dense,
+                    'onUpdate:modelValue': (lo, ol) => {
+                      pe([_e], [j], lo, ol);
+                    },
+                  }),
+                ];
+        Ke.unshift(_('td', { class: 'q-table--col-auto-width' }, io));
+      }
+      const Ft = { key: _e, class: { selected: Re } };
+      return (
+        e.onRowClick !== void 0 &&
+          ((Ft.class['cursor-pointer'] = !0),
+          (Ft.onClick = (ft) => {
+            n('RowClick', ft, j, ye);
+          })),
+        e.onRowDblclick !== void 0 &&
+          ((Ft.class['cursor-pointer'] = !0),
+          (Ft.onDblclick = (ft) => {
+            n('RowDblclick', ft, j, ye);
+          })),
+        e.onRowContextmenu !== void 0 &&
+          ((Ft.class['cursor-pointer'] = !0),
+          (Ft.onContextmenu = (ft) => {
+            n('RowContextmenu', ft, j, ye);
+          })),
+        _('tr', Ft, Ke)
+      );
+    }
+    function we() {
+      const j = t.body,
+        de = t['top-row'],
+        ye = t['bottom-row'];
+      let _e = R.value.map((Re, Qe) => ve(Re, j, Qe));
+      return (
+        de !== void 0 && (_e = de({ cols: M.value }).concat(_e)),
+        ye !== void 0 && (_e = _e.concat(ye({ cols: M.value }))),
+        _('tbody', _e)
+      );
+    }
+    function Le(j) {
+      return Xe(j), (j.cols = j.cols.map((de) => At({ ...de }, 'value', () => it(de, j.row)))), j;
+    }
+    function Ae(j) {
+      return Xe(j), At(j, 'value', () => it(j.col, j.row)), j;
+    }
+    function Fe(j) {
+      return Xe(j), j;
+    }
+    function Xe(j) {
+      Object.assign(j, {
+        cols: M.value,
+        colsMap: te.value,
+        sort: oe,
+        rowIndex: A.value + j.pageIndex,
+        color: e.color,
+        dark: i.value,
+        dense: e.dense,
+      }),
+        B.value === !0 &&
+          At(
+            j,
+            'selected',
+            () => L(j.key),
+            (de, ye) => {
+              pe([j.key], [j.row], de, ye);
+            },
+          ),
+        At(
+          j,
+          'expand',
+          () => P(j.key),
+          (de) => {
+            S(j.key, de);
+          },
+        );
+    }
+    function it(j, de) {
+      const ye = typeof j.field == 'function' ? j.field(de) : de[j.field];
+      return j.format !== void 0 ? j.format(ye, de) : ye;
+    }
+    const Lt = v(() => ({
+      pagination: b.value,
+      pagesNumber: xe.value,
+      isFirstPage: F.value,
+      isLastPage: ie.value,
+      firstPage: O,
+      prevPage: V,
+      nextPage: D,
+      lastPage: X,
+      inFullscreen: l.value,
+      toggleFullscreen: s,
+    }));
+    function Mt() {
+      const j = t.top,
+        de = t['top-left'],
+        ye = t['top-right'],
+        _e = t['top-selection'],
+        Re = B.value === !0 && _e !== void 0 && N.value > 0,
+        Qe = 'q-table__top relative-position row items-center';
+      if (j !== void 0) return _('div', { class: Qe }, [j(Lt.value)]);
+      let Ke;
+      if (
+        (Re === !0
+          ? (Ke = _e(Lt.value).slice())
+          : ((Ke = []),
+            de !== void 0
+              ? Ke.push(_('div', { class: 'q-table-control' }, [de(Lt.value)]))
+              : e.title &&
+                Ke.push(
+                  _('div', { class: 'q-table__control' }, [
+                    _('div', { class: ['q-table__title', e.titleClass] }, e.title),
+                  ]),
+                )),
+        ye !== void 0 &&
+          (Ke.push(_('div', { class: 'q-table__separator col' })),
+          Ke.push(_('div', { class: 'q-table__control' }, [ye(Lt.value)]))),
+        Ke.length !== 0)
+      )
+        return _('div', { class: Qe }, Ke);
+    }
+    const tn = v(() => (le.value === !0 ? null : H.value));
+    function tt() {
+      const j = vt();
+      return (
+        e.loading === !0 &&
+          t.loading === void 0 &&
+          j.push(
+            _('tr', { class: 'q-table__progress' }, [
+              _('th', { class: 'relative-position', colspan: ae.value }, re()),
+            ]),
+          ),
+        _('thead', j)
+      );
+    }
+    function vt() {
+      const j = t.header,
+        de = t['header-cell'];
+      if (j !== void 0) return j(nn({ header: !0 })).slice();
+      const ye = M.value.map((_e) => {
+        const Re = t[`header-cell-${_e.name}`],
+          Qe = Re !== void 0 ? Re : de,
+          Ke = nn({ col: _e });
+        return Qe !== void 0 ? Qe(Ke) : _(uh, { key: _e.name, props: Ke }, () => _e.label);
+      });
+      if (I.value === !0 && e.grid !== !0)
+        ye.unshift(_('th', { class: 'q-table--col-auto-width' }, ' '));
+      else if (Q.value === !0) {
+        const _e = t['header-selection'],
+          Re =
+            _e !== void 0
+              ? _e(nn({}))
+              : [
+                  _($l, {
+                    color: e.color,
+                    modelValue: tn.value,
+                    dark: i.value,
+                    dense: e.dense,
+                    'onUpdate:modelValue': zo,
+                  }),
+                ];
+        ye.unshift(_('th', { class: 'q-table--col-auto-width' }, Re));
+      }
+      return [_('tr', { class: e.tableHeaderClass, style: e.tableHeaderStyle }, ye)];
+    }
+    function nn(j) {
+      return (
+        Object.assign(j, {
+          cols: M.value,
+          sort: oe,
+          colsMap: te.value,
+          color: e.color,
+          dark: i.value,
+          dense: e.dense,
+        }),
+        Q.value === !0 && At(j, 'selected', () => tn.value, zo),
+        j
+      );
+    }
+    function zo(j) {
+      le.value === !0 && (j = !1), pe(R.value.map(a.value), R.value, j);
+    }
+    const On = v(() => {
+      const j = [
+        e.iconFirstPage || r.iconSet.table.firstPage,
+        e.iconPrevPage || r.iconSet.table.prevPage,
+        e.iconNextPage || r.iconSet.table.nextPage,
+        e.iconLastPage || r.iconSet.table.lastPage,
+      ];
+      return r.lang.rtl === !0 ? j.reverse() : j;
+    });
+    function Pr() {
+      if (e.hideBottom === !0) return;
+      if (se.value === !0) {
+        if (e.hideNoData === !0) return;
+        const ye =
+            e.loading === !0
+              ? e.loadingLabel || r.lang.table.loading
+              : e.filter
+              ? e.noResultsLabel || r.lang.table.noResults
+              : e.noDataLabel || r.lang.table.noData,
+          _e = t['no-data'],
+          Re =
+            _e !== void 0
+              ? [_e({ message: ye, icon: r.iconSet.table.warning, filter: e.filter })]
+              : [
+                  _(yt, { class: 'q-table__bottom-nodata-icon', name: r.iconSet.table.warning }),
+                  ye,
+                ];
+        return _('div', { class: Ur + ' q-table__bottom--nodata' }, Re);
+      }
+      const j = t.bottom;
+      if (j !== void 0) return _('div', { class: Ur }, [j(Lt.value)]);
+      const de =
+        e.hideSelectedBanner !== !0 && B.value === !0 && N.value > 0
+          ? [
+              _('div', { class: 'q-table__control' }, [
+                _('div', [(e.selectedRowsLabel || r.lang.table.selectedRecords)(N.value)]),
+              ]),
+            ]
+          : [];
+      if (e.hidePagination !== !0) return _('div', { class: Ur + ' justify-end' }, tl(de));
+      if (de.length > 0) return _('div', { class: Ur }, de);
+    }
+    function el(j) {
+      E({ page: 1, rowsPerPage: j.value });
+    }
+    function tl(j) {
+      let de;
+      const { rowsPerPage: ye } = b.value,
+        _e = e.paginationLabel || r.lang.table.pagination,
+        Re = t.pagination,
+        Qe = e.rowsPerPageOptions.length > 1;
+      if (
+        (j.push(_('div', { class: 'q-table__separator col' })),
+        Qe === !0 &&
+          j.push(
+            _('div', { class: 'q-table__control' }, [
+              _('span', { class: 'q-table__bottom-item' }, [
+                e.rowsPerPageLabel || r.lang.table.recordsPerPage,
+              ]),
+              _(sw, {
+                class: 'q-table__select inline q-table__bottom-item',
+                color: e.color,
+                modelValue: ye,
+                options: y.value,
+                displayValue: ye === 0 ? r.lang.table.allRows : ye,
+                dark: i.value,
+                borderless: !0,
+                dense: !0,
+                optionsDense: !0,
+                optionsCover: !0,
+                'onUpdate:modelValue': el,
+              }),
+            ]),
+          ),
+        Re !== void 0)
+      )
+        de = Re(Lt.value);
+      else if (
+        ((de = [
+          _('span', ye !== 0 ? { class: 'q-table__bottom-item' } : {}, [
+            ye ? _e(A.value + 1, Math.min(ee.value, w.value), w.value) : _e(1, $.value, w.value),
+          ]),
+        ]),
+        ye !== 0 && xe.value > 1)
+      ) {
+        const Ke = { color: e.color, round: !0, dense: !0, flat: !0 };
+        e.dense === !0 && (Ke.size = 'sm'),
+          xe.value > 2 &&
+            de.push(
+              _(ot, { key: 'pgFirst', ...Ke, icon: On.value[0], disable: F.value, onClick: O }),
+            ),
+          de.push(
+            _(ot, { key: 'pgPrev', ...Ke, icon: On.value[1], disable: F.value, onClick: V }),
+            _(ot, { key: 'pgNext', ...Ke, icon: On.value[2], disable: ie.value, onClick: D }),
+          ),
+          xe.value > 2 &&
+            de.push(
+              _(ot, { key: 'pgLast', ...Ke, icon: On.value[3], disable: ie.value, onClick: X }),
+            );
+      }
+      return j.push(_('div', { class: 'q-table__control' }, de)), j;
+    }
+    function Rr() {
+      const j =
+        e.gridHeader === !0
+          ? [_('table', { class: 'q-table' }, [tt()])]
+          : e.loading === !0 && t.loading === void 0
+          ? re()
+          : void 0;
+      return _('div', { class: 'q-table__middle' }, j);
+    }
+    function nl() {
+      const j =
+        t.item !== void 0
+          ? t.item
+          : (de) => {
+              const ye = de.cols.map((Re) =>
+                _('div', { class: 'q-table__grid-item-row' }, [
+                  _('div', { class: 'q-table__grid-item-title' }, [Re.label]),
+                  _('div', { class: 'q-table__grid-item-value' }, [Re.value]),
+                ]),
+              );
+              if (B.value === !0) {
+                const Re = t['body-selection'],
+                  Qe =
+                    Re !== void 0
+                      ? Re(de)
+                      : [
+                          _($l, {
+                            modelValue: de.selected,
+                            color: e.color,
+                            dark: i.value,
+                            dense: e.dense,
+                            'onUpdate:modelValue': (Ke, Ft) => {
+                              pe([de.key], [de.row], Ke, Ft);
+                            },
+                          }),
+                        ];
+                ye.unshift(
+                  _('div', { class: 'q-table__grid-item-row' }, Qe),
+                  _(ch, { dark: i.value }),
+                );
+              }
+              const _e = {
+                class: ['q-table__grid-item-card' + d.value, e.cardClass],
+                style: e.cardStyle,
+              };
+              return (
+                (e.onRowClick !== void 0 || e.onRowDblclick !== void 0) &&
+                  ((_e.class[0] += ' cursor-pointer'),
+                  e.onRowClick !== void 0 &&
+                    (_e.onClick = (Re) => {
+                      n('RowClick', Re, de.row, de.pageIndex);
+                    }),
+                  e.onRowDblclick !== void 0 &&
+                    (_e.onDblclick = (Re) => {
+                      n('RowDblclick', Re, de.row, de.pageIndex);
+                    })),
+                _(
+                  'div',
+                  {
+                    class:
+                      'q-table__grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3' +
+                      (de.selected === !0 ? ' q-table__grid-item--selected' : ''),
+                  },
+                  [_('div', _e, ye)],
+                )
+              );
+            };
+      return _(
+        'div',
+        { class: ['q-table__grid-content row', e.cardContainerClass], style: e.cardContainerStyle },
+        R.value.map((de, ye) => j(Le({ key: a.value(de), row: de, pageIndex: ye }))),
+      );
+    }
+    return (
+      Object.assign(o.proxy, {
+        requestServerInteraction: k,
+        setPagination: E,
+        firstPage: O,
+        prevPage: V,
+        nextPage: D,
+        lastPage: X,
+        isRowSelected: L,
+        clearSelection: U,
+        isRowExpanded: P,
+        setExpanded: C,
+        sort: oe,
+        resetVirtualScroll: Y,
+        scrollTo: me,
+        getCellValue: it,
+      }),
+      qg(o.proxy, {
+        filteredSortedRows: () => p.value,
+        computedRows: () => R.value,
+        computedRowsNumber: () => w.value,
+      }),
+      () => {
+        const j = [Mt()],
+          de = { ref: c, class: m.value };
+        return (
+          e.grid === !0
+            ? j.push(Rr())
+            : Object.assign(de, { class: [de.class, e.cardClass], style: e.cardStyle }),
+          j.push(J(), Pr()),
+          e.loading === !0 && t.loading !== void 0 && j.push(t.loading()),
+          _('div', de, j)
+        );
+      }
+    );
+  },
+});
+function Rh(e, t) {
+  return function () {
+    return e.apply(t, arguments);
+  };
+}
+const { toString: Ah } = Object.prototype,
+  { getPrototypeOf: ha } = Object,
+  ma = ((e) => (t) => {
+    const n = Ah.call(t);
+    return e[n] || (e[n] = n.slice(8, -1).toLowerCase());
+  })(Object.create(null)),
+  vn = (e) => ((e = e.toLowerCase()), (t) => ma(t) === e),
+  Xi = (e) => (t) => typeof t === e,
+  { isArray: Io } = Array,
+  Sr = Xi('undefined');
+function Fw(e) {
+  return (
+    e !== null &&
+    !Sr(e) &&
+    e.constructor !== null &&
+    !Sr(e.constructor) &&
+    no(e.constructor.isBuffer) &&
+    e.constructor.isBuffer(e)
+  );
+}
+const Oh = vn('ArrayBuffer');
+function Bw(e) {
+  let t;
+  return (
+    typeof ArrayBuffer < 'u' && ArrayBuffer.isView
+      ? (t = ArrayBuffer.isView(e))
+      : (t = e && e.buffer && Oh(e.buffer)),
+    t
+  );
+}
+const Iw = Xi('string'),
+  no = Xi('function'),
+  $h = Xi('number'),
+  va = (e) => e !== null && typeof e == 'object',
+  zw = (e) => e === !0 || e === !1,
+  ni = (e) => {
+    if (ma(e) !== 'object') return !1;
+    const t = ha(e);
+    return (
+      (t === null || t === Object.prototype || Object.getPrototypeOf(t) === null) &&
+      !(Symbol.toStringTag in e) &&
+      !(Symbol.iterator in e)
+    );
+  },
+  Vw = vn('Date'),
+  Nw = vn('File'),
+  jw = vn('Blob'),
+  Dw = vn('FileList'),
+  Hw = (e) => va(e) && no(e.pipe),
+  Uw = (e) => {
+    const t = '[object FormData]';
+    return (
+      e &&
+      ((typeof FormData == 'function' && e instanceof FormData) ||
+        Ah.call(e) === t ||
+        (no(e.toString) && e.toString() === t))
+    );
+  },
+  Kw = vn('URLSearchParams'),
+  Ww = (e) => (e.trim ? e.trim() : e.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, ''));
+function kr(e, t, { allOwnKeys: n = !1 } = {}) {
+  if (e === null || typeof e > 'u') return;
+  let o, r;
+  if ((typeof e != 'object' && (e = [e]), Io(e)))
+    for (o = 0, r = e.length; o < r; o++) t.call(null, e[o], o, e);
+  else {
+    const i = n ? Object.getOwnPropertyNames(e) : Object.keys(e),
+      l = i.length;
+    let s;
+    for (o = 0; o < l; o++) (s = i[o]), t.call(null, e[s], s, e);
+  }
+}
+function Lh(e, t) {
+  t = t.toLowerCase();
+  const n = Object.keys(e);
+  let o = n.length,
+    r;
+  for (; o-- > 0; ) if (((r = n[o]), t === r.toLowerCase())) return r;
+  return null;
+}
+const Mh = (() =>
+    typeof globalThis < 'u'
+      ? globalThis
+      : typeof self < 'u'
+      ? self
+      : typeof window < 'u'
+      ? window
+      : global)(),
+  Fh = (e) => !Sr(e) && e !== Mh;
+function ps() {
+  const { caseless: e } = (Fh(this) && this) || {},
+    t = {},
+    n = (o, r) => {
+      const i = (e && Lh(t, r)) || r;
+      ni(t[i]) && ni(o)
+        ? (t[i] = ps(t[i], o))
+        : ni(o)
+        ? (t[i] = ps({}, o))
+        : Io(o)
+        ? (t[i] = o.slice())
+        : (t[i] = o);
+    };
+  for (let o = 0, r = arguments.length; o < r; o++) arguments[o] && kr(arguments[o], n);
+  return t;
+}
+const Qw = (e, t, n, { allOwnKeys: o } = {}) => (
+    kr(
+      t,
+      (r, i) => {
+        n && no(r) ? (e[i] = Rh(r, n)) : (e[i] = r);
+      },
+      { allOwnKeys: o },
+    ),
+    e
+  ),
+  Jw = (e) => (e.charCodeAt(0) === 65279 && (e = e.slice(1)), e),
+  Xw = (e, t, n, o) => {
+    (e.prototype = Object.create(t.prototype, o)),
+      (e.prototype.constructor = e),
+      Object.defineProperty(e, 'super', { value: t.prototype }),
+      n && Object.assign(e.prototype, n);
+  },
+  Yw = (e, t, n, o) => {
+    let r, i, l;
+    const s = {};
+    if (((t = t || {}), e == null)) return t;
+    do {
+      for (r = Object.getOwnPropertyNames(e), i = r.length; i-- > 0; )
+        (l = r[i]), (!o || o(l, e, t)) && !s[l] && ((t[l] = e[l]), (s[l] = !0));
+      e = n !== !1 && ha(e);
+    } while (e && (!n || n(e, t)) && e !== Object.prototype);
+    return t;
+  },
+  Gw = (e, t, n) => {
+    (e = String(e)), (n === void 0 || n > e.length) && (n = e.length), (n -= t.length);
+    const o = e.indexOf(t, n);
+    return o !== -1 && o === n;
+  },
+  Zw = (e) => {
+    if (!e) return null;
+    if (Io(e)) return e;
+    let t = e.length;
+    if (!$h(t)) return null;
+    const n = new Array(t);
+    for (; t-- > 0; ) n[t] = e[t];
+    return n;
+  },
+  e_ = (
+    (e) => (t) =>
+      e && t instanceof e
+  )(typeof Uint8Array < 'u' && ha(Uint8Array)),
+  t_ = (e, t) => {
+    const o = (e && e[Symbol.iterator]).call(e);
+    let r;
+    for (; (r = o.next()) && !r.done; ) {
+      const i = r.value;
+      t.call(e, i[0], i[1]);
+    }
+  },
+  n_ = (e, t) => {
+    let n;
+    const o = [];
+    for (; (n = e.exec(t)) !== null; ) o.push(n);
+    return o;
+  },
+  o_ = vn('HTMLFormElement'),
+  r_ = (e) =>
+    e.toLowerCase().replace(/[_-\s]([a-z\d])(\w*)/g, function (n, o, r) {
+      return o.toUpperCase() + r;
+    }),
+  Lc = (
+    ({ hasOwnProperty: e }) =>
+    (t, n) =>
+      e.call(t, n)
+  )(Object.prototype),
+  i_ = vn('RegExp'),
+  Bh = (e, t) => {
+    const n = Object.getOwnPropertyDescriptors(e),
+      o = {};
+    kr(n, (r, i) => {
+      t(r, i, e) !== !1 && (o[i] = r);
+    }),
+      Object.defineProperties(e, o);
+  },
+  l_ = (e) => {
+    Bh(e, (t, n) => {
+      if (no(e) && ['arguments', 'caller', 'callee'].indexOf(n) !== -1) return !1;
+      const o = e[n];
+      if (!!no(o)) {
+        if (((t.enumerable = !1), 'writable' in t)) {
+          t.writable = !1;
+          return;
+        }
+        t.set ||
+          (t.set = () => {
+            throw Error("Can not rewrite read-only method '" + n + "'");
+          });
+      }
+    });
+  },
+  s_ = (e, t) => {
+    const n = {},
+      o = (r) => {
+        r.forEach((i) => {
+          n[i] = !0;
+        });
+      };
+    return Io(e) ? o(e) : o(String(e).split(t)), n;
+  },
+  a_ = () => {},
+  u_ = (e, t) => ((e = +e), Number.isFinite(e) ? e : t),
+  c_ = (e) => {
+    const t = new Array(10),
+      n = (o, r) => {
+        if (va(o)) {
+          if (t.indexOf(o) >= 0) return;
+          if (!('toJSON' in o)) {
+            t[r] = o;
+            const i = Io(o) ? [] : {};
+            return (
+              kr(o, (l, s) => {
+                const a = n(l, r + 1);
+                !Sr(a) && (i[s] = a);
+              }),
+              (t[r] = void 0),
+              i
+            );
+          }
+        }
+        return o;
+      };
+    return n(e, 0);
+  },
+  K = {
+    isArray: Io,
+    isArrayBuffer: Oh,
+    isBuffer: Fw,
+    isFormData: Uw,
+    isArrayBufferView: Bw,
+    isString: Iw,
+    isNumber: $h,
+    isBoolean: zw,
+    isObject: va,
+    isPlainObject: ni,
+    isUndefined: Sr,
+    isDate: Vw,
+    isFile: Nw,
+    isBlob: jw,
+    isRegExp: i_,
+    isFunction: no,
+    isStream: Hw,
+    isURLSearchParams: Kw,
+    isTypedArray: e_,
+    isFileList: Dw,
+    forEach: kr,
+    merge: ps,
+    extend: Qw,
+    trim: Ww,
+    stripBOM: Jw,
+    inherits: Xw,
+    toFlatObject: Yw,
+    kindOf: ma,
+    kindOfTest: vn,
+    endsWith: Gw,
+    toArray: Zw,
+    forEachEntry: t_,
+    matchAll: n_,
+    isHTMLForm: o_,
+    hasOwnProperty: Lc,
+    hasOwnProp: Lc,
+    reduceDescriptors: Bh,
+    freezeMethods: l_,
+    toObjectSet: s_,
+    toCamelCase: r_,
+    noop: a_,
+    toFiniteNumber: u_,
+    findKey: Lh,
+    global: Mh,
+    isContextDefined: Fh,
+    toJSONObject: c_,
+  };
+function $e(e, t, n, o, r) {
+  Error.call(this),
+    Error.captureStackTrace
+      ? Error.captureStackTrace(this, this.constructor)
+      : (this.stack = new Error().stack),
+    (this.message = e),
+    (this.name = 'AxiosError'),
+    t && (this.code = t),
+    n && (this.config = n),
+    o && (this.request = o),
+    r && (this.response = r);
+}
+K.inherits($e, Error, {
+  toJSON: function () {
+    return {
+      message: this.message,
+      name: this.name,
+      description: this.description,
+      number: this.number,
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      config: K.toJSONObject(this.config),
+      code: this.code,
+      status: this.response && this.response.status ? this.response.status : null,
+    };
+  },
+});
+const Ih = $e.prototype,
+  zh = {};
+[
+  'ERR_BAD_OPTION_VALUE',
+  'ERR_BAD_OPTION',
+  'ECONNABORTED',
+  'ETIMEDOUT',
+  'ERR_NETWORK',
+  'ERR_FR_TOO_MANY_REDIRECTS',
+  'ERR_DEPRECATED',
+  'ERR_BAD_RESPONSE',
+  'ERR_BAD_REQUEST',
+  'ERR_CANCELED',
+  'ERR_NOT_SUPPORT',
+  'ERR_INVALID_URL',
+].forEach((e) => {
+  zh[e] = { value: e };
+});
+Object.defineProperties($e, zh);
+Object.defineProperty(Ih, 'isAxiosError', { value: !0 });
+$e.from = (e, t, n, o, r, i) => {
+  const l = Object.create(Ih);
+  return (
+    K.toFlatObject(
+      e,
+      l,
+      function (a) {
+        return a !== Error.prototype;
+      },
+      (s) => s !== 'isAxiosError',
+    ),
+    $e.call(l, e.message, t, n, o, r),
+    (l.cause = e),
+    (l.name = e.name),
+    i && Object.assign(l, i),
+    l
+  );
+};
+var f_ = typeof self == 'object' ? self.FormData : window.FormData;
+const d_ = f_;
+function bs(e) {
+  return K.isPlainObject(e) || K.isArray(e);
+}
+function Vh(e) {
+  return K.endsWith(e, '[]') ? e.slice(0, -2) : e;
+}
+function Mc(e, t, n) {
+  return e
+    ? e
+        .concat(t)
+        .map(function (r, i) {
+          return (r = Vh(r)), !n && i ? '[' + r + ']' : r;
+        })
+        .join(n ? '.' : '')
+    : t;
+}
+function h_(e) {
+  return K.isArray(e) && !e.some(bs);
+}
+const m_ = K.toFlatObject(K, {}, null, function (t) {
+  return /^is[A-Z]/.test(t);
+});
+function v_(e) {
+  return e && K.isFunction(e.append) && e[Symbol.toStringTag] === 'FormData' && e[Symbol.iterator];
+}
+function Yi(e, t, n) {
+  if (!K.isObject(e)) throw new TypeError('target must be an object');
+  (t = t || new (d_ || FormData)()),
+    (n = K.toFlatObject(n, { metaTokens: !0, dots: !1, indexes: !1 }, !1, function (g, b) {
+      return !K.isUndefined(b[g]);
+    }));
+  const o = n.metaTokens,
+    r = n.visitor || u,
+    i = n.dots,
+    l = n.indexes,
+    a = (n.Blob || (typeof Blob < 'u' && Blob)) && v_(t);
+  if (!K.isFunction(r)) throw new TypeError('visitor must be a function');
+  function c(m) {
+    if (m === null) return '';
+    if (K.isDate(m)) return m.toISOString();
+    if (!a && K.isBlob(m)) throw new $e('Blob is not supported. Use a Buffer instead.');
+    return K.isArrayBuffer(m) || K.isTypedArray(m)
+      ? a && typeof Blob == 'function'
+        ? new Blob([m])
+        : Buffer.from(m)
+      : m;
+  }
+  function u(m, g, b) {
+    let T = m;
+    if (m && !b && typeof m == 'object') {
+      if (K.endsWith(g, '{}')) (g = o ? g : g.slice(0, -2)), (m = JSON.stringify(m));
+      else if (
+        (K.isArray(m) && h_(m)) ||
+        K.isFileList(m) ||
+        (K.endsWith(g, '[]') && (T = K.toArray(m)))
+      )
+        return (
+          (g = Vh(g)),
+          T.forEach(function (E, x) {
+            !(K.isUndefined(E) || E === null) &&
+              t.append(l === !0 ? Mc([g], x, i) : l === null ? g : g + '[]', c(E));
+          }),
+          !1
+        );
+    }
+    return bs(m) ? !0 : (t.append(Mc(b, g, i), c(m)), !1);
+  }
+  const f = [],
+    d = Object.assign(m_, { defaultVisitor: u, convertValue: c, isVisitable: bs });
+  function h(m, g) {
+    if (!K.isUndefined(m)) {
+      if (f.indexOf(m) !== -1) throw Error('Circular reference detected in ' + g.join('.'));
+      f.push(m),
+        K.forEach(m, function (T, k) {
+          (!(K.isUndefined(T) || T === null) &&
+            r.call(t, T, K.isString(k) ? k.trim() : k, g, d)) === !0 && h(T, g ? g.concat(k) : [k]);
+        }),
+        f.pop();
+    }
+  }
+  if (!K.isObject(e)) throw new TypeError('data must be an object');
+  return h(e), t;
+}
+function Fc(e) {
+  const t = { '!': '%21', "'": '%27', '(': '%28', ')': '%29', '~': '%7E', '%20': '+', '%00': '\0' };
+  return encodeURIComponent(e).replace(/[!'()~]|%20|%00/g, function (o) {
+    return t[o];
+  });
+}
+function ga(e, t) {
+  (this._pairs = []), e && Yi(e, this, t);
+}
+const Nh = ga.prototype;
+Nh.append = function (t, n) {
+  this._pairs.push([t, n]);
+};
+Nh.toString = function (t) {
+  const n = t
+    ? function (o) {
+        return t.call(this, o, Fc);
+      }
+    : Fc;
+  return this._pairs
+    .map(function (r) {
+      return n(r[0]) + '=' + n(r[1]);
+    }, '')
+    .join('&');
+};
+function g_(e) {
+  return encodeURIComponent(e)
+    .replace(/%3A/gi, ':')
+    .replace(/%24/g, '$')
+    .replace(/%2C/gi, ',')
+    .replace(/%20/g, '+')
+    .replace(/%5B/gi, '[')
+    .replace(/%5D/gi, ']');
+}
+function jh(e, t, n) {
+  if (!t) return e;
+  const o = (n && n.encode) || g_,
+    r = n && n.serialize;
+  let i;
+  if (
+    (r ? (i = r(t, n)) : (i = K.isURLSearchParams(t) ? t.toString() : new ga(t, n).toString(o)), i)
+  ) {
+    const l = e.indexOf('#');
+    l !== -1 && (e = e.slice(0, l)), (e += (e.indexOf('?') === -1 ? '?' : '&') + i);
+  }
+  return e;
+}
+class p_ {
+  constructor() {
+    this.handlers = [];
+  }
+  use(t, n, o) {
+    return (
+      this.handlers.push({
+        fulfilled: t,
+        rejected: n,
+        synchronous: o ? o.synchronous : !1,
+        runWhen: o ? o.runWhen : null,
+      }),
+      this.handlers.length - 1
+    );
+  }
+  eject(t) {
+    this.handlers[t] && (this.handlers[t] = null);
+  }
+  clear() {
+    this.handlers && (this.handlers = []);
+  }
+  forEach(t) {
+    K.forEach(this.handlers, function (o) {
+      o !== null && t(o);
+    });
+  }
+}
+const Bc = p_,
+  Dh = { silentJSONParsing: !0, forcedJSONParsing: !0, clarifyTimeoutError: !1 },
+  b_ = typeof URLSearchParams < 'u' ? URLSearchParams : ga,
+  y_ = FormData,
+  w_ = (() => {
+    let e;
+    return typeof navigator < 'u' &&
+      ((e = navigator.product) === 'ReactNative' || e === 'NativeScript' || e === 'NS')
+      ? !1
+      : typeof window < 'u' && typeof document < 'u';
+  })(),
+  __ = (() =>
+    typeof WorkerGlobalScope < 'u' &&
+    self instanceof WorkerGlobalScope &&
+    typeof self.importScripts == 'function')(),
+  Gt = {
+    isBrowser: !0,
+    classes: { URLSearchParams: b_, FormData: y_, Blob },
+    isStandardBrowserEnv: w_,
+    isStandardBrowserWebWorkerEnv: __,
+    protocols: ['http', 'https', 'file', 'blob', 'url', 'data'],
+  };
+function S_(e, t) {
+  return Yi(
+    e,
+    new Gt.classes.URLSearchParams(),
+    Object.assign(
+      {
+        visitor: function (n, o, r, i) {
+          return Gt.isNode && K.isBuffer(n)
+            ? (this.append(o, n.toString('base64')), !1)
+            : i.defaultVisitor.apply(this, arguments);
+        },
+      },
+      t,
+    ),
+  );
+}
+function x_(e) {
+  return K.matchAll(/\w+|\[(\w*)]/g, e).map((t) => (t[0] === '[]' ? '' : t[1] || t[0]));
+}
+function C_(e) {
+  const t = {},
+    n = Object.keys(e);
+  let o;
+  const r = n.length;
+  let i;
+  for (o = 0; o < r; o++) (i = n[o]), (t[i] = e[i]);
+  return t;
+}
+function Hh(e) {
+  function t(n, o, r, i) {
+    let l = n[i++];
+    const s = Number.isFinite(+l),
+      a = i >= n.length;
+    return (
+      (l = !l && K.isArray(r) ? r.length : l),
+      a
+        ? (K.hasOwnProp(r, l) ? (r[l] = [r[l], o]) : (r[l] = o), !s)
+        : ((!r[l] || !K.isObject(r[l])) && (r[l] = []),
+          t(n, o, r[l], i) && K.isArray(r[l]) && (r[l] = C_(r[l])),
+          !s)
+    );
+  }
+  if (K.isFormData(e) && K.isFunction(e.entries)) {
+    const n = {};
+    return (
+      K.forEachEntry(e, (o, r) => {
+        t(x_(o), r, n, 0);
+      }),
+      n
+    );
+  }
+  return null;
+}
+const k_ = { 'Content-Type': void 0 };
+function E_(e, t, n) {
+  if (K.isString(e))
+    try {
+      return (t || JSON.parse)(e), K.trim(e);
+    } catch (o) {
+      if (o.name !== 'SyntaxError') throw o;
+    }
+  return (n || JSON.stringify)(e);
+}
+const Gi = {
+  transitional: Dh,
+  adapter: ['xhr', 'http'],
+  transformRequest: [
+    function (t, n) {
+      const o = n.getContentType() || '',
+        r = o.indexOf('application/json') > -1,
+        i = K.isObject(t);
+      if ((i && K.isHTMLForm(t) && (t = new FormData(t)), K.isFormData(t)))
+        return r && r ? JSON.stringify(Hh(t)) : t;
+      if (K.isArrayBuffer(t) || K.isBuffer(t) || K.isStream(t) || K.isFile(t) || K.isBlob(t))
+        return t;
+      if (K.isArrayBufferView(t)) return t.buffer;
+      if (K.isURLSearchParams(t))
+        return (
+          n.setContentType('application/x-www-form-urlencoded;charset=utf-8', !1), t.toString()
+        );
+      let s;
+      if (i) {
+        if (o.indexOf('application/x-www-form-urlencoded') > -1)
+          return S_(t, this.formSerializer).toString();
+        if ((s = K.isFileList(t)) || o.indexOf('multipart/form-data') > -1) {
+          const a = this.env && this.env.FormData;
+          return Yi(s ? { 'files[]': t } : t, a && new a(), this.formSerializer);
+        }
+      }
+      return i || r ? (n.setContentType('application/json', !1), E_(t)) : t;
+    },
+  ],
+  transformResponse: [
+    function (t) {
+      const n = this.transitional || Gi.transitional,
+        o = n && n.forcedJSONParsing,
+        r = this.responseType === 'json';
+      if (t && K.isString(t) && ((o && !this.responseType) || r)) {
+        const l = !(n && n.silentJSONParsing) && r;
+        try {
+          return JSON.parse(t);
+        } catch (s) {
+          if (l)
+            throw s.name === 'SyntaxError'
+              ? $e.from(s, $e.ERR_BAD_RESPONSE, this, null, this.response)
+              : s;
+        }
+      }
+      return t;
+    },
+  ],
+  timeout: 0,
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+  maxContentLength: -1,
+  maxBodyLength: -1,
+  env: { FormData: Gt.classes.FormData, Blob: Gt.classes.Blob },
+  validateStatus: function (t) {
+    return t >= 200 && t < 300;
+  },
+  headers: { common: { Accept: 'application/json, text/plain, */*' } },
+};
+K.forEach(['delete', 'get', 'head'], function (t) {
+  Gi.headers[t] = {};
+});
+K.forEach(['post', 'put', 'patch'], function (t) {
+  Gi.headers[t] = K.merge(k_);
+});
+const pa = Gi,
+  q_ = K.toObjectSet([
+    'age',
+    'authorization',
+    'content-length',
+    'content-type',
+    'etag',
+    'expires',
+    'from',
+    'host',
+    'if-modified-since',
+    'if-unmodified-since',
+    'last-modified',
+    'location',
+    'max-forwards',
+    'proxy-authorization',
+    'referer',
+    'retry-after',
+    'user-agent',
+  ]),
+  T_ = (e) => {
+    const t = {};
+    let n, o, r;
+    return (
+      e &&
+        e
+          .split(
+            `
+`,
+          )
+          .forEach(function (l) {
+            (r = l.indexOf(':')),
+              (n = l.substring(0, r).trim().toLowerCase()),
+              (o = l.substring(r + 1).trim()),
+              !(!n || (t[n] && q_[n])) &&
+                (n === 'set-cookie'
+                  ? t[n]
+                    ? t[n].push(o)
+                    : (t[n] = [o])
+                  : (t[n] = t[n] ? t[n] + ', ' + o : o));
+          }),
+      t
+    );
+  },
+  Ic = Symbol('internals');
+function Wo(e) {
+  return e && String(e).trim().toLowerCase();
+}
+function oi(e) {
+  return e === !1 || e == null ? e : K.isArray(e) ? e.map(oi) : String(e);
+}
+function P_(e) {
+  const t = Object.create(null),
+    n = /([^\s,;=]+)\s*(?:=\s*([^,;]+))?/g;
+  let o;
+  for (; (o = n.exec(e)); ) t[o[1]] = o[2];
+  return t;
+}
+function R_(e) {
+  return /^[-_a-zA-Z]+$/.test(e.trim());
+}
+function zc(e, t, n, o) {
+  if (K.isFunction(o)) return o.call(this, t, n);
+  if (!!K.isString(t)) {
+    if (K.isString(o)) return t.indexOf(o) !== -1;
+    if (K.isRegExp(o)) return o.test(t);
+  }
+}
+function A_(e) {
+  return e
+    .trim()
+    .toLowerCase()
+    .replace(/([a-z\d])(\w*)/g, (t, n, o) => n.toUpperCase() + o);
+}
+function O_(e, t) {
+  const n = K.toCamelCase(' ' + t);
+  ['get', 'set', 'has'].forEach((o) => {
+    Object.defineProperty(e, o + n, {
+      value: function (r, i, l) {
+        return this[o].call(this, t, r, i, l);
+      },
+      configurable: !0,
+    });
+  });
+}
+class Zi {
+  constructor(t) {
+    t && this.set(t);
+  }
+  set(t, n, o) {
+    const r = this;
+    function i(s, a, c) {
+      const u = Wo(a);
+      if (!u) throw new Error('header name must be a non-empty string');
+      const f = K.findKey(r, u);
+      (!f || r[f] === void 0 || c === !0 || (c === void 0 && r[f] !== !1)) && (r[f || a] = oi(s));
+    }
+    const l = (s, a) => K.forEach(s, (c, u) => i(c, u, a));
+    return (
+      K.isPlainObject(t) || t instanceof this.constructor
+        ? l(t, n)
+        : K.isString(t) && (t = t.trim()) && !R_(t)
+        ? l(T_(t), n)
+        : t != null && i(n, t, o),
+      this
+    );
+  }
+  get(t, n) {
+    if (((t = Wo(t)), t)) {
+      const o = K.findKey(this, t);
+      if (o) {
+        const r = this[o];
+        if (!n) return r;
+        if (n === !0) return P_(r);
+        if (K.isFunction(n)) return n.call(this, r, o);
+        if (K.isRegExp(n)) return n.exec(r);
+        throw new TypeError('parser must be boolean|regexp|function');
+      }
+    }
+  }
+  has(t, n) {
+    if (((t = Wo(t)), t)) {
+      const o = K.findKey(this, t);
+      return !!(o && (!n || zc(this, this[o], o, n)));
+    }
+    return !1;
+  }
+  delete(t, n) {
+    const o = this;
+    let r = !1;
+    function i(l) {
+      if (((l = Wo(l)), l)) {
+        const s = K.findKey(o, l);
+        s && (!n || zc(o, o[s], s, n)) && (delete o[s], (r = !0));
+      }
+    }
+    return K.isArray(t) ? t.forEach(i) : i(t), r;
+  }
+  clear() {
+    return Object.keys(this).forEach(this.delete.bind(this));
+  }
+  normalize(t) {
+    const n = this,
+      o = {};
+    return (
+      K.forEach(this, (r, i) => {
+        const l = K.findKey(o, i);
+        if (l) {
+          (n[l] = oi(r)), delete n[i];
+          return;
+        }
+        const s = t ? A_(i) : String(i).trim();
+        s !== i && delete n[i], (n[s] = oi(r)), (o[s] = !0);
+      }),
+      this
+    );
+  }
+  concat(...t) {
+    return this.constructor.concat(this, ...t);
+  }
+  toJSON(t) {
+    const n = Object.create(null);
+    return (
+      K.forEach(this, (o, r) => {
+        o != null && o !== !1 && (n[r] = t && K.isArray(o) ? o.join(', ') : o);
+      }),
+      n
+    );
+  }
+  [Symbol.iterator]() {
+    return Object.entries(this.toJSON())[Symbol.iterator]();
+  }
+  toString() {
+    return Object.entries(this.toJSON()).map(([t, n]) => t + ': ' + n).join(`
+`);
+  }
+  get [Symbol.toStringTag]() {
+    return 'AxiosHeaders';
+  }
+  static from(t) {
+    return t instanceof this ? t : new this(t);
+  }
+  static concat(t, ...n) {
+    const o = new this(t);
+    return n.forEach((r) => o.set(r)), o;
+  }
+  static accessor(t) {
+    const o = (this[Ic] = this[Ic] = { accessors: {} }).accessors,
+      r = this.prototype;
+    function i(l) {
+      const s = Wo(l);
+      o[s] || (O_(r, l), (o[s] = !0));
+    }
+    return K.isArray(t) ? t.forEach(i) : i(t), this;
+  }
+}
+Zi.accessor(['Content-Type', 'Content-Length', 'Accept', 'Accept-Encoding', 'User-Agent']);
+K.freezeMethods(Zi.prototype);
+K.freezeMethods(Zi);
+const cn = Zi;
+function Ll(e, t) {
+  const n = this || pa,
+    o = t || n,
+    r = cn.from(o.headers);
+  let i = o.data;
+  return (
+    K.forEach(e, function (s) {
+      i = s.call(n, i, r.normalize(), t ? t.status : void 0);
+    }),
+    r.normalize(),
+    i
+  );
+}
+function Uh(e) {
+  return !!(e && e.__CANCEL__);
+}
+function Er(e, t, n) {
+  $e.call(this, e == null ? 'canceled' : e, $e.ERR_CANCELED, t, n), (this.name = 'CanceledError');
+}
+K.inherits(Er, $e, { __CANCEL__: !0 });
+const $_ = null;
+function L_(e, t, n) {
+  const o = n.config.validateStatus;
+  !n.status || !o || o(n.status)
+    ? e(n)
+    : t(
+        new $e(
+          'Request failed with status code ' + n.status,
+          [$e.ERR_BAD_REQUEST, $e.ERR_BAD_RESPONSE][Math.floor(n.status / 100) - 4],
+          n.config,
+          n.request,
+          n,
+        ),
+      );
+}
+const M_ = Gt.isStandardBrowserEnv
+  ? (function () {
+      return {
+        write: function (n, o, r, i, l, s) {
+          const a = [];
+          a.push(n + '=' + encodeURIComponent(o)),
+            K.isNumber(r) && a.push('expires=' + new Date(r).toGMTString()),
+            K.isString(i) && a.push('path=' + i),
+            K.isString(l) && a.push('domain=' + l),
+            s === !0 && a.push('secure'),
+            (document.cookie = a.join('; '));
+        },
+        read: function (n) {
+          const o = document.cookie.match(new RegExp('(^|;\\s*)(' + n + ')=([^;]*)'));
+          return o ? decodeURIComponent(o[3]) : null;
+        },
+        remove: function (n) {
+          this.write(n, '', Date.now() - 864e5);
+        },
+      };
+    })()
+  : (function () {
+      return {
+        write: function () {},
+        read: function () {
+          return null;
+        },
+        remove: function () {},
+      };
+    })();
+function F_(e) {
+  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(e);
+}
+function B_(e, t) {
+  return t ? e.replace(/\/+$/, '') + '/' + t.replace(/^\/+/, '') : e;
+}
+function Kh(e, t) {
+  return e && !F_(t) ? B_(e, t) : t;
+}
+const I_ = Gt.isStandardBrowserEnv
+  ? (function () {
+      const t = /(msie|trident)/i.test(navigator.userAgent),
+        n = document.createElement('a');
+      let o;
+      function r(i) {
+        let l = i;
+        return (
+          t && (n.setAttribute('href', l), (l = n.href)),
+          n.setAttribute('href', l),
+          {
+            href: n.href,
+            protocol: n.protocol ? n.protocol.replace(/:$/, '') : '',
+            host: n.host,
+            search: n.search ? n.search.replace(/^\?/, '') : '',
+            hash: n.hash ? n.hash.replace(/^#/, '') : '',
+            hostname: n.hostname,
+            port: n.port,
+            pathname: n.pathname.charAt(0) === '/' ? n.pathname : '/' + n.pathname,
+          }
+        );
+      }
+      return (
+        (o = r(window.location.href)),
+        function (l) {
+          const s = K.isString(l) ? r(l) : l;
+          return s.protocol === o.protocol && s.host === o.host;
+        }
+      );
+    })()
+  : (function () {
+      return function () {
+        return !0;
+      };
+    })();
+function z_(e) {
+  const t = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
+  return (t && t[1]) || '';
+}
+function V_(e, t) {
+  e = e || 10;
+  const n = new Array(e),
+    o = new Array(e);
+  let r = 0,
+    i = 0,
+    l;
+  return (
+    (t = t !== void 0 ? t : 1e3),
+    function (a) {
+      const c = Date.now(),
+        u = o[i];
+      l || (l = c), (n[r] = a), (o[r] = c);
+      let f = i,
+        d = 0;
+      for (; f !== r; ) (d += n[f++]), (f = f % e);
+      if (((r = (r + 1) % e), r === i && (i = (i + 1) % e), c - l < t)) return;
+      const h = u && c - u;
+      return h ? Math.round((d * 1e3) / h) : void 0;
+    }
+  );
+}
+function Vc(e, t) {
+  let n = 0;
+  const o = V_(50, 250);
+  return (r) => {
+    const i = r.loaded,
+      l = r.lengthComputable ? r.total : void 0,
+      s = i - n,
+      a = o(s),
+      c = i <= l;
+    n = i;
+    const u = {
+      loaded: i,
+      total: l,
+      progress: l ? i / l : void 0,
+      bytes: s,
+      rate: a || void 0,
+      estimated: a && l && c ? (l - i) / a : void 0,
+      event: r,
+    };
+    (u[t ? 'download' : 'upload'] = !0), e(u);
+  };
+}
+const N_ = typeof XMLHttpRequest < 'u',
+  j_ =
+    N_ &&
+    function (e) {
+      return new Promise(function (n, o) {
+        let r = e.data;
+        const i = cn.from(e.headers).normalize(),
+          l = e.responseType;
+        let s;
+        function a() {
+          e.cancelToken && e.cancelToken.unsubscribe(s),
+            e.signal && e.signal.removeEventListener('abort', s);
+        }
+        K.isFormData(r) &&
+          (Gt.isStandardBrowserEnv || Gt.isStandardBrowserWebWorkerEnv) &&
+          i.setContentType(!1);
+        let c = new XMLHttpRequest();
+        if (e.auth) {
+          const h = e.auth.username || '',
+            m = e.auth.password ? unescape(encodeURIComponent(e.auth.password)) : '';
+          i.set('Authorization', 'Basic ' + btoa(h + ':' + m));
+        }
+        const u = Kh(e.baseURL, e.url);
+        c.open(e.method.toUpperCase(), jh(u, e.params, e.paramsSerializer), !0),
+          (c.timeout = e.timeout);
+        function f() {
+          if (!c) return;
+          const h = cn.from('getAllResponseHeaders' in c && c.getAllResponseHeaders()),
+            g = {
+              data: !l || l === 'text' || l === 'json' ? c.responseText : c.response,
+              status: c.status,
+              statusText: c.statusText,
+              headers: h,
+              config: e,
+              request: c,
+            };
+          L_(
+            function (T) {
+              n(T), a();
+            },
+            function (T) {
+              o(T), a();
+            },
+            g,
+          ),
+            (c = null);
+        }
+        if (
+          ('onloadend' in c
+            ? (c.onloadend = f)
+            : (c.onreadystatechange = function () {
+                !c ||
+                  c.readyState !== 4 ||
+                  (c.status === 0 && !(c.responseURL && c.responseURL.indexOf('file:') === 0)) ||
+                  setTimeout(f);
+              }),
+          (c.onabort = function () {
+            !c || (o(new $e('Request aborted', $e.ECONNABORTED, e, c)), (c = null));
+          }),
+          (c.onerror = function () {
+            o(new $e('Network Error', $e.ERR_NETWORK, e, c)), (c = null);
+          }),
+          (c.ontimeout = function () {
+            let m = e.timeout ? 'timeout of ' + e.timeout + 'ms exceeded' : 'timeout exceeded';
+            const g = e.transitional || Dh;
+            e.timeoutErrorMessage && (m = e.timeoutErrorMessage),
+              o(new $e(m, g.clarifyTimeoutError ? $e.ETIMEDOUT : $e.ECONNABORTED, e, c)),
+              (c = null);
+          }),
+          Gt.isStandardBrowserEnv)
+        ) {
+          const h = (e.withCredentials || I_(u)) && e.xsrfCookieName && M_.read(e.xsrfCookieName);
+          h && i.set(e.xsrfHeaderName, h);
+        }
+        r === void 0 && i.setContentType(null),
+          'setRequestHeader' in c &&
+            K.forEach(i.toJSON(), function (m, g) {
+              c.setRequestHeader(g, m);
+            }),
+          K.isUndefined(e.withCredentials) || (c.withCredentials = !!e.withCredentials),
+          l && l !== 'json' && (c.responseType = e.responseType),
+          typeof e.onDownloadProgress == 'function' &&
+            c.addEventListener('progress', Vc(e.onDownloadProgress, !0)),
+          typeof e.onUploadProgress == 'function' &&
+            c.upload &&
+            c.upload.addEventListener('progress', Vc(e.onUploadProgress)),
+          (e.cancelToken || e.signal) &&
+            ((s = (h) => {
+              !c || (o(!h || h.type ? new Er(null, e, c) : h), c.abort(), (c = null));
+            }),
+            e.cancelToken && e.cancelToken.subscribe(s),
+            e.signal && (e.signal.aborted ? s() : e.signal.addEventListener('abort', s)));
+        const d = z_(u);
+        if (d && Gt.protocols.indexOf(d) === -1) {
+          o(new $e('Unsupported protocol ' + d + ':', $e.ERR_BAD_REQUEST, e));
+          return;
+        }
+        c.send(r || null);
+      });
+    },
+  ri = { http: $_, xhr: j_ };
+K.forEach(ri, (e, t) => {
+  if (e) {
+    try {
+      Object.defineProperty(e, 'name', { value: t });
+    } catch {}
+    Object.defineProperty(e, 'adapterName', { value: t });
+  }
+});
+const D_ = {
+  getAdapter: (e) => {
+    e = K.isArray(e) ? e : [e];
+    const { length: t } = e;
+    let n, o;
+    for (let r = 0; r < t && ((n = e[r]), !(o = K.isString(n) ? ri[n.toLowerCase()] : n)); r++);
+    if (!o)
+      throw o === !1
+        ? new $e(`Adapter ${n} is not supported by the environment`, 'ERR_NOT_SUPPORT')
+        : new Error(
+            K.hasOwnProp(ri, n)
+              ? `Adapter '${n}' is not available in the build`
+              : `Unknown adapter '${n}'`,
+          );
+    if (!K.isFunction(o)) throw new TypeError('adapter is not a function');
+    return o;
+  },
+  adapters: ri,
+};
+function Ml(e) {
+  if ((e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted))
+    throw new Er(null, e);
+}
+function Nc(e) {
+  return (
+    Ml(e),
+    (e.headers = cn.from(e.headers)),
+    (e.data = Ll.call(e, e.transformRequest)),
+    ['post', 'put', 'patch'].indexOf(e.method) !== -1 &&
+      e.headers.setContentType('application/x-www-form-urlencoded', !1),
+    D_.getAdapter(e.adapter || pa.adapter)(e).then(
+      function (o) {
+        return (
+          Ml(e), (o.data = Ll.call(e, e.transformResponse, o)), (o.headers = cn.from(o.headers)), o
+        );
+      },
+      function (o) {
+        return (
+          Uh(o) ||
+            (Ml(e),
+            o &&
+              o.response &&
+              ((o.response.data = Ll.call(e, e.transformResponse, o.response)),
+              (o.response.headers = cn.from(o.response.headers)))),
+          Promise.reject(o)
+        );
+      },
+    )
+  );
+}
+const jc = (e) => (e instanceof cn ? e.toJSON() : e);
+function Oo(e, t) {
+  t = t || {};
+  const n = {};
+  function o(c, u, f) {
+    return K.isPlainObject(c) && K.isPlainObject(u)
+      ? K.merge.call({ caseless: f }, c, u)
+      : K.isPlainObject(u)
+      ? K.merge({}, u)
+      : K.isArray(u)
+      ? u.slice()
+      : u;
+  }
+  function r(c, u, f) {
+    if (K.isUndefined(u)) {
+      if (!K.isUndefined(c)) return o(void 0, c, f);
+    } else return o(c, u, f);
+  }
+  function i(c, u) {
+    if (!K.isUndefined(u)) return o(void 0, u);
+  }
+  function l(c, u) {
+    if (K.isUndefined(u)) {
+      if (!K.isUndefined(c)) return o(void 0, c);
+    } else return o(void 0, u);
+  }
+  function s(c, u, f) {
+    if (f in t) return o(c, u);
+    if (f in e) return o(void 0, c);
+  }
+  const a = {
+    url: i,
+    method: i,
+    data: i,
+    baseURL: l,
+    transformRequest: l,
+    transformResponse: l,
+    paramsSerializer: l,
+    timeout: l,
+    timeoutMessage: l,
+    withCredentials: l,
+    adapter: l,
+    responseType: l,
+    xsrfCookieName: l,
+    xsrfHeaderName: l,
+    onUploadProgress: l,
+    onDownloadProgress: l,
+    decompress: l,
+    maxContentLength: l,
+    maxBodyLength: l,
+    beforeRedirect: l,
+    transport: l,
+    httpAgent: l,
+    httpsAgent: l,
+    cancelToken: l,
+    socketPath: l,
+    responseEncoding: l,
+    validateStatus: s,
+    headers: (c, u) => r(jc(c), jc(u), !0),
+  };
+  return (
+    K.forEach(Object.keys(e).concat(Object.keys(t)), function (u) {
+      const f = a[u] || r,
+        d = f(e[u], t[u], u);
+      (K.isUndefined(d) && f !== s) || (n[u] = d);
+    }),
+    n
+  );
+}
+const Wh = '1.2.2',
+  ba = {};
+['object', 'boolean', 'number', 'function', 'string', 'symbol'].forEach((e, t) => {
+  ba[e] = function (o) {
+    return typeof o === e || 'a' + (t < 1 ? 'n ' : ' ') + e;
+  };
+});
+const Dc = {};
+ba.transitional = function (t, n, o) {
+  function r(i, l) {
+    return '[Axios v' + Wh + "] Transitional option '" + i + "'" + l + (o ? '. ' + o : '');
+  }
+  return (i, l, s) => {
+    if (t === !1)
+      throw new $e(r(l, ' has been removed' + (n ? ' in ' + n : '')), $e.ERR_DEPRECATED);
+    return (
+      n &&
+        !Dc[l] &&
+        ((Dc[l] = !0),
+        console.warn(
+          r(l, ' has been deprecated since v' + n + ' and will be removed in the near future'),
+        )),
+      t ? t(i, l, s) : !0
+    );
+  };
+};
+function H_(e, t, n) {
+  if (typeof e != 'object') throw new $e('options must be an object', $e.ERR_BAD_OPTION_VALUE);
+  const o = Object.keys(e);
+  let r = o.length;
+  for (; r-- > 0; ) {
+    const i = o[r],
+      l = t[i];
+    if (l) {
+      const s = e[i],
+        a = s === void 0 || l(s, i, e);
+      if (a !== !0) throw new $e('option ' + i + ' must be ' + a, $e.ERR_BAD_OPTION_VALUE);
+      continue;
+    }
+    if (n !== !0) throw new $e('Unknown option ' + i, $e.ERR_BAD_OPTION);
+  }
+}
+const ys = { assertOptions: H_, validators: ba },
+  yn = ys.validators;
+class wi {
+  constructor(t) {
+    (this.defaults = t), (this.interceptors = { request: new Bc(), response: new Bc() });
+  }
+  request(t, n) {
+    typeof t == 'string' ? ((n = n || {}), (n.url = t)) : (n = t || {}), (n = Oo(this.defaults, n));
+    const { transitional: o, paramsSerializer: r, headers: i } = n;
+    o !== void 0 &&
+      ys.assertOptions(
+        o,
+        {
+          silentJSONParsing: yn.transitional(yn.boolean),
+          forcedJSONParsing: yn.transitional(yn.boolean),
+          clarifyTimeoutError: yn.transitional(yn.boolean),
+        },
+        !1,
+      ),
+      r !== void 0 && ys.assertOptions(r, { encode: yn.function, serialize: yn.function }, !0),
+      (n.method = (n.method || this.defaults.method || 'get').toLowerCase());
+    let l;
+    (l = i && K.merge(i.common, i[n.method])),
+      l &&
+        K.forEach(['delete', 'get', 'head', 'post', 'put', 'patch', 'common'], (m) => {
+          delete i[m];
+        }),
+      (n.headers = cn.concat(l, i));
+    const s = [];
+    let a = !0;
+    this.interceptors.request.forEach(function (g) {
+      (typeof g.runWhen == 'function' && g.runWhen(n) === !1) ||
+        ((a = a && g.synchronous), s.unshift(g.fulfilled, g.rejected));
+    });
+    const c = [];
+    this.interceptors.response.forEach(function (g) {
+      c.push(g.fulfilled, g.rejected);
+    });
+    let u,
+      f = 0,
+      d;
+    if (!a) {
+      const m = [Nc.bind(this), void 0];
+      for (m.unshift.apply(m, s), m.push.apply(m, c), d = m.length, u = Promise.resolve(n); f < d; )
+        u = u.then(m[f++], m[f++]);
+      return u;
+    }
+    d = s.length;
+    let h = n;
+    for (f = 0; f < d; ) {
+      const m = s[f++],
+        g = s[f++];
+      try {
+        h = m(h);
+      } catch (b) {
+        g.call(this, b);
+        break;
+      }
+    }
+    try {
+      u = Nc.call(this, h);
+    } catch (m) {
+      return Promise.reject(m);
+    }
+    for (f = 0, d = c.length; f < d; ) u = u.then(c[f++], c[f++]);
+    return u;
+  }
+  getUri(t) {
+    t = Oo(this.defaults, t);
+    const n = Kh(t.baseURL, t.url);
+    return jh(n, t.params, t.paramsSerializer);
+  }
+}
+K.forEach(['delete', 'get', 'head', 'options'], function (t) {
+  wi.prototype[t] = function (n, o) {
+    return this.request(Oo(o || {}, { method: t, url: n, data: (o || {}).data }));
+  };
+});
+K.forEach(['post', 'put', 'patch'], function (t) {
+  function n(o) {
+    return function (i, l, s) {
+      return this.request(
+        Oo(s || {}, {
+          method: t,
+          headers: o ? { 'Content-Type': 'multipart/form-data' } : {},
+          url: i,
+          data: l,
+        }),
+      );
+    };
+  }
+  (wi.prototype[t] = n()), (wi.prototype[t + 'Form'] = n(!0));
+});
+const ii = wi;
+class ya {
+  constructor(t) {
+    if (typeof t != 'function') throw new TypeError('executor must be a function.');
+    let n;
+    this.promise = new Promise(function (i) {
+      n = i;
+    });
+    const o = this;
+    this.promise.then((r) => {
+      if (!o._listeners) return;
+      let i = o._listeners.length;
+      for (; i-- > 0; ) o._listeners[i](r);
+      o._listeners = null;
+    }),
+      (this.promise.then = (r) => {
+        let i;
+        const l = new Promise((s) => {
+          o.subscribe(s), (i = s);
+        }).then(r);
+        return (
+          (l.cancel = function () {
+            o.unsubscribe(i);
+          }),
+          l
+        );
+      }),
+      t(function (i, l, s) {
+        o.reason || ((o.reason = new Er(i, l, s)), n(o.reason));
+      });
+  }
+  throwIfRequested() {
+    if (this.reason) throw this.reason;
+  }
+  subscribe(t) {
+    if (this.reason) {
+      t(this.reason);
+      return;
+    }
+    this._listeners ? this._listeners.push(t) : (this._listeners = [t]);
+  }
+  unsubscribe(t) {
+    if (!this._listeners) return;
+    const n = this._listeners.indexOf(t);
+    n !== -1 && this._listeners.splice(n, 1);
+  }
+  static source() {
+    let t;
+    return {
+      token: new ya(function (r) {
+        t = r;
+      }),
+      cancel: t,
+    };
+  }
+}
+const U_ = ya;
+function K_(e) {
+  return function (n) {
+    return e.apply(null, n);
+  };
+}
+function W_(e) {
+  return K.isObject(e) && e.isAxiosError === !0;
+}
+const ws = {
+  Continue: 100,
+  SwitchingProtocols: 101,
+  Processing: 102,
+  EarlyHints: 103,
+  Ok: 200,
+  Created: 201,
+  Accepted: 202,
+  NonAuthoritativeInformation: 203,
+  NoContent: 204,
+  ResetContent: 205,
+  PartialContent: 206,
+  MultiStatus: 207,
+  AlreadyReported: 208,
+  ImUsed: 226,
+  MultipleChoices: 300,
+  MovedPermanently: 301,
+  Found: 302,
+  SeeOther: 303,
+  NotModified: 304,
+  UseProxy: 305,
+  Unused: 306,
+  TemporaryRedirect: 307,
+  PermanentRedirect: 308,
+  BadRequest: 400,
+  Unauthorized: 401,
+  PaymentRequired: 402,
+  Forbidden: 403,
+  NotFound: 404,
+  MethodNotAllowed: 405,
+  NotAcceptable: 406,
+  ProxyAuthenticationRequired: 407,
+  RequestTimeout: 408,
+  Conflict: 409,
+  Gone: 410,
+  LengthRequired: 411,
+  PreconditionFailed: 412,
+  PayloadTooLarge: 413,
+  UriTooLong: 414,
+  UnsupportedMediaType: 415,
+  RangeNotSatisfiable: 416,
+  ExpectationFailed: 417,
+  ImATeapot: 418,
+  MisdirectedRequest: 421,
+  UnprocessableEntity: 422,
+  Locked: 423,
+  FailedDependency: 424,
+  TooEarly: 425,
+  UpgradeRequired: 426,
+  PreconditionRequired: 428,
+  TooManyRequests: 429,
+  RequestHeaderFieldsTooLarge: 431,
+  UnavailableForLegalReasons: 451,
+  InternalServerError: 500,
+  NotImplemented: 501,
+  BadGateway: 502,
+  ServiceUnavailable: 503,
+  GatewayTimeout: 504,
+  HttpVersionNotSupported: 505,
+  VariantAlsoNegotiates: 506,
+  InsufficientStorage: 507,
+  LoopDetected: 508,
+  NotExtended: 510,
+  NetworkAuthenticationRequired: 511,
+};
+Object.entries(ws).forEach(([e, t]) => {
+  ws[t] = e;
+});
+const Q_ = ws;
+function Qh(e) {
+  const t = new ii(e),
+    n = Rh(ii.prototype.request, t);
+  return (
+    K.extend(n, ii.prototype, t, { allOwnKeys: !0 }),
+    K.extend(n, t, null, { allOwnKeys: !0 }),
+    (n.create = function (r) {
+      return Qh(Oo(e, r));
+    }),
+    n
+  );
+}
+const rt = Qh(pa);
+rt.Axios = ii;
+rt.CanceledError = Er;
+rt.CancelToken = U_;
+rt.isCancel = Uh;
+rt.VERSION = Wh;
+rt.toFormData = Yi;
+rt.AxiosError = $e;
+rt.Cancel = rt.CanceledError;
+rt.all = function (t) {
+  return Promise.all(t);
+};
+rt.spread = K_;
+rt.isAxiosError = W_;
+rt.mergeConfig = Oo;
+rt.AxiosHeaders = cn;
+rt.formToJSON = (e) => Hh(K.isHTMLForm(e) ? new FormData(e) : e);
+rt.HttpStatusCode = Q_;
+rt.default = rt;
+const Bn = rt;
+let J_ = W(''),
+  X_ = W('');
+const qr = Lp('diaryStore', () => {
+  const e = {
+      name: 'G\xFCltekin \xD6zt\xFCrk',
+      mail: 'oeztuerk.g54@gmail.com',
+      tel: '06605800032',
+    },
+    t = W([
+      { name: 'seite', align: 'center', label: 'Seite', field: 'page', sortable: !0 },
+      { name: 'title', align: 'center', label: 'Eintragstitel', field: 'title', sortable: !0 },
+      { name: 'datum', align: 'center', label: 'Datum', field: 'date', sortable: !0 },
+      {
+        name: 'lastchangefull',
+        align: 'center',
+        label: 'Zuletzt Ge\xE4ndert',
+        field: 'last_changed',
+        sortable: !0,
+      },
+      { name: 'plz', align: 'center', label: 'PLZ', field: 'plz', sortable: !0 },
+      { name: 'ort', align: 'center', label: 'Ort', field: 'ort', sortable: !0 },
+      { name: 'stra\xDFe', align: 'center', label: 'Stra\xDFe', field: 'stra\xDFe', sortable: !0 },
+      { name: 'mood', align: 'center', label: 'Mood', field: 'mood', sortable: !0 },
+      { name: 'aktionen', align: 'center', label: 'Aktionen', sortable: !1 },
+    ]);
+  let n = W([]),
+    o = null,
+    r = async (g = !0) => {
+      try {
+        let { data: b } = await Bn.get('/api/eintraege');
+        (n.value = b),
+          g &&
+            !o &&
+            (o = setInterval(async () => {
+              try {
+                let { data: T } = await Bn.get('/api/eintraege');
+                n.value = T;
+              } catch (T) {
+                console.error('Fehler beim Abrufen der Daten:', T);
+              }
+            }, 2e3));
+      } catch (b) {
+        console.error('Fehler beim Abrufen der Daten:', b);
+      }
+    };
+  const i = () => {
+    o && (clearInterval(o), (o = null));
+  };
+  let l = W({}),
+    s = async (g) => {
+      let { data: b } = await Bn.get(`/api/eintraege/${g}`);
+      l.value = b;
+    };
+  const a = W({}),
+    c = async (g) => {
+      await s(g), (a.value = l.value);
+    };
+  let u = async (g, b, T, k) => {
+      try {
+        let E = await Bn.get(`/api/eintraege/${g}`);
+        const x = new Date();
+        let P = E.data;
+        (P.title = b),
+          (P.description = T),
+          (P.mood = k),
+          (P.last_changed_date = x.toLocaleDateString()),
+          (P.last_changed_time = x.toLocaleTimeString()),
+          (P.last_changed = `${P.last_changed_date} ${P.last_changed_time}`),
+          await Bn.patch(`/eintraege/${g}`, P);
+      } catch (E) {
+        console.error(`Fehler beim Patchen des Eintrags mit ID ${g}:`, E);
+      }
+    },
+    f = async (g, b, T, k, E, x, P, C) => {
+      const S = new Date();
+      let p = S.toLocaleDateString(),
+        $ = S.toLocaleTimeString(),
+        R = `${p} ${$}`;
+      console.log(R),
+        await Bn.post('/api/eintraege', {
+          title: g,
+          page: d() + 1,
+          description: b,
+          date: R,
+          mood: k,
+          ort: E,
+          straße: x,
+          plz: P,
+          time: C,
+        });
+    };
+  const d = () => (n.value.length === 0 ? 0 : Math.max(...n.value.map((g) => Number(g.page) || 0)));
+  let h = async (g) => {
+      await Bn.delete(`/api/eintraege/${g}`), r();
+    },
+    m = W();
+  return {
+    deleteentry: h,
+    patchtdataById: u,
+    stopPolling: i,
+    list: n,
+    getdata: r,
+    obj: l,
+    getdataById: s,
+    owner: e,
+    columns: t,
+    text: J_,
+    textareaModel: X_,
+    detail: a,
+    getdataById: c,
+    postentry: f,
+    pathTO: m,
+  };
+});
+const Y_ = (e, t) => {
+    const n = e.__vccOpts || e;
+    for (const [o, r] of t) n[o] = r;
+    return n;
+  },
+  G_ = (e) => (Gm('data-v-1e394e6f'), (e = e()), Zm(), e),
+  Z_ = { class: 'column items-center q-mt-lg full-width' },
+  eS = { class: 'row items-center justify-between q-mb-xl header-row full-width' },
+  tS = G_(() => be('div', { class: 'text-h4 text-weight-bold header-title' }, 'Eintr\xE4ge', -1)),
+  nS = { class: 'q-pa-md row items-center q-gutter-md' },
+  oS = { style: { 'max-width': '280px' } },
+  rS = ['onClick'],
+  iS = { class: 'seite' },
+  lS = { class: 'info-content' },
+  sS = { class: 'text-caption text-bold' },
+  aS = { class: 'text-caption text-italic' },
+  uS = {
+    __name: 'HomeView',
+    setup(e) {
+      const t = qr(),
+        n = W(''),
+        o = W([]);
+      return (
+        t.getdata(!0),
+        Bo(() => t.stopPolling()),
+        fe(n, (r) => {
+          o.value = t.list.filter((i) => i.title.toLowerCase().includes(r.toLowerCase()));
+        }),
+        (r, i) => {
+          const l = Wn('icon');
+          return (
+            Ze(),
+            _t('div', Z_, [
+              be('div', eS, [
+                tS,
+                Z(
+                  to,
+                  {
+                    dense: '',
+                    debounce: '300',
+                    modelValue: n.value,
+                    'onUpdate:modelValue': i[0] || (i[0] = (s) => (n.value = s)),
+                    placeholder: 'Search',
+                    outlined: '',
+                    rounded: '',
+                    class: 'header-search gradient-border',
+                  },
+                  { append: ge(() => [Z(l, { icon: 'ic:outline-search' })]), _: 1 },
+                  8,
+                  ['modelValue'],
+                ),
+              ]),
+              Z(
+                Ph,
+                {
+                  flat: '',
+                  bordered: '',
+                  grid: '',
+                  rows: o.value.length > 0 ? o.value : ue(t).list,
+                  columns: ue(t).columns,
+                  'row-key': 'name',
+                  'hide-header': '',
+                  'card-container-class': 'justify-center',
+                },
+                {
+                  item: ge((s) => [
+                    be('div', nS, [
+                      be('div', oS, [
+                        Z(
+                          da,
+                          { class: 'cursor-pointer my-card' },
+                          {
+                            default: ge(() => [
+                              be(
+                                'div',
+                                {
+                                  class: 'column text-h1 text-center justify-center',
+                                  style: {
+                                    width: '280px',
+                                    height: '180px',
+                                    'border-radius': '20px',
+                                    position: 'relative',
+                                  },
+                                  onClick: () => r.$router.push(`/read/${s.row.id}`),
+                                },
+                                [be('span', iS, It(s.row.page), 1)],
+                                8,
+                                rS,
+                              ),
+                              Z(
+                                Un,
+                                { class: 'info-section' },
+                                {
+                                  default: ge(() => [
+                                    be('div', lS, [
+                                      be('div', sS, It(s.row.title), 1),
+                                      be('div', aS, It(s.row.date), 1),
+                                    ]),
+                                  ]),
+                                  _: 2,
+                                },
+                                1024,
+                              ),
+                            ]),
+                            _: 2,
+                          },
+                          1024,
+                        ),
+                      ]),
+                    ]),
+                  ]),
+                  _: 1,
+                },
+                8,
+                ['rows', 'columns'],
+              ),
+            ])
+          );
+        }
+      );
+    },
+  },
+  cS = Y_(uS, [['__scopeId', 'data-v-1e394e6f']]),
+  fS = Pe({
+    name: 'QTr',
+    props: { props: Object, noHover: Boolean },
+    setup(e, { slots: t }) {
+      const n = v(
+        () =>
+          'q-tr' +
+          (e.props === void 0 || e.props.header === !0 ? '' : ' ' + e.props.__trClass) +
+          (e.noHover === !0 ? ' q-tr--no-hover' : ''),
+      );
+      return () => _('tr', { class: n.value }, je(t.default));
+    },
+  }),
+  xr = Pe({
+    name: 'QRating',
+    props: {
+      ...oo,
+      ...Ji,
+      modelValue: { type: Number, required: !0 },
+      max: { type: [String, Number], default: 5 },
+      icon: [String, Array],
+      iconHalf: [String, Array],
+      iconSelected: [String, Array],
+      iconAriaLabel: [String, Array],
+      color: [String, Array],
+      colorHalf: [String, Array],
+      colorSelected: [String, Array],
+      noReset: Boolean,
+      noDimming: Boolean,
+      readonly: Boolean,
+      disable: Boolean,
+    },
+    emits: ['update:modelValue'],
+    setup(e, { slots: t, emit: n }) {
+      const {
+          proxy: { $q: o },
+        } = qe(),
+        r = ro(e),
+        i = x0(e),
+        l = lh(i),
+        s = W(0);
+      let a = {};
+      const c = v(() => e.readonly !== !0 && e.disable !== !0),
+        u = v(
+          () =>
+            `q-rating row inline items-center q-rating--${c.value === !0 ? '' : 'non-'}editable` +
+            (e.noDimming === !0 ? ' q-rating--no-dimming' : '') +
+            (e.disable === !0 ? ' disabled' : '') +
+            (e.color !== void 0 && Array.isArray(e.color) === !1 ? ` text-${e.color}` : ''),
+        ),
+        f = v(() => {
+          const E = Array.isArray(e.icon) === !0 ? e.icon.length : 0,
+            x = Array.isArray(e.iconSelected) === !0 ? e.iconSelected.length : 0,
+            P = Array.isArray(e.iconHalf) === !0 ? e.iconHalf.length : 0,
+            C = Array.isArray(e.color) === !0 ? e.color.length : 0,
+            S = Array.isArray(e.colorSelected) === !0 ? e.colorSelected.length : 0,
+            p = Array.isArray(e.colorHalf) === !0 ? e.colorHalf.length : 0;
+          return {
+            iconLen: E,
+            icon: E > 0 ? e.icon[E - 1] : e.icon,
+            selIconLen: x,
+            selIcon: x > 0 ? e.iconSelected[x - 1] : e.iconSelected,
+            halfIconLen: P,
+            halfIcon: P > 0 ? e.iconHalf[x - 1] : e.iconHalf,
+            colorLen: C,
+            color: C > 0 ? e.color[C - 1] : e.color,
+            selColorLen: S,
+            selColor: S > 0 ? e.colorSelected[S - 1] : e.colorSelected,
+            halfColorLen: p,
+            halfColor: p > 0 ? e.colorHalf[p - 1] : e.colorHalf,
+          };
+        }),
+        d = v(() => {
+          if (typeof e.iconAriaLabel == 'string') {
+            const E = e.iconAriaLabel.length > 0 ? `${e.iconAriaLabel} ` : '';
+            return (x) => `${E}${x}`;
+          }
+          if (Array.isArray(e.iconAriaLabel) === !0) {
+            const E = e.iconAriaLabel.length;
+            if (E > 0) return (x) => e.iconAriaLabel[Math.min(x, E) - 1];
+          }
+          return (E, x) => `${x} ${E}`;
+        }),
+        h = v(() => {
+          const E = [],
+            x = f.value,
+            P = Math.ceil(e.modelValue),
+            C = c.value === !0 ? 0 : null,
+            S = e.iconHalf === void 0 || P === e.modelValue ? -1 : P;
+          for (let p = 1; p <= e.max; p++) {
+            const $ = (s.value === 0 && e.modelValue >= p) || (s.value > 0 && s.value >= p),
+              R = S === p && s.value < p,
+              B = s.value > 0 && (R === !0 ? P : e.modelValue) >= p && s.value < p,
+              I =
+                R === !0
+                  ? p <= x.halfColorLen
+                    ? e.colorHalf[p - 1]
+                    : x.halfColor
+                  : x.selColor !== void 0 && $ === !0
+                  ? p <= x.selColorLen
+                    ? e.colorSelected[p - 1]
+                    : x.selColor
+                  : p <= x.colorLen
+                  ? e.color[p - 1]
+                  : x.color,
+              Q =
+                (R === !0
+                  ? p <= x.halfIconLen
+                    ? e.iconHalf[p - 1]
+                    : x.halfIcon
+                  : x.selIcon !== void 0 && ($ === !0 || B === !0)
+                  ? p <= x.selIconLen
+                    ? e.iconSelected[p - 1]
+                    : x.selIcon
+                  : p <= x.iconLen
+                  ? e.icon[p - 1]
+                  : x.icon) || o.iconSet.rating.icon;
+            E.push({
+              name:
+                (R === !0
+                  ? p <= x.halfIconLen
+                    ? e.iconHalf[p - 1]
+                    : x.halfIcon
+                  : x.selIcon !== void 0 && ($ === !0 || B === !0)
+                  ? p <= x.selIconLen
+                    ? e.iconSelected[p - 1]
+                    : x.selIcon
+                  : p <= x.iconLen
+                  ? e.icon[p - 1]
+                  : x.icon) || o.iconSet.rating.icon,
+              attrs: {
+                tabindex: C,
+                role: 'radio',
+                'aria-checked': e.modelValue === p ? 'true' : 'false',
+                'aria-label': d.value(p, Q),
+              },
+              iconClass:
+                'q-rating__icon' +
+                ($ === !0 || R === !0 ? ' q-rating__icon--active' : '') +
+                (B === !0 ? ' q-rating__icon--exselected' : '') +
+                (s.value === p ? ' q-rating__icon--hovered' : '') +
+                (I !== void 0 ? ` text-${I}` : ''),
+            });
+          }
+          return E;
+        }),
+        m = v(() => {
+          const E = { role: 'radiogroup' };
+          return (
+            e.disable === !0 && (E['aria-disabled'] = 'true'),
+            e.readonly === !0 && (E['aria-readonly'] = 'true'),
+            E
+          );
+        });
+      function g(E) {
+        if (c.value === !0) {
+          const x = an(parseInt(E, 10), 1, parseInt(e.max, 10)),
+            P = e.noReset !== !0 && e.modelValue === x ? 0 : x;
+          P !== e.modelValue && n('update:modelValue', P), (s.value = 0);
+        }
+      }
+      function b(E) {
+        c.value === !0 && (s.value = E);
+      }
+      function T(E, x) {
+        switch (E.keyCode) {
+          case 13:
+          case 32:
+            return g(x), Je(E);
+          case 37:
+          case 40:
+            return a[`rt${x - 1}`] && a[`rt${x - 1}`].$el.focus(), Je(E);
+          case 39:
+          case 38:
+            return a[`rt${x + 1}`] && a[`rt${x + 1}`].$el.focus(), Je(E);
+        }
+      }
+      function k() {
+        s.value = 0;
+      }
+      return (
+        $i(() => {
+          a = {};
+        }),
+        () => {
+          const E = [];
+          return (
+            h.value.forEach(({ iconClass: x, name: P, attrs: C }, S) => {
+              const p = S + 1;
+              E.push(
+                _(
+                  'div',
+                  {
+                    key: p,
+                    ref: ($) => {
+                      a[`rt${p}`] = $;
+                    },
+                    class: 'q-rating__icon-container flex flex-center',
+                    ...C,
+                    onClick() {
+                      g(p);
+                    },
+                    onMouseover() {
+                      b(p);
+                    },
+                    onMouseout: k,
+                    onFocus() {
+                      b(p);
+                    },
+                    onBlur: k,
+                    onKeyup($) {
+                      T($, p);
+                    },
+                  },
+                  Ot(t[`tip-${p}`], [_(yt, { class: x, name: P })]),
+                ),
+              );
+            }),
+            e.name !== void 0 && e.disable !== !0 && l(E, 'push'),
+            _('div', { class: u.value, style: r.value, ...m.value }, E)
+          );
+        }
+      );
+    },
+  }),
+  Fl = Pe({
+    name: 'QTd',
+    props: { props: Object, autoWidth: Boolean, noHover: Boolean },
+    setup(e, { slots: t }) {
+      const n = qe(),
+        o = v(
+          () =>
+            'q-td' +
+            (e.autoWidth === !0 ? ' q-table--col-auto-width' : '') +
+            (e.noHover === !0 ? ' q-td--no-hover' : '') +
+            ' ',
+        );
+      return () => {
+        if (e.props === void 0) return _('td', { class: o.value }, je(t.default));
+        const r = n.vnode.key,
+          i = (e.props.colsMap !== void 0 ? e.props.colsMap[r] : null) || e.props.col;
+        if (i === void 0) return;
+        const { row: l } = e.props;
+        return _('td', { class: o.value + i.__tdClass(l), style: i.__tdStyle(l) }, je(t.default));
+      };
+    },
+  }),
+  dS = { class: 'column items-center q-mt-md' },
+  hS = { class: 'q-pa-xs col-xs-12 col-sm-6 col-md-4' },
+  mS = { style: { 'min-width': '250px' } },
+  vS = be('br', null, null, -1),
+  gS = { align: 'left', class: 'col', style: { 'overflow-wrap': 'break-word' } },
+  pS = { class: 'text-weight-bolder' },
+  bS = { align: 'right', class: 'col' },
+  yS = {
+    __name: 'EditView',
+    setup(e) {
+      let t = [
+        'sentiment_very_dissatisfied',
+        'sentiment_dissatisfied',
+        'sentiment_satisfied',
+        'sentiment_very_satisfied',
+      ];
+      const n = qr();
+      ct(() => {
+        n.getdata();
+      });
+      let o = !1;
+      fe(
+        () => n.list,
+        () => {
+          o ||
+            (console.log('s'),
+            (o = !0),
+            n.getdata().then(() => {
+              o = !1;
+            }));
+        },
+      );
+      const r = (i) => {
+        switch (i) {
+          case 1:
+            return 'red-6';
+          case 2:
+            return 'orange-5';
+          case 3:
+            return 'light-green-5';
+          case 4:
+            return 'green-6';
+          default:
+            return 'grey-5';
+        }
+      };
+      return (i, l) => {
+        const s = Wn('icon');
+        return (
+          Ze(),
+          _t('div', dS, [
+            Z(
+              Ph,
+              {
+                grid: i.$q.screen.lt.md,
+                class: 'q-ma-lg',
+                style: { 'border-radius': '18px' },
+                flat: '',
+                bordered: '',
+                title: 'Meine Eintr\xE4ge',
+                rows: ue(n).list,
+                columns: ue(n).columns,
+                'row-key': 'name',
+              },
+              {
+                header: ge((a) => [
+                  Z(
+                    fS,
+                    null,
+                    {
+                      default: ge(() => [
+                        (Ze(!0),
+                        _t(
+                          kt,
+                          null,
+                          vv(
+                            a.cols,
+                            (c) => (
+                              Ze(),
+                              bo(
+                                uh,
+                                { class: 'text-bold', props: a, key: c.name },
+                                { default: ge(() => [Yt(It(c.label), 1)]), _: 2 },
+                                1032,
+                                ['props'],
+                              )
+                            ),
+                          ),
+                          128,
+                        )),
+                      ]),
+                      _: 2,
+                    },
+                    1024,
+                  ),
+                ]),
+                'body-cell-mood': ge((a) => [
+                  Z(
+                    Fl,
+                    { class: 'q-gutter-xs', props: a },
+                    {
+                      default: ge(() => [
+                        Z(
+                          xr,
+                          {
+                            color: r(a.row.mood),
+                            size: '2.5em',
+                            modelValue: a.row.mood,
+                            'onUpdate:modelValue': (c) => (a.row.mood = c),
+                            max: 4,
+                            icon: ue(t),
+                            readonly: '',
+                          },
+                          null,
+                          8,
+                          ['color', 'modelValue', 'onUpdate:modelValue', 'icon'],
+                        ),
+                      ]),
+                      _: 2,
+                    },
+                    1032,
+                    ['props'],
+                  ),
+                ]),
+                'body-cell-lastchange': ge((a) => [
+                  Z(
+                    Fl,
+                    { class: 'q-gutter-xs', props: a },
+                    {
+                      default: ge(() => [
+                        be(
+                          'div',
+                          null,
+                          It(new Date(a.row.last_changed_date).toLocaleDateString()),
+                          1,
+                        ),
+                        be(
+                          'div',
+                          null,
+                          It(new Date(a.row.last_changed_time).toLocaleTimeString()),
+                          1,
+                        ),
+                      ]),
+                      _: 2,
+                    },
+                    1032,
+                    ['props'],
+                  ),
+                ]),
+                'body-cell-aktionen': ge((a) => [
+                  Z(
+                    Fl,
+                    { class: 'q-gutter-xs', props: a },
+                    {
+                      default: ge(() => [
+                        Z(
+                          ot,
+                          {
+                            style: {
+                              'border-radius': '15px',
+                              height: '50px',
+                              'background-color': '#4a90e2',
+                            },
+                            class: 'shadow-4',
+                            stack: '',
+                            size: 'sm',
+                            to: `/edit/input/${a.row.id}`,
+                          },
+                          {
+                            default: ge(() => [
+                              Z(s, {
+                                style: { width: '20px', height: '20px', color: 'white' },
+                                icon: 'material-symbols:edit-rounded',
+                              }),
+                            ]),
+                            _: 2,
+                          },
+                          1032,
+                          ['to'],
+                        ),
+                        Z(
+                          ot,
+                          {
+                            class: 'shadow-4 q-ml-sm',
+                            style: { 'border-radius': '15px', height: '50px' },
+                            onClick: (c) => ue(n).deleteentry(a.row.id),
+                            stack: '',
+                            size: 'sm',
+                            color: 'red',
+                          },
+                          {
+                            default: ge(() => [
+                              Z(s, {
+                                style: { width: '20px', height: '20px' },
+                                icon: 'ic:sharp-delete',
+                              }),
+                            ]),
+                            _: 2,
+                          },
+                          1032,
+                          ['onClick'],
+                        ),
+                      ]),
+                      _: 2,
+                    },
+                    1032,
+                    ['props'],
+                  ),
+                ]),
+                item: ge((a) => [
+                  be('div', hS, [
+                    be('div', mS, [
+                      Z(
+                        da,
+                        {
+                          flat: '',
+                          bordered: '',
+                          class: 'q-mx-xs q-my-xs',
+                          style: { 'border-radius': '10px' },
+                        },
+                        {
+                          default: ge(() => [
+                            Z(
+                              Un,
+                              { class: 'text-center' },
+                              {
+                                default: ge(() => [
+                                  Yt(' "' + It(a.row.title) + '" ', 1),
+                                  vS,
+                                  be('strong', null, It(a.row.name), 1),
+                                ]),
+                                _: 2,
+                              },
+                              1024,
+                            ),
+                            Z(ch),
+                            Z(
+                              Un,
+                              { align: 'right', class: 'flex flex-center' },
+                              {
+                                default: ge(() => [
+                                  Z(
+                                    xr,
+                                    {
+                                      color: r(a.row.mood),
+                                      modelValue: a.row.mood,
+                                      'onUpdate:modelValue': (c) => (a.row.mood = c),
+                                      max: 4,
+                                      size: '3.5em',
+                                      icon: ue(t),
+                                      readonly: '',
+                                    },
+                                    null,
+                                    8,
+                                    ['color', 'modelValue', 'onUpdate:modelValue', 'icon'],
+                                  ),
+                                ]),
+                                _: 2,
+                              },
+                              1024,
+                            ),
+                            Z(
+                              Un,
+                              { class: 'row', style: _i({ fontSize: a.row.calories / 2 + 'px' }) },
+                              {
+                                default: ge(() => [
+                                  be('div', gS, [
+                                    be('span', pS, It(a.row.ort), 1),
+                                    Yt(', ' + It(a.row.date), 1),
+                                  ]),
+                                  be('div', bS, 'Seite ' + It(a.row.page), 1),
+                                ]),
+                                _: 2,
+                              },
+                              1032,
+                              ['style'],
+                            ),
+                            Z(
+                              Un,
+                              { class: 'row justify-end' },
+                              {
+                                default: ge(() => [
+                                  Z(
+                                    ot,
+                                    {
+                                      class: 'shadow-4',
+                                      style: { 'border-radius': '18px', height: '50px' },
+                                      stack: '',
+                                      size: 'sm',
+                                      to: `/edit/input/${a.row.id}`,
+                                    },
+                                    {
+                                      default: ge(() => [
+                                        Z(s, {
+                                          style: { width: '20px', height: '20px' },
+                                          icon: 'material-symbols:edit-rounded',
+                                        }),
+                                      ]),
+                                      _: 2,
+                                    },
+                                    1032,
+                                    ['to'],
+                                  ),
+                                  Z(
+                                    ot,
+                                    {
+                                      class: 'shadow-4',
+                                      style: {
+                                        'border-radius': '18px',
+                                        height: '50px',
+                                        'margin-left': '8px',
+                                      },
+                                      onClick: (c) => ue(n).deleteentry(a.row.id),
+                                      label: '',
+                                      stack: '',
+                                      size: 'sm',
+                                      color: 'red',
+                                    },
+                                    {
+                                      default: ge(() => [
+                                        Z(s, {
+                                          style: { width: '20px', height: '20px' },
+                                          icon: 'ic:sharp-delete',
+                                        }),
+                                      ]),
+                                      _: 2,
+                                    },
+                                    1032,
+                                    ['onClick'],
+                                  ),
+                                ]),
+                                _: 2,
+                              },
+                              1024,
+                            ),
+                          ]),
+                          _: 2,
+                        },
+                        1024,
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _: 1,
+              },
+              8,
+              ['grid', 'rows', 'columns'],
+            ),
+          ])
+        );
+      };
+    },
+  },
+  wS = Pe({
+    name: 'QCardActions',
+    props: { ...cd, vertical: Boolean },
+    setup(e, { slots: t }) {
+      const n = fd(e),
+        o = v(
+          () =>
+            `q-card__actions ${n.value} q-card__actions--${
+              e.vertical === !0 ? 'vert column' : 'horiz row'
+            }`,
+        );
+      return () => _('div', { class: o.value }, je(t.default));
+    },
+  });
+function Hc(e) {
+  if (e === !1) return 0;
+  if (e === !0 || e === void 0) return 1;
+  const t = parseInt(e, 10);
+  return isNaN(t) ? 0 : t;
+}
+const Uc = Ds({
+  name: 'close-popup',
+  beforeMount(e, { value: t }) {
+    const n = {
+      depth: Hc(t),
+      handler(o) {
+        n.depth !== 0 &&
+          setTimeout(() => {
+            const r = U0(e);
+            r !== void 0 && K0(r, o, n.depth);
+          });
+      },
+      handlerKey(o) {
+        Rn(o, 13) === !0 && n.handler(o);
+      },
+    };
+    (e.__qclosepopup = n),
+      e.addEventListener('click', n.handler),
+      e.addEventListener('keyup', n.handlerKey);
+  },
+  updated(e, { value: t, oldValue: n }) {
+    t !== n && (e.__qclosepopup.depth = Hc(t));
+  },
+  beforeUnmount(e) {
+    const t = e.__qclosepopup;
+    e.removeEventListener('click', t.handler),
+      e.removeEventListener('keyup', t.handlerKey),
+      delete e.__qclosepopup;
+  },
+});
+function wa() {
+  return ut(td);
+}
+const _S = { class: 'row wrap justify-between items-end' },
+  SS = { class: 'col' },
+  xS = { class: 'col text-right' },
+  CS = { key: 0 },
+  kS = { class: 'q-ma-xl col' },
+  ES = { class: 'row justify-between q-ml-xl q-mr-xl' },
+  qS = be('div', { class: 'text-h5 text-bold' }, 'Dein Mood:', -1),
+  TS = { class: 'q-mt-sm' },
+  PS = { key: 0 },
+  RS = { key: 0 },
+  AS = { class: 'text-h5 column items-center text-center' },
+  OS = be('span', { class: 'row' }, 'Achtung !', -1),
+  $S = {
+    __name: 'EditInpView',
+    props: { id: String },
+    setup(e) {
+      const t = e,
+        n = oh(),
+        o = qr();
+      let r = W(!1),
+        i = W(),
+        l = W(!1);
+      const s = wa();
+      let a = [
+          'sentiment_very_dissatisfied',
+          'sentiment_dissatisfied',
+          'sentiment_satisfied',
+          'sentiment_very_satisfied',
+        ],
+        c = W(o.detail.title),
+        u = W(o.detail.description),
+        f = W(o.detail.mood);
+      const d = (S) => {
+          const p = S.getDate().toString().padStart(2, '0'),
+            $ = (S.getMonth() + 1).toString().padStart(2, '0'),
+            R = S.getFullYear();
+          return `${p}.${$}.${R}`;
+        },
+        h = (S) => {
+          const p = S.getHours().toString().padStart(2, '0'),
+            $ = S.getMinutes().toString().padStart(2, '0'),
+            R = S.getSeconds().toString().padStart(2, '0');
+          return `${p}:${$}:${R}`;
+        };
+      let m = d(new Date()),
+        g = h(new Date());
+      console.log(`${m} - ${g}`);
+      let b = W();
+      o.getdataById(t.id);
+      let T = () => {
+          (b.value = !0),
+            (i.value = !1),
+            o.pathTO ? (n.push(o.pathTO), (o.pathTO = '')) : (n.push('/edit'), (o.pathTO = ''));
+        },
+        k = () => {
+          !r.value &&
+          (c.value !== o.detail.title ||
+            u.value !== o.detail.description ||
+            f.value !== o.detail.mood)
+            ? (i.value = !0)
+            : ((i.value = !1), n.push('/edit/'));
+        };
+      t0((S, p) =>
+        !b.value &&
+        !r.value &&
+        (c.value !== o.detail.title ||
+          u.value !== o.detail.description ||
+          f.value !== o.detail.mood)
+          ? ((o.pathTO = S.path), (i.value = !0), !1)
+          : !0,
+      );
+      let E = function () {
+        (l.value = !0),
+          s.notify({ message: 'Gespeichert', color: '#4a90e2', icon: 'done' }),
+          (r.value = !0);
+      };
+      ct(async () => {
+        await o.getdataById(t.id),
+          (c.value = o.detail.title),
+          (u.value = o.detail.description),
+          (f.value = o.detail.mood);
+      });
+      const x = () => {
+          navigator.geolocation
+            ? navigator.geolocation.getCurrentPosition(
+                async (S) => {
+                  const p = S.coords.latitude,
+                    $ = S.coords.longitude;
+                  console.log('Latitude:', p), console.log('Longitude:', $);
+                  try {
+                    const { city: R, street: B, postcode: I, county: Q } = await P(p, $);
+                    console.log('City:', R), console.log('Street:', B);
+                    const H = I
+                      ? `Aktuelle Position: ${I}, ${R}, ${B}`
+                      : `Aktuelle Position: ${R}, ${B}`;
+                    s.notify({ message: H, color: '#4a90e2', icon: 'done' });
+                  } catch (R) {
+                    console.error('Fehler bei der Abfrage der Standortdetails:', R.message),
+                      s.notify({
+                        message: 'Fehler bei der Abfrage der Standortdetails: ' + R.message,
+                        color: 'red-5',
+                        icon: 'report_problem',
+                      });
+                  }
+                },
+                (S) => {
+                  console.error('Geolocation Fehler:', S.message),
+                    s.notify({
+                      message: 'Fehler bei der Geolocation: ' + S.message,
+                      color: 'red-5',
+                      icon: 'report_problem',
+                    });
+                },
+              )
+            : (console.error('Geolocation wird nicht unterst\xFCtzt.'),
+              s.notify({
+                message: 'Geolocation wird nicht unterst\xFCtzt.',
+                color: 'yellow-5',
+                icon: 'warning',
+              }));
+        },
+        P = async (S, p) => {
+          try {
+            const $ = `https://nominatim.openstreetmap.org/reverse?lat=${S}&lon=${p}&format=json`,
+              R = await fetch($),
+              B = await R.json();
+            if (R.ok)
+              if (B.address) {
+                const I = B.address.city || B.address.town || B.address.village || B.address.hamlet,
+                  Q = B.address.road || B.address.pedestrian,
+                  H = B.address.postcode,
+                  le = B.address.county;
+                return { city: I, street: Q, postcode: H, county: le };
+              } else throw new Error('Adressinformationen fehlen');
+            else throw new Error('Ung\xFCltige API-Antwort');
+          } catch ($) {
+            throw (console.error('Fehler beim Reverse-Geocoding:', $.message), $);
+          }
+        },
+        C = v(() => {
+          switch (f.value) {
+            case 1:
+              return 'red-6';
+            case 2:
+              return 'orange-5';
+            case 3:
+              return 'light-green-5';
+            case 4:
+              return 'green-6';
+            default:
+              return 'grey-5';
+          }
+        });
+      return (S, p) => {
+        const $ = Wn('icon');
+        return (
+          Ze(),
+          _t('div', null, [
+            be('div', _S, [
+              be('div', SS, [
+                Z(
+                  to,
+                  {
+                    color: '#4a90e2',
+                    class: ht(
+                      ue(s).screen.lt.sm ? 'q-pl-xl q-pt-lg text-h6' : 'q-pl-xl q-pt-lg text-h5',
+                    ),
+                    modelValue: ue(c),
+                    'onUpdate:modelValue':
+                      p[0] || (p[0] = (R) => (Ve(c) ? (c.value = R) : (c = R))),
+                    label: 'Titel',
+                    'stack-label': '',
+                    dense: S.dense,
+                  },
+                  null,
+                  8,
+                  ['class', 'modelValue', 'dense'],
+                ),
+              ]),
+              be('div', xS, [
+                Z(
+                  ot,
+                  {
+                    disabled: !0,
+                    color: 'grey-2',
+                    class: 'text-red text-weight-bold q-mr-xl q-mt-lg',
+                    onClick: x,
+                  },
+                  {
+                    default: ge(() => [
+                      Z($, {
+                        class: 'q-mr-sm',
+                        style: { width: '20px', height: '20px' },
+                        icon: 'ic:outline-gps-fixed',
+                      }),
+                      ue(s).screen.lt.sm ? Qn('', !0) : (Ze(), _t('span', CS, 'Get Location')),
+                    ]),
+                    _: 1,
+                  },
+                ),
+              ]),
+            ]),
+            be('div', kS, [
+              Z(
+                to,
+                {
+                  class: ht(ue(s).screen.lt.sm ? 'text-h7' : 'text-h6'),
+                  modelValue: ue(u),
+                  'onUpdate:modelValue': p[1] || (p[1] = (R) => (Ve(u) ? (u.value = R) : (u = R))),
+                  filled: '',
+                  clearable: '',
+                  type: 'textarea',
+                  color: '#4a90e2',
+                  label: 'Eintrag f\xFCr heute',
+                  hint: 'Press TAB to autocomplete suggested value or ESC to cancel suggestion',
+                  'shadow-text': S.textareaShadowText,
+                  onKeydown: S.processTextareaFill,
+                  onFocus: S.processTextareaFill,
+                  rows: '20',
+                },
+                null,
+                8,
+                ['class', 'modelValue', 'shadow-text', 'onKeydown', 'onFocus'],
+              ),
+            ]),
+            be('div', ES, [
+              be('div', null, [
+                qS,
+                be('div', TS, [
+                  Z(
+                    xr,
+                    {
+                      size: ue(s).screen.lt.sm ? '2.5em' : '4.5em',
+                      modelValue: ue(f),
+                      'onUpdate:modelValue':
+                        p[2] || (p[2] = (R) => (Ve(f) ? (f.value = R) : (f = R))),
+                      max: 4,
+                      icon: ue(a),
+                      color: ue(C),
+                    },
+                    null,
+                    8,
+                    ['size', 'modelValue', 'icon', 'color'],
+                  ),
+                ]),
+              ]),
+              be(
+                'div',
+                {
+                  align: 'center',
+                  class: ht(
+                    ue(s).screen.lt.sm
+                      ? 'row q-gutter-md q-mb-md justify-center q-mt-lg'
+                      : 'fixed-bottom-right absolute-bottom-right row q-gutter-md q-mb-md q-mr-xl',
+                  ),
+                },
+                [
+                  be('div', null, [
+                    Z(
+                      ot,
+                      { onClick: p[3] || (p[3] = (R) => ue(k)()) },
+                      {
+                        default: ge(() => [
+                          Z(
+                            $,
+                            {
+                              class: ht(ue(s).screen.lt.sm ? '' : 'q-mr-sm'),
+                              style: { width: '20px', height: '20px' },
+                              icon: 'ic:twotone-clear',
+                            },
+                            null,
+                            8,
+                            ['class'],
+                          ),
+                          ue(s).screen.lt.sm ? Qn('', !0) : (Ze(), _t('span', PS, 'Verwerfen')),
+                        ]),
+                        _: 1,
+                      },
+                    ),
+                  ]),
+                  be('div', null, [
+                    Z(
+                      ot,
+                      {
+                        onClick:
+                          p[4] ||
+                          (p[4] = () => {
+                            ue(E)(),
+                              ue(o).patchtdataById(t.id, ue(c), ue(u), ue(f), ue(m), ue(g)),
+                              S.$router.push('/edit/');
+                          }),
+                        class: '',
+                      },
+                      {
+                        default: ge(() => [
+                          Z(
+                            $,
+                            {
+                              class: ht(ue(s).screen.lt.sm ? '' : 'q-mr-sm'),
+                              style: { width: '20px', height: '20px' },
+                              icon: 'material-symbols:save',
+                            },
+                            null,
+                            8,
+                            ['class'],
+                          ),
+                          ue(s).screen.lt.sm ? Qn('', !0) : (Ze(), _t('span', RS, 'Speichern')),
+                        ]),
+                        _: 1,
+                      },
+                    ),
+                  ]),
+                ],
+                2,
+              ),
+            ]),
+            Z(
+              qh,
+              {
+                modelValue: ue(i),
+                'onUpdate:modelValue': p[6] || (p[6] = (R) => (Ve(i) ? (i.value = R) : (i = R))),
+              },
+              {
+                default: ge(() => [
+                  Z(da, null, {
+                    default: ge(() => [
+                      Z(Un, null, {
+                        default: ge(() => [
+                          be('div', AS, [
+                            Z(yt, { name: 'warning', size: '3em', class: 'row', color: '#4a90e2' }),
+                            OS,
+                          ]),
+                        ]),
+                        _: 1,
+                      }),
+                      Z(
+                        Un,
+                        { class: 'q-pt-none text-center' },
+                        {
+                          default: ge(() => [
+                            Yt(
+                              ' Es sieht so aus, als ob Sie Ihre Fortschritte nicht gespeichert haben. M\xF6chten Sie fortfahren, ohne zu speichern? ',
+                            ),
+                          ]),
+                          _: 1,
+                        },
+                      ),
+                      Z(
+                        wS,
+                        { align: 'right' },
+                        {
+                          default: ge(() => [
+                            Dt(
+                              Z(
+                                ot,
+                                { flat: '', label: 'abbrechen', style: { color: 'black' } },
+                                null,
+                                512,
+                              ),
+                              [[Uc]],
+                            ),
+                            Dt(
+                              Z(
+                                ot,
+                                {
+                                  flat: '',
+                                  label: 'Fortsetzen',
+                                  style: { color: '#4a90e2' },
+                                  onClick: p[5] || (p[5] = (R) => ue(T)()),
+                                },
+                                null,
+                                512,
+                              ),
+                              [[Uc]],
+                            ),
+                          ]),
+                          _: 1,
+                        },
+                      ),
+                    ]),
+                    _: 1,
+                  }),
+                ]),
+                _: 1,
+              },
+              8,
+              ['modelValue'],
+            ),
+          ])
+        );
+      };
+    },
+  };
+const LS = { class: 'readonly-view' },
+  MS = { class: 'row wrap justify-between items-end' },
+  FS = { class: 'q-ma-xl col' },
+  BS = be('div', { class: 'q-ml-xl text-h5 text-bold' }, 'Dein Mood:', -1),
+  IS = { class: 'q-ml-xl q-mt-sm' },
+  zS = {
+    __name: 'ReadInpView',
+    props: { id: String },
+    setup(e) {
+      const t = e;
+      oh();
+      const n = qr(),
+        o = wa(),
+        r = [
+          'sentiment_very_dissatisfied',
+          'sentiment_dissatisfied',
+          'sentiment_satisfied',
+          'sentiment_very_satisfied',
+        ],
+        i = v(() => {
+          switch (n.detail.mood) {
+            case 1:
+              return 'red-6';
+            case 2:
+              return 'orange-5';
+            case 3:
+              return 'light-green-5';
+            case 4:
+              return 'green-6';
+            default:
+              return 'grey-5';
+          }
+        });
+      return (
+        n.getdataById(t.id),
+        (l, s) => (
+          Ze(),
+          _t('div', LS, [
+            be('div', MS, [
+              Z(
+                to,
+                {
+                  readonly: '',
+                  color: 'green-5',
+                  class: ht(
+                    ue(o).screen.lt.sm ? 'q-pl-xl q-pt-lg text-h6' : 'q-pl-xl q-pt-lg text-h5',
+                  ),
+                  modelValue: ue(n).detail.title,
+                  'onUpdate:modelValue': s[0] || (s[0] = (a) => (ue(n).detail.title = a)),
+                  label: 'Titel',
+                  'stack-label': '',
+                  dense: l.dense,
+                },
+                null,
+                8,
+                ['class', 'modelValue', 'dense'],
+              ),
+            ]),
+            be('div', FS, [
+              Z(
+                to,
+                {
+                  readonly: '',
+                  class: ht(ue(o).screen.lt.sm ? 'text-h7' : 'text-h6'),
+                  modelValue: ue(n).detail.description,
+                  'onUpdate:modelValue': s[1] || (s[1] = (a) => (ue(n).detail.description = a)),
+                  filled: '',
+                  clearable: '',
+                  type: 'textarea',
+                  label: 'Eintrag f\xFCr heute',
+                  'shadow-text': l.textareaShadowText,
+                  onKeydown: l.processTextareaFill,
+                  onFocus: l.processTextareaFill,
+                  rows: '20',
+                },
+                null,
+                8,
+                ['class', 'modelValue', 'shadow-text', 'onKeydown', 'onFocus'],
+              ),
+            ]),
+            BS,
+            be('div', IS, [
+              Z(
+                xr,
+                {
+                  size: ue(o).screen.lt.sm ? '2.5em' : '4.5em',
+                  readonly: '',
+                  modelValue: ue(n).detail.mood,
+                  'onUpdate:modelValue': s[2] || (s[2] = (a) => (ue(n).detail.mood = a)),
+                  max: 4,
+                  icon: r,
+                  color: ue(i),
+                },
+                null,
+                8,
+                ['size', 'modelValue', 'color'],
+              ),
+            ]),
+          ])
+        )
+      );
+    },
+  },
+  VS = { class: 'col justify-center' },
+  NS = { class: 'row justify-between items-end' },
+  jS = { class: 'col' },
+  DS = { class: 'col text-right' },
+  HS = { key: 0 },
+  US = { class: 'q-ma-xl col' },
+  KS = { class: 'row justify-between q-ml-xl q-mr-xl' },
+  WS = be('div', { class: 'text-h5 text-bold' }, 'Dein Mood:', -1),
+  QS = { class: 'q-mt-sm' },
+  JS = { key: 0 },
+  XS = { key: 0 },
+  YS = {
+    __name: 'InputView',
+    setup(e) {
+      let t = qr();
+      t.getdata();
+      let n = t.list;
+      console.log(n);
+      const o = wa();
+      let r = [
+        'sentiment_very_dissatisfied',
+        'sentiment_dissatisfied',
+        'sentiment_satisfied',
+        'sentiment_very_satisfied',
+      ];
+      console.log(t.list.length);
+      let i = W(''),
+        l = W(''),
+        s = W(0),
+        a = W(''),
+        c = W(''),
+        u = W(0),
+        f = W(''),
+        d = W(),
+        h = W('');
+      const m = (x) => {
+          const P = x.getDate().toString().padStart(2, '0'),
+            C = (x.getMonth() + 1).toString().padStart(2, '0'),
+            S = x.getFullYear();
+          return `${P}.${C}.${S}`;
+        },
+        g = (x) => {
+          const P = x.getHours().toString().padStart(2, '0'),
+            C = x.getMinutes().toString().padStart(2, '0'),
+            S = x.getSeconds().toString().padStart(2, '0');
+          return `${P}:${C}:${S}`;
+        },
+        b = () => {
+          navigator.geolocation
+            ? navigator.geolocation.getCurrentPosition(
+                async (x) => {
+                  const P = x.coords.latitude,
+                    C = x.coords.longitude;
+                  console.log('Latitude:', P), console.log('Longitude:', C);
+                  try {
+                    const { city: S, street: p, postcode: $ } = await T(P, C);
+                    console.log('City:', S),
+                      console.log('Street:', p),
+                      console.log('PLZ:', $),
+                      (a.value = S),
+                      (c.value = p),
+                      (u.value = $);
+                    const R = $
+                      ? `Aktuelle Position: ${$}, ${S}, ${p}`
+                      : `Aktuelle Position: ${S}, ${p}`;
+                    o.notify({ message: R, color: '#4a90e2', icon: 'done' });
+                  } catch (S) {
+                    console.error('Fehler bei der Abfrage der Standortdetails:', S.message),
+                      o.notify({
+                        message: 'Fehler bei der Abfrage der Standortdetails: ' + S.message,
+                        color: 'red-5',
+                        icon: 'report_problem',
+                      });
+                  }
+                },
+                (x) => {
+                  console.error('Geolocation Fehler:', x.message),
+                    o.notify({
+                      message: 'Fehler bei der Geolocation: ' + x.message,
+                      color: 'red-5',
+                      icon: 'report_problem',
+                    });
+                },
+              )
+            : (console.error('Geolocation wird nicht unterst\xFCtzt.'),
+              o.notify({
+                message: 'Geolocation wird nicht unterst\xFCtzt.',
+                color: 'yellow-5',
+                icon: 'warning',
+              }));
+        },
+        T = async (x, P) => {
+          try {
+            const C = `https://nominatim.openstreetmap.org/reverse?lat=${x}&lon=${P}&format=json`,
+              S = await fetch(C),
+              p = await S.json();
+            if (S.ok)
+              if (p.address) {
+                const $ = p.address.city || p.address.town || p.address.village || p.address.hamlet,
+                  R = p.address.road || p.address.pedestrian,
+                  B = p.address.postcode;
+                return { city: $, street: R, postcode: B };
+              } else throw new Error('Adressinformationen fehlen');
+            else throw new Error('Ung\xFCltige API-Antwort');
+          } catch (C) {
+            throw (console.error('Fehler beim Reverse-Geocoding:', C.message), C);
+          }
+        };
+      (f.value = m(new Date())),
+        (h.value = g(new Date())),
+        Cr(() => {
+          k();
+        });
+      const k = () => {
+        d.value = t.list.length + 1;
+      };
+      fe(
+        () => t.list.length,
+        () => {
+          k();
+        },
+      );
+      const E = v(() => {
+        switch (s.value) {
+          case 1:
+            return 'red-6';
+          case 2:
+            return 'orange-5';
+          case 3:
+            return 'light-green-5';
+          case 4:
+            return 'green-6';
+          default:
+            return 'grey-5';
+        }
+      });
+      return (x, P) => {
+        const C = Wn('icon');
+        return (
+          Ze(),
+          _t('div', VS, [
+            be('div', NS, [
+              be('div', jS, [
+                Z(
+                  to,
+                  {
+                    color: '#4a90e2',
+                    class: ht(
+                      ue(o).screen.lt.sm ? 'q-pl-xl q-pt-lg text-h6' : 'q-pl-xl q-pt-lg text-h5',
+                    ),
+                    modelValue: ue(i),
+                    'onUpdate:modelValue':
+                      P[0] || (P[0] = (S) => (Ve(i) ? (i.value = S) : (i = S))),
+                    label: 'Titel',
+                    'stack-label': '',
+                    dense: x.dense,
+                  },
+                  null,
+                  8,
+                  ['class', 'modelValue', 'dense'],
+                ),
+              ]),
+              be('div', DS, [
+                Z(
+                  ot,
+                  {
+                    color: 'grey-2',
+                    class: 'text-red text-weight-bold q-mr-xl q-mt-lg',
+                    onClick: P[1] || (P[1] = (S) => b()),
+                  },
+                  {
+                    default: ge(() => [
+                      Z(
+                        C,
+                        {
+                          class: ht(ue(o).screen.lt.sm ? '' : 'q-mr-sm'),
+                          style: { width: '20px', height: '20px' },
+                          icon: 'ic:outline-gps-fixed',
+                        },
+                        null,
+                        8,
+                        ['class'],
+                      ),
+                      ue(o).screen.lt.sm ? Qn('', !0) : (Ze(), _t('span', HS, 'Get Location')),
+                    ]),
+                    _: 1,
+                  },
+                ),
+              ]),
+            ]),
+            be('div', US, [
+              Z(
+                to,
+                {
+                  class: ht(ue(o).screen.lt.sm ? 'text-h7' : 'text-h6'),
+                  modelValue: ue(l),
+                  'onUpdate:modelValue': P[2] || (P[2] = (S) => (Ve(l) ? (l.value = S) : (l = S))),
+                  filled: '',
+                  clearable: '',
+                  type: 'textarea',
+                  color: '#4a90e2',
+                  label: 'Eintrag f\xFCr heute',
+                  hint: 'Press TAB to autocomplete suggested value or ESC to cancel suggestion',
+                  'shadow-text': x.textareaShadowText,
+                  onKeydown: x.processTextareaFill,
+                  onFocus: x.processTextareaFill,
+                  rows: '20',
+                },
+                null,
+                8,
+                ['class', 'modelValue', 'shadow-text', 'onKeydown', 'onFocus'],
+              ),
+            ]),
+            be('div', KS, [
+              be('div', null, [
+                WS,
+                be('div', QS, [
+                  Z(
+                    xr,
+                    {
+                      size: ue(o).screen.lt.sm ? '2.5em' : '4.5em',
+                      modelValue: ue(s),
+                      'onUpdate:modelValue':
+                        P[3] || (P[3] = (S) => (Ve(s) ? (s.value = S) : (s = S))),
+                      max: 4,
+                      icon: ue(r),
+                      color: ue(E),
+                    },
+                    null,
+                    8,
+                    ['size', 'modelValue', 'icon', 'color'],
+                  ),
+                ]),
+              ]),
+              be(
+                'div',
+                {
+                  align: 'center',
+                  class: ht(
+                    ue(o).screen.lt.sm
+                      ? 'row q-gutter-md q-mb-md justify-center q-mt-lg'
+                      : 'fixed-bottom-right absolute-bottom-right row q-gutter-md q-mb-md q-mr-xl',
+                  ),
+                },
+                [
+                  be('div', null, [
+                    Z(ot, null, {
+                      default: ge(() => [
+                        Z(
+                          C,
+                          {
+                            class: ht(ue(o).screen.lt.sm ? '' : 'q-mr-sm'),
+                            style: { width: '20px', height: '20px' },
+                            icon: 'ic:twotone-clear',
+                          },
+                          null,
+                          8,
+                          ['class'],
+                        ),
+                        ue(o).screen.lt.sm ? Qn('', !0) : (Ze(), _t('span', JS, 'Verwerfen')),
+                      ]),
+                      _: 1,
+                    }),
+                  ]),
+                  be('div', null, [
+                    Z(
+                      ot,
+                      {
+                        onClick:
+                          P[4] ||
+                          (P[4] = (S) => (
+                            ue(t).postentry(ue(i), ue(l), ue(f), ue(s), ue(a), ue(c), ue(u), ue(h)),
+                            x.$router.push('/')
+                          )),
+                        class: '',
+                      },
+                      {
+                        default: ge(() => [
+                          Z(
+                            C,
+                            {
+                              class: ht(ue(o).screen.lt.sm ? '' : 'q-mr-sm'),
+                              style: { width: '20px', height: '20px' },
+                              icon: 'material-symbols:save',
+                            },
+                            null,
+                            8,
+                            ['class'],
+                          ),
+                          ue(o).screen.lt.sm ? Qn('', !0) : (Ze(), _t('span', XS, 'Speichern')),
+                        ]),
+                        _: 1,
+                      },
+                    ),
+                  ]),
+                ],
+                2,
+              ),
+            ]),
+          ])
+        );
+      };
+    },
+  },
+  GS = u0({
+    history: Cy('/'),
+    routes: [
+      { path: '/', name: 'home', component: cS },
+      { path: '/edit', name: 'edit', component: yS },
+      { path: '/edit/input/:id', props: !0, name: 'edit input', component: $S },
+      { path: '/read/:id', props: !0, name: 'read input', component: zS },
+      { path: '/input/', name: 'input', component: YS },
+      {
+        path: '/about',
+        name: 'about',
+        component: () =>
+          Gu(
+            () => import('./AboutView.f34e6889.js'),
+            ['assets/AboutView.f34e6889.js', 'assets/AboutView.a606d748.css'],
+          ),
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: () =>
+          Gu(
+            () => import('./LoginView.7d8c457a.js'),
+            ['assets/LoginView.7d8c457a.js', 'assets/LoginView.be9c2af4.css'],
+          ),
+      },
+    ],
+  }),
+  Tr = Jf(ry);
+Tr.component('Icon', Lb);
+Tr.use(Pp());
+Tr.use(GS);
+Tr.use(Yg, { plugins: { Notify: qp }, iconSet: ed });
+Tr.mount('#app');
+export {
+  da as Q,
+  Y_ as _,
+  Z as a,
+  Un as b,
+  _t as c,
+  be as d,
+  ue as e,
+  Yt as f,
+  Zm as g,
+  Wn as h,
+  to as i,
+  Ve as j,
+  yt as k,
+  ot as l,
+  Ze as o,
+  Gm as p,
+  W as r,
+  It as t,
+  qr as u,
+  ge as w,
+};

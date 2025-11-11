@@ -61,7 +61,7 @@ export const insertEintrag = async (
   return data;
 };
 
-export const deleteEintrag = async (id) => {
+export const deleteentry = async (id) => {
   const { data, error } = await supabase.from('eintraege').delete().eq('id', id).select().single();
 
   if (error) throw error;

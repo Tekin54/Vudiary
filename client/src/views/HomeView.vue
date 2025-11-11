@@ -23,8 +23,12 @@
       flat
       bordered
       grid
-      :rows="filteredlist.length > 0 ? filteredlist : diaryStore.list"
-      :columns="diaryStore.columns"
+      :rows="
+        filteredlist.length > 0
+          ? filteredlist
+          : diaryStore.variables_functions.non_specific.variables.list
+      "
+      :columns="diaryStore.variables_functions.views_specific.HomeView.variables.columns"
       row-key="name"
       hide-header
       card-container-class="justify-center"
@@ -56,19 +60,20 @@
 </template>
 
 <script setup>
-import { ref, watch, onUnmounted } from 'vue';
+import { ref, watch } from 'vue';
 import { useDiaryStore } from '../stores/diaryStore';
 
+// -- Variablen --
 const diaryStore = useDiaryStore();
 const filter = ref('');
 const filteredlist = ref([]);
 
-diaryStore.getdata(true);
+// -- Funktionen --
+diaryStore.variables_functions.non_specific.functions.getdata(true);
 
-onUnmounted(() => diaryStore.stopPolling());
-
+// Aktualisiert die gefilterte Liste basierend auf dem Suchbegriff
 watch(filter, (newValue) => {
-  filteredlist.value = diaryStore.list.filter((item) =>
+  filteredlist.value = diaryStore.variables_functions.non_specific.variables.list.filter((item) =>
     item.title.toLowerCase().includes(newValue.toLowerCase()),
   );
 });

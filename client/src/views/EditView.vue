@@ -12,18 +12,18 @@ let icons = [
 const diaryStore = useDiaryStore();
 
 onMounted(() => {
-  diaryStore.getdata();
+  diaryStore.variables_functions.non_specific.functions.getdata();
 });
 
 let isDataLoading = false; // Flag, um zu überprüfen, ob Daten bereits geladen werden
 
 watch(
-  () => diaryStore.list,
+  () => diaryStore.variables_functions.non_specific.variables.list,
   () => {
     if (!isDataLoading) {
       console.log('s');
       isDataLoading = true;
-      diaryStore.getdata().then(() => {
+      diaryStore.variables_functions.non_specific.functions.getdata().then(() => {
         isDataLoading = false;
       });
     }
@@ -55,8 +55,8 @@ const getMoodColor = (value) => {
       flat
       bordered
       title="Meine Einträge"
-      :rows="diaryStore.list"
-      :columns="diaryStore.columns"
+      :rows="diaryStore.variables_functions.non_specific.variables.list"
+      :columns="diaryStore.variables_functions.views_specific.HomeView.variables.columns"
       row-key="name"
     >
       <template v-slot:header="props">
@@ -102,7 +102,7 @@ const getMoodColor = (value) => {
           <q-btn
             class="shadow-4 q-ml-sm"
             style="border-radius: 15px; height: 50px"
-            @click="diaryStore.deleteeintrag(props.row.id)"
+            @click="diaryStore.variables_functions.non_specific.functions.deleteentry(props.row.id)"
             stack
             size="sm"
             color="red"
@@ -155,7 +155,9 @@ const getMoodColor = (value) => {
                 <q-btn
                   class="shadow-4"
                   style="border-radius: 18px; height: 50px; margin-left: 8px"
-                  @click="diaryStore.deleteeintrag(props.row.id)"
+                  @click="
+                    diaryStore.variables_functions.non_specific.functions.deleteentry(props.row.id)
+                  "
                   label=""
                   stack
                   size="sm"

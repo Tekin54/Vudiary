@@ -170,7 +170,7 @@ console.log(`${last_changed_date} - ${last_changed_time}`);
 
 let cont = ref();
 // FUNKTIONSAUFRUF
-diaryStore.fetchDetail(props.id);
+diaryStore.getdataById(props.id);
 
 // FUNKTIONEN
 let fortsetzen = () => {
@@ -226,7 +226,7 @@ let showNotif = function () {
 };
 
 onMounted(async () => {
-  await diaryStore.fetchDetail(props.id);
+  await diaryStore.getdata(props.id);
   tt.value = diaryStore.detail.title;
   tam.value = diaryStore.detail.description;
   mood.value = diaryStore.detail.mood;
