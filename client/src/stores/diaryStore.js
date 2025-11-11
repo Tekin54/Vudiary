@@ -1,15 +1,24 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { ref } from 'vue';
+
+// Axios Basis-URL abhängig von Dev/Prod
+axios.defaults.baseURL = import.meta.env.DEV
+  ? 'http://localhost:3000' // Lokales Backend
+  : 'https://vudiary.onrender.com'; // Dein Render Backend
+
+// Reaktive Variablen
 let text = ref('');
 let textareaModel = ref('');
 
 export const useDiaryStore = defineStore('diaryStore', () => {
+  // Benutzerinfo
   const owner = {
     name: 'Gültekin Öztürk',
     mail: 'oeztuerk.g54@gmail.com',
-    tel: '06605800032',
   };
+
+  // Tabellen-Spalten
   const columns = ref([
     { name: 'seite', align: 'center', label: 'Seite', field: 'page', sortable: true },
     { name: 'title', align: 'center', label: 'Eintragstitel', field: 'title', sortable: true },
@@ -28,33 +37,33 @@ export const useDiaryStore = defineStore('diaryStore', () => {
     { name: 'aktionen', align: 'center', label: 'Aktionen', sortable: false },
   ]);
 
-  //GET DATA
+  // =========================
+  // GET DATA + POLLING
+  // =========================
   let list = ref([]);
   let pollingInterval = null;
 
-  // Daten abrufen mit optionalem Polling-Start
-  let getdata = async (startPolling = true) => {
+  const getdata = async (startPolling = true) => {
     try {
-      let { data } = await axios.get('/api/eintraege');
+      const { data } = await axios.get('/api/eintraege');
       list.value = data;
 
-      // Starte Polling nur wenn gewünscht und noch nicht aktiv
+      // Polling starten, falls noch nicht aktiv
       if (startPolling && !pollingInterval) {
         pollingInterval = setInterval(async () => {
           try {
-            let { data } = await axios.get('/api/eintraege');
+            const { data } = await axios.get('/api/eintraege');
             list.value = data;
-          } catch (error) {
-            console.error('Fehler beim Abrufen der Daten:', error);
+          } catch (err) {
+            console.error('Fehler beim Abrufen der Daten:', err);
           }
-        }, 2000); // Alle 2 Sekunden aktualisieren
+        }, 2000); // alle 2 Sekunden
       }
-    } catch (error) {
-      console.error('Fehler beim Abrufen der Daten:', error);
+    } catch (err) {
+      console.error('Fehler beim Abrufen der Daten:', err);
     }
   };
 
-  // Polling stoppen wenn die App/Komponente beendet wird
   const stopPolling = () => {
     if (pollingInterval) {
       clearInterval(pollingInterval);
@@ -62,66 +71,99 @@ export const useDiaryStore = defineStore('diaryStore', () => {
     }
   };
 
-  //DETAIL
+  // =========================
+  // DETAIL
+  // =========================
   let obj = ref({});
-  let getdataById = async (id) => {
-    let { data } = await axios.get(`/api/eintraege/${id}`);
-    obj.value = data;
-  };
-  const detail = ref({});
-  const fetchDetail = async (id) => {
-    await getdataById(id);
-    // Die Daten sind jetzt in obj.value verfügbar
-    detail.value = obj.value;
-  };
-
-  //PATCH
-  let patchtdataById = async (id, title, description, mood) => {
+  const getdataById = async (id) => {
     try {
-      let response = await axios.get(`/api/eintraege/${id}`);
-      const currentDate = new Date();
-      let obj = response.data;
-      obj.title = title;
-      obj.description = description;
-      obj.mood = mood;
-      obj.last_changed_date = currentDate.toLocaleDateString(); // Datum aktualisieren
-      obj.last_changed_time = currentDate.toLocaleTimeString(); // Uhrzeit aktualisieren
-      obj.last_changed = `${obj.last_changed_date} ${obj.last_changed_time}`; // Kombinieren von Datum und Uhrzeit
-      await axios.patch(`/eintraege/${id}`, obj);
-    } catch (error) {
-      console.error(`Fehler beim Patchen des Eintrags mit ID ${id}:`, error);
+      const { data } = await axios.get(`/api/eintraege/${id}`);
+      obj.value = data;
+    } catch (err) {
+      console.error(`Fehler beim Abrufen des Eintrags ${id}:`, err);
     }
   };
 
-  //POST
-  let posteintrag = async (title, description, date, mood, ort, straße, plz, time) => {
-    const currentDate = new Date();
-    let last_changed_date = currentDate.toLocaleDateString(); // Datum aktualisieren
-    let last_changed_time = currentDate.toLocaleTimeString(); // Uhrzeit aktualisieren
-    let formatted_date = `${last_changed_date} ${last_changed_time}`;
-    console.log(formatted_date);
-    await axios.post('/api/eintraege', {
-      title,
-      page: getMaxPage() + 1,
-      description,
-      date: formatted_date, // Hier 'date' verwenden, nicht 'formatted_date'
-      mood,
-      ort,
-      straße,
-      plz,
-      time,
-    });
-  };
-  const getMaxPage = () => {
-    if (list.value.length === 0) return 0; // keine Einträge, dann 0
-    return Math.max(...list.value.map((item) => Number(item.page) || 0));
-  };
-  let deleteeintrag = async (id) => {
-    await axios.delete(`/api/eintraege/${id}`);
-    getdata();
+  const detail = ref({});
+  const fetchDetail = async (id) => {
+    await getdataById(id);
+    detail.value = obj.value;
   };
 
-  //TO Path Variable
+  // =========================
+  // PATCH
+  // =========================
+  const patchtdataById = async (id, title, description, mood) => {
+    try {
+      const { data } = await axios.get(`/api/eintraege/${id}`);
+      const currentDate = new Date();
+
+      const updatedObj = {
+        ...data,
+        title,
+        description,
+        mood,
+        last_changed_date: currentDate.toLocaleDateString(),
+        last_changed_time: currentDate.toLocaleTimeString(),
+        last_changed: `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`,
+      };
+
+      await axios.patch(`/api/eintraege/${id}`, updatedObj);
+
+      // Liste aktualisieren
+      await getdata(false);
+    } catch (err) {
+      console.error(`Fehler beim Patchen des Eintrags ${id}:`, err);
+    }
+  };
+
+  // =========================
+  // POST
+  // =========================
+  const getMaxPage = () => {
+    if (list.value.length === 0) return 0;
+    return Math.max(...list.value.map((item) => Number(item.page) || 0));
+  };
+
+  const posteintrag = async (title, description, date, mood, ort, straße, plz, time) => {
+    try {
+      const currentDate = new Date();
+      const formatted_date = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
+
+      await axios.post('/api/eintraege', {
+        title,
+        page: getMaxPage() + 1,
+        description,
+        date: formatted_date,
+        mood,
+        ort,
+        straße,
+        plz,
+        time,
+      });
+
+      // Liste aktualisieren
+      await getdata(false);
+    } catch (err) {
+      console.error('Fehler beim Erstellen des Eintrags:', err);
+    }
+  };
+
+  // =========================
+  // DELETE
+  // =========================
+  const deleteeintrag = async (id) => {
+    try {
+      await axios.delete(`/api/eintraege/${id}`);
+      await getdata(false);
+    } catch (err) {
+      console.error(`Fehler beim Löschen des Eintrags ${id}:`, err);
+    }
+  };
+
+  // =========================
+  // Sonstiges
+  // =========================
   let pathTO = ref();
 
   return {
