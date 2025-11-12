@@ -79,7 +79,7 @@
             @click="
               () => {
                 showNotif();
-                diaryStore.patchtdataById(
+                diaryStore.variables_functions.non_specific.functions.patchtdataById(
                   props.id,
                   tt,
                   tam,
@@ -149,9 +149,9 @@ let icons = [
   'sentiment_satisfied',
   'sentiment_very_satisfied',
 ];
-let tt = ref(diaryStore.detail.title);
-let tam = ref(diaryStore.detail.description);
-let mood = ref(diaryStore.detail.mood);
+let tt = ref(diaryStore.variables_functions.non_specific.variables.detail.title);
+let tam = ref(diaryStore.variables_functions.non_specific.variables.description);
+let mood = ref(diaryStore.variables_functions.non_specific.variables.mood);
 const formatDate = (inputDate) => {
   const day = inputDate.getDate().toString().padStart(2, '0');
   const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
@@ -170,7 +170,7 @@ console.log(`${last_changed_date} - ${last_changed_time}`);
 
 let cont = ref();
 // FUNKTIONSAUFRUF
-diaryStore.getdataById(props.id);
+diaryStore.variables_functions.non_specific.functions.getdataById(props.id);
 
 // FUNKTIONEN
 let fortsetzen = () => {
@@ -226,10 +226,10 @@ let showNotif = function () {
 };
 
 onMounted(async () => {
-  await diaryStore.getdata(props.id);
-  tt.value = diaryStore.detail.title;
-  tam.value = diaryStore.detail.description;
-  mood.value = diaryStore.detail.mood;
+  await diaryStore.variables_functions.non_specific.functions.getdata(props.id);
+  tt.value = diaryStore.variables_functions.non_specific.variables.detail.title;
+  tam.value = diaryStore.variables_functions.non_specific.variables.detail.description;
+  mood.value = diaryStore.variables_functions.non_specific.variables.detail.mood;
 });
 
 const getLocation = () => {
