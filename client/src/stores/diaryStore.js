@@ -111,6 +111,8 @@ export const useDiaryStore = defineStore('diaryStore', () => {
     views_specific: {
       HomeView: {
         variables: {
+          filter: '',
+          filteredlist: [],
           columns: [
             { name: 'seite', label: 'Seite', field: 'page', align: 'center', sortable: true },
             {
@@ -138,7 +140,10 @@ export const useDiaryStore = defineStore('diaryStore', () => {
         functions: {},
       },
       ReadInpView: { variables: {}, functions: {} },
-      EditInpView: { variables: {}, functions: {} },
+      EditInpView: {
+        variables: {},
+        functions: {},
+      },
       InputView: { variables: {}, functions: {} },
       AboutView: {
         variables: {

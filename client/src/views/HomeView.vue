@@ -6,7 +6,7 @@
       <q-input
         dense
         debounce="300"
-        v-model="filter"
+        v-model="diaryStore.variables_functions.views_specific.HomeView.variables.filter"
         placeholder="Search"
         outlined
         rounded
@@ -24,8 +24,8 @@
       bordered
       grid
       :rows="
-        filteredlist.length > 0
-          ? filteredlist
+        diaryStore.variables_functions.views_specific.HomeView.variables.filter
+          ? diaryStore.variables_functions.views_specific.HomeView.variables.filteredlist
           : diaryStore.variables_functions.non_specific.variables.list
       "
       :columns="diaryStore.variables_functions.views_specific.HomeView.variables.columns"
@@ -60,23 +60,24 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
 import { useDiaryStore } from '../stores/diaryStore';
 
 // -- Variablen --
 const diaryStore = useDiaryStore();
-const filter = ref('');
-const filteredlist = ref([]);
-
 // -- Funktionen --
 diaryStore.variables_functions.non_specific.functions.getdata(true);
 
 // Aktualisiert die gefilterte Liste basierend auf dem Suchbegriff
-watch(filter, (newValue) => {
-  filteredlist.value = diaryStore.variables_functions.non_specific.variables.list.filter((item) =>
-    item.title.toLowerCase().includes(newValue.toLowerCase()),
-  );
-});
+watch(
+  () => diaryStore.variables_functions.views_specific.HomeView.variables.filter,
+  (newValue) => {
+    diaryStore.variables_functions.views_specific.HomeView.variables.filteredlist =
+      diaryStore.variables_functions.non_specific.variables.list.filter((item) =>
+        item.title.toLowerCase().includes(newValue.toLowerCase()),
+      );
+  },
+);
 </script>
 
 <style scoped lang="scss">

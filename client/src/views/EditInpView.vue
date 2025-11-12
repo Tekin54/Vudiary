@@ -188,9 +188,9 @@ let fortsetzen = () => {
 let alertver = () => {
   if (
     !changesSaved.value &&
-    (tt.value !== diaryStore.detail.title ||
-      tam.value !== diaryStore.detail.description ||
-      mood.value !== diaryStore.detail.mood)
+    (tt.value !== diaryStore.variables_functions.non_specific.variables.detail.title ||
+      tam.value !== diaryStore.variables_functions.non_specific.variables.detail.description ||
+      mood.value !== diaryStore.variables_functions.non_specific.variables.detail.mood)
   ) {
     alert.value = true;
   } else {
@@ -203,9 +203,9 @@ onBeforeRouteLeave((to, from) => {
   if (
     !cont.value &&
     !changesSaved.value &&
-    (tt.value !== diaryStore.detail.title ||
-      tam.value !== diaryStore.detail.description ||
-      mood.value !== diaryStore.detail.mood)
+    (tt.value !== diaryStore.variables_functions.non_specific.variables.detail.title ||
+      tam.value !== diaryStore.variables_functions.non_specific.variables.detail.description ||
+      mood.value !== diaryStore.variables_functions.non_specific.variables.detail.mood)
   ) {
     diaryStore.pathTO = to.path;
     alert.value = true;
